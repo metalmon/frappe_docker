@@ -1,0 +1,74 @@
+[
+    {
+      "url": "https://github.com/metalmon/erpnext.git",
+      "branch": "version-15"
+    },
+    {
+      "url": "https://github.com/metalmon/crm.git",
+      "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/hrms.git",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/metalmon/raven.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/gameplan.git",
+        "branch": "main"
+    },
+    {
+        "url": "https://github.com/metalmon/builder.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/lms.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/drive.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/insights.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/helpdesk.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/wiki.git",
+        "branch": "master"
+    },
+    {
+        "url": "https://github.com/metalmon/print_designer.git",
+        "branch": "develop"
+    },
+    {
+        "url": "https://github.com/metalmon/webshop.git",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/metalmon/frappe_whatsapp.git",
+        "branch": "master"
+    },
+    {
+        "url": "https://github.com/metalmon/dfp_external_storage.git",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/metalmon/whitelabel.git",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/metalmon/frappe_telegram.git",
+        "branch": "master"
+    },
+    {
+        "url": "https://github.com/metalmon/event_streaming.git",
+        "branch": "develop"
+    }
+]
