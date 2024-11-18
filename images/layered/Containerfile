@@ -3,7 +3,7 @@ ARG FRAPPE_BRANCH=version-15
 FROM frappe/build:${FRAPPE_BRANCH} AS builder
 
 ARG FRAPPE_BRANCH=version-15
-ARG FRAPPE_PATH=https://github.com/frappe/frappe
+ARG FRAPPE_PATH=https://github.com/metalmon/frappe
 ARG APPS_JSON_BASE64
 
 USER root
@@ -25,6 +25,7 @@ RUN export APP_INSTALL_ARGS="" && \
     --no-backups \
     --skip-redis-config-generation \
     --verbose \
+    --force \
     /home/frappe/frappe-bench && \
   cd /home/frappe/frappe-bench && \
   echo "{}" > sites/common_site_config.json && \

@@ -101,8 +101,8 @@ USER frappe
 FROM build AS builder
 
 ARG FRAPPE_BRANCH=version-15
-ARG FRAPPE_PATH=https://github.com/frappe/frappe
-ARG ERPNEXT_REPO=https://github.com/frappe/erpnext
+ARG FRAPPE_PATH=https://github.com/metalmon/frappe.git
+ARG ERPNEXT_REPO=https://github.com/metalmon/erpnext.git
 ARG ERPNEXT_BRANCH=version-15
 RUN bench init \
   --frappe-branch=${FRAPPE_BRANCH} \
@@ -112,8 +112,25 @@ RUN bench init \
   --skip-redis-config-generation \
   --verbose \
   /home/frappe/frappe-bench && \
-  cd /home/frappe/frappe-bench && \
-  bench get-app --branch=${ERPNEXT_BRANCH} --resolve-deps erpnext ${ERPNEXT_REPO} && \
+  cd /home/frappe/frappe-bench
+  RUN cd /home/frappe/frappe-bench && bench get-app ${ERPNEXT_REPO} --branch ${ERPNEXT_BRANCH} --resolve-deps && \
+  bench get-app https://github.com/metalmon/hrms.git --branch version-15 
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/crm.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/raven.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=main --resolve-deps https://github.com/metalmon/gameplan.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/builder.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/lms.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/drive.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/insights.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/helpdesk.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master --resolve-deps https://github.com/metalmon/wiki.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/print_designer.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=version-15 https://github.com/metalmon/webshop.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master --resolve-deps https://github.com/metalmon/frappe_whatsapp.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=version-15 --resolve-deps https://github.com/metalmon/dfp_external_storage.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=version-15 --resolve-deps https://github.com/metalmon/whitelabel.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master --resolve-deps https://github.com/metalmon/frappe_telegram.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop --resolve-deps https://github.com/metalmon/event_streaming.git && \
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
