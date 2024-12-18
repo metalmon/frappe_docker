@@ -7,29 +7,31 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10.6"
+          python-version: "3.11"
 
-      # For shfmt pre-commit hook
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "^1.14"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yamllint
+          pip install black
+          pip install flake8
 
-      - name: Install pre-commit
-        run: pip install -U pre-commit
+      - name: Lint YAML files
+        run: yamllint .
 
-      - name: Lint
-        run: pre-commit run --color=always --all-files
-        env:
-          GO111MODULE: on
+      - name: Lint Python files
+        run: |
+          black . --check
+          flake8 .
