@@ -50,6 +50,5 @@ jobs:
           build-args: |
             BUILDKIT_STEP_TIMEOUT=1200
           platforms: linux/amd64
-          allow:
-            - network.host
+          allow: network.host
           provenance: false
