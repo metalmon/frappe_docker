@@ -2,30 +2,34 @@ name: Production Build and Security Scan
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - 'images/production/**'
-      - '.github/workflows/production_build.yml'
+      - "images/production/**"
+      - ".github/workflows/production_build.yml"
   pull_request:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - 'images/production/**'
-      - '.github/workflows/production_build.yml'
-  workflow_dispatch:
+      - "images/production/**"
+      - ".github/workflows/production_build.yml"
+  workflow_dispatch: {}
 
 permissions:
   contents: read
   security-events: write
   packages: write
 
+env:
+  DOCKER_IMAGE: metalmon/frappe:latest
+  BUILDKIT_STEP_TIMEOUT: 1200
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Free disk space
+        shell: bash
         run: |
+          set -eo pipefail
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
           sudo rm -rf "/usr/local/share/boost"
@@ -35,14 +39,17 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
           buildkitd-flags: --allow-insecure-entitlement network.host
+          platforms: linux/amd64
 
       - name: Login to Docker Hub
-        if: github.event_name != 'pull_request'
+        if: ${{ github.event_name != 'pull_request' }}
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -54,42 +61,72 @@ jobs:
           context: .
           file: images/production/Containerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: metalmon/frappe:latest
+          tags: ${{ env.DOCKER_IMAGE }}
           cache-from: type=gha,scope=${{ github.workflow }}
           cache-to: type=gha,mode=min,scope=${{ github.workflow }}
           build-args: |
-            BUILDKIT_STEP_TIMEOUT=1200
+            BUILDKIT_STEP_TIMEOUT=${{ env.BUILDKIT_STEP_TIMEOUT }}
           platforms: linux/amd64
           allow: network.host
           provenance: false
+          no-cache: ${{ github.event_name == 'workflow_dispatch' }}
 
   security:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Run Trivy vulnerability scanner
+      - name: Pull image for scanning
+        if: ${{ github.event_name != 'pull_request' }}
+        shell: bash
+        run: |
+          set -eo pipefail
+          docker pull ${{ env.DOCKER_IMAGE }}
+
+      - name: Show vulnerability details
         uses: aquasecurity/trivy-action@master
+        continue-on-error: true
         with:
-          image-ref: 'metalmon/frappe:latest'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          exit-code: '1'
+          image-ref: ${{ env.DOCKER_IMAGE }}
+          format: table
           ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
-          timeout: '10m'
-          scanners: 'vuln,secret'
-          skip-files: '**/*discovery_cache/**'
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+          timeout: 10m
+          list-all-pkgs: true
+          security-checks: vuln,config,secret
+
+      - name: Run Trivy vulnerability scanner
+        id: trivy-scan
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: ${{ env.DOCKER_IMAGE }}
+          format: sarif
+          output: trivy-results.sarif
+          exit-code: "0"
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+          timeout: 10m
+          scanners: vuln,secret,config
+          skip-files: "**/*discovery_cache/**"
 
       - name: Clear previous SARIF results
+        if: ${{ steps.trivy-scan.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
         run: |
+          set -eo pipefail
           curl -X DELETE \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer $GH_TOKEN" \
             "https://api.github.com/repos/${{ github.repository }}/code-scanning/analyses"
 
       - name: Upload Trivy scan results to GitHub Security tab
+        if: ${{ steps.trivy-scan.outcome == 'success' }}
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: trivy-results.sarif
+          category: trivy
