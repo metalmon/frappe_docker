@@ -24,6 +24,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf "/usr/local/share/boost"
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+          sudo apt-get clean
+          docker system prune -af
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -46,8 +55,8 @@ jobs:
           file: images/production/Containerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: metalmon/frappe:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=${{ github.workflow }}
+          cache-to: type=gha,mode=min,scope=${{ github.workflow }}
           build-args: |
             BUILDKIT_STEP_TIMEOUT=1200
           platforms: linux/amd64
