@@ -3,10 +3,15 @@ ARG DEBIAN_BASE=bookworm
 FROM python:${PYTHON_VERSION}-slim-${DEBIAN_BASE} AS base
 
 # Add security headers
-ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PIP_NO_CACHE_DIR=1
-ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONWARNINGS="ignore:Unverified HTTPS request" \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    DEBIAN_FRONTEND=noninteractive \
+    NODE_ENV=production \
+    NPM_CONFIG_AUDIT=true \
+    NPM_CONFIG_AUDIT_LEVEL=high \
+    NPM_CONFIG_FUND=false \
+    NPM_CONFIG_STRICT_SSL=true
 
 # Add security scanning during build
 RUN apt-get update \
@@ -20,36 +25,42 @@ RUN apt-get update \
 ARG WKHTMLTOPDF_VERSION=0.12.6.1-3
 ARG WKHTMLTOPDF_DISTRO=bookworm
 ARG NODE_VERSION=18.19.0
-ENV NVM_DIR=/home/frappe/.nvm
-ENV PATH=${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}
-ENV FRAPPE_TUNE_GC=True
+ENV NVM_DIR=/home/frappe/.nvm \
+    PATH=${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH} \
+    FRAPPE_TUNE_GC=True
+
+# Create nginx security config before switching user
+RUN mkdir -p /etc/nginx/conf.d && \
+    echo "# Additional security header" > /etc/nginx/conf.d/security-headers.conf && \
+    echo "add_header Content-Security-Policy \"default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *; frame-ancestors 'self';\" always;" >> /etc/nginx/conf.d/security-headers.conf
 
 RUN useradd -ms /bin/bash frappe \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
-    curl=7.88.1-10+deb12u5 \
-    git=1:2.39.2-1.1 \
-    vim=2:9.0.1378-2 \
-    nginx=1.22.1-9 \
-    gettext-base=0.21-12 \
-    file=1:5.44-3 \
+    curl \
+    git \
+    vim \
+    nginx \
+    gettext-base \
+    file \
     # weasyprint dependencies
-    libpango-1.0-0=1.50.12-1 \
-    libharfbuzz0b=6.0.0-1 \
-    libpangoft2-1.0-0=1.50.12-1 \
-    libpangocairo-1.0-0=1.50.12-1 \
+    libpango-1.0-0 \
+    libharfbuzz0b \
+    libpangoft2-1.0-0 \
+    libpangocairo-1.0-0 \
     # For backups
-    restic=0.15.1-1 \
-    gpg=2.2.40-1.1 \
+    restic \
+    gpg \
     # MariaDB
-    mariadb-client=1:10.11.6-0+deb12u1 \
-    less=590-2 \
+    mariadb-client \
+    less \
     # Postgres
-    libpq-dev=15.5-0+deb12u1 \
-    postgresql-client=15+248 \
+    libpq-dev \
+    postgresql-client \
     # For healthcheck
-    wait-for-it=0.0~git20180723-1.1 \
-    jq=1.6-2.1 \
+    wait-for-it \
+    jq \
+    # NodeJS
     && mkdir -p ${NVM_DIR} \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
     && . ${NVM_DIR}/nvm.sh \
@@ -90,25 +101,25 @@ FROM base AS build
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
     # For frappe framework
-    wget=1.21.3-1+b1 \
+    wget \
     # For psycopg2
-    libpq-dev=15.5-0+deb12u1 \
+    libpq-dev \
     # Other
-    libffi-dev=3.4.4-1 \
-    liblcms2-dev=2.14-2 \
-    libldap2-dev=2.5.13+dfsg-5 \
-    libmariadb-dev=1:10.11.6-0+deb12u1 \
-    libsasl2-dev=2.1.28+dfsg-10 \
-    libtiff5-dev=4.5.1+git230720-1 \
-    libwebp-dev=1.3.1-1 \
-    redis-tools=6:7.0.11-1 \
-    rlwrap=0.45.2-3 \
-    tk8.6-dev=8.6.13-2 \
-    cron=3.0pl1-162 \
+    libffi-dev \
+    liblcms2-dev \
+    libldap2-dev \
+    libmariadb-dev \
+    libsasl2-dev \
+    libtiff5-dev \
+    libwebp-dev \
+    redis-tools \
+    rlwrap \
+    tk8.6-dev \
+    cron \
     # For pandas
-    gcc=4:12.2.0-3 \
-    build-essential=12.9 \
-    libbz2-dev=1.0.8-5+b1 \
+    gcc \
+    build-essential \
+    libbz2-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -221,16 +232,6 @@ RUN set -ex \
 
 FROM base AS erpnext
 
-# Add security headers
-ENV PYTHONWARNINGS="ignore:Unverified HTTPS request"
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PIP_NO_CACHE_DIR=1
-ENV NODE_ENV=production
-ENV NPM_CONFIG_AUDIT=true
-ENV NPM_CONFIG_AUDIT_LEVEL=high
-ENV NPM_CONFIG_FUND=false
-ENV NPM_CONFIG_STRICT_SSL=true
-
 USER frappe
 
 RUN echo "echo \"Commands restricted in production container, Read FAQ before you proceed: https://frappe.fyi/ctr-faq\"" >> ~/.bashrc
@@ -238,11 +239,6 @@ RUN echo "echo \"Commands restricted in production container, Read FAQ before yo
 COPY --from=builder --chown=frappe:frappe /home/frappe/frappe-bench /home/frappe/frappe-bench
 
 WORKDIR /home/frappe/frappe-bench
-
-# Add Content-Security-Policy header (not present in template)
-RUN mkdir -p /etc/nginx/conf.d && \
-    echo "# Additional security header" > /etc/nginx/conf.d/security-headers.conf && \
-    echo "add_header Content-Security-Policy \"default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *; frame-ancestors 'self';\" always;" >> /etc/nginx/conf.d/security-headers.conf
 
 VOLUME [ \
   "/home/frappe/frappe-bench/sites", \
