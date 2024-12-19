@@ -93,7 +93,7 @@ jobs:
           severity: CRITICAL,HIGH
           timeout: 10m
           list-all-pkgs: true
-          security-checks: vuln,config,secret
+          scanners: vuln,config,secret
 
       - name: Run Trivy vulnerability scanner
         id: trivy-scan
