@@ -107,14 +107,21 @@ apply_optimizations() {
     check_config
     echo "Applying container optimizations..."
     
-    # Optimize Redis Cache (using 75% of allocated memory with allkeys-lru policy)
+    # Get total system memory in MB
+    total_memory_mb=$(free -m | awk '/^Mem:/{print $2}')
+    
+    # Calculate Redis memory limits (30% for cache, 20% for queue)
+    cache_memory="${total_memory_mb}/3"
+    queue_memory="${total_memory_mb}/5"
+    
+    # Optimize Redis Cache (using volatile-lru policy)
     if docker ps | grep -q exp-redis-cache; then
-        optimize_redis "exp-redis-cache-1" "768mb" "allkeys-lru"
+        optimize_redis "exp-redis-cache-1" "${cache_memory}mb" "volatile-lru"
     fi
     
-    # Optimize Redis Queue (using 75% of allocated memory with volatile-lru policy)
+    # Optimize Redis Queue (using noeviction policy)
     if docker ps | grep -q exp-redis-queue; then
-        optimize_redis "exp-redis-queue-1" "768mb" "volatile-lru"
+        optimize_redis "exp-redis-queue-1" "${queue_memory}mb" "noeviction"
     fi
     
     echo "Container optimizations have been applied"
@@ -137,7 +144,7 @@ remove_optimizations() {
     
     # Reset Redis Cache
     if docker ps | grep -q exp-redis-cache; then
-        optimize_redis "exp-redis-cache-1" "0" "noeviction"
+        optimize_redis "exp-redis-cache-1" "0" "volatile-lru"
     fi
     
     # Reset Redis Queue

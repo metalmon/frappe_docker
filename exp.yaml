@@ -56,29 +56,66 @@ services:
       CLIENT_MAX_BODY_SIZE: 50m
       FRAPPE_SITE_NAME_HEADER: $$host
       PROXY_READ_TIMEOUT: "120"
+      PROXY_SEND_TIMEOUT: "120"
+      PROXY_CONNECT_TIMEOUT: "120"
+      PROXY_WEBSOCKET_TIMEOUT: "120"
       SOCKETIO: websocket:9000
-      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_ADDRESS: 172.16.0.0/12
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
       UPSTREAM_REAL_IP_RECURSIVE: "off"
+      NGINX_SOCKETIO_HEADERS: |
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $$http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header X-Frappe-Site-Name $$host;
+        proxy_set_header Origin $$scheme://$$host;
+        proxy_set_header Host $$host;
+        proxy_set_header X-Real-IP $$remote_addr;
+        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $$scheme;
+        proxy_read_timeout 120;
+        proxy_connect_timeout 120;
+        proxy_send_timeout 120;
+        proxy_cache_bypass $$http_upgrade;
+        proxy_buffering off;
+        add_header 'Access-Control-Allow-Origin' '$$http_origin' always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization' always;
+        if ($$request_method = 'OPTIONS') {
+          add_header 'Access-Control-Allow-Origin' '$$http_origin' always;
+          add_header 'Access-Control-Allow-Credentials' 'true' always;
+          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+          add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization' always;
+          add_header 'Access-Control-Max-Age' 1728000;
+          add_header 'Content-Type' 'text/plain charset=UTF-8';
+          add_header 'Content-Length' 0;
+          return 204;
+        }
     image: metalmon/frappe:latest
     labels:
       traefik.docker.network: traefik-public
       traefik.enable: "true"
+      
+      # Main HTTP to HTTPS redirect
       traefik.http.routers.exp-http.entrypoints: http
       traefik.http.routers.exp-http.middlewares: https-redirect
       traefik.http.routers.exp-http.rule: Host(`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`terra.frappecrm.ru`,`docs.frappecrm.ru`)
       traefik.http.routers.exp-http.service: exp
+      
+      # Main HTTPS router
       traefik.http.routers.exp-https.entrypoints: https
       traefik.http.routers.exp-https.rule: Host(`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`terra.frappecrm.ru`,`docs.frappecrm.ru`)
       traefik.http.routers.exp-https.service: exp
       traefik.http.routers.exp-https.tls: "true"
       traefik.http.routers.exp-https.tls.certresolver: le
+      
+      # Main service
       traefik.http.services.exp.loadbalancer.server.port: "8080"
+      traefik.http.services.exp.loadbalancer.passHostHeader: "true"
     networks:
-      bench-network: null
-      traefik-public: null
-    platform: linux/amd64
-    pull_policy: always
+      - bench-network
+      - traefik-public
     volumes:
     - type: volume
       source: sites
@@ -179,10 +216,21 @@ services:
     depends_on:
       configurator:
         condition: service_completed_successfully
+      redis-queue:
+        condition: service_started
+    environment:
+      REDIS_CACHE: "redis://redis-cache:6379"
+      REDIS_QUEUE: "redis://redis-queue:6379"
+      REDIS_SOCKETIO: "redis://redis-queue:6379"
+      SOCKETIO_PORT: "9000"
+      SOCKETIO_PING_INTERVAL: "25000"
+      SOCKETIO_PING_TIMEOUT: "5000"
+      SOCKETIO_MAX_HTTP_BUFFER_SIZE: "1000000"
+      SOCKETIO_TRANSPORTS: "['polling', 'websocket']"
+      SOCKETIO_CORS_ALLOWED_ORIGINS: "*"
     image: metalmon/frappe:latest
     networks:
-      bench-network: null
-      mariadb-network: null
+      - bench-network
     platform: linux/amd64
     pull_policy: always
     volumes:
@@ -208,7 +256,7 @@ volumes:
     external: false
   sites:
     name: exp_sites
-    external: true
+    external: false
 x-backend-defaults:
   depends_on:
     configurator:
