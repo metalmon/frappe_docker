@@ -55,43 +55,14 @@ services:
       BACKEND: backend:8000
       CLIENT_MAX_BODY_SIZE: 50m
       FRAPPE_SITE_NAME_HEADER: $$host
-      PROXY_READ_TIMEOUT: "120"
-      PROXY_SEND_TIMEOUT: "120"
-      PROXY_CONNECT_TIMEOUT: "120"
-      PROXY_WEBSOCKET_TIMEOUT: "120"
+      PROXY_READ_TIMEOUT: "300"
+      PROXY_SEND_TIMEOUT: "300"
+      PROXY_CONNECT_TIMEOUT: "300"
+      PROXY_WEBSOCKET_TIMEOUT: "300"
       SOCKETIO: websocket:9000
       UPSTREAM_REAL_IP_ADDRESS: 172.16.0.0/12
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
       UPSTREAM_REAL_IP_RECURSIVE: "off"
-      NGINX_SOCKETIO_HEADERS: |
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $$http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header X-Frappe-Site-Name $$host;
-        proxy_set_header Origin $$scheme://$$host;
-        proxy_set_header Host $$host;
-        proxy_set_header X-Real-IP $$remote_addr;
-        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $$scheme;
-        proxy_read_timeout 120;
-        proxy_connect_timeout 120;
-        proxy_send_timeout 120;
-        proxy_cache_bypass $$http_upgrade;
-        proxy_buffering off;
-        add_header 'Access-Control-Allow-Origin' '$$http_origin' always;
-        add_header 'Access-Control-Allow-Credentials' 'true' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization' always;
-        if ($$request_method = 'OPTIONS') {
-          add_header 'Access-Control-Allow-Origin' '$$http_origin' always;
-          add_header 'Access-Control-Allow-Credentials' 'true' always;
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-          add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization' always;
-          add_header 'Access-Control-Max-Age' 1728000;
-          add_header 'Content-Type' 'text/plain charset=UTF-8';
-          add_header 'Content-Length' 0;
-          return 204;
-        }
     image: metalmon/frappe:latest
     labels:
       traefik.docker.network: traefik-public
@@ -100,15 +71,19 @@ services:
       # Main HTTP to HTTPS redirect
       traefik.http.routers.exp-http.entrypoints: http
       traefik.http.routers.exp-http.middlewares: https-redirect
-      traefik.http.routers.exp-http.rule: Host(`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`terra.frappecrm.ru`,`docs.frappecrm.ru`)
+      traefik.http.routers.exp-http.rule: Host(`altanium.exp-verse.com`,`academy.exp-verse.com`,`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`docs.frappecrm.ru`,`plan.frappecrm.ru`,`crm.aiwagroup.ru`,`bti.frappecrm.ru`)
       traefik.http.routers.exp-http.service: exp
       
       # Main HTTPS router
       traefik.http.routers.exp-https.entrypoints: https
-      traefik.http.routers.exp-https.rule: Host(`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`terra.frappecrm.ru`,`docs.frappecrm.ru`)
+      traefik.http.routers.exp-https.rule: Host(`altanium.exp-verse.com`,`academy.exp-verse.com`,`vatan.exp-verse.com`,`tatkardan.exp-verse.com`,`exp-verse.com`,`demo.frappecrm.ru`,`terra.frappecrm.ru`,`docs.frappecrm.ru`,`plan.frappecrm.ru`,`crm.aiwagroup.ru`,`bti.frappecrm.ru`)
       traefik.http.routers.exp-https.service: exp
       traefik.http.routers.exp-https.tls: "true"
       traefik.http.routers.exp-https.tls.certresolver: le
+      
+      # SocketIO issue solve
+      traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto: https
+      traefik.http.routers.exp-https.middlewares: sslheader
       
       # Main service
       traefik.http.services.exp.loadbalancer.server.port: "8080"
@@ -121,6 +96,14 @@ services:
       source: sites
       target: /home/frappe/frappe-bench/sites
       volume: {}
+    - type: bind
+      source: ./custom_frappe.conf
+      target: /etc/nginx/conf.d/frappe.conf
+      read_only: true
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
   queue-long:
     command:
     - bench
@@ -192,6 +175,11 @@ services:
       target: /etc/redis.conf
       read_only: true
   scheduler:
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "${BACKUP_CRONSTRING:-@every 6h}"
+      ofelia.job-exec.datecron.command: "bench --site all backup"
+      ofelia.job-exec.datecron.user: "frappe"
     command:
     - bench
     - schedule
@@ -224,13 +212,13 @@ services:
       REDIS_SOCKETIO: "redis://redis-queue:6379"
       SOCKETIO_PORT: "9000"
       SOCKETIO_PING_INTERVAL: "25000"
-      SOCKETIO_PING_TIMEOUT: "5000"
-      SOCKETIO_MAX_HTTP_BUFFER_SIZE: "1000000"
-      SOCKETIO_TRANSPORTS: "['polling', 'websocket']"
+      SOCKETIO_PING_TIMEOUT: "15000"
+      SOCKETIO_MAX_HTTP_BUFFER_SIZE: "3000000"
       SOCKETIO_CORS_ALLOWED_ORIGINS: "*"
     image: metalmon/frappe:latest
     networks:
       - bench-network
+      - mariadb-network
     platform: linux/amd64
     pull_policy: always
     volumes:
@@ -238,6 +226,23 @@ services:
       source: sites
       target: /home/frappe/frappe-bench/sites
       volume: {}
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+  cron:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - scheduler
+    command: daemon --docker
+
+    labels:
+      ofelia.save-folder: "/var/log/ofelia"
+      ofelia.save-only-on-error: "true"
+      ofelia.job-local.clean-logs.schedule: "@monthly"
+      ofelia.job-local.clean-logs.command: "find /var/log/ofelia/ -type f -mtime +30 -print -delete"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 networks:
   bench-network:
     name: exp
