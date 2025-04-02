@@ -1,5 +1,6 @@
 ARG PYTHON_VERSION=3.11.6
 ARG DEBIAN_BASE=bookworm
+ARG GITHUB_TOKEN
 FROM python:${PYTHON_VERSION}-slim-${DEBIAN_BASE} AS base
 
 ARG WKHTMLTOPDF_VERSION=0.12.6.1-3
@@ -120,31 +121,34 @@ RUN bench init \
   cd /home/frappe/frappe-bench && bench build --app hrms
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/crm.git && cd /home/frappe/frappe-bench/apps/crm && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app crm
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=main https://${GITHUB_TOKEN}@github.com/MukievMukhammad/frappe_avito.git --resolve-deps
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=main https://github.com/metalmon/raven.git && cd /home/frappe/frappe-bench/apps/raven && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app raven
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=main https://github.com/metalmon/gameplan.git && cd /home/frappe/frappe-bench/apps/gameplan && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app gameplan
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop  https://github.com/metalmon/builder.git && cd /home/frappe/frappe-bench/apps/builder && npx update-browserslist-db@latest && \
-  cd /home/frappe/frappe-bench && bench build --app builder
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/lms.git && cd /home/frappe/frappe-bench/apps/lms && npx update-browserslist-db@latest && \
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/gp_agent.git --resolve-deps
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop  https://github.com/metalmon/builder.git && cd /home/frappe/frappe-bench/apps/builder && npx update-browserslist-db@latest && \
+  #cd /home/frappe/frappe-bench && bench build --app builder
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=translations https://github.com/metalmon/lms.git --resolve-deps && cd /home/frappe/frappe-bench/apps/lms && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app lms
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/drive.git && cd /home/frappe/frappe-bench/apps/drive && npx update-browserslist-db@latest && \
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/drive.git --resolve-deps && cd /home/frappe/frappe-bench/apps/drive && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app drive
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/insights.git && cd /home/frappe/frappe-bench/apps/insights && npx update-browserslist-db@latest && \
-  cd /home/frappe/frappe-bench && bench build --app insights
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/insights.git && cd /home/frappe/frappe-bench/apps/insights && npx update-browserslist-db@latest && \
+  #cd /home/frappe/frappe-bench && bench build --app insights
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/helpdesk.git && cd /home/frappe/frappe-bench/apps/helpdesk && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app helpdesk
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=master https://github.com/metalmon/wiki.git && cd /home/frappe/frappe-bench/apps/wiki && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app wiki
   RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/print_designer.git && cd /home/frappe/frappe-bench/apps/print_designer && npx update-browserslist-db@latest && \
   cd /home/frappe/frappe-bench && bench build --app print_designer
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/webshop.git && cd /home/frappe/frappe-bench/apps/webshop
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master https://github.com/metalmon/frappe_whatsapp.git && cd /home/frappe/frappe-bench/apps/frappe_whatsapp
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/dfp_external_storage.git && cd /home/frappe/frappe-bench/apps/dfp_external_storage
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/whitelabel.git && cd /home/frappe/frappe-bench/apps/whitelabel
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master https://github.com/metalmon/frappe_telegram.git && cd /home/frappe/frappe-bench/apps/frappe_telegram
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/event_streaming.git && cd /home/frappe/frappe-bench/apps/event_streaming
-  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/payments.git && cd /home/frappe/frappe-bench/apps/payments
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/webshop.git
+  ARG CACHEBUST=5
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=master https://github.com/metalmon/frappe_whatsapp.git --resolve-deps
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/dfp_external_storage.git
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/whitelabel.git
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=master https://github.com/metalmon/frappe_telegram.git
+  #RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/event_streaming.git
+  RUN cd /home/frappe/frappe-bench && bench get-app --branch=develop https://github.com/metalmon/payments.git
   RUN cd /home/frappe/frappe-bench && bench setup requirements && \
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
