@@ -1,5 +1,6 @@
 # Environment Variables
 .env
+.env.tokens
 
 # mounted volume
 sites
