@@ -35,6 +35,24 @@ frappe.ui.form.on("Salary Component", {
 				__("Create"),
 			);
 		}
+		frm.fields_dict["mapping_component"].get_query = function (doc) {
+			return {
+				filters: {
+					is_arrear: 0,
+					disabled: 0,
+				},
+			};
+		};
+	},
+
+	is_arrear: function (frm) {
+		if (frm.doc.is_arrear) {
+			frm.set_value("depends_on_payment_days", 0);
+			frm.set_df_property("depends_on_payment_days", "hidden", 1);
+		} else {
+			frm.set_value("depends_on_payment_days", 1);
+			frm.set_df_property("depends_on_payment_days", "hidden", 0);
+		}
 	},
 
 	is_flexible_benefit: function (frm) {

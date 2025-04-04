@@ -27,6 +27,8 @@
   "do_not_include_in_total",
   "do_not_include_in_accounts",
   "remove_if_zero_valued",
+  "is_arrear",
+  "mapping_component",
   "disabled",
   "section_break_5",
   "accounts",
@@ -252,6 +254,22 @@
    "fieldname": "do_not_include_in_accounts",
    "fieldtype": "Check",
    "label": "Do Not Include in Accounting Entries"
+  },
+  {
+   "default": "0",
+   "description": "If the arrear checkbox is checked, this component is treated as an arrear component.",
+   "fieldname": "is_arrear",
+   "fieldtype": "Check",
+   "label": "Is Arrear"
+  },
+  {
+   "depends_on": "is_arrear",
+   "description": "Select a non-arrear and active salary component to link with the arrear calculation. Only components that are not marked as arrears and are enabled will be available for selection.",
+   "fieldname": "mapping_component",
+   "fieldtype": "Link",
+   "label": "Mapping Component",
+   "mandatory_depends_on": "is_arrear",
+   "options": "Salary Component"
   },
   {
    "default": "0",

@@ -30,6 +30,7 @@
   "column_break_ptcc",
   "salary_structure",
   "payroll_entry",
+  "current_payroll_period",
   "mode_of_payment",
   "column_break_wyhp",
   "salary_slip_based_on_timesheet",
@@ -734,6 +735,14 @@
    "label": "Salary Withholding Cycle",
    "no_copy": 1,
    "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_payroll_period",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Current Payroll Period",
+   "options": "Payroll Period",
    "read_only": 1
   },
   {

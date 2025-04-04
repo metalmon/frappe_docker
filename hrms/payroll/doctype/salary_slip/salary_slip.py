@@ -170,6 +170,8 @@ class SalarySlip(TransactionBase):
 
 		self.add_leave_balances()
 
+		self.current_payroll_period = self.payroll_period.name
+
 		max_working_hours = frappe.db.get_single_value(
 			"Payroll Settings", "max_working_hours_against_timesheet"
 		)
