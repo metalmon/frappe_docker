@@ -26,6 +26,7 @@
   "earning_deduction",
   "earnings",
   "deductions",
+  "employee_benefit",
   "conditions_and_formula_variable_and_example",
   "net_pay_detail",
   "total_earning",
@@ -236,13 +237,19 @@
    "options": "Currency",
    "reqd": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "employee_benefit",
+   "fieldtype": "Table",
+   "label": "Employee Benefit",
+   "options": "Employee Benefit Detail"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-22 11:17:28.384386",
+ "modified": "2025-04-26 17:11:32.882486",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",
@@ -280,6 +287,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "show_name_in_global_search": 1,
  "sort_field": "creation",
  "sort_order": "DESC",
