@@ -39,6 +39,8 @@
   "help",
   "flexible_benefits_tab",
   "is_flexible_benefit",
+  "is_accrual",
+  "payout_component",
   "max_benefit_amount",
   "column_break_9",
   "pay_against_benefit_claim",
@@ -272,6 +274,22 @@
    "fieldname": "do_not_include_in_accounts",
    "fieldtype": "Check",
    "label": "Do Not Include in Accounting Entries"
+  },
+  {
+   "default": "0",
+   "depends_on": "is_flexible_benefit",
+   "fieldname": "is_accrual",
+   "fieldtype": "Check",
+   "label": "Is Accrual"
+  },
+  {
+   "depends_on": "is_accrual",
+   "fieldname": "payout_component",
+   "fieldtype": "Link",
+   "label": "Payout Component",
+   "link_filters": "[[\"Salary Component\",\"type\",\"=\",\"Earning\", \"do_not_include_in_total\", \"=\", \"0\"]]",
+   "mandatory_depends_on": "is_accrual",
+   "options": "Salary Component"
   }
  ],
  "icon": "fa fa-flag",

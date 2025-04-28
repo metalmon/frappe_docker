@@ -44,6 +44,31 @@ frappe.ui.form.on("Salary Component", {
 			frm.set_value("amount", 0);
 		}
 	},
+	is_accrual: (frm) => {
+		if (frm.doc.is_accrual) {
+			frm.set_value("do_not_include_in_total", 1);
+		}
+
+		frm.fields_dict["accounts"].grid.get_field("account").get_query = (doc, cdt, cdn) => {
+			let d = locals[cdt][cdn];
+			filter = {
+				is_group: 0,
+				company: d.company,
+			};
+			if (frm.doc.is_accrual) {
+				return {
+					filters: {
+						...filter,
+						account_type: "Liability",
+					},
+				};
+			} else {
+				return {
+					filters: filter,
+				};
+			}
+		};
+	},
 
 	type: function (frm) {
 		if (frm.doc.type == "Earning") {
