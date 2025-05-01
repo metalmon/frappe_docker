@@ -20,6 +20,7 @@ class SalaryStructureAssignment(Document):
 		self.validate_company()
 		self.validate_income_tax_slab()
 		self.set_payroll_payable_account()
+		self.validate_max_benefit_amount()
 
 		if not self.get("payroll_cost_centers"):
 			self.set_payroll_cost_centers()
@@ -110,6 +111,14 @@ class SalaryStructureAssignment(Document):
 					},
 				)
 			self.payroll_payable_account = payroll_payable_account
+
+	def validate_max_benefit_amount(self):
+		benefit_total = 0
+		for benefit in self.employee_benefits:
+			benefit_total += benefit.yearly_amount
+
+		if benefit_total != self.max_benefits:
+			self.max_benefits = benefit_total
 
 	@frappe.whitelist()
 	def set_payroll_cost_centers(self):

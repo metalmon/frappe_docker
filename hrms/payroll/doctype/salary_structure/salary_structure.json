@@ -26,7 +26,7 @@
   "earning_deduction",
   "earnings",
   "deductions",
-  "employee_benefit",
+  "employee_benefits",
   "conditions_and_formula_variable_and_example",
   "net_pay_detail",
   "total_earning",
@@ -239,9 +239,9 @@
    "search_index": 1
   },
   {
-   "fieldname": "employee_benefit",
+   "fieldname": "employee_benefits",
    "fieldtype": "Table",
-   "label": "Employee Benefit",
+   "label": "Employee Benefits",
    "options": "Employee Benefit Detail"
   }
  ],
@@ -249,7 +249,7 @@
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-26 17:11:32.882486",
+ "modified": "2025-04-28 11:40:15.376785",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",
