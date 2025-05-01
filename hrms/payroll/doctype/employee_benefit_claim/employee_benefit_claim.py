@@ -248,3 +248,26 @@ def get_last_payroll_period_benefits(
 			return salary_components_array
 
 	return False
+
+
+@frappe.whitelist()
+def get_benefit_components(doctype, txt, searchfield, start, page_len, filters):
+	from hrms.payroll.doctype.salary_structure_assignment.salary_structure_assignment import (
+		get_assigned_salary_structure,
+	)
+
+	employee = filters.get("employee")
+	date = filters.get("date")
+	if not employee or not date:
+		return []
+
+	assigned_salary_structure = get_assigned_salary_structure(employee, date)
+
+	EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
+	components = (
+		frappe.qb.from_(EmployeeBenefitDetail)
+		.select("salary_component")
+		.where(EmployeeBenefitDetail.parent == assigned_salary_structure)
+	).run(as_dict=True)
+
+	return [(row["salary_component"],) for row in components]

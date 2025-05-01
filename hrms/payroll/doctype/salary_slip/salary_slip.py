@@ -42,6 +42,9 @@ from hrms.payroll.doctype.employee_benefit_claim.employee_benefit_claim import (
 	get_benefit_claim_amount,
 	get_last_payroll_period_benefits,
 )
+from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
+	create_employee_benefit_ledger_entry,
+)
 from hrms.payroll.doctype.payroll_entry.payroll_entry import get_salary_withholdings, get_start_end_dates
 from hrms.payroll.doctype.payroll_period.payroll_period import (
 	get_payroll_period,
@@ -221,6 +224,7 @@ class SalarySlip(TransactionBase):
 					self.email_salary_slip()
 
 		self.update_payment_status_for_gratuity_and_leave_encashment()
+		self.create_benefits_ledger_entry()
 
 	def update_payment_status_for_gratuity_and_leave_encashment(self):
 		additional_salary_docs = frappe.db.get_all(
@@ -246,10 +250,22 @@ class SalarySlip(TransactionBase):
 					additional_salary.ref_doctype, additional_salary.ref_docname, "status", status
 				)
 
+	def create_benefits_ledger_entry(self):
+		if self.benefit_ledger_components:
+			for component_details in self.benefit_ledger_components:
+				args = {
+					"salary_structure_assignment": self._salary_structure_assignment.name,
+					"payroll_period": self.payroll_period.name,
+					**component_details,  # Merge component into details
+				}
+				create_employee_benefit_ledger_entry(self, args)
+				# NOTE: if additional salayr is linked to benefit claim adjust ledger entry
+
 	def on_cancel(self):
 		self.set_status()
 		self.update_status()
 		self.update_payment_status_for_gratuity_and_leave_encashment()
+		create_employee_benefit_ledger_entry(self, delete=True)
 
 		cancel_loan_repayment_entry(self)
 		self.publish_update()
@@ -1280,9 +1296,58 @@ class SalarySlip(TransactionBase):
 			)
 			raise
 
+	def get_current_period_benefit_amount(self, employee_benefits):
+		self.benefit_ledger_components = []
+
+		for benefit in employee_benefits:
+			earning_component = frappe.get_cached_doc("Salary Component", benefit.salary_component)
+
+			if not earning_component.is_flexible_benefit:
+				continue
+
+			total_sub_periods = get_period_factor(
+				self.employee,
+				self.start_date,
+				self.end_date,
+				self.payroll_frequency,
+				self.payroll_period,
+				earning_component.depends_on_payment_days,
+			)[0]
+			current_period_amount = benefit.yearly_amount / total_sub_periods
+			if current_period_amount:
+				self.update_component_row(earning_component, current_period_amount, "earnings")
+
+			transaction_type = "Accrual" if earning_component.is_accrual else "Payout"
+			remarks = (
+				"Pro rata Benefit Accrual" if earning_component.is_accrual else "Pro rata Benefit Payout"
+			)
+			self.benefit_ledger_components.append(
+				{
+					"salary_component": benefit.salary_component,
+					"amount": current_period_amount,
+					"is_accrual": earning_component.is_accrual,
+					"yearly_benefit": benefit.yearly_amount,
+					"transaction_type": transaction_type,
+					"remarks": remarks,
+				}
+			)
+
 	def add_employee_benefits(self):
-		for struct_row in self._salary_structure_doc.get("earnings"):
-			if struct_row.is_flexible_benefit == 1:
+		EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
+		employee_benefits = (
+			frappe.qb.from_(EmployeeBenefitDetail)
+			.select("salary_component", "yearly_amount")
+			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
+			.run(as_dict=True)
+		)
+
+		if employee_benefits:
+			self.get_current_period_benefit_amount(employee_benefits)
+
+		"""
+			if benefit_component.is_flexible_benefit == 1  :
+				# benefit_amount = get_current_period_benefit_amount()
+				return
 				if (
 					frappe.db.get_value(
 						"Salary Component",
@@ -1309,8 +1374,9 @@ class SalarySlip(TransactionBase):
 					)
 					if benefit_claim_amount:
 						self.update_component_row(struct_row, benefit_claim_amount, "earnings")
+			"""
 
-		self.adjust_benefits_in_last_payroll_period(self.payroll_period)
+		# self.adjust_benefits_in_last_payroll_period(self.payroll_period)
 
 	def adjust_benefits_in_last_payroll_period(self, payroll_period):
 		if payroll_period:
