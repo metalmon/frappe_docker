@@ -47,7 +47,7 @@ class EmployeeBenefitLedger(Document):
 		self.unpaid_benefit = self.yearly_benefit - total_paid
 
 
-def create_employee_benefit_ledger_entry(ref_doc, args={}, delete=False):
+def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 	EmployeeBenefitLedger = frappe.qb.DocType("Employee Benefit Ledger")
 
 	if not delete:
