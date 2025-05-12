@@ -234,6 +234,7 @@ def get_additional_salaries(employee, start_date, end_date, component_type):
 			additional_sal.is_recurring,
 			overwrite_field,
 			additional_sal.deduct_full_tax_on_selected_payroll_date,
+			additional_sal.ref_doctype,
 		)
 		.where(
 			(additional_sal.employee == employee)
