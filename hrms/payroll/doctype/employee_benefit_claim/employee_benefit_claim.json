@@ -21,6 +21,7 @@
   "accrued_benefit",
   "column_break_12",
   "pay_against_benefit_claim",
+  "is_accrual_component",
   "claimed_amount",
   "max_amount_eligible",
   "salary_slip",
@@ -159,6 +160,15 @@
    "fieldtype": "Currency",
    "label": "Accrued Amount",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "earning_component.is_accrual",
+   "fieldname": "is_accrual_component",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is Accrual Component",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
@@ -168,7 +178,7 @@
    "link_fieldname": "ref_docname"
   }
  ],
- "modified": "2025-05-07 22:40:00.620694",
+ "modified": "2025-05-07 22:55:21.550490",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Claim",

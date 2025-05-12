@@ -16,12 +16,11 @@
   "salary_slip",
   "employee_benefit_details_section",
   "transaction_type",
-  "accrual_component",
   "amount",
   "remarks",
   "column_break_erll",
   "yearly_benefit",
-  "unpaid_benefit",
+  "paid_benefit",
   "accrued_benefit"
  ],
  "fields": [
@@ -115,28 +114,21 @@
    "options": "Salary Slip"
   },
   {
-   "fieldname": "unpaid_benefit",
-   "fieldtype": "Currency",
-   "label": "Unpaid Benefit "
-  },
-  {
    "fieldname": "accrued_benefit",
    "fieldtype": "Currency",
    "label": "Accrued Benefit"
   },
   {
-   "depends_on": "accrual_component",
-   "fieldname": "accrual_component",
-   "fieldtype": "Link",
-   "label": "Accrual Component",
-   "options": "Salary Component"
+   "fieldname": "paid_benefit",
+   "fieldtype": "Currency",
+   "label": "Paid Benefit"
   }
  ],
  "grid_page_length": 50,
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-04-29 16:52:55.037028",
+ "modified": "2025-05-12 14:57:33.097345",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Ledger",
@@ -167,6 +159,15 @@
    "read": 1,
    "report": 1,
    "role": "HR Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
    "share": 1
   }
  ],

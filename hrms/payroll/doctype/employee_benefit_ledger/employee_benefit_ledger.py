@@ -13,43 +13,35 @@ class EmployeeBenefitLedger(Document):
 		filters_common = {"employee": self.employee, "payroll_period": self.payroll_period}
 
 		# Calculate accrued benefits if applicable
-		if self.transaction_type == "Accrual" or self.accrual_component:
-			accrual_component = (
-				self.salary_component if self.transaction_type == "Accrual" else self.accrual_component
-			)
+		if self.is_accrual_component or self.transaction_type == "Accrual":
 			accrual_filters = {
 				**filters_common,
 				"transaction_type": "Accrual",
-				"salary_component": accrual_component,
+				"salary_component": self.salary_component,
 			}
 			past_accruals = frappe.db.get_all(
 				"Employee Benefit Ledger", filters=accrual_filters, pluck="amount"
 			)
-			current_amount = (
-				self.amount if self.transaction_type == "Accrual" else 0
-			)  # Add current amount to accrued benefits if it's an accrual transaction
+			# Add current amount to accrued benefits if it's an accrual transaction
+			current_amount = self.amount if self.transaction_type == "Accrual" else 0
 			self.accrued_benefit = sum(past_accruals) + current_amount
 
-		# Calculate unpaid benefit for all cases
-		payout_filters = {**filters_common, "transaction_type": "Payout"}
-
-		if self.transaction_type == "Accrual" or self.accrual_component:
-			payout_filters["accrual_component"] = accrual_component
-		else:
-			payout_filters["salary_component"] = self.salary_component  # Direct payout without accrual
-
+		# Calculate paid benefit for all cases
+		payout_filters = {
+			**filters_common,
+			"transaction_type": "Payout",
+			"salary_component": self.salary_component,
+		}
 		past_payouts = frappe.db.get_all("Employee Benefit Ledger", filters=payout_filters, pluck="amount")
-
-		current_amount = (
-			self.amount if self.transaction_type == "Payout" else 0
-		)  # Add current amount if it's a payout transaction
+		current_amount = self.amount if self.transaction_type == "Payout" else 0
 		total_paid = sum(past_payouts) + current_amount
+
+		self.paid_benefit = total_paid
 		self.unpaid_benefit = self.yearly_benefit - total_paid
 
 
 def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 	EmployeeBenefitLedger = frappe.qb.DocType("Employee Benefit Ledger")
-
 	if not delete:
 		ledger_entry = frappe._dict(
 			doctype="Employee Benefit Ledger",
@@ -60,10 +52,21 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 			salary_slip=ref_doc.name,
 		)
 		ledger_entry.update(args)
+		if not args.get("yearly_benefit"):
+			ledger_entry.yearly_benefit = (
+				frappe.db.get_value(
+					"Employee Benefit Detail",
+					{
+						"parent": args.get("salary_structure_assignment"),
+						"salary_component": args.get("salary_component"),
+					},
+					"yearly_amount",
+				)
+				or 0
+			)
 		doc = frappe.get_doc(ledger_entry)
-		doc.save()
+		doc.insert()
 		return ledger_entry
-
 	(
 		frappe.qb.from_(EmployeeBenefitLedger)
 		.delete()
