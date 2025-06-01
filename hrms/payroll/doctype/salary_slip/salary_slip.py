@@ -1310,6 +1310,12 @@ class SalarySlip(TransactionBase):
 			if not earning_component.is_flexible_benefit:
 				continue
 
+			self.update_component_row(
+				earning_component,
+				benefit.amount,
+				"earnings",
+			)
+
 			transaction_type = "Accrual" if earning_component.is_accrual else "Payout"
 			remarks = (
 				"Pro rata Benefit Accrual" if earning_component.is_accrual else "Pro rata Benefit Payout"
@@ -1370,6 +1376,7 @@ class SalarySlip(TransactionBase):
 	def add_additional_salary_components(self, component_type):
 		if component_type == "earnings":
 			self.benefit_ledger_components = []
+		print(f"\n\nbenefit_ledger_components 01: {self.benefit_ledger_components}")
 		additional_salaries = get_additional_salaries(
 			self.employee, self.start_date, self.end_date, component_type
 		)
