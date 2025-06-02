@@ -60,7 +60,7 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 						"parent": args.get("salary_structure_assignment"),
 						"salary_component": args.get("salary_component"),
 					},
-					"yearly_amount",
+					"amount",
 				)
 				or 0
 			)

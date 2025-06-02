@@ -115,7 +115,7 @@ class SalaryStructureAssignment(Document):
 	def validate_max_benefit_amount(self):
 		benefit_total = 0
 		for benefit in self.employee_benefits:
-			benefit_total += benefit.yearly_amount
+			benefit_total += benefit.amount
 
 		if benefit_total != self.max_benefits:
 			self.max_benefits = benefit_total

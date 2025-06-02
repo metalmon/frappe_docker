@@ -8,7 +8,7 @@
  "field_order": [
   "salary_component",
   "column_break_wdrt",
-  "yearly_amount"
+  "amount"
  ],
  "fields": [
   {
@@ -25,10 +25,10 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "yearly_amount",
+   "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Yearly Benefit Amount",
+   "label": "Benefit Amount",
    "reqd": 1
   }
  ],
@@ -36,7 +36,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-04-27 23:16:58.826260",
+ "modified": "2025-06-03 03:02:43.381840",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Detail",

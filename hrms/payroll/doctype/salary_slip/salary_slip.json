@@ -56,6 +56,8 @@
   "earnings",
   "column_break_k1jz",
   "deductions",
+  "section_break_jgfy",
+  "table_xvtb",
   "totals",
   "gross_pay",
   "base_gross_pay",
@@ -739,6 +741,17 @@
    "label": "Salary Withholding Cycle",
    "no_copy": 1,
    "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_jgfy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_xvtb",
+   "fieldtype": "Table",
+   "label": "Accrued Benefits",
+   "options": "Employee Benefit Detail",
    "read_only": 1
   }
  ],

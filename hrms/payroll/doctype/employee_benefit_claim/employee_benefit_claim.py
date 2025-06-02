@@ -121,10 +121,10 @@ def get_benefit_amount(employee, date, salary_component):
 	EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
 	result = (
 		frappe.qb.from_(EmployeeBenefitDetail)
-		.select(EmployeeBenefitDetail.yearly_amount)
+		.select(EmployeeBenefitDetail.amount)
 		.where(EmployeeBenefitDetail.salary_component == salary_component)
 		.where(EmployeeBenefitDetail.parent == assigned_salary_structure)
-	).run(pluck="yearly_amount")
+	).run(pluck="amount")
 
 	return result[0] if result else 0
 

@@ -1295,7 +1295,7 @@ class SalarySlip(TransactionBase):
 		EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
 		employee_benefits = (
 			frappe.qb.from_(EmployeeBenefitDetail)
-			.select("salary_component", "yearly_amount")
+			.select("salary_component", "amount")
 			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
 			.run(as_dict=True)
 		)
@@ -1325,7 +1325,7 @@ class SalarySlip(TransactionBase):
 					"salary_component": benefit.salary_component,
 					"amount": benefit.amount,
 					"is_accrual_component": earning_component.is_accrual,
-					"yearly_benefit": benefit.yearly_amount,
+					"yearly_benefit": benefit.amount,
 					"transaction_type": transaction_type,
 					"remarks": remarks,
 				}
@@ -1341,7 +1341,7 @@ class SalarySlip(TransactionBase):
 		)[0]
 
 		for benefit in employee_benefits:
-			monthly_benefit = benefit.yearly_amount / total_sub_periods
+			monthly_benefit = benefit.amount / total_sub_periods
 
 			ledger_filters = {
 				"employee": self.employee,
@@ -1359,7 +1359,7 @@ class SalarySlip(TransactionBase):
 			)
 			total_paid = sum(entry.amount for entry in ledger_entries if entry.transaction_type == "Payout")
 
-			remaining_benefit = benefit.yearly_amount - max(total_accrued, total_paid)
+			remaining_benefit = benefit.amount - max(total_accrued, total_paid)
 			current_period_amount = remaining_benefit / self.remaining_sub_periods
 
 			if monthly_benefit > current_period_amount and current_period_amount < remaining_benefit:
@@ -1376,7 +1376,6 @@ class SalarySlip(TransactionBase):
 	def add_additional_salary_components(self, component_type):
 		if component_type == "earnings":
 			self.benefit_ledger_components = []
-		print(f"\n\nbenefit_ledger_components 01: {self.benefit_ledger_components}")
 		additional_salaries = get_additional_salaries(
 			self.employee, self.start_date, self.end_date, component_type
 		)
