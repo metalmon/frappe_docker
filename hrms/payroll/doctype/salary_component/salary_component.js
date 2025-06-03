@@ -37,6 +37,12 @@ frappe.ui.form.on("Salary Component", {
 		}
 	},
 
+	before_save: (frm) => {
+		if (frm.doc.is_flexible_benefit && frm.doc.payout_method == "Payout on prorata basis") {
+			frm.set_value("do_not_include_in_total", 0);
+		}
+	},
+
 	is_flexible_benefit: function (frm) {
 		if (frm.doc.is_flexible_benefit) {
 			set_value_for_condition_and_formula(frm);

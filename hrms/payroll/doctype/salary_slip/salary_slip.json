@@ -57,7 +57,7 @@
   "column_break_k1jz",
   "deductions",
   "section_break_jgfy",
-  "table_xvtb",
+  "accrued_benefits",
   "totals",
   "gross_pay",
   "base_gross_pay",
@@ -748,7 +748,7 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "table_xvtb",
+   "fieldname": "accrued_benefits",
    "fieldtype": "Table",
    "label": "Accrued Benefits",
    "options": "Employee Benefit Detail",

@@ -113,6 +113,12 @@ class SalaryStructureAssignment(Document):
 			self.payroll_payable_account = payroll_payable_account
 
 	def validate_max_benefit_amount(self):
+		from hrms.payroll.doctype.salary_structure.salary_structure import (
+			validate_max_benefit_for_flexible_benefit,
+		)
+
+		validate_max_benefit_for_flexible_benefit(self.employee_benefits)
+
 		benefit_total = 0
 		for benefit in self.employee_benefits:
 			benefit_total += benefit.amount

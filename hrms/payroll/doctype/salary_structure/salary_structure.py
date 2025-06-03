@@ -24,11 +24,11 @@ class SalaryStructure(Document):
 	def validate(self):
 		self.set_missing_values()
 		self.validate_amount()
-		self.validate_max_benefits_with_flexi()
 		self.validate_component_based_on_tax_slab()
 		self.validate_payment_days_based_dependent_component()
 		self.validate_timesheet_component()
 		self.validate_formula_setup()
+		validate_max_benefit_for_flexible_benefit(self.employee_benefits)
 
 	def on_update(self):
 		self.reset_condition_and_formula_fields()
@@ -150,31 +150,6 @@ class SalaryStructure(Document):
 				row.formula = row._formula
 
 		self.db_update_all()
-
-	def validate_max_benefits_with_flexi(self):
-		have_a_flexi = False
-		if self.earnings:
-			flexi_amount = 0
-			for earning_component in self.earnings:
-				if earning_component.is_flexible_benefit == 1:
-					have_a_flexi = True
-					max_of_component = frappe.db.get_value(
-						"Salary Component", earning_component.salary_component, "max_benefit_amount"
-					)
-					flexi_amount += max_of_component
-
-			if have_a_flexi and flt(self.max_benefits) == 0:
-				frappe.throw(_("Max benefits should be greater than zero to dispense benefits"))
-			if have_a_flexi and flexi_amount and flt(self.max_benefits) > flexi_amount:
-				frappe.throw(
-					_(
-						"Total flexible benefit component amount {0} should not be less than max benefits {1}"
-					).format(flexi_amount, self.max_benefits)
-				)
-		if not have_a_flexi and flt(self.max_benefits) > 0:
-			frappe.throw(
-				_("Salary Structure should have flexible benefit component(s) to dispense benefit amount")
-			)
 
 	def get_employees(self, **kwargs):
 		conditions, values = [], []
@@ -447,3 +422,16 @@ def get_salary_component(doctype, txt, searchfield, start, page_len, filters):
 				accounts.append((component.name, component.account, component.company))
 
 	return accounts
+
+
+def validate_max_benefit_for_flexible_benefit(employee_benefits):
+	for benefit in employee_benefits:
+		max_of_component = frappe.db.get_value(
+			"Salary Component", benefit.salary_component, "max_benefit_amount"
+		)
+		if max_of_component and max_of_component > 0 and benefit.amount > max_of_component:
+			frappe.throw(
+				_(
+					"Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2}"
+				).format(benefit.amount, benefit.salary_component, max_of_component)
+			)

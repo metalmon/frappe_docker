@@ -275,7 +275,7 @@
    "fieldname": "payout_method",
    "fieldtype": "Select",
    "label": "Payout Method",
-   "options": "\nPayout on prorata basis\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
+   "options": "Payout on prorata basis\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
   },
   {
    "default": "0",
