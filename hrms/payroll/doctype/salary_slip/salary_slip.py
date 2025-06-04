@@ -1300,9 +1300,10 @@ class SalarySlip(TransactionBase):
 			.on(EmployeeBenefitDetail.salary_component == SalaryComponent.name)
 			.select(
 				EmployeeBenefitDetail.salary_component,
-				EmployeeBenefitDetail.amount,
+				EmployeeBenefitDetail.amount.as_("yearly_amount"),
 				SalaryComponent.payout_method,
 				SalaryComponent.depends_on_payment_days,
+				SalaryComponent.final_cycle_accrual_payout,
 			)
 			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
 			.where(SalaryComponent.payout_method != "Allow claim up to full period limit")
@@ -1310,10 +1311,12 @@ class SalarySlip(TransactionBase):
 		)
 
 		if employee_benefits:
-			employee_benefits = self.get_current_period_benefit_amounts(employee_benefits)
-			self.add_current_period_benefits(employee_benefits)
+			employee_benefits = self.get_current_period_employee_benefit_amounts(employee_benefits)
+			self.add_current_period_employee_benefits(employee_benefits)
 
-	def add_current_period_benefits(self, employee_benefits):
+	def add_current_period_employee_benefits(self, employee_benefits):
+		"""Add benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
+
 		self.accrued_benefits = []
 
 		for benefit in employee_benefits:
@@ -1349,48 +1352,136 @@ class SalarySlip(TransactionBase):
 				}
 			)
 
-	def get_current_period_benefit_amounts(self, employee_benefits):
+	def get_current_period_employee_benefit_amounts(self, employee_benefits):
+		"""Calculate employee benefit amounts for the current salary slip period based on payout method."""
+		from collections import defaultdict
+
+		is_last_payroll_cycle = False
+		if self.payroll_period and getdate(self.payroll_period.end_date) <= getdate(self.end_date):
+			is_last_payroll_cycle = True
+
+		total_sub_periods = get_period_factor(
+			self.employee,
+			self.start_date,
+			self.end_date,
+			self.payroll_frequency,
+			self.payroll_period,
+		)[0]
+
+		ledger_map = self._get_benefit_ledger_entries(employee_benefits)
+
+		# Process each benefit according to its payout method
 		for benefit in employee_benefits:
-			total_sub_periods = get_period_factor(
-				self.employee,
-				self.start_date,
-				self.end_date,
-				self.payroll_frequency,
-				self.payroll_period,
-				benefit.depends_on_payment_days,
-			)[0]
+			current_period_benefit = benefit.yearly_amount / total_sub_periods if total_sub_periods else 0
 
+			# Get accrued and paid totals for this benefit
+			total_accrued = ledger_map[benefit.salary_component].get("Accrual", 0)
+			total_paid = ledger_map[benefit.salary_component].get("Payout", 0)
+
+			# Process according to payout method
 			if benefit.payout_method == "Payout on prorata basis":
-				benefit.is_accrual = 0
+				current_period_benefit, is_accrual = self._process_prorata_payout(
+					benefit, current_period_benefit, total_paid
+				)
+
 			elif benefit.payout_method == "Accrue and payout at end of payroll period":
-				benefit.is_accrual = 1
-			current_period_benefit = benefit.amount / total_sub_periods
+				current_period_benefit, is_accrual = self._process_end_period_payout(
+					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+				)
 
-			if benefit.payout_method == "Accrue per cycle, pay only on claim":
-				benefit.is_accrual = 1
-				# Check for additional salary (claim) for this benefit component in current payroll cycle
-				additional_salary = [
-					row
-					for row in self.earnings
-					if row.salary_component == benefit.salary_component
-					and getattr(row, "additional_salary", None)
-					and getattr(row, "ref_doctype", None) == "Employee Benefit Application"
-				]
-				claimed_amount = sum(row.amount for row in additional_salary) if additional_salary else 0
+			elif benefit.payout_method == "Accrue per cycle, pay only on claim":
+				current_period_benefit, is_accrual = self._process_claim_based_payout(
+					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+				)
 
-				if benefit.depends_on_payment_days:
-					# Adjust benefit amount based on payment days
-					current_period_benefit = (
-						flt(current_period_benefit) * flt(self.payment_days) / cint(self.total_working_days)
-					)
-				# Deduct claimed amount from current period benefit and accrue or carry forward the rest
-				current_period_benefit = max(current_period_benefit - claimed_amount, 0)
 			benefit.amount = current_period_benefit
+			benefit.is_accrual = is_accrual
+
 		return employee_benefits
 
-	def adjust_benefits_in_last_payroll_period(self, payroll_period):
-		# TODO: Adjust remaining unpaid benefits for last payroll period
-		return
+	def _get_benefit_ledger_entries(self, employee_benefits):
+		from collections import defaultdict
+
+		ledger_entries = frappe.get_all(
+			"Employee Benefit Ledger",
+			filters={
+				"employee": self.employee,
+				"salary_component": ["in", [benefit.salary_component for benefit in employee_benefits]],
+				"payroll_period": self.payroll_period.name,
+			},
+			fields=["salary_component", "transaction_type", "amount"],
+		)
+
+		benefit_ledger_map = defaultdict(lambda: defaultdict(float))
+		for entry in ledger_entries:
+			benefit_ledger_map[entry["salary_component"]][entry["transaction_type"]] += entry["amount"]
+
+		return benefit_ledger_map
+
+	def _process_prorata_payout(self, benefit, current_period_benefit, total_paid):
+		"""Process benefit with 'Payout on prorata basis' method."""
+		is_accrual = 0
+
+		# If remaining benefit amount is less than calculated benefit, adjust to exact remainder
+		if 0 < (benefit.yearly_amount - total_paid) < current_period_benefit:
+			current_period_benefit = benefit.yearly_amount - total_paid
+
+		return current_period_benefit, is_accrual
+
+	def _process_end_period_payout(
+		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+	):
+		"""Process 'Accrue and payout at end of payroll period' benefit"""
+		is_accrual = 1
+		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
+			current_period_benefit = benefit.yearly_amount - total_accrued
+
+		if is_last_payroll_cycle:  # On last payroll cycle, pay out all accrued benefits
+			current_period_benefit = total_accrued + current_period_benefit - total_paid
+			is_accrual = 0
+
+		return current_period_benefit, is_accrual
+
+	def _process_claim_based_payout(
+		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+	):
+		"""Process 'Accrue per cycle, pay only on claim' benefit"""
+		is_accrual = 1
+
+		# any benefit claims made through additional salary for the current period
+		benefit_claims = [
+			row
+			for row in self.earnings
+			if row.salary_component == benefit.salary_component
+			and getattr(row, "additional_salary", None)
+			and getattr(row, "ref_doctype", None) == "Employee Benefit Application"
+		]
+
+		claimed_amount = sum(row.amount for row in benefit_claims) if benefit_claims else 0
+		if (
+			claimed_amount > total_accrued
+		):  # indicates that claim includes whole or part of current period amount
+			claimed_amount -= total_accrued
+		total_paid += claimed_amount
+
+		if benefit.depends_on_payment_days:
+			current_period_benefit = (
+				flt(current_period_benefit) * flt(self.payment_days) / cint(self.total_working_days)
+			)
+
+		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
+			current_period_benefit = benefit.yearly_amount - total_accrued
+
+		current_period_benefit = max(
+			current_period_benefit - claimed_amount, 0
+		)  # deduct claimed amount and accrue the rest
+
+		# Pay out all unclaimed benefits in final cycle if final payout option is enabled
+		if is_last_payroll_cycle and benefit.final_cycle_accrual_payout:
+			current_period_benefit = total_accrued + current_period_benefit - total_paid
+			is_accrual = 0
+
+		return current_period_benefit, is_accrual
 
 	def add_additional_salary_components(self, component_type):
 		if component_type == "earnings":

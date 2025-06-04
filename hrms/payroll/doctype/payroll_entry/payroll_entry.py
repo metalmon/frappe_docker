@@ -403,12 +403,12 @@ class PayrollEntry(Document):
 	def should_add_component_to_accrual_jv(self, component_type: str, item: dict) -> bool:
 		add_component_to_accrual_jv = True
 		if component_type == "earnings":
-			is_flexible_benefit, only_tax_impact, is_accrual = frappe.get_cached_value(
+			is_flexible_benefit, only_tax_impact = frappe.get_cached_value(
 				"Salary Component",
 				item["salary_component"],
-				["is_flexible_benefit", "only_tax_impact", "is_accrual"],
+				["is_flexible_benefit", "only_tax_impact"],
 			)
-			if (cint(is_flexible_benefit) and cint(only_tax_impact)) or (cint(is_accrual)):
+			if cint(is_flexible_benefit) and cint(only_tax_impact):
 				add_component_to_accrual_jv = False
 
 		return add_component_to_accrual_jv
