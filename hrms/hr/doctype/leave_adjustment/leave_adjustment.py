@@ -6,6 +6,7 @@ from frappe.model.document import Document
 from frappe.utils import cint, flt
 
 from hrms.hr.doctype.leave_application.leave_application import get_leave_balance_on
+from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import create_leave_ledger_entry
 
 
 class LeaveAdjustment(Document):
@@ -50,3 +51,17 @@ class LeaveAdjustment(Document):
 					frappe.bold(self.employee_name), frappe.bold(leave_balance), frappe.bold(self.leave_type)
 				)
 			)
+
+	def on_submit(self):
+		self.create_leave_ledger_entry(submit=True)
+
+	def on_cancel(self):
+		self.create_leave_ledger_entry(submit=False)
+
+	def create_leave_ledger_entry(self, submit):
+		is_lwp = frappe.db.get_value("Leave Type", self.leave_type, "is_lwp")
+
+		args = dict(
+			leaves=self.leaves_to_adjust, from_date=self.from_date, to_date=self.to_date, is_lwp=is_lwp
+		)
+		create_leave_ledger_entry(self, args, submit)
