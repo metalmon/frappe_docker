@@ -13,13 +13,15 @@
   "amended_from",
   "column_break_juxz",
   "leave_type",
+  "adjustment_type",
   "leaves_to_adjust",
   "posting_date",
   "section_break_etvg",
   "leave_allocation",
   "from_date",
   "to_date",
-  "allocated_leaves"
+  "allocated_leaves",
+  "leaves_after_adjustment"
  ],
  "fields": [
   {
@@ -64,7 +66,7 @@
   {
    "fieldname": "leave_allocation",
    "fieldtype": "Link",
-   "label": "Leave Allocation",
+   "label": "Leave Allocation to Adjust",
    "options": "Leave Allocation",
    "reqd": 1
   },
@@ -101,26 +103,37 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date",
-   "read_only": 1
+   "label": "Posting Date"
   },
   {
    "fieldname": "section_break_etvg",
    "fieldtype": "Section Break"
   },
   {
-   "description": "Enter a positive value to increase allocation, negative to reduce.",
    "fieldname": "leaves_to_adjust",
    "fieldtype": "Float",
    "label": "Leaves to Adjust (In Days)",
+   "non_negative": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "adjustment_type",
+   "fieldtype": "Select",
+   "label": "Adjustment Type",
+   "options": "\nAllocate\nReduce",
+   "reqd": 1
+  },
+  {
+   "fieldname": "leaves_after_adjustment",
+   "fieldtype": "Float",
+   "label": "Leaves After Adjustment"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-04 13:01:31.482122",
+ "modified": "2025-06-10 21:08:37.035053",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Adjustment",

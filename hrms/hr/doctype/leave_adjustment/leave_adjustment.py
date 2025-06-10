@@ -1,8 +1,52 @@
 # Copyright (c) 2025, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
-
+import frappe
+from frappe import _
 from frappe.model.document import Document
+from frappe.utils import cint, flt
+
+from hrms.hr.doctype.leave_application.leave_application import get_leave_balance_on
 
 
 class LeaveAdjustment(Document):
-	pass
+	def validate(self):
+		self.validate_non_zero_adjustment()
+		self.validate_over_allocation()
+		self.validate_leave_balance()
+
+	def validate_non_zero_adjustment(self):
+		if self.leaves_to_adjust == 0:
+			frappe.throw(_("Enter a non-zero value to adjust."))
+
+	def validate_over_allocation(self):
+		if self.adjustment_type == "Reduce":
+			return
+
+		max_leaves_allowed = frappe.db.get_value("Leave Type", self.leave_type, "max_leaves_allowed")
+
+		precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
+
+		new_allocation = flt(self.allocated_leaves + self.leaves_to_adjust, precision)
+
+		if new_allocation > max_leaves_allowed:
+			frappe.throw(
+				_("Allocation is greater than the maximum allowed {0} for leave type {1}").format(
+					frappe.bold(max_leaves_allowed), frappe.bold(self.leave_type)
+				)
+			)
+
+	def validate_leave_balance(self):
+		if self.adjustment_type == "Allocate":
+			return
+
+		leave_balance = get_leave_balance_on(
+			employee=self.employee, leave_type=self.leave_type, date=self.posting_date
+		)
+		precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
+
+		if leave_balance < flt(self.leaves_to_adjust, precision):
+			frappe.throw(
+				_("Reduction is more than {0}'s available leave balance {1} for leave type {2}").format(
+					frappe.bold(self.employee_name), frappe.bold(leave_balance), frappe.bold(self.leave_type)
+				)
+			)
