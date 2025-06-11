@@ -18,10 +18,11 @@
   "posting_date",
   "section_break_etvg",
   "leave_allocation",
-  "from_date",
-  "to_date",
   "allocated_leaves",
-  "leaves_after_adjustment"
+  "leaves_after_adjustment",
+  "column_break_ymxu",
+  "from_date",
+  "to_date"
  ],
  "fields": [
   {
@@ -66,9 +67,9 @@
   {
    "fieldname": "leave_allocation",
    "fieldtype": "Link",
-   "label": "Leave Allocation to Adjust",
+   "label": "Allocation to Adjust",
    "options": "Leave Allocation",
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fetch_from": "leave_allocation.from_date",
@@ -103,16 +104,18 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
-   "label": "Posting Date"
+   "label": "Posting Date",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_etvg",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Allocation Details"
   },
   {
    "fieldname": "leaves_to_adjust",
    "fieldtype": "Float",
-   "label": "Leaves to Adjust (In Days)",
+   "label": "Leaves to Adjust",
    "non_negative": 1,
    "reqd": 1
   },
@@ -126,14 +129,19 @@
   {
    "fieldname": "leaves_after_adjustment",
    "fieldtype": "Float",
-   "label": "Leaves After Adjustment"
+   "label": "Leaves After Adjustment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ymxu",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-10 21:08:37.035053",
+ "modified": "2025-06-11 08:44:28.165361",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Adjustment",
