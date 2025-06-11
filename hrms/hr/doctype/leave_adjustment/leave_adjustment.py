@@ -10,6 +10,15 @@ from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import create_leave_l
 
 
 class LeaveAdjustment(Document):
+	def before_save(self):
+		self.set_leaves_after_adjustment()
+
+	def set_leaves_after_adjustment(self):
+		if self.adjustment_type == "Allocate":
+			self.leaves_after_adjustment = flt(self.allocated_leaves + self.leaves_to_adjust)
+		elif self.adjustment_type == "Reduce":
+			self.leaves_after_adjustment = flt(self.allocated_leaves - self.leaves_to_adjust)
+
 	def validate(self):
 		self.validate_non_zero_adjustment()
 		self.validate_over_allocation()
@@ -29,7 +38,7 @@ class LeaveAdjustment(Document):
 
 		new_allocation = flt(self.allocated_leaves + self.leaves_to_adjust, precision)
 
-		if new_allocation > max_leaves_allowed:
+		if max_leaves_allowed and (new_allocation > max_leaves_allowed):
 			frappe.throw(
 				_("Allocation is greater than the maximum allowed {0} for leave type {1}").format(
 					frappe.bold(max_leaves_allowed), frappe.bold(self.leave_type)
@@ -65,3 +74,41 @@ class LeaveAdjustment(Document):
 			leaves=self.leaves_to_adjust, from_date=self.from_date, to_date=self.to_date, is_lwp=is_lwp
 		)
 		create_leave_ledger_entry(self, args, submit)
+
+
+@frappe.whitelist()
+def get_leave_allocation_for_posting_date(employee, leave_type, posting_date):
+	"""
+	Returns the leave allocation for the given employee, leave type and posting date.
+	"""
+	return frappe.get_all(
+		"Leave Allocation",
+		{
+			"employee": employee,
+			"leave_type": leave_type,
+			"from_date": ["<=", posting_date],
+			"to_date": [">=", posting_date],
+			"docstatus": 1,
+		},
+		["name"],
+	)
+
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def get_allocated_leave_types(doctype, txt, searchfield, start, page_len, filters):
+	"""
+	Returns the leave allocation for the given employee, leave type and posting date.
+	"""
+	return frappe.get_all(
+		"Leave Allocation",
+		{
+			"employee": filters.get("employee"),
+			"docstatus": 1,
+		},
+		[
+			"leave_type",
+			"name",
+		],
+		as_list=1,
+	)
