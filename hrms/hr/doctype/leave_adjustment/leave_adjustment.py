@@ -71,7 +71,12 @@ class LeaveAdjustment(Document):
 		is_lwp = frappe.db.get_value("Leave Type", self.leave_type, "is_lwp")
 
 		args = dict(
-			leaves=self.leaves_to_adjust, from_date=self.from_date, to_date=self.to_date, is_lwp=is_lwp
+			leaves=self.leaves_to_adjust
+			if self.adjustment_type == "Allocate"
+			else (-1 * self.leaves_to_adjust),
+			from_date=self.from_date,
+			to_date=self.to_date,
+			is_lwp=is_lwp,
 		)
 		create_leave_ledger_entry(self, args, submit)
 
