@@ -22,7 +22,9 @@
   "leaves_after_adjustment",
   "column_break_ymxu",
   "from_date",
-  "to_date"
+  "to_date",
+  "section_break_ukzy",
+  "reason_for_adjustment"
  ],
  "fields": [
   {
@@ -135,13 +137,23 @@
   {
    "fieldname": "column_break_ymxu",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ukzy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.leave_allocation;",
+   "fieldname": "reason_for_adjustment",
+   "fieldtype": "Text",
+   "label": "Reason for Adjustment"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-06-11 08:44:28.165361",
+ "modified": "2025-06-23 13:13:49.538702",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Adjustment",
