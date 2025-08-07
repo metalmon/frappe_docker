@@ -1303,6 +1303,7 @@ class SalarySlip(TransactionBase):
 				EmployeeBenefitDetail.amount.as_("yearly_amount"),
 				SalaryComponent.payout_method,
 				SalaryComponent.depends_on_payment_days,
+				SalaryComponent.round_to_the_nearest_integer,
 				SalaryComponent.final_cycle_accrual_payout,
 			)
 			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
@@ -1320,6 +1321,9 @@ class SalarySlip(TransactionBase):
 		self.accrued_benefits = []
 
 		for benefit in employee_benefits:
+			if benefit.amount == 0:
+				continue
+
 			earning_component = get_salary_component_data(benefit.salary_component)
 			if not earning_component.is_flexible_benefit:
 				continue
@@ -1369,6 +1373,7 @@ class SalarySlip(TransactionBase):
 		)[0]
 
 		ledger_map = self._get_benefit_ledger_entries(employee_benefits)
+		precision = frappe.get_precision("Employee Benefit Detail", "amount")
 
 		# Process each benefit according to its payout method
 		for benefit in employee_benefits:
@@ -1393,9 +1398,12 @@ class SalarySlip(TransactionBase):
 				current_period_benefit, is_accrual = self._process_claim_based_payout(
 					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
 				)
+			current_period_benefit = flt(current_period_benefit, precision)
+			if benefit.round_to_the_nearest_integer:
+				current_period_benefit = rounded(current_period_benefit or 0)
 
-			benefit.amount = current_period_benefit
 			benefit.is_accrual = is_accrual
+			benefit.amount = current_period_benefit
 
 		return employee_benefits
 
@@ -1506,7 +1514,7 @@ class SalarySlip(TransactionBase):
 						"salary_component": additional_salary.component,
 						"amount": additional_salary.amount,
 						"is_accrual": 0,
-						"remarks": "Payout against Employee Benefit Claim",
+						"remarks": f"Payout against Employee Benefit Claim {additional_salary.ref_docname}",
 					}
 				)
 

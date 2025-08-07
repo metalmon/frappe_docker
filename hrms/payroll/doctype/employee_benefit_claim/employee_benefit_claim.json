@@ -18,13 +18,9 @@
   "benefit_type_and_amount",
   "earning_component",
   "yearly_benefit",
-  "accrued_benefit",
   "column_break_12",
-  "pay_against_benefit_claim",
-  "is_accrual_component",
   "claimed_amount",
   "max_amount_eligible",
-  "salary_slip",
   "section_break_9",
   "attachments"
  ],
@@ -34,6 +30,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Employee",
+   "link_filters": "[[\"Employee\",\"status\",\"=\",\"Active\"]]",
    "options": "Employee",
    "reqd": 1
   },
@@ -70,20 +67,10 @@
    "reqd": 1
   },
   {
-   "fetch_from": "earning_component.max_benefit_amount",
    "fieldname": "max_amount_eligible",
    "fieldtype": "Currency",
    "label": "Max Amount Eligible For Claim",
    "options": "currency",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fetch_from": "earning_component.pay_against_benefit_claim",
-   "fieldname": "pay_against_benefit_claim",
-   "fieldtype": "Check",
-   "hidden": 1,
-   "label": "Pay Against Benefit Claim",
    "read_only": 1
   },
   {
@@ -93,13 +80,6 @@
    "label": "Claimed Amount",
    "options": "currency",
    "reqd": 1
-  },
-  {
-   "fieldname": "salary_slip",
-   "fieldtype": "Link",
-   "label": "Salary Slip",
-   "options": "Salary Slip",
-   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -153,22 +133,6 @@
    "fieldtype": "Currency",
    "label": "Yearly Amount",
    "read_only": 1
-  },
-  {
-   "depends_on": "accrued_benefit",
-   "fieldname": "accrued_benefit",
-   "fieldtype": "Currency",
-   "label": "Accrued Amount",
-   "read_only": 1
-  },
-  {
-   "default": "0",
-   "fetch_from": "earning_component.is_accrual",
-   "fieldname": "is_accrual_component",
-   "fieldtype": "Check",
-   "hidden": 1,
-   "label": "Is Accrual Component",
-   "read_only": 1
   }
  ],
  "is_submittable": 1,
@@ -178,7 +142,7 @@
    "link_fieldname": "ref_docname"
   }
  ],
- "modified": "2025-05-07 22:55:21.550490",
+ "modified": "2025-08-07 15:23:41.784378",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Claim",

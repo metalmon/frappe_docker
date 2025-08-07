@@ -129,7 +129,7 @@
   },
   {
    "depends_on": "is_flexible_benefit",
-   "description": "If greater than zero, this sets the maximum benefit amount assignable to an employee",
+   "description": "If greater than zero, this sets the maximum benefit amount assignable to any employee",
    "fieldname": "max_benefit_amount",
    "fieldtype": "Currency",
    "label": "Max Benefit Amount (Yearly)"

@@ -1,12 +1,14 @@
 // Copyright (c) 2018, Frappe Technologies Pvt. Ltd. and contributors
 // For license information, please see license.txt
-
 frappe.ui.form.on("Employee Benefit Claim", {
 	setup: (frm) => {
 		frm.set_query("earning_component", () => {
 			return {
 				query: "hrms.payroll.doctype.employee_benefit_claim.employee_benefit_claim.get_benefit_components",
-				filters: { date: frm.doc.payroll_date, employee: frm.doc.employee },
+				filters: {
+					employee: frm.doc.employee,
+					date: frm.doc.payroll_date,
+				},
 			};
 		});
 	},
@@ -36,6 +38,10 @@ frappe.ui.form.on("Employee Benefit Claim", {
 			frm.call("get_benefit_details", () => {
 				frm.refresh_fields();
 			});
+		} else {
+			frm.doc.max_amount_eligible = null;
+			frm.doc.yearly_benefit = null;
+			frm.refresh_fields();
 		}
 	},
 });
