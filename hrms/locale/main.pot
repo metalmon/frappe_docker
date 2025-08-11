@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe HR VERSION\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
-"POT-Creation-Date: 2025-08-03 09:37+0000\n"
-"PO-Revision-Date: 2025-08-03 09:37+0000\n"
+"POT-Creation-Date: 2025-08-10 09:36+0000\n"
+"PO-Revision-Date: 2025-08-10 09:36+0000\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: contact@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -738,7 +738,7 @@ msgstr ""
 msgid "Advance Account"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:43
+#: hrms/hr/doctype/employee_advance/employee_advance.py:44
 msgid "Advance Account is mandatory. Please set the <a href=\"/app/company/{0}#default_employee_advance_account\" target=\"_blank\">Default Employee Advance Account</a> in the Company record {0} and submit this document."
 msgstr ""
 
@@ -2245,7 +2245,7 @@ msgstr ""
 msgid "Check Vacancies On Job Offer Creation"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:335
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:392
 #: hrms/hr/utils.py:855
 msgid "Check {0} for more details"
 msgstr ""
@@ -2812,10 +2812,10 @@ msgstr ""
 msgid "Cover Letter"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.js:54
-#: hrms/hr/doctype/employee_advance/employee_advance.js:66
-#: hrms/hr/doctype/employee_advance/employee_advance.js:83
-#: hrms/hr/doctype/employee_advance/employee_advance.js:94
+#: hrms/hr/doctype/employee_advance/employee_advance.js:55
+#: hrms/hr/doctype/employee_advance/employee_advance.js:67
+#: hrms/hr/doctype/employee_advance/employee_advance.js:84
+#: hrms/hr/doctype/employee_advance/employee_advance.js:95
 #: hrms/hr/doctype/employee_onboarding/employee_onboarding.js:59
 #: hrms/hr/doctype/employee_onboarding/employee_onboarding.js:61
 #: hrms/hr/doctype/expense_claim/expense_claim.js:109
@@ -3297,7 +3297,7 @@ msgstr ""
 msgid "Deduction Reports"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.js:90
+#: hrms/hr/doctype/employee_advance/employee_advance.js:91
 msgid "Deduction from Salary"
 msgstr ""
 
@@ -3930,7 +3930,7 @@ msgstr ""
 msgid "Earned Leaves are auto-allocated via scheduler based on the annual allocation set in the Leave Policy: {0}"
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:47
+#: hrms/hr/doctype/leave_type/leave_type.js:59
 msgid "Earned Leaves are leaves earned by an Employee after working with the company for a certain amount of time. Enabling this will allocate leaves on pro-rata basis by automatically updating Leave Allocation for leaves of this type at intervals set by 'Earned Leave Frequency."
 msgstr ""
 
@@ -4830,6 +4830,10 @@ msgstr ""
 msgid "Employee Transfer cannot be submitted before Transfer Date"
 msgstr ""
 
+#: hrms/hr/doctype/employee_advance/employee_advance.py:73
+msgid "Employee advance account {0} should be of type {1}."
+msgstr ""
+
 #: hrms/hr/doctype/hr_settings/hr_settings.js:27
 msgid "Employee can be named by Employee ID if you assign one, or via Naming Series. Select your preference here."
 msgstr ""
@@ -4901,7 +4905,7 @@ msgstr ""
 msgid "Employee {0} relieved on {1} must be set as 'Left'"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:163
+#: hrms/payroll/doctype/gratuity/gratuity.py:161
 msgid "Employee: {0} have to complete minimum {1} years for gratuity"
 msgstr ""
 
@@ -5146,7 +5150,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:337
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:394
 #: hrms/hr/utils.py:857
 msgid "Error Log"
 msgstr ""
@@ -5278,7 +5282,7 @@ msgstr ""
 msgid "Exchange Rate"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:66
+#: hrms/hr/doctype/employee_advance/employee_advance.py:67
 msgid "Exchange Rate cannot be zero."
 msgstr ""
 
@@ -5472,7 +5476,7 @@ msgstr ""
 #. Label of a shortcut in the Expense Claims Workspace
 #. Label of a Card Break in the Overview Workspace
 #. Label of a Link in the Overview Workspace
-#: hrms/hr/doctype/employee_advance/employee_advance.js:62
+#: hrms/hr/doctype/employee_advance/employee_advance.js:63
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 #: hrms/hr/doctype/vehicle_log/vehicle_log.js:17
 #: hrms/hr/report/unpaid_expense_claim/unpaid_expense_claim.py:20
@@ -5638,7 +5642,7 @@ msgstr ""
 msgid "Failed to setup defaults for country {0}."
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:332
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:389
 msgid "Failed to submit some leave policy assignments:"
 msgstr ""
 
@@ -6055,7 +6059,7 @@ msgstr ""
 msgid "From date can not be less than employee's joining date."
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:42
+#: hrms/hr/doctype/leave_type/leave_type.js:54
 msgid "From here, you can enable encashment for the balance leaves."
 msgstr ""
 
@@ -8013,7 +8017,7 @@ msgstr ""
 msgid "Leave Policy Assignment"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:65
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:69
 msgid "Leave Policy Assignment Overlap"
 msgstr ""
 
@@ -8027,7 +8031,7 @@ msgstr ""
 msgid "Leave Policy Details"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:59
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:63
 msgid "Leave Policy: {0} already assigned for Employee {1} for period {2} to {3}"
 msgstr ""
 
@@ -8118,7 +8122,7 @@ msgstr ""
 msgid "Leave allocation {0} is linked with the Leave Application {1}"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:85
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:89
 msgid "Leave already have been assigned for this Leave Policy Assignment"
 msgstr ""
 
@@ -8191,7 +8195,7 @@ msgstr ""
 msgid "Leaves Pending Approval"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:78
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:82
 msgid "Leaves for the Leave Type {0} won't be carry-forwarded since carry-forwarding is disabled."
 msgstr ""
 
@@ -8199,7 +8203,7 @@ msgstr ""
 msgid "Leaves per Year"
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:30
+#: hrms/hr/doctype/leave_type/leave_type.js:42
 msgid "Leaves you can avail against a holiday you worked on. You can claim Compensatory Off Leave using Compensatory Leave Request. Click {0} to know more"
 msgstr ""
 
@@ -8666,7 +8670,7 @@ msgstr ""
 msgid "Minimum working days required since Date of Joining to apply for this leave"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:46
+#: hrms/hr/doctype/employee_advance/employee_advance.py:47
 msgid "Missing Advance Account"
 msgstr ""
 
@@ -8986,7 +8990,7 @@ msgstr ""
 msgid "No Leaves Allocated to Employee: {0} for Leave Type: {1}"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:267
+#: hrms/payroll/doctype/gratuity/gratuity.py:265
 msgid "No Salary Slip found for Employee: {0}"
 msgstr ""
 
@@ -9026,15 +9030,15 @@ msgstr ""
 msgid "No advances found"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:283
+#: hrms/payroll/doctype/gratuity/gratuity.py:281
 msgid "No applicable Earning component found in last salary slip for Gratuity Rule: {0}"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:296
+#: hrms/payroll/doctype/gratuity/gratuity.py:294
 msgid "No applicable Earning components found for Gratuity Rule: {0}"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:256
+#: hrms/payroll/doctype/gratuity/gratuity.py:254
 msgid "No applicable slab found for the calculation of gratuity amount as per the Gratuity Rule: {0}"
 msgstr ""
 
@@ -9461,7 +9465,7 @@ msgstr ""
 msgid "Optional Holiday List not set for leave period {0}"
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:23
+#: hrms/hr/doctype/leave_type/leave_type.js:35
 msgid "Optional Leaves are holidays that Employees can choose to avail from a list of holidays published by the company."
 msgstr ""
 
@@ -9724,7 +9728,7 @@ msgstr ""
 msgid "Payables"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.js:50
+#: hrms/hr/doctype/employee_advance/employee_advance.js:51
 #: hrms/hr/doctype/expense_claim/expense_claim.js:105
 #: hrms/hr/doctype/expense_claim/expense_claim_dashboard.py:9
 #: hrms/hr/doctype/leave_encashment/leave_encashment.js:58
@@ -10203,12 +10207,12 @@ msgstr ""
 msgid "Please set Payroll based on in Payroll settings"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:175
+#: hrms/payroll/doctype/gratuity/gratuity.py:173
 msgid "Please set Relieving Date for employee: {0}"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:212
-#: hrms/hr/doctype/employee_advance/employee_advance.py:316
+#: hrms/hr/doctype/employee_advance/employee_advance.py:227
+#: hrms/hr/doctype/employee_advance/employee_advance.py:331
 msgid "Please set a Default Cash Account in Company defaults"
 msgstr ""
 
@@ -11167,12 +11171,12 @@ msgid "Retirement Age (In Years)"
 msgstr ""
 
 #. Option for the 'Action' (Select) field in DocType 'Full and Final Asset'
-#: hrms/hr/doctype/employee_advance/employee_advance.js:79
+#: hrms/hr/doctype/employee_advance/employee_advance.js:80
 #: hrms/hr/doctype/full_and_final_asset/full_and_final_asset.json
 msgid "Return"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:153
+#: hrms/hr/doctype/employee_advance/employee_advance.py:168
 msgid "Return amount cannot be greater than unclaimed amount"
 msgstr ""
 
@@ -11304,15 +11308,15 @@ msgstr ""
 msgid "Row {0}# Allocated amount {1} cannot be greater than unclaimed amount {2}"
 msgstr ""
 
-#: hrms/hr/doctype/leave_encashment/leave_encashment.py:273
+#: hrms/hr/doctype/leave_encashment/leave_encashment.py:270
 msgid "Row {0}# Paid Amount cannot be greater than Encashment amount"
 msgstr ""
 
-#: hrms/payroll/doctype/gratuity/gratuity.py:135
+#: hrms/payroll/doctype/gratuity/gratuity.py:133
 msgid "Row {0}# Paid Amount cannot be greater than Total amount"
 msgstr ""
 
-#: hrms/hr/doctype/employee_advance/employee_advance.py:145
+#: hrms/hr/doctype/employee_advance/employee_advance.py:160
 msgid "Row {0}# Paid Amount cannot be greater than requested advance amount"
 msgstr ""
 
@@ -12655,7 +12659,7 @@ msgstr ""
 msgid "Submission Date"
 msgstr ""
 
-#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:343
+#: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:400
 msgid "Submission Failed"
 msgstr ""
 
@@ -13120,11 +13124,11 @@ msgstr ""
 msgid "This error can be due to missing or deleted field."
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:16
+#: hrms/hr/doctype/leave_type/leave_type.js:28
 msgid "This field allows you to set the maximum number of consecutive leaves an Employee can apply for."
 msgstr ""
 
-#: hrms/hr/doctype/leave_type/leave_type.js:9
+#: hrms/hr/doctype/leave_type/leave_type.js:21
 msgid "This field allows you to set the maximum number of leaves that can be allocated annually for this Leave Type while creating the Leave Policy"
 msgstr ""
 
