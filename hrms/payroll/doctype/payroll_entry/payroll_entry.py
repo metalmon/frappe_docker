@@ -372,9 +372,6 @@ class PayrollEntry(Document):
 			component_dict = {}
 
 			for item in salary_components:
-				if not self.should_add_component_to_accrual_jv(component_type, item):
-					continue
-
 				employee_cost_centers = self.get_payroll_cost_centers_for_employee(
 					item.employee, item.salary_structure
 				)
@@ -399,19 +396,6 @@ class PayrollEntry(Document):
 			account_details = self.get_account(component_dict=component_dict)
 
 			return account_details
-
-	def should_add_component_to_accrual_jv(self, component_type: str, item: dict) -> bool:
-		add_component_to_accrual_jv = True
-		if component_type == "earnings":
-			is_flexible_benefit, only_tax_impact = frappe.get_cached_value(
-				"Salary Component",
-				item["salary_component"],
-				["is_flexible_benefit", "only_tax_impact"],
-			)
-			if cint(is_flexible_benefit) and cint(only_tax_impact):
-				add_component_to_accrual_jv = False
-
-		return add_component_to_accrual_jv
 
 	def get_advance_deduction(self, component_type: str, item: dict) -> str | None:
 		if component_type == "deductions" and item.additional_salary:
@@ -905,7 +889,6 @@ class PayrollEntry(Document):
 			if salary_detail.parentfield == "earnings":
 				(
 					is_flexible_benefit,
-					only_tax_impact,
 					create_separate_je,
 					statistical_component,
 				) = frappe.db.get_value(
@@ -913,14 +896,13 @@ class PayrollEntry(Document):
 					salary_detail.salary_component,
 					(
 						"is_flexible_benefit",
-						"only_tax_impact",
 						"create_separate_payment_entry_against_benefit_claim",
 						"statistical_component",
 					),
 					cache=True,
 				)
 
-				if only_tax_impact != 1 and statistical_component != 1:
+				if statistical_component != 1:
 					if is_flexible_benefit == 1 and create_separate_je == 1:
 						self.set_accounting_entries_for_bank_entry(
 							salary_detail.amount, salary_detail.salary_component

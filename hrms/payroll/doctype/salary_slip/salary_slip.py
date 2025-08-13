@@ -1384,12 +1384,7 @@ class SalarySlip(TransactionBase):
 			total_paid = ledger_map[benefit.salary_component].get("Payout", 0)
 
 			# Process according to payout method
-			if benefit.payout_method == "Payout on prorata basis":
-				current_period_benefit, is_accrual = self._process_prorata_payout(
-					benefit, current_period_benefit, total_paid
-				)
-
-			elif benefit.payout_method == "Accrue and payout at end of payroll period":
+			if benefit.payout_method == "Accrue and payout at end of payroll period":
 				current_period_benefit, is_accrual = self._process_end_period_payout(
 					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
 				)
@@ -1425,16 +1420,6 @@ class SalarySlip(TransactionBase):
 			benefit_ledger_map[entry["salary_component"]][entry["transaction_type"]] += entry["amount"]
 
 		return benefit_ledger_map
-
-	def _process_prorata_payout(self, benefit, current_period_benefit, total_paid):
-		"""Process benefit with 'Payout on prorata basis' method."""
-		is_accrual = 0
-
-		# If remaining benefit amount is less than calculated benefit, adjust to exact remainder
-		if 0 < (benefit.yearly_amount - total_paid) < current_period_benefit:
-			current_period_benefit = benefit.yearly_amount - total_paid
-
-		return current_period_benefit, is_accrual
 
 	def _process_end_period_payout(
 		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle

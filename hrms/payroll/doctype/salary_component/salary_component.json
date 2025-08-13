@@ -41,7 +41,6 @@
   "is_flexible_benefit",
   "payout_method",
   "final_cycle_accrual_payout",
-  "payout_component",
   "column_break_9",
   "max_benefit_amount"
  ],
@@ -254,32 +253,15 @@
    "label": "Do Not Include in Accounting Entries"
   },
   {
-   "default": "0",
-   "depends_on": "is_flexible_benefit",
-   "fieldname": "is_accrual",
-   "fieldtype": "Check",
-   "label": "Is Accrual"
-  },
-  {
-   "depends_on": "is_accrual",
-   "depends_on": "eval:doc.payout_method==\"Accrue and payout at end of payroll period\";",
-   "fieldname": "payout_component",
-   "fieldtype": "Link",
-   "label": "Payout Component",
-   "link_filters": "[[\"Salary Component\",\"type\",\"=\",\"Earning\"],[\"Salary Component\",\"do_not_include_in_total\",\"=\",0]]",
-   "mandatory_depends_on": "eval:doc.payout_method==\"Accrue and payout at end of payroll period\";",
-   "options": "Salary Component"
-  },
-  {
    "depends_on": "is_flexible_benefit",
    "fieldname": "payout_method",
    "fieldtype": "Select",
    "label": "Payout Method",
-   "options": "Payout on prorata basis\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
+   "options": "Accrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
   },
   {
    "default": "0",
-   "depends_on": "eval:doc.payout_method==\"Accrue per cycle, pay only on claim\"",
+   "depends_on": "eval:(doc.is_flexible_benefit && doc.payout_method==\"Accrue per cycle, pay only on claim\")",
    "fieldname": "final_cycle_accrual_payout",
    "fieldtype": "Check",
    "label": "Payout Unclaimed Amount in Final Payroll Cycle"
@@ -288,7 +270,7 @@
  "icon": "fa fa-flag",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-07-14 15:31:15.303099",
+ "modified": "2025-08-12 11:43:47.517963",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Component",

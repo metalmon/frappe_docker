@@ -121,6 +121,8 @@ class EmployeeBenefitClaim(Document):
 		self.max_amount_eligible = claimable_benefit + current_month_amount
 
 	def preview_salary_slip_and_fetch_current_month_benefit_amount(self):
+		from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
+
 		payout_method = frappe.get_cached_value("Salary Component", self.earning_component, "payout_method")
 		calculate_current_month_benefit_amount = payout_method == "Accrue per cycle, pay only on claim"
 		current_month_amount = 0
@@ -133,9 +135,6 @@ class EmployeeBenefitClaim(Document):
 						self.employee, self.payroll_date
 					)
 				)
-
-			from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
-
 			ss = make_salary_slip(
 				salary_structure, employee=self.employee, posting_date=self.payroll_date, for_preview=1
 			)

@@ -63,7 +63,6 @@ def get_max_claim_eligible(employee, payroll_period, benefit_component):
 	elif payout_method == "Allow claim up to full period limit":
 		claim_eligible = benefit_component.amount
 
-	print(f"\n\n benefit_component :{benefit_component} \n claim_eligible: {claim_eligible}\n\n")
 	return claim_eligible
 
 
