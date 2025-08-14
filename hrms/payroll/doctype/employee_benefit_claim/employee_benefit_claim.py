@@ -4,7 +4,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import getdate
+from frappe.utils import get_link_to_form, getdate
 
 from hrms.payroll.doctype.payroll_period.payroll_period import get_payroll_period
 from hrms.payroll.doctype.salary_structure_assignment.salary_structure_assignment import (
@@ -37,11 +37,11 @@ class EmployeeBenefitClaim(Document):
 
 	def validate_duplicate_claim(self):
 		"""
-		Since Employee Benefit Ledger entries are only created upon Salary Slip submission, there is a risk of mulitple claims for the same benefit component within a payroll cycle, and combined claim amount exceeding the maximum eligible amount. So limit the claim to one per month or payroll cycle.
+		Since Employee Benefit Ledger entries are only created upon Salary Slip submission, there is a risk of mulitple claims being created for the same benefit component within one payroll cycle, and combined claim amount exceeding the maximum eligible amount. So limit the claim to one per month or payroll cycle.
 		"""
 		month_start_date = frappe.utils.get_first_day(self.payroll_date)
 		month_end_date = frappe.utils.get_last_day(self.payroll_date)
-		if frappe.db.exists(
+		existing_benefit_claim = frappe.db.get_value(
 			"Employee Benefit Claim",
 			{
 				"employee": self.employee,
@@ -50,17 +50,18 @@ class EmployeeBenefitClaim(Document):
 				"docstatus": 1,
 				"name": ["!=", self.name],
 			},
-			limit=1,
-		):
-			frappe.throw(
-				_(
-					"Employee Benefit Claim for Employee {0} with component {1} already exists for the month of {2}.<br>This validation is to avoid duplicate claims within same payroll cycle"
-				).format(
-					self.employee,
-					self.earning_component,
-					frappe.bold(frappe.utils.formatdate(self.payroll_date, "MMMM yyyy")),
-				)
+			"name",
+		)
+		if existing_benefit_claim:
+			msg = _(
+				"Employee {0} has already claimed the benefit '{1}' for {2} ({3}).<br>To prevent overpayments, only one claim per benefit type is allowed in each payroll cycle."
+			).format(
+				frappe.bold(self.employee),
+				frappe.bold(self.earning_component),
+				frappe.bold(frappe.utils.formatdate(self.payroll_date, "MMMM yyyy")),
+				frappe.bold(get_link_to_form("Employee Benefit Claim", existing_benefit_claim)),
 			)
+			frappe.throw(msg, title=_("Duplicate Claim Detected"))
 
 	def on_submit(self):
 		self.create_additional_salary()
@@ -83,7 +84,7 @@ class EmployeeBenefitClaim(Document):
 
 	@frappe.whitelist()
 	def get_benefit_details(self):
-		# Fetch benefit details for the employee based on the earning components chosen
+		# Fetch amx benefit amount and claimable amount for the employee based on the earning component chosen
 		from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
 			get_max_claim_eligible,
 		)
@@ -112,10 +113,9 @@ class EmployeeBenefitClaim(Document):
 		).run(as_dict=True)
 		if component_details:
 			component_details = component_details[0]
+			current_month_amount = self.preview_salary_slip_and_fetch_current_month_benefit_amount()
 			yearly_benefit = component_details.get("amount", 0)
 			claimable_benefit = get_max_claim_eligible(self.employee, payroll_period, component_details)
-
-		current_month_amount = self.preview_salary_slip_and_fetch_current_month_benefit_amount()
 
 		self.yearly_benefit = yearly_benefit
 		self.max_amount_eligible = claimable_benefit + current_month_amount

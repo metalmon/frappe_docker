@@ -1292,6 +1292,7 @@ class SalarySlip(TransactionBase):
 			raise
 
 	def add_employee_benefits(self):
+		"""Fetch employee benefits from Salary Structure Assignment. Get amounts for accrual or payouts for each and add to salary slip"""
 		EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
 		SalaryComponent = frappe.qb.DocType("Salary Component")
 		employee_benefits = (
@@ -1378,6 +1379,10 @@ class SalarySlip(TransactionBase):
 		# Process each benefit according to its payout method
 		for benefit in employee_benefits:
 			current_period_benefit = benefit.yearly_amount / total_sub_periods if total_sub_periods else 0
+			if benefit.depends_on_payment_days:
+				current_period_benefit = (
+					flt(current_period_benefit) * flt(self.payment_days) / cint(self.total_working_days)
+				)
 
 			# Get accrued and paid totals for this benefit
 			total_accrued = ledger_map[benefit.salary_component].get("Accrual", 0)
@@ -1385,7 +1390,7 @@ class SalarySlip(TransactionBase):
 
 			# Process according to payout method
 			if benefit.payout_method == "Accrue and payout at end of payroll period":
-				current_period_benefit, is_accrual = self._process_end_period_payout(
+				current_period_benefit, is_accrual = self._get_benefit_amount_and_transaction_type(
 					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
 				)
 
@@ -1403,6 +1408,7 @@ class SalarySlip(TransactionBase):
 		return employee_benefits
 
 	def _get_benefit_ledger_entries(self, employee_benefits):
+		"""Fetch existing benefit ledger entries and map amounts by benefit salary component and transaction type."""
 		from collections import defaultdict
 
 		ledger_entries = frappe.get_all(
@@ -1414,20 +1420,21 @@ class SalarySlip(TransactionBase):
 			},
 			fields=["salary_component", "transaction_type", "amount"],
 		)
-
 		benefit_ledger_map = defaultdict(lambda: defaultdict(float))
 		for entry in ledger_entries:
 			benefit_ledger_map[entry["salary_component"]][entry["transaction_type"]] += entry["amount"]
 
 		return benefit_ledger_map
 
-	def _process_end_period_payout(
+	def _get_benefit_amount_and_transaction_type(
 		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
 	):
 		"""Process 'Accrue and payout at end of payroll period' benefit"""
 		is_accrual = 1
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
-			current_period_benefit = benefit.yearly_amount - total_accrued
+			current_period_benefit = (
+				benefit.yearly_amount - total_accrued
+			)  # Limit benefit amount to remaining yearly amount
 
 		if is_last_payroll_cycle:  # On last payroll cycle, pay out all accrued benefits
 			current_period_benefit = total_accrued + current_period_benefit - total_paid
@@ -1440,33 +1447,28 @@ class SalarySlip(TransactionBase):
 	):
 		"""Process 'Accrue per cycle, pay only on claim' benefit"""
 		is_accrual = 1
-
-		# any benefit claims made through additional salary for the current period
+		amount_claimed_over_accruals = 0
 		benefit_claims = [
 			row
 			for row in self.earnings
 			if row.salary_component == benefit.salary_component
 			and getattr(row, "additional_salary", None)
-			and getattr(row, "ref_doctype", None) == "Employee Benefit Application"
-		]
+			and getattr(row, "ref_doctype", None) == "Employee Benefit Claim"
+		]  # any benefit claims for this benefit component made through additional salary for the current period
 
 		claimed_amount = sum(row.amount for row in benefit_claims) if benefit_claims else 0
-		if (
-			claimed_amount > total_accrued
-		):  # indicates that claim includes whole or part of current period amount
-			claimed_amount -= total_accrued
+		if claimed_amount > total_accrued:
+			# here claim amount exceeds previously accrued benefits, this could be when an employee submits a benefit claim including the current payroll cycle's benefit amount before its accrual.
+			amount_claimed_over_accruals = claimed_amount - total_accrued
 		total_paid += claimed_amount
 
-		if benefit.depends_on_payment_days:
-			current_period_benefit = (
-				flt(current_period_benefit) * flt(self.payment_days) / cint(self.total_working_days)
-			)
-
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
-			current_period_benefit = benefit.yearly_amount - total_accrued
+			current_period_benefit = (
+				benefit.yearly_amount - total_accrued
+			)  # Limit benefit amount to remaining yearly amount
 
 		current_period_benefit = max(
-			current_period_benefit - claimed_amount, 0
+			current_period_benefit - amount_claimed_over_accruals, 0
 		)  # deduct claimed amount and accrue the rest
 
 		# Pay out all unclaimed benefits in final cycle if final payout option is enabled
@@ -1479,6 +1481,7 @@ class SalarySlip(TransactionBase):
 	def add_additional_salary_components(self, component_type):
 		if component_type == "earnings":
 			self.benefit_ledger_components = []
+
 		additional_salaries = get_additional_salaries(
 			self.employee, self.start_date, self.end_date, component_type
 		)
@@ -1493,7 +1496,11 @@ class SalarySlip(TransactionBase):
 				is_recurring=additional_salary.is_recurring,
 			)
 
-			if component_type == "earnings" and additional_salary.ref_doctype == "Employee Benefit Claim":
+			if (
+				hasattr(self, "benefit_ledger_components")
+				and component_type == "earnings"
+				and additional_salary.ref_doctype == "Employee Benefit Claim"
+			):
 				self.benefit_ledger_components.append(
 					{
 						"salary_component": additional_salary.component,
