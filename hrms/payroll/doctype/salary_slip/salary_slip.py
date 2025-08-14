@@ -248,13 +248,12 @@ class SalarySlip(TransactionBase):
 
 	def create_benefits_ledger_entry(self):
 		if self.benefit_ledger_components:
-			for component_details in self.benefit_ledger_components:
-				args = {
-					"salary_structure_assignment": self._salary_structure_assignment.name,
-					"payroll_period": self.payroll_period.name,
-					**component_details,
-				}
-				create_employee_benefit_ledger_entry(self, args)
+			args = {
+				"salary_structure_assignment": self._salary_structure_assignment.name,
+				"payroll_period": self.payroll_period.name,
+				"benefit_ledger_components": self.benefit_ledger_components,
+			}
+			create_employee_benefit_ledger_entry(self, args)
 
 	def on_cancel(self):
 		self.set_status()
@@ -1308,7 +1307,11 @@ class SalarySlip(TransactionBase):
 				SalaryComponent.final_cycle_accrual_payout,
 			)
 			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
-			.where(SalaryComponent.payout_method != "Allow claim up to full period limit")
+			.where(SalaryComponent.is_flexible_benefit == 1)
+			.where(
+				(SalaryComponent.payout_method == "Accrue and payout at end of payroll period")
+				| (SalaryComponent.payout_method == "Accrue per cycle, pay only on claim")
+			)
 			.run(as_dict=True)
 		)
 
@@ -1388,20 +1391,13 @@ class SalarySlip(TransactionBase):
 			total_accrued = ledger_map[benefit.salary_component].get("Accrual", 0)
 			total_paid = ledger_map[benefit.salary_component].get("Payout", 0)
 
-			# Process according to payout method
-			if benefit.payout_method == "Accrue and payout at end of payroll period":
-				current_period_benefit, is_accrual = self._get_benefit_amount_and_transaction_type(
-					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
-				)
+			current_period_benefit, is_accrual = self._get_benefit_amount_and_transaction_type(
+				benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+			)
 
-			elif benefit.payout_method == "Accrue per cycle, pay only on claim":
-				current_period_benefit, is_accrual = self._process_claim_based_payout(
-					benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
-				)
 			current_period_benefit = flt(current_period_benefit, precision)
 			if benefit.round_to_the_nearest_integer:
 				current_period_benefit = rounded(current_period_benefit or 0)
-
 			benefit.is_accrual = is_accrual
 			benefit.amount = current_period_benefit
 
@@ -1428,38 +1424,31 @@ class SalarySlip(TransactionBase):
 
 	def _get_benefit_amount_and_transaction_type(
 		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
-	):
-		"""Process 'Accrue and payout at end of payroll period' benefit"""
+	):  # Process according to payout method
 		is_accrual = 1
-		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
-			current_period_benefit = (
-				benefit.yearly_amount - total_accrued
-			)  # Limit benefit amount to remaining yearly amount
 
-		if is_last_payroll_cycle:  # On last payroll cycle, pay out all accrued benefits
-			current_period_benefit = total_accrued + current_period_benefit - total_paid
-			is_accrual = 0
+		if benefit.payout_method == "Accrue and payout at end of payroll period":
+			current_period_benefit, is_accrual = self._get_final_period_benefit_payout(
+				benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+			)
+		elif benefit.payout_method == "Accrue per cycle, pay only on claim":
+			current_period_benefit, is_accrual = self._get_claim_based_benefit_payout(
+				benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+			)
 
 		return current_period_benefit, is_accrual
 
-	def _process_claim_based_payout(
+	def _get_final_period_benefit_payout(
 		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
 	):
-		"""Process 'Accrue per cycle, pay only on claim' benefit"""
+		"""Process 'Accrue and payout at end of payroll period' benefit"""
 		is_accrual = 1
-		amount_claimed_over_accruals = 0
 		benefit_claims = [
 			row
 			for row in self.earnings
-			if row.salary_component == benefit.salary_component
-			and getattr(row, "additional_salary", None)
-			and getattr(row, "ref_doctype", None) == "Employee Benefit Claim"
-		]  # any benefit claims for this benefit component made through additional salary for the current period
-
+			if row.salary_component == benefit.salary_component and getattr(row, "additional_salary", None)
+		]  # Any claims for this benefit component to be paid via additional salary in this payroll cycle
 		claimed_amount = sum(row.amount for row in benefit_claims) if benefit_claims else 0
-		if claimed_amount > total_accrued:
-			# here claim amount exceeds previously accrued benefits, this could be when an employee submits a benefit claim including the current payroll cycle's benefit amount before its accrual.
-			amount_claimed_over_accruals = claimed_amount - total_accrued
 		total_paid += claimed_amount
 
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
@@ -1467,9 +1456,33 @@ class SalarySlip(TransactionBase):
 				benefit.yearly_amount - total_accrued
 			)  # Limit benefit amount to remaining yearly amount
 
-		current_period_benefit = max(
-			current_period_benefit - amount_claimed_over_accruals, 0
-		)  # deduct claimed amount and accrue the rest
+		if is_last_payroll_cycle:  # On last payroll cycle, pay out all accrued benefits
+			current_period_benefit = max(total_accrued + current_period_benefit - total_paid, 0)
+			is_accrual = 0
+
+		return current_period_benefit, is_accrual
+
+	def _get_claim_based_benefit_payout(
+		self, benefit, current_period_benefit, total_accrued, total_paid, is_last_payroll_cycle
+	):
+		"""Process 'Accrue per cycle, pay only on claim' benefits.
+		Always record the full entitlement for the current cycle, even if part of it
+		was already claimed. This ensures the Employee Benefit Ledger shows
+		the correct total entitlement for accurate future claim balance calculations.
+		"""
+		is_accrual = 1
+		benefit_claims = [
+			row
+			for row in self.earnings
+			if row.salary_component == benefit.salary_component and getattr(row, "additional_salary", None)
+		]
+		claimed_amount = sum(row.amount for row in benefit_claims) if benefit_claims else 0
+		total_paid += claimed_amount
+
+		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
+			current_period_benefit = (
+				benefit.yearly_amount - total_accrued
+			)  # Limit benefit amount to remaining yearly amount
 
 		# Pay out all unclaimed benefits in final cycle if final payout option is enabled
 		if is_last_payroll_cycle and benefit.final_cycle_accrual_payout:
@@ -1506,6 +1519,7 @@ class SalarySlip(TransactionBase):
 						"salary_component": additional_salary.component,
 						"amount": additional_salary.amount,
 						"is_accrual": 0,
+						"transaction_type": "Payout",
 						"remarks": f"Payout against Employee Benefit Claim {additional_salary.ref_docname}",
 					}
 				)

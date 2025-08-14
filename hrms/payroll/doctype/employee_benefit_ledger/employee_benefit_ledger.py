@@ -14,30 +14,38 @@ class EmployeeBenefitLedger(Document):
 def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 	EmployeeBenefitLedger = frappe.qb.DocType("Employee Benefit Ledger")
 	if not delete:
-		ledger_entry = frappe._dict(
-			doctype="Employee Benefit Ledger",
-			employee=ref_doc.employee,
-			employee_name=ref_doc.employee_name,
-			company=ref_doc.company,
-			posting_date=ref_doc.posting_date,
-			salary_slip=ref_doc.name,
-		)
-		ledger_entry.update(args)
-		if not args.get("yearly_benefit"):
-			ledger_entry.yearly_benefit = (
-				frappe.db.get_value(
-					"Employee Benefit Detail",
-					{
-						"parent": args.get("salary_structure_assignment"),
-						"salary_component": args.get("salary_component"),
-					},
-					"amount",
-				)
-				or 0
+		if args.get("benefit_ledger_components"):
+			ledger_entry = frappe._dict(
+				doctype="Employee Benefit Ledger",
+				employee=ref_doc.employee,
+				employee_name=ref_doc.employee_name,
+				company=ref_doc.company,
+				posting_date=ref_doc.posting_date,
+				salary_slip=ref_doc.name,
+				payroll_period=args.get("payroll_period"),
 			)
-		doc = frappe.get_doc(ledger_entry)
-		doc.insert()
-		return ledger_entry
+			for component in args.get("benefit_ledger_components"):
+				args["salary_component"] = component.get("salary_component")
+				args["amount"] = component.get("amount")
+				args["transaction_type"] = component.get("transaction_type")
+				args["yearly_benefit"] = component.get("yearly_benefit", 0)
+				ledger_entry.update(args)
+				if not args.get("yearly_benefit"):
+					ledger_entry.yearly_benefit = (
+						frappe.db.get_value(
+							"Employee Benefit Detail",
+							{
+								"parent": args.get("salary_structure_assignment"),
+								"salary_component": args.get("salary_component"),
+							},
+							"amount",
+						)
+						or 0
+					)
+
+				doc = frappe.get_doc(ledger_entry)
+				doc.insert()
+		return
 	(
 		frappe.qb.from_(EmployeeBenefitLedger)
 		.delete()
