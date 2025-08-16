@@ -115,10 +115,12 @@ class EmployeeBenefitClaim(Document):
 			component_details = component_details[0]
 			current_month_amount = self.preview_salary_slip_and_fetch_current_month_benefit_amount()
 			yearly_benefit = component_details.get("amount", 0)
-			claimable_benefit = get_max_claim_eligible(self.employee, payroll_period, component_details)
+			claimable_benefit = get_max_claim_eligible(
+				self.employee, payroll_period, component_details, current_month_amount
+			)
 
 		self.yearly_benefit = yearly_benefit
-		self.max_amount_eligible = claimable_benefit + current_month_amount
+		self.max_amount_eligible = claimable_benefit
 
 	def preview_salary_slip_and_fetch_current_month_benefit_amount(self):
 		from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip

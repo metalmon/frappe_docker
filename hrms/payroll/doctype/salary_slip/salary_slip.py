@@ -1321,7 +1321,6 @@ class SalarySlip(TransactionBase):
 
 	def add_current_period_employee_benefits(self, employee_benefits):
 		"""Add benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
-
 		self.accrued_benefits = []
 
 		for benefit in employee_benefits:
@@ -1348,7 +1347,7 @@ class SalarySlip(TransactionBase):
 				)
 
 			transaction_type = "Accrual" if benefit.is_accrual else "Payout"
-			remarks = "Pro rata Benefit Accrual" if benefit.is_accrual else "Pro rata Benefit Payout"
+			remarks = "Pro rata Benefit Accrual" if benefit.is_accrual else "Benefit Payout"
 
 			self.benefit_ledger_components.append(
 				{
