@@ -62,14 +62,6 @@ frappe.ui.form.on("Salary Component", {
 		}
 	},
 
-	create_separate_payment_entry_against_benefit_claim: function (frm) {
-		if (frm.doc.create_separate_payment_entry_against_benefit_claim) {
-			frm.set_df_property("accounts", "reqd", 1);
-		} else {
-			frm.set_df_property("accounts", "reqd", 0);
-		}
-	},
-
 	add_update_structure_button: function (frm) {
 		for (const df of ["Condition", "Formula"]) {
 			frm.add_custom_button(

@@ -886,52 +886,23 @@ class PayrollEntry(Document):
 		salary_details = self.get_salary_slip_details(for_withheld_salaries)
 
 		for salary_detail in salary_details:
-			if salary_detail.parentfield == "earnings":
-				(
-					is_flexible_benefit,
-					create_separate_je,
-					statistical_component,
-				) = frappe.db.get_value(
-					"Salary Component",
-					salary_detail.salary_component,
-					(
-						"is_flexible_benefit",
-						"create_separate_payment_entry_against_benefit_claim",
-						"statistical_component",
-					),
-					cache=True,
-				)
-
-				if statistical_component != 1:
-					if is_flexible_benefit == 1 and create_separate_je == 1:
-						self.set_accounting_entries_for_bank_entry(
-							salary_detail.amount, salary_detail.salary_component
-						)
-					else:
-						if employee_wise_accounting_enabled:
-							self.set_employee_based_payroll_payable_entries(
-								"earnings",
-								salary_detail.employee,
-								salary_detail.amount,
-								salary_detail.salary_structure,
-							)
-						salary_slip_total += salary_detail.amount
-
-			if salary_detail.parentfield == "deductions":
-				statistical_component = frappe.db.get_value(
-					"Salary Component", salary_detail.salary_component, "statistical_component", cache=True
-				)
-
-				if not statistical_component:
+			statistical_component = frappe.db.get_value(
+				"Salary Component", salary_detail.salary_component, "statistical_component", cache=True
+			)
+			if not statistical_component:
+				parent_field = salary_detail.parentfield
+				if parent_field in ("earnings", "deductions"):
 					if employee_wise_accounting_enabled:
 						self.set_employee_based_payroll_payable_entries(
-							"deductions",
+							salary_detail.parentfield,
 							salary_detail.employee,
 							salary_detail.amount,
 							salary_detail.salary_structure,
 						)
-
-					salary_slip_total -= salary_detail.amount
+					if parent_field == "earnings":
+						salary_slip_total += salary_detail.amount
+					elif parent_field == "deductions":
+						salary_slip_total -= salary_detail.amount
 
 		total_loan_repayment = self.process_loan_repayments_for_bank_entry(salary_details) or 0
 		salary_slip_total -= total_loan_repayment
