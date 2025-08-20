@@ -42,6 +42,20 @@ frappe.ui.form.on("Salary Component", {
 			set_value_for_condition_and_formula(frm);
 			frm.set_value("formula", "");
 			frm.set_value("amount", 0);
+		} else {
+			frm.set_value("payout_method", "");
+		}
+	},
+
+	payout_method: (frm) => {
+		if (
+			frm.doc.is_flexible_benefit &&
+			[
+				"Accrue and payout at end of payroll period",
+				"Accrue per cycle, pay only on claim",
+			].includes(frm.doc.payout_method)
+		) {
+			frm.set_value("accrual_component", 1);
 		}
 	},
 
@@ -53,6 +67,7 @@ frappe.ui.form.on("Salary Component", {
 		if (frm.doc.type == "Deduction") {
 			frm.set_value("is_tax_applicable", 0);
 			frm.set_value("is_flexible_benefit", 0);
+			frm.set_value("accrual_component", 0);
 		}
 	},
 

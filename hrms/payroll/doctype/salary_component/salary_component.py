@@ -19,6 +19,7 @@ class SalaryComponent(Document):
 	def validate(self):
 		self.validate_abbr()
 		self.validate_accounts()
+		self.validate_accrual_component()
 
 	def on_update(self):
 		# set old values (allowing multiline strings for better readability in the doctype form)
@@ -56,6 +57,25 @@ class SalaryComponent(Document):
 				title=_("Warning"),
 				msg=_("Accounts not set for Salary Component {0}").format(self.name),
 				indicator="orange",
+			)
+
+	def validate_accrual_component(self):
+		if (
+			self.is_flexible_benefit
+			and self.payout_method
+			in ["Accrue and payout at end of payroll period", "Accrue per cycle, pay only on claim"]
+			and not self.accrual_component
+		):
+			frappe.throw(
+				_(
+					"Accrual Component must be set for Flexible Benefit Salary Components with accrual payout methods."
+				),
+				title=_("Invalid Accrual Component"),
+			)
+		if self.type != "Earning" and self.accrual_component:
+			frappe.throw(
+				_("Accrual Component can only be set for Earning Salary Components."),
+				title=_("Invalid Accrual Component"),
 			)
 
 	@frappe.whitelist()
