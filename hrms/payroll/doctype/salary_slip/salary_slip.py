@@ -1153,9 +1153,11 @@ class SalarySlip(TransactionBase):
 		if not getattr(self, "_salary_structure_doc", None):
 			self.set_salary_structure_doc()
 
+		if component_type == "earnings":
+			self.benefit_ledger_components = []
+
 		self.add_structure_components(component_type)
 		self.add_additional_salary_components(component_type)
-
 		if component_type == "earnings":
 			self.add_employee_benefits()
 		else:
@@ -1219,6 +1221,18 @@ class SalarySlip(TransactionBase):
 					default_amount=default_amount,
 					remove_if_zero_valued=remove_if_zero_valued,
 				)
+			if component_type == "earnings" and hasattr(self, "benefit_ledger_components"):
+				if struct_row.accrual_component:
+					# track accrual components in Employee Benefit Ledger
+					self.benefit_ledger_components.append(
+						{
+							"salary_component": struct_row.salary_component,
+							"amount": default_amount,
+							"is_accrual": 1,
+							"transaction_type": "Accrual",
+							"remarks": "Accrual Component assigned via salary structure",
+						}
+					)
 
 	def get_data_for_eval(self):
 		"""Returns data for evaluating formula"""
@@ -1320,7 +1334,7 @@ class SalarySlip(TransactionBase):
 			self.add_current_period_employee_benefits(employee_benefits)
 
 	def add_current_period_employee_benefits(self, employee_benefits):
-		"""Add benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
+		"""Add flexible benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
 		self.accrued_benefits = []
 
 		for benefit in employee_benefits:
@@ -1347,7 +1361,7 @@ class SalarySlip(TransactionBase):
 				)
 
 			transaction_type = "Accrual" if benefit.is_accrual else "Payout"
-			remarks = "Pro rata Benefit Accrual" if benefit.is_accrual else "Benefit Payout"
+			remarks = "Pro rata flexible benefit accrual" if benefit.is_accrual else "Flexible benefit payout"
 
 			self.benefit_ledger_components.append(
 				{
@@ -1491,9 +1505,6 @@ class SalarySlip(TransactionBase):
 		return current_period_benefit, is_accrual
 
 	def add_additional_salary_components(self, component_type):
-		if component_type == "earnings":
-			self.benefit_ledger_components = []
-
 		additional_salaries = get_additional_salaries(
 			self.employee, self.start_date, self.end_date, component_type
 		)
@@ -1508,20 +1519,27 @@ class SalarySlip(TransactionBase):
 				is_recurring=additional_salary.is_recurring,
 			)
 
-			if (
-				hasattr(self, "benefit_ledger_components")
-				and component_type == "earnings"
-				and additional_salary.ref_doctype == "Employee Benefit Claim"
-			):
-				self.benefit_ledger_components.append(
-					{
-						"salary_component": additional_salary.component,
-						"amount": additional_salary.amount,
-						"is_accrual": 0,
-						"transaction_type": "Payout",
-						"remarks": f"Payout against Employee Benefit Claim {additional_salary.ref_docname}",
-					}
-				)
+			if component_type == "earnings" and hasattr(self, "benefit_ledger_components"):
+				if (
+					additional_salary.ref_doctype == "Employee Benefit Claim"
+					and component_data.is_flexible_benefit
+				) or component_data.accrual_component:
+					# track benefit claim or accrual component payout to record in Employee Benefit Ledger
+					remarks = (
+						f"Payout against Employee Benefit Claim {additional_salary.ref_docname}"
+						if additional_salary.ref_doctype == "Employee Benefit Claim"
+						else "Accrual Component payout against Additional Salary"
+					)
+
+					self.benefit_ledger_components.append(
+						{
+							"salary_component": additional_salary.component,
+							"amount": additional_salary.amount,
+							"is_accrual": 0,
+							"transaction_type": "Payout",
+							"remarks": remarks,
+						}
+					)
 
 	def add_tax_components(self):
 		# Calculate variable_based_on_taxable_salary after all components updated in salary slip
@@ -1883,7 +1901,6 @@ class SalarySlip(TransactionBase):
 		)
 
 		result = query.run()
-
 		return flt(result[0][0]) if result else 0.0
 
 	def get_tax_paid_in_period(self, start_date, end_date, tax_component):
