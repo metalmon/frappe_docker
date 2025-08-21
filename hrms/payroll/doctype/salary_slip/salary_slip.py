@@ -1682,6 +1682,7 @@ class SalarySlip(TransactionBase):
 				"abbr",
 				"do_not_include_in_total",
 				"do_not_include_in_accounts",
+				"accrual_component",
 				"is_tax_applicable",
 				"is_flexible_benefit",
 				"variable_based_on_taxable_salary",
@@ -1848,10 +1849,7 @@ class SalarySlip(TransactionBase):
 		ss = frappe.qb.DocType("Salary Slip")
 		sd = frappe.qb.DocType("Salary Detail")
 
-		if field_to_select == "amount":
-			field = sd.amount
-		else:
-			field = sd.additional_amount
+		field = sd.amount if field_to_select == "amount" else sd.additional_amount
 
 		query = (
 			frappe.qb.from_(ss)
@@ -1877,6 +1875,12 @@ class SalarySlip(TransactionBase):
 
 		if salary_component:
 			query = query.where(sd.salary_component == salary_component)
+
+		# include all non-accrual OR (accrual + additional_salary/flexible_benefit) which indicates payout
+		query = query.where(
+			(sd.accrual_component == 0)
+			| ((sd.accrual_component == 1) & ((sd.additional_salary != "") | (sd.is_flexible_benefit == 1)))
+		)
 
 		result = query.run()
 
@@ -2110,13 +2114,22 @@ class SalarySlip(TransactionBase):
 
 	def get_component_totals(self, component_type, depends_on_payment_days=0):
 		total = 0.0
-		for d in self.get(component_type):
-			if not d.do_not_include_in_total:
-				if depends_on_payment_days:
-					amount = self.get_amount_based_on_payment_days(d)[0]
-				else:
-					amount = flt(d.amount, d.precision("amount"))
-				total += amount
+		components = self.get(component_type) or []
+
+		for d in components:
+			if d.accrual_component and not (d.additional_salary or d.is_flexible_benefit):
+				continue  # Skip accrual components unless they're additional salary or flexible benefit
+
+			if d.do_not_include_in_total:
+				continue
+
+			if depends_on_payment_days:
+				amount = self.get_amount_based_on_payment_days(d)[0]
+			else:
+				amount = flt(d.amount, d.precision("amount"))
+
+			total += amount
+
 		return total
 
 	def email_salary_slip(self):
@@ -2374,9 +2387,10 @@ def get_salary_component_data(component):
 			"depends_on_payment_days",
 			"salary_component_abbr as abbr",
 			"do_not_include_in_total",
-			"is_tax_applicable",
+			"do_not_include_in_accounts" "is_tax_applicable",
 			"is_flexible_benefit",
 			"variable_based_on_taxable_salary",
+			"accrual_component",
 		),
 		as_dict=1,
 		cache=True,

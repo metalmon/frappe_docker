@@ -357,6 +357,13 @@ class PayrollEntry(Document):
 						(ssd.do_not_include_in_total == 0)
 						| ((ssd.do_not_include_in_total == 1) & (ssd.do_not_include_in_accounts == 0))
 					)
+					& (
+						(ssd.accrual_component == 0)
+						| (
+							(ssd.accrual_component == 1)
+							& ((ssd.additional_salary != "") | (ssd.is_flexible_benefit == 1))
+						)
+					)
 				)
 			).run(as_dict=True)
 
@@ -944,6 +951,13 @@ class PayrollEntry(Document):
 					| (
 						(SalaryDetail.do_not_include_in_total == 1)
 						& (SalaryDetail.do_not_include_in_accounts == 0)
+					)
+				)
+				& (
+					(SalaryDetail.accrual_component == 0)
+					| (
+						(SalaryDetail.accrual_component == 1)
+						& ((SalaryDetail.additional_salary != "") | (SalaryDetail.is_flexible_benefit == 1))
 					)
 				)
 			)
