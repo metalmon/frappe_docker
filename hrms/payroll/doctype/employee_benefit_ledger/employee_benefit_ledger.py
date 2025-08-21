@@ -44,10 +44,11 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 				"amount": component.get("amount"),
 				"transaction_type": component.get("transaction_type"),
 				"yearly_benefit": component.get("yearly_benefit", 0),
+				"flexible_benefit": component.get("flexible_benefit", 0),
 			}
 		)
 
-		if not entry["yearly_benefit"]:
+		if entry["flexible_benefit"] == 1 and not entry["yearly_benefit"]:
 			entry["yearly_benefit"] = (
 				frappe.db.get_value(
 					"Employee Benefit Detail",

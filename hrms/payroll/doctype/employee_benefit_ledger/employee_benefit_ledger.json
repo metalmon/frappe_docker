@@ -17,6 +17,7 @@
   "employee_benefit_details_section",
   "transaction_type",
   "amount",
+  "flexible_benefit",
   "column_break_erll",
   "yearly_benefit",
   "remarks"
@@ -110,12 +111,19 @@
    "fieldtype": "Link",
    "label": "Salary Slip",
    "options": "Salary Slip"
+  },
+  {
+   "default": "0",
+   "description": "Enabled only for Employee Benefit components from Salary Structure Assignment",
+   "fieldname": "flexible_benefit",
+   "fieldtype": "Check",
+   "label": "Flexible Benefit"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-08-16 18:59:28.595145",
+ "modified": "2025-08-21 17:41:07.554382",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Ledger",

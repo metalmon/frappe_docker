@@ -1230,6 +1230,7 @@ class SalarySlip(TransactionBase):
 							"amount": default_amount,
 							"is_accrual": 1,
 							"transaction_type": "Accrual",
+							"flexible_benefit": 0,
 							"remarks": "Accrual Component assigned via salary structure",
 						}
 					)
@@ -1369,6 +1370,7 @@ class SalarySlip(TransactionBase):
 					"is_accrual": benefit.is_accrual,
 					"amount": flt(benefit.amount),
 					"transaction_type": transaction_type,
+					"flexible_benefit": 1,
 					"remarks": remarks,
 				}
 			)
@@ -1525,11 +1527,12 @@ class SalarySlip(TransactionBase):
 					and component_data.is_flexible_benefit
 				) or component_data.accrual_component:
 					# track benefit claim or accrual component payout to record in Employee Benefit Ledger
-					remarks = (
-						f"Payout against Employee Benefit Claim {additional_salary.ref_docname}"
-						if additional_salary.ref_doctype == "Employee Benefit Claim"
-						else "Accrual Component payout against Additional Salary"
-					)
+					if additional_salary.ref_doctype == "Employee Benefit Claim":
+						remarks = f"Payout against Employee Benefit Claim {additional_salary.ref_docname}"
+						flexible_benefit = 1
+					else:
+						remarks = "Accrual Component payout via Additional Salary"
+						flexible_benefit = 0
 
 					self.benefit_ledger_components.append(
 						{
@@ -1537,6 +1540,7 @@ class SalarySlip(TransactionBase):
 							"amount": additional_salary.amount,
 							"is_accrual": 0,
 							"transaction_type": "Payout",
+							flexible_benefit: flexible_benefit,
 							"remarks": remarks,
 						}
 					)
