@@ -48,14 +48,17 @@ frappe.ui.form.on("Salary Component", {
 	},
 
 	payout_method: (frm) => {
-		if (
-			frm.doc.is_flexible_benefit &&
-			[
-				"Accrue and payout at end of payroll period",
-				"Accrue per cycle, pay only on claim",
-			].includes(frm.doc.payout_method)
-		) {
-			frm.set_value("accrual_component", 1);
+		if (frm.doc.is_flexible_benefit) {
+			if (
+				[
+					"Accrue and payout at end of payroll period",
+					"Accrue per cycle, pay only on claim",
+				].includes(frm.doc.payout_method)
+			) {
+				frm.set_value("accrual_component", 1);
+			} else {
+				frm.set_value("accrual_component", 0);
+			}
 		}
 	},
 
