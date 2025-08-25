@@ -241,7 +241,6 @@ class PayrollEntry(Document):
 					"end_date": self.end_date,
 					"company": self.company,
 					"posting_date": self.posting_date,
-					"deduct_tax_for_unclaimed_employee_benefits": self.deduct_tax_for_unclaimed_employee_benefits,
 					"deduct_tax_for_unsubmitted_tax_exemption_proof": self.deduct_tax_for_unsubmitted_tax_exemption_proof,
 					"payroll_entry": self.name,
 					"exchange_rate": self.exchange_rate,

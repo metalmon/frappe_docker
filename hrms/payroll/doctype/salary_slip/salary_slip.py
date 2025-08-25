@@ -893,12 +893,9 @@ class SalarySlip(TransactionBase):
 		# Deduct taxes forcefully for unsubmitted tax exemption proof and unclaimed benefits in the last period
 		if self.payroll_period.end_date <= getdate(self.end_date):
 			self.deduct_tax_for_unsubmitted_tax_exemption_proof = 1
-			self.deduct_tax_for_unclaimed_employee_benefits = 1
 
 		# Get taxable unclaimed benefits
 		self.unclaimed_taxable_benefits = 0
-		if self.deduct_tax_for_unclaimed_employee_benefits:
-			self.unclaimed_taxable_benefits = self.calculate_unclaimed_taxable_benefits()
 
 		# Total exemption amount based on tax exemption declaration
 		self.total_exemption_amount = self.get_total_exemption_amount()
@@ -1925,10 +1922,12 @@ class SalarySlip(TransactionBase):
 		taxable_earnings = 0
 		additional_income = 0
 		additional_income_with_full_tax = 0
-		flexi_benefits = 0
 		amount_exempted_from_income_tax = 0
 
 		for earning in self.earnings:
+			if earning.accrual_component and not (earning.additional_salary or earning.is_flexible_benefit):
+				continue
+
 			if based_on_payment_days:
 				amount, additional_amount = self.get_amount_based_on_payment_days(earning)
 			else:
@@ -1938,20 +1937,17 @@ class SalarySlip(TransactionBase):
 					amount, additional_amount = earning.default_amount, earning.additional_amount
 
 			if earning.is_tax_applicable:
-				if earning.is_flexible_benefit:
-					flexi_benefits += amount
-				else:
-					taxable_earnings += amount - additional_amount
-					additional_income += additional_amount
+				taxable_earnings += amount - additional_amount
+				additional_income += additional_amount
 
-					# Get additional amount based on future recurring additional salary
-					if additional_amount and earning.is_recurring_additional_salary:
-						additional_income += self.get_future_recurring_additional_amount(
-							earning.additional_salary, earning.additional_amount
-						)  # Used earning.additional_amount to consider the amount for the full month
+				# Get additional amount based on future recurring additional salary
+				if additional_amount and earning.is_recurring_additional_salary:
+					additional_income += self.get_future_recurring_additional_amount(
+						earning.additional_salary, earning.additional_amount
+					)  # Used earning.additional_amount to consider the amount for the full month
 
-					if earning.deduct_full_tax_on_selected_payroll_date:
-						additional_income_with_full_tax += additional_amount
+				if earning.deduct_full_tax_on_selected_payroll_date:
+					additional_income_with_full_tax += additional_amount
 
 		if allow_tax_exemption:
 			for ded in self.deductions:
@@ -1975,7 +1971,6 @@ class SalarySlip(TransactionBase):
 				"additional_income": additional_income,
 				"amount_exempted_from_income_tax": amount_exempted_from_income_tax,
 				"additional_income_with_full_tax": additional_income_with_full_tax,
-				"flexi_benefits": flexi_benefits,
 			}
 		)
 
@@ -2062,34 +2057,6 @@ class SalarySlip(TransactionBase):
 			amount, additional_amount = rounded(amount or 0), rounded(additional_amount or 0)
 
 		return amount, additional_amount
-
-	def calculate_unclaimed_taxable_benefits(self):
-		# get total sum of benefits paid
-		total_benefits_paid = self.get_salary_slip_details(
-			self.payroll_period.start_date,
-			self.start_date,
-			parentfield="earnings",
-			is_tax_applicable=1,
-			is_flexible_benefit=1,
-		)
-
-		# get total benefits claimed
-		BenefitClaim = frappe.qb.DocType("Employee Benefit Claim")
-		total_benefits_claimed = (
-			frappe.qb.from_(BenefitClaim)
-			.select(Sum(BenefitClaim.claimed_amount))
-			.where(
-				(BenefitClaim.docstatus == 1)
-				& (BenefitClaim.employee == self.employee)
-				& (BenefitClaim.claim_date.between(self.payroll_period.start_date, self.end_date))
-			)
-		).run()
-		total_benefits_claimed = flt(total_benefits_claimed[0][0]) if total_benefits_claimed else 0
-
-		unclaimed_taxable_benefits = (
-			total_benefits_paid - total_benefits_claimed
-		) + self.current_taxable_earnings_for_payment_days.flexi_benefits
-		return unclaimed_taxable_benefits
 
 	def get_total_exemption_amount(self):
 		total_exemption_amount = 0
