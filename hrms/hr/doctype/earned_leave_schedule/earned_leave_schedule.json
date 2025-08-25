@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-25 18:22:43.626487",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "allocation_date",
+  "number_of_leaves",
+  "is_allocated",
+  "allocate_manually"
+ ],
+ "fields": [
+  {
+   "fieldname": "allocation_date",
+   "fieldtype": "Date",
+   "label": "Allocation Date"
+  },
+  {
+   "fieldname": "number_of_leaves",
+   "fieldtype": "Float",
+   "label": "Number of Leaves"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_allocated",
+   "fieldtype": "Check",
+   "label": "Is allocated"
+  },
+  {
+   "fieldname": "allocate_manually",
+   "fieldtype": "Button",
+   "label": "Allocate Manually"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-25 18:25:35.616726",
+ "modified_by": "Administrator",
+ "module": "HR",
+ "name": "Earned Leave Schedule",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
