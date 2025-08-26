@@ -966,9 +966,7 @@ class SalarySlip(TransactionBase):
 				- self.income_tax_deducted_till_date
 			)
 
-			self.current_month_income_tax = self.current_structured_tax_amount + self.get(
-				"full_tax_on_additional_earnings", 0
-			)
+			self.current_month_income_tax = self.get("current_tax_amount", 0)
 
 			# non included current_month_income_tax separately as its already considered
 			# while calculating income_tax_deducted_till_date
@@ -1355,9 +1353,10 @@ class SalarySlip(TransactionBase):
 		for tax_component in tax_components:
 			self._component_based_variable_tax.setdefault(tax_component, {})
 			self.calculate_variable_based_on_taxable_salary(tax_component)
-			tax_amount = self._component_based_variable_tax[tax_component]["current_tax_amount"]
-			tax_row = get_salary_component_data(tax_component)
-			self.update_component_row(tax_row, tax_amount, "deductions")
+			if self._component_based_variable_tax[tax_component]:
+				tax_amount = self._component_based_variable_tax[tax_component]["current_tax_amount"]
+				tax_row = get_salary_component_data(tax_component)
+				self.update_component_row(tax_row, tax_amount, "deductions")
 
 	def get_tax_components(self) -> list:
 		"""
@@ -1563,9 +1562,14 @@ class SalarySlip(TransactionBase):
 			)
 			self.full_tax_on_additional_earnings = self.total_tax_amount - self.total_structured_tax_amount
 
-		current_tax_amount = self.current_structured_tax_amount + self.full_tax_on_additional_earnings
-
-		current_tax_amount = max(0, flt(current_tax_amount))
+		self.current_tax_amount = max(
+			0,
+			flt(
+				self.current_structured_tax_amount
+				if has_additional_salary_tax_component
+				else (self.current_structured_tax_amount + self.full_tax_on_additional_earnings)
+			),
+		)
 
 		self._component_based_variable_tax[tax_component].update(
 			{
@@ -1573,7 +1577,7 @@ class SalarySlip(TransactionBase):
 				"total_structured_tax_amount": self.total_structured_tax_amount,
 				"current_structured_tax_amount": self.current_structured_tax_amount,
 				"full_tax_on_additional_earnings": self.full_tax_on_additional_earnings,
-				"current_tax_amount": current_tax_amount,
+				"current_tax_amount": self.current_tax_amount,
 			}
 		)
 
