@@ -124,19 +124,17 @@ class LeavePolicyAssignment(Document):
 		)
 
 		allocation = frappe.get_doc(
-			dict(
-				doctype="Leave Allocation",
-				employee=self.employee,
-				leave_type=leave_details.name,
-				from_date=self.effective_from,
-				to_date=self.effective_to,
-				new_leaves_allocated=new_leaves_allocated,
-				leave_period=self.leave_period if self.assignment_based_on == "Leave Policy" else "",
-				leave_policy_assignment=self.name,
-				leave_policy=self.leave_policy,
-				carry_forward=carry_forward,
-				earned_leave_schedule=earned_leave_schedule,
-			)
+			doctype="Leave Allocation",
+			employee=self.employee,
+			leave_type=leave_details.name,
+			from_date=self.effective_from,
+			to_date=self.effective_to,
+			new_leaves_allocated=new_leaves_allocated,
+			leave_period=self.leave_period if self.assignment_based_on == "Leave Policy" else "",
+			leave_policy_assignment=self.name,
+			leave_policy=self.leave_policy,
+			carry_forward=carry_forward,
+			earned_leave_schedule=earned_leave_schedule,
 		)
 		allocation.save(ignore_permissions=True)
 		allocation.submit()
