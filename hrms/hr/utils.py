@@ -522,24 +522,30 @@ def create_additional_leave_ledger_entry(allocation, leaves, date):
 def check_effective_date(from_date, today, frequency, allocate_on_day):
 	from_date = getdate(from_date)
 
-	expected_date = {
-		"Monthly": {
-			"First Day": get_first_day(today),
-			"Last Day": get_last_day(today),
-			"Date of Joining": from_date,
-		},
-		"Quarterly": {
-			"First Day": get_quarter_start(today),
-			"Last Day": get_quarter_ending(today),
-		},
-		"Half-Yearly": {"First Day": get_semester_start(today), "Last Day": get_semester_end(today)},
-		"Yearly": {"First Day": get_year_start(today), "Last Day": get_year_ending(today)},
-	}[frequency][allocate_on_day]
+	expected_date = get_expected_allocation_date_for_period(
+		frequency, allocate_on_day, today, date_of_joining=from_date
+	)
 
 	if allocate_on_day == "Date of Joining":
 		return expected_date.day == today.day
 	else:
 		return expected_date == today
+
+
+def get_expected_allocation_date_for_period(frequency, allocate_on_day, date, date_of_joining=None):
+	return {
+		"Monthly": {
+			"First Day": get_first_day(date),
+			"Last Day": get_last_day(date),
+			"Date of Joining": date_of_joining,
+		},
+		"Quarterly": {
+			"First Day": get_quarter_start(date),
+			"Last Day": get_quarter_ending(date),
+		},
+		"Half-Yearly": {"First Day": get_semester_start(date), "Last Day": get_semester_end(date)},
+		"Yearly": {"First Day": get_year_start(date), "Last Day": get_year_ending(date)},
+	}[frequency][allocate_on_day]
 
 
 def get_salary_assignments(employee, payroll_period):

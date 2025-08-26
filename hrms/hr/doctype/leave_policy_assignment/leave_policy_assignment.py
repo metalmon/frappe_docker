@@ -9,6 +9,7 @@ from frappe import _, bold
 from frappe.model.document import Document
 from frappe.utils import (
 	add_months,
+	add_to_date,
 	cint,
 	comma_and,
 	date_diff,
@@ -118,6 +119,10 @@ class LeavePolicyAssignment(Document):
 
 		new_leaves_allocated = self.get_new_leaves(annual_allocation, leave_details, date_of_joining)
 
+		earned_leave_schedule = self.get_earned_leave_schedule(
+			annual_allocation, leave_details, date_of_joining
+		)
+
 		allocation = frappe.get_doc(
 			dict(
 				doctype="Leave Allocation",
@@ -130,6 +135,7 @@ class LeavePolicyAssignment(Document):
 				leave_policy_assignment=self.name,
 				leave_policy=self.leave_policy,
 				carry_forward=carry_forward,
+				earned_leave_schedule=earned_leave_schedule,
 			)
 		)
 		allocation.save(ignore_permissions=True)
@@ -242,6 +248,38 @@ class LeavePolicyAssignment(Document):
 			leaves = periodically_earned_leave * periods_passed
 
 		return leaves
+
+	def get_earned_leave_schedule(self, annual_allocation, leave_details, date_of_joining):
+		from hrms.hr.utils import get_expected_allocation_date_for_period, get_monthly_earned_leave
+
+		from_date = getdate(self.effective_from)
+		to_date = getdate(self.effective_to)
+
+		periodically_earned_leave = get_monthly_earned_leave(
+			date_of_joining,
+			annual_allocation,
+			leave_details.earned_leave_frequency,
+			leave_details.rounding,
+			pro_rated=False,
+		)
+		date = get_expected_allocation_date_for_period(
+			leave_details.earned_leave_frequency, leave_details.allocate_on_day, from_date, date_of_joining
+		)
+		today = getdate(frappe.flags.current_date) or getdate()
+		schedule = []
+		months_to_add = {"Monthly": 1, "Quarterly": 3, "Half-Yearly": 6, "Yearly": 12}.get(
+			leave_details.earned_leave_frequency
+		)
+		while date <= to_date:
+			row = {
+				"allocation_date": date,
+				"number_of_leaves": periodically_earned_leave,
+				"is_allocated": 0 if date >= today else 1,
+			}
+			schedule.append(row)
+			date = add_to_date(date, months=months_to_add)
+
+		return schedule
 
 
 def get_pro_rata_period_end_date(consider_current_month):

@@ -5,39 +5,47 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "column_break_dmml",
   "allocation_date",
   "number_of_leaves",
-  "is_allocated",
-  "allocate_manually"
+  "is_allocated"
  ],
  "fields": [
   {
+   "columns": 3,
    "fieldname": "allocation_date",
    "fieldtype": "Date",
-   "label": "Allocation Date"
+   "in_list_view": 1,
+   "label": "Allocation Date",
+   "read_only": 1
   },
   {
+   "columns": 3,
    "fieldname": "number_of_leaves",
    "fieldtype": "Float",
-   "label": "Number of Leaves"
+   "in_list_view": 1,
+   "label": "Number of Leaves",
+   "read_only": 1
   },
   {
+   "columns": 3,
    "default": "0",
    "fieldname": "is_allocated",
    "fieldtype": "Check",
-   "label": "Is allocated"
+   "in_list_view": 1,
+   "label": "Is allocated",
+   "read_only": 1
   },
   {
-   "fieldname": "allocate_manually",
-   "fieldtype": "Button",
-   "label": "Allocate Manually"
+   "fieldname": "column_break_dmml",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-25 18:25:35.616726",
+ "modified": "2025-08-26 14:36:34.453084",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Earned Leave Schedule",
