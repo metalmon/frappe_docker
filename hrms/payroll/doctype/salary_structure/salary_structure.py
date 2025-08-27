@@ -7,7 +7,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
-from frappe.utils import cint, cstr, flt
+from frappe.utils import cint, cstr, flt, get_link_to_form
 
 import erpnext
 
@@ -28,7 +28,7 @@ class SalaryStructure(Document):
 		self.validate_payment_days_based_dependent_component()
 		self.validate_timesheet_component()
 		self.validate_formula_setup()
-		validate_max_benefit_for_flexible_benefit(self.employee_benefits)
+		validate_max_benefit_for_flexible_benefit(self.employee_benefits, self.max_benefits)
 
 	def on_update(self):
 		self.reset_condition_and_formula_fields()
@@ -424,14 +424,32 @@ def get_salary_component(doctype, txt, searchfield, start, page_len, filters):
 	return accounts
 
 
-def validate_max_benefit_for_flexible_benefit(employee_benefits):
+def validate_max_benefit_for_flexible_benefit(employee_benefits, max_benefits=None):
+	if not employee_benefits:
+		return
+
+	benefit_total = 0
 	for benefit in employee_benefits:
+		benefit_total += benefit.amount
 		max_of_component = frappe.db.get_value(
 			"Salary Component", benefit.salary_component, "max_benefit_amount"
 		)
 		if max_of_component and max_of_component > 0 and benefit.amount > max_of_component:
 			frappe.throw(
 				_(
-					"Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2}"
-				).format(benefit.amount, benefit.salary_component, max_of_component)
+					"Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2} set in {3}"
+				).format(
+					benefit.amount,
+					benefit.salary_component,
+					max_of_component,
+					get_link_to_form("Salary Component", benefit.salary_component),
+				)
 			)
+
+	if max_benefits and benefit_total > max_benefits:
+		frappe.throw(
+			_("Total of all employee benefits cannot be greater that Max Benefits Amount {0}}").format(
+				max_benefits
+			),
+			title=_("Invalid Benefit Amounts"),
+		)

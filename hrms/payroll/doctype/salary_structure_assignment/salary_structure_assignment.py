@@ -8,6 +8,7 @@ from frappe.model.document import Document
 from frappe.utils import cint, flt, get_link_to_form, getdate
 
 from hrms.payroll.doctype.payroll_period.payroll_period import get_payroll_period
+from hrms.payroll.doctype.salary_structure.salary_structure import validate_max_benefit_for_flexible_benefit
 
 
 class DuplicateAssignment(frappe.ValidationError):
@@ -20,7 +21,7 @@ class SalaryStructureAssignment(Document):
 		self.validate_company()
 		self.validate_income_tax_slab()
 		self.set_payroll_payable_account()
-		self.validate_max_benefit_amount()
+		validate_max_benefit_for_flexible_benefit(self.employee_benefits, self.max_benefits)
 
 		if not self.get("payroll_cost_centers"):
 			self.set_payroll_cost_centers()
@@ -111,20 +112,6 @@ class SalaryStructureAssignment(Document):
 					},
 				)
 			self.payroll_payable_account = payroll_payable_account
-
-	def validate_max_benefit_amount(self):
-		from hrms.payroll.doctype.salary_structure.salary_structure import (
-			validate_max_benefit_for_flexible_benefit,
-		)
-
-		validate_max_benefit_for_flexible_benefit(self.employee_benefits)
-
-		benefit_total = 0
-		for benefit in self.employee_benefits:
-			benefit_total += benefit.amount
-
-		if benefit_total != self.max_benefits:
-			self.max_benefits = benefit_total
 
 	@frappe.whitelist()
 	def set_payroll_cost_centers(self):

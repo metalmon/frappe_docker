@@ -222,6 +222,7 @@
    "options": "Employee Benefit Detail"
   },
   {
+   "fetch_from": "salary_structure.max_benefits",
    "fieldname": "max_benefits",
    "fieldtype": "Currency",
    "label": "Maximum Benefit Amount"
@@ -229,7 +230,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-28 00:38:34.186481",
+ "modified": "2025-08-26 11:56:07.577926",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure Assignment",
