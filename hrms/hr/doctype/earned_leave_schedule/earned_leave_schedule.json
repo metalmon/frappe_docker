@@ -8,11 +8,17 @@
   "column_break_dmml",
   "allocation_date",
   "number_of_leaves",
-  "is_allocated"
+  "attempted",
+  "failed",
+  "column_break_pzdq",
+  "is_allocated",
+  "allocated_via",
+  "section_break_amtg",
+  "failure_reason"
  ],
  "fields": [
   {
-   "columns": 3,
+   "columns": 2,
    "fieldname": "allocation_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -20,7 +26,7 @@
    "read_only": 1
   },
   {
-   "columns": 3,
+   "columns": 2,
    "fieldname": "number_of_leaves",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -33,19 +39,60 @@
    "fieldname": "is_allocated",
    "fieldtype": "Check",
    "in_list_view": 1,
-   "label": "Is allocated",
+   "label": "Is Allocated",
    "read_only": 1
   },
   {
    "fieldname": "column_break_dmml",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_pzdq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "failure_reason",
+   "fieldtype": "Code",
+   "label": "Failure Reason",
+   "options": "HTML",
+   "read_only": 1
+  },
+  {
+   "columns": 3,
+   "fieldname": "allocated_via",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Allocated Via",
+   "options": "\nScheduler\nLeave Policy Assignment",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_amtg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "attempted",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Attempted",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "failed",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Failed",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-26 14:36:34.453084",
+ "modified": "2025-08-28 10:29:05.825102",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Earned Leave Schedule",

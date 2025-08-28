@@ -47,6 +47,10 @@ class DuplicateDeclarationError(frappe.ValidationError):
 	pass
 
 
+class OverAllocationError(frappe.ValidationError):
+	pass
+
+
 def set_employee_name(doc):
 	if doc.employee and not doc.employee_name:
 		doc.employee_name = frappe.db.get_value("Employee", doc.employee, "employee_name")
@@ -377,7 +381,12 @@ def allocate_earned_leaves():
 			if check_effective_date(
 				from_date, today, e_leave_type.earned_leave_frequency, e_leave_type.allocate_on_day
 			):
-				update_previous_leave_allocation(allocation, annual_allocation, e_leave_type, date_of_joining)
+				try:
+					update_previous_leave_allocation(
+						allocation, annual_allocation, e_leave_type, date_of_joining
+					)
+				except Exception as e:
+					log_allocation_error(allocation, e)
 
 
 def update_previous_leave_allocation(allocation, annual_allocation, e_leave_type, date_of_joining):
@@ -412,14 +421,30 @@ def update_previous_leave_allocation(allocation, annual_allocation, e_leave_type
 		allocation.db_set("total_leaves_allocated", new_allocation, update_modified=False)
 		create_additional_leave_ledger_entry(allocation, earned_leaves, today_date)
 
-		if e_leave_type.allocate_on_day:
-			text = _(
-				"Allocated {0} leave(s) via scheduler on {1} based on the 'Allocate on Day' option set to {2}"
-			).format(
-				frappe.bold(earned_leaves), frappe.bold(formatdate(today_date)), e_leave_type.allocate_on_day
-			)
+		earned_leave_schedule = qb.DocType("Earned Leave Schedule")
+		qb.update(earned_leave_schedule).where(
+			(earned_leave_schedule.parent == allocation.name)
+			& (earned_leave_schedule.allocation_date == today_date)
+		).set(earned_leave_schedule.is_allocated, 1).set(earned_leave_schedule.attempted, 1).set(
+			earned_leave_schedule.allocated_via, "Scheduler"
+		).run()
+	else:
+		frappe.throw(_("Allocation was skipped due to maximum leave allocation limit."), OverAllocationError)
 
-		allocation.add_comment(comment_type="Info", text=text)
+
+def log_allocation_error(allocation, error):
+	error_log = frappe.log_error(error)
+	text = _("{0}. Check error log {1} for more details.").format(
+		error_log.method, get_link_to_form("Error Log", error_log.name)
+	)
+	earned_leave_schedule = qb.DocType("Earned Leave Schedule")
+	today = getdate(frappe.flags.current_date) or getdate()
+
+	qb.update(earned_leave_schedule).where(
+		(earned_leave_schedule.parent == allocation.name) & (earned_leave_schedule.allocation_date == today)
+	).set(earned_leave_schedule.attempted, 1).set(earned_leave_schedule.failed, 1).set(
+		earned_leave_schedule.failure_reason, text
+	).run()
 
 
 @frappe.whitelist()

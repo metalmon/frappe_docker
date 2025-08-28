@@ -5,6 +5,23 @@
 cur_frm.add_fetch("employee", "employee_name", "employee_name");
 
 frappe.ui.form.on("Leave Allocation", {
+	setup: function (frm) {
+		const df = frappe.meta.get_docfield(
+			"Earned Leave Schedule",
+			"allocation_date",
+			frm.doc.name,
+		);
+		df.formatter = function (value, df, options, row) {
+			if (row.attempted && row.failed) {
+				return `<span class="indicator red">${value}</span>`;
+			} else if (row.attempted && row.is_allocated) {
+				return `<span class="indicator green">${value}</span>`;
+			} else {
+				return value;
+			}
+		};
+		frm.refresh_field("earned_leave_schedule");
+	},
 	onload: function (frm) {
 		// Ignore cancellation of doctype on cancel all.
 		frm.ignore_doctypes_on_cancel_all = ["Leave Ledger Entry"];

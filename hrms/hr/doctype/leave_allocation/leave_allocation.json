@@ -241,6 +241,7 @@
    "label": "Earned Leave Schedule"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "earned_leave_schedule",
    "fieldtype": "Table",
    "options": "Earned Leave Schedule"
@@ -251,7 +252,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-26 14:32:54.162055",
+ "modified": "2025-08-28 10:41:04.715740",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Allocation",

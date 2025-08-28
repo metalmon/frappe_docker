@@ -272,7 +272,9 @@ class LeavePolicyAssignment(Document):
 			row = {
 				"allocation_date": date,
 				"number_of_leaves": periodically_earned_leave,
-				"is_allocated": 0 if date >= today else 1,
+				"is_allocated": 1 if date <= today else 0,
+				"allocated_via": "Leave Policy Assignment" if date <= today else None,
+				"attempted": 1 if date <= today else 0,
 			}
 			schedule.append(row)
 			date = add_to_date(date, months=months_to_add)
