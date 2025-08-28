@@ -16,6 +16,7 @@ from hrms.payroll.doctype.salary_slip.test_salary_slip import (
 	create_tax_slab,
 	make_deduction_salary_component,
 	make_earning_salary_component,
+	make_employee_benefit_earning_components,
 	make_employee_salary_slip,
 )
 from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
@@ -168,12 +169,19 @@ def make_salary_structure(
 	payroll_period=None,
 	include_flexi_benefits=False,
 	base=None,
+	test_accrual_component=False,
 ):
 	if not currency:
 		currency = erpnext.get_default_currency()
 
 	if frappe.db.exists("Salary Structure", salary_structure):
 		frappe.db.delete("Salary Structure", salary_structure)
+
+	employee_benefits = []
+	if include_flexi_benefits:
+		employee_benefits = make_employee_benefit_earning_components(
+			setup=True, company_list=["_Test Company"]
+		)
 
 	details = {
 		"doctype": "Salary Structure",
@@ -183,11 +191,12 @@ def make_salary_structure(
 			setup=True,
 			test_tax=test_tax,
 			company_list=["_Test Company"],
-			include_flexi_benefits=include_flexi_benefits,
+			test_accrual_component=test_accrual_component,
 		),
 		"deductions": make_deduction_salary_component(
 			setup=True, test_tax=test_tax, company_list=["_Test Company"]
 		),
+		"employee_benefits": employee_benefits,
 		"payroll_frequency": payroll_frequency,
 		"payment_account": get_random("Account", filters={"account_currency": currency}),
 		"currency": currency,
@@ -219,6 +228,7 @@ def make_salary_structure(
 			currency=currency,
 			payroll_period=payroll_period,
 			base=base,
+			include_flexi_benefits=include_flexi_benefits,
 		)
 
 	return salary_structure_doc
@@ -233,6 +243,7 @@ def create_salary_structure_assignment(
 	payroll_period=None,
 	base=None,
 	allow_duplicate=False,
+	include_flexi_benefits=False,
 ):
 	if not currency:
 		currency = erpnext.get_default_currency()
@@ -247,6 +258,10 @@ def create_salary_structure_assignment(
 
 	if not income_tax_slab:
 		income_tax_slab = create_tax_slab(payroll_period, allow_tax_exemption=True, currency=currency)
+
+	employee_benefits = []
+	if include_flexi_benefits:
+		employee_benefits = make_employee_benefit_earning_components()
 
 	salary_structure_assignment = frappe.new_doc("Salary Structure Assignment")
 	salary_structure_assignment.employee = employee
@@ -265,6 +280,8 @@ def create_salary_structure_assignment(
 	salary_structure_assignment.payroll_payable_account = get_payable_account(company)
 	salary_structure_assignment.company = company or erpnext.get_default_company()
 	salary_structure_assignment.income_tax_slab = income_tax_slab
+	for benefit in employee_benefits:
+		salary_structure_assignment.append("employee_benefits", benefit)
 	salary_structure_assignment.save(ignore_permissions=True)
 	salary_structure_assignment.submit()
 	return salary_structure_assignment

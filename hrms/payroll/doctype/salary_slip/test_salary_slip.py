@@ -1070,7 +1070,6 @@ class TestSalarySlip(IntegrationTestCase):
 			"Monthly",
 			other_details={"max_benefits": 100000},
 			test_tax=True,
-			include_flexi_benefits=True,
 			employee=employee,
 			payroll_period=payroll_period,
 		)
@@ -1099,7 +1098,7 @@ class TestSalarySlip(IntegrationTestCase):
 		)
 		tax_paid = get_tax_paid_in_period(employee)
 
-		# No proof, benefit claim sumitted, total tax paid, should not change
+		# No proof, total tax paid, should not change
 		try:
 			self.assertEqual(tax_paid, annual_tax)
 		except AssertionError:
@@ -1108,10 +1107,6 @@ class TestSalarySlip(IntegrationTestCase):
 
 		# Submit proof for total 120000
 		data["proof"] = create_proof_submission(employee, payroll_period, 120000)
-
-		# Submit benefit claim for total 50000
-		data["benefit-1"] = create_benefit_claim(employee, payroll_period, 15000, "Medical Allowance")
-		data["benefit-2"] = create_benefit_claim(employee, payroll_period, 35000, "Leave Travel Allowance")
 
 		frappe.db.sql("""delete from `tabSalary Slip` where employee=%s""", (employee))
 		data["deducted_dates"] = create_salary_slips_for_payroll_period(
@@ -1207,7 +1202,6 @@ class TestSalarySlip(IntegrationTestCase):
 			"Monthly",
 			other_details={"max_benefits": 100000},
 			test_tax=True,
-			include_flexi_benefits=True,
 			employee=employee,
 			payroll_period=payroll_period,
 		)
@@ -1996,7 +1990,7 @@ def make_earning_salary_component(
 	setup=False,
 	test_tax=False,
 	company_list=None,
-	include_flexi_benefits=False,
+	test_accrual_component=False,
 	test_statistical_comp=False,
 ):
 	data = [
@@ -2044,29 +2038,20 @@ def make_earning_salary_component(
 			"remove_if_zero_valued": 1,
 		},
 	]
-	if include_flexi_benefits:
+
+	if test_accrual_component:
 		data.extend(
 			[
 				{
-					"salary_component": "Leave Travel Allowance",
-					"abbr": "B",
-					"is_flexible_benefit": 1,
+					"salary_component": "Accrued Earnings",
+					"abbr": "AC",
 					"type": "Earning",
-					"pay_against_benefit_claim": 1,
-					"max_benefit_amount": 100000,
-					"depends_on_payment_days": 0,
-				},
-				{
-					"salary_component": "Medical Allowance",
-					"abbr": "B",
-					"is_flexible_benefit": 1,
-					"pay_against_benefit_claim": 0,
-					"type": "Earning",
-					"max_benefit_amount": 15000,
-					"depends_on_payment_days": 1,
-				},
+					"accrual_component": 1,
+					"amount": 1000,
+				}
 			]
 		)
+
 	if test_tax:
 		data.extend(
 			[
@@ -2124,6 +2109,56 @@ def make_deduction_salary_component(setup=False, test_tax=False, company_list=No
 		)
 	if setup or test_tax:
 		make_salary_component(data, test_tax, company_list)
+
+	return data
+
+
+def make_employee_benefit_earning_components(setup=False, test_tax=False, company_list=None):
+	if setup:
+		data = [
+			{
+				"salary_component": "Leave Travel Allowance",
+				"abbr": "LTA",
+				"is_flexible_benefit": 1,
+				"type": "Earning",
+				"payout_method": "Allow claim up to full period limit",
+				"max_benefit_amount": 50000,
+				"accrual_component": 0,
+			},
+			{
+				"salary_component": "Mediclaim Allowance",
+				"abbr": "MA",
+				"is_flexible_benefit": 1,
+				"type": "Earning",
+				"payout_method": "Accrue per cycle, pay only on claim",
+				"accrual_component": 1,
+			},
+			{
+				"salary_component": "Internet Reimbursement",
+				"abbr": "IR",
+				"is_flexible_benefit": 1,
+				"type": "Earning",
+				"payout_method": "Accrue and payout at end of payroll period",
+				"accrual_component": 1,
+			},
+		]
+
+		make_salary_component(data, test_tax, company_list)
+
+	data = [
+		{
+			"salary_component": "Leave Travel Allowance",
+			"amount": 50000,
+		},
+		{
+			"salary_component": "Mediclaim Allowance",
+			"amount": 24000,
+		},
+		{
+			"salary_component": "Internet Reimbursement",
+			"amount": 12000,
+		},
+	]
 
 	return data
 
@@ -2276,7 +2311,6 @@ def create_salary_slips_for_payroll_period(
 			posting_date = add_months(posting_date, 1)
 		if i == 11:
 			slip.deduct_tax_for_unsubmitted_tax_exemption_proof = 1
-			slip.deduct_tax_for_unclaimed_employee_benefits = 1
 		if deduct_random and not random.randint(0, 2):
 			slip.deduct_tax_for_unsubmitted_tax_exemption_proof = 1
 			deducted_dates.append(posting_date)
