@@ -1081,7 +1081,7 @@ class TestSalarySlip(IntegrationTestCase):
 		)
 		tax_paid = get_tax_paid_in_period(employee)
 
-		annual_tax = 113589.0
+		annual_tax = 92789.0
 		try:
 			self.assertEqual(tax_paid, annual_tax)
 		except AssertionError:
@@ -2219,14 +2219,14 @@ def create_proof_submission(employee, payroll_period, amount):
 	return submission_date
 
 
-def create_benefit_claim(employee, payroll_period, amount, component):
+def create_benefit_claim(employee, payroll_period, amount, component):  # TODO: update this
 	claim_date = add_months(payroll_period.start_date, random.randint(0, 11))
 	frappe.get_doc(
 		{
 			"doctype": "Employee Benefit Claim",
 			"employee": employee,
 			"claimed_amount": amount,
-			"claim_date": claim_date,
+			"payroll_date": claim_date,
 			"earning_component": component,
 			"currency": erpnext.get_default_currency(),
 		}
