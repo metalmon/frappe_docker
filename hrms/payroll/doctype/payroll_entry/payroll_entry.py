@@ -849,7 +849,7 @@ class PayrollEntry(Document):
 
 		if account_currency not in currencies:
 			currencies.append(account_currency)
-		
+
 		if company_currency not in currencies:
 			currencies.append(company_currency)
 
