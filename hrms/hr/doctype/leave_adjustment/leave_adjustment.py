@@ -3,7 +3,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import cint, flt
+from frappe.utils import cint, flt, get_link_to_form
 
 from hrms.hr.doctype.leave_application.leave_application import get_leave_balance_on
 from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import create_leave_ledger_entry
@@ -20,9 +20,23 @@ class LeaveAdjustment(Document):
 			self.leaves_after_adjustment = flt(self.allocated_leaves - self.leaves_to_adjust)
 
 	def validate(self):
+		self.validate_duplicate_leave_adjustment()
 		self.validate_non_zero_adjustment()
 		self.validate_over_allocation()
 		self.validate_leave_balance()
+
+	def validate_duplicate_leave_adjustment(self):
+		duplicate_adjustment = frappe.db.exists(
+			"Leave Adjustment",
+			{"employee": self.employee, "leave_allocation": self.leave_allocation, "docstatus": 1},
+		)
+		if duplicate_adjustment:
+			frappe.throw(
+				title=_("Duplicate Leave Adjustment"),
+				msg=_(
+					"Leave Adjustment for this allocation already exists: {0}. Please amend existing adjustment."
+				).format(get_link_to_form("Leave Adjustment", duplicate_adjustment)),
+			)
 
 	def validate_non_zero_adjustment(self):
 		if self.leaves_to_adjust == 0:
