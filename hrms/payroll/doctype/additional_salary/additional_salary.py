@@ -31,6 +31,7 @@ class AdditionalSalary(Document):
 		self.validate_employee_referral()
 		self.validate_duplicate_additional_salary()
 		self.validate_tax_component_overwrite()
+		self.validate_accrual_component()
 
 		if self.amount < 0:
 			frappe.throw(_("Amount should not be less than zero"))
@@ -179,6 +180,16 @@ class AdditionalSalary(Document):
 				"To overwrite the salary component amount for a tax component, please enable {0}"
 			).format(frappe.bold(_("Overwrite Salary Structure Amount")))
 			frappe.throw(msg, title=_("Invalid Additional Salary"))
+
+	def validate_accrual_component(self):
+		if frappe.db.get_value("Salary Component", self.salary_component, "accrual_component"):
+			frappe.msgprint(
+				_(
+					"{0} is an Accrual Component and this will be recorded as a payout in Employee Benefits Ledger"
+				).format(frappe.bold(self.salary_component)),
+				title=_("Warning"),
+				indicator="orange",
+			)
 
 	def update_return_amount_in_employee_advance(self):
 		if self.ref_doctype == "Employee Advance" and self.ref_docname:

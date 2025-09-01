@@ -1147,11 +1147,12 @@ class SalarySlip(TransactionBase):
 		return tax_deducted
 
 	def calculate_component_amounts(self, component_type):
+		if component_type == "earnings":
+			self.accrued_benefits = []
+			self.benefit_ledger_components = []
+
 		if not getattr(self, "_salary_structure_doc", None):
 			self.set_salary_structure_doc()
-
-		if component_type == "earnings":
-			self.benefit_ledger_components = []
 
 		self.add_structure_components(component_type)
 		self.add_additional_salary_components(component_type)
@@ -1182,19 +1183,43 @@ class SalarySlip(TransactionBase):
 			return
 
 		amount = self.eval_condition_and_formula(struct_row, self.data)
-		if struct_row.statistical_component:
+		if struct_row.statistical_component or struct_row.accrual_component:
 			# update statitical component amount in reference data based on payment days
 			# since row for statistical component is not added to salary slip
 
 			self.default_data[struct_row.abbr] = flt(amount)
 			if struct_row.depends_on_payment_days:
-				payment_days_amount = (
+				amount = (
 					flt(amount) * flt(self.payment_days) / cint(self.total_working_days)
 					if self.total_working_days
 					else 0
 				)
-				self.data[struct_row.abbr] = flt(payment_days_amount, struct_row.precision("amount"))
+				self.data[struct_row.abbr] = flt(amount, struct_row.precision("amount"))
 
+			is_accrual_component = (
+				component_type == "earnings"
+				and struct_row.accrual_component
+				and hasattr(self, "benefit_ledger_components")
+			)
+			if is_accrual_component:
+				# add accrual component to Accrued Benefits table and track in Employee Benefit Ledger
+				self.append(
+					"accrued_benefits",
+					{
+						"salary_component": struct_row.salary_component,
+						"amount": amount,
+					},
+				)
+				self.benefit_ledger_components.append(
+					{
+						"salary_component": struct_row.salary_component,
+						"amount": amount,
+						"is_accrual": 1,
+						"transaction_type": "Accrual",
+						"flexible_benefit": 0,
+						"remarks": "Accrual Component assigned via salary structure",
+					}
+				)
 		else:
 			# default behavior, the system does not add if component amount is zero
 			# if remove_if_zero_valued is unchecked, then ask system to add component row
@@ -1218,19 +1243,6 @@ class SalarySlip(TransactionBase):
 					default_amount=default_amount,
 					remove_if_zero_valued=remove_if_zero_valued,
 				)
-			if component_type == "earnings" and hasattr(self, "benefit_ledger_components"):
-				if struct_row.accrual_component:
-					# track accrual components in Employee Benefit Ledger
-					self.benefit_ledger_components.append(
-						{
-							"salary_component": struct_row.salary_component,
-							"amount": default_amount,
-							"is_accrual": 1,
-							"transaction_type": "Accrual",
-							"flexible_benefit": 0,
-							"remarks": "Accrual Component assigned via salary structure",
-						}
-					)
 
 	def get_data_for_eval(self):
 		"""Returns data for evaluating formula"""
@@ -1333,8 +1345,6 @@ class SalarySlip(TransactionBase):
 
 	def add_current_period_employee_benefits(self, employee_benefits):
 		"""Add flexible benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
-		self.accrued_benefits = []
-
 		for benefit in employee_benefits:
 			if benefit.amount == 0:
 				continue
@@ -1895,12 +1905,6 @@ class SalarySlip(TransactionBase):
 		if salary_component:
 			query = query.where(sd.salary_component == salary_component)
 
-		# include all non-accrual OR (accrual + additional_salary/flexible_benefit) which indicates payout
-		query = query.where(
-			(sd.accrual_component == 0)
-			| ((sd.accrual_component == 1) & ((sd.additional_salary != "") | (sd.is_flexible_benefit == 1)))
-		)
-
 		result = query.run()
 		return flt(result[0][0]) if result else 0.0
 
@@ -1925,9 +1929,6 @@ class SalarySlip(TransactionBase):
 		amount_exempted_from_income_tax = 0
 
 		for earning in self.earnings:
-			if earning.accrual_component and not (earning.additional_salary or earning.is_flexible_benefit):
-				continue
-
 			if based_on_payment_days:
 				amount, additional_amount = self.get_amount_based_on_payment_days(earning)
 			else:
@@ -2105,9 +2106,6 @@ class SalarySlip(TransactionBase):
 		components = self.get(component_type) or []
 
 		for d in components:
-			if d.accrual_component and not (d.additional_salary or d.is_flexible_benefit):
-				continue  # Skip accrual components unless they're additional salary or flexible benefit
-
 			if d.do_not_include_in_total:
 				continue
 

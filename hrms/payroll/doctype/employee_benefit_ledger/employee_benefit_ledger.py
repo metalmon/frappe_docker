@@ -45,6 +45,7 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 				"transaction_type": component.get("transaction_type"),
 				"yearly_benefit": component.get("yearly_benefit", 0),
 				"flexible_benefit": component.get("flexible_benefit", 0),
+				"remarks": component.get("remarks"),
 			}
 		)
 
