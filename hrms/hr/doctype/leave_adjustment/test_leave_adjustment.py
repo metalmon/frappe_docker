@@ -1,29 +1,123 @@
 # Copyright (c) 2025, Frappe Technologies Pvt. Ltd. and Contributors
 # See license.txt
 
-# import frappe
-from frappe.tests import IntegrationTestCase, UnitTestCase
+import frappe
+from frappe.utils import add_days, get_first_day, get_last_day, getdate
 
-# On IntegrationTestCase, the doctype test records and all
-# link-field test record dependencies are recursively loaded
-# Use these module variables to add/remove to/from that list
-EXTRA_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
-IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
-
-
-class UnitTestLeaveAdjustment(UnitTestCase):
-	"""
-	Unit tests for LeaveAdjustment.
-	Use this class for testing individual functions and methods.
-	"""
-
-	pass
+from hrms.hr.doctype.leave_allocation.test_leave_allocation import create_leave_allocation
+from hrms.hr.doctype.leave_application.leave_application import get_leave_balance_on
+from hrms.hr.doctype.leave_type.test_leave_type import create_leave_type
+from hrms.payroll.doctype.salary_slip.test_salary_slip import make_leave_application
+from hrms.tests.utils import HRMSTestSuite
 
 
-class IntegrationTestLeaveAdjustment(IntegrationTestCase):
-	"""
-	Integration tests for LeaveAdjustment.
-	Use this class for testing interactions between multiple components.
-	"""
+class TestLeaveAdjustment(HRMSTestSuite):
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		cls.make_employees()
+		cls.make_leave_types()
 
-	pass
+	def setUp(self):
+		for dt in ["Leave Adjustment", "Leave Allocation", "Leave Application", "Leave Ledger Entry"]:
+			frappe.db.delete(dt)
+
+		self.leave_allocation = create_leave_allocation(
+			employee=self.employees[0].name,
+			employee_name=self.employees[0].employee_name,
+			leave_type=self.leave_types[0].name,
+			new_leaves_allocated=10,
+			from_date=get_first_day(getdate()),
+			to_date=get_last_day(getdate()),
+		).submit()
+
+	def test_duplicate_leave_adjustment(self):
+		create_leave_adjustment(self.leave_allocation, adjustment_type="Reduce", leaves_to_adjust=3).submit()
+		duplicate_adjustment = create_leave_adjustment(
+			self.leave_allocation, adjustment_type="Allocate", leaves_to_adjust=10
+		)
+		self.assertRaises(frappe.ValidationError, duplicate_adjustment.save)
+
+	def test_adjustment_for_over_allocation(self):
+		leave_type = create_leave_type(leave_type_name="Test Over Allocation", max_leaves_allowed=30)
+		leave_allocation = create_leave_allocation(
+			employee=self.employees[0].name,
+			employee_name=self.employees[0].employee_name,
+			leave_type=leave_type.name,
+			new_leaves_allocated=25,
+		).submit()
+		leave_adjustment = create_leave_adjustment(
+			leave_allocation, adjustment_type="Allocate", leaves_to_adjust=10
+		)
+
+		self.assertRaises(frappe.ValidationError, leave_adjustment.save)
+
+	def test_adjustment_for_negative_leave_balance(self):
+		make_leave_application(
+			employee=self.employees[0].name,
+			from_date=get_first_day(getdate()),
+			to_date=add_days(get_first_day(getdate()), 6),
+			leave_type=self.leave_types[0].name,
+		)
+
+		leave_adjustment = create_leave_adjustment(
+			self.leave_allocation,
+			adjustment_type="Reduce",
+			leaves_to_adjust=5,
+			posting_date=add_days(get_first_day(getdate()), 20),
+		)
+
+		self.assertRaises(frappe.ValidationError, leave_adjustment.save)
+
+	def test_increase_balance_with_adjustment(self):
+		create_leave_adjustment(
+			self.leave_allocation, adjustment_type="Allocate", leaves_to_adjust=6
+		).submit()
+
+		leave_balance = get_leave_balance_on(
+			employee=self.employees[0].name, leave_type=self.leave_types[0].name, date=getdate()
+		)
+
+		self.assertEqual(leave_balance, 16)
+
+	def test_decrease_balance_with_adjustment(self):
+		create_leave_adjustment(self.leave_allocation, adjustment_type="Reduce", leaves_to_adjust=3).submit()
+		leave_balance = get_leave_balance_on(
+			employee=self.employees[0].name, leave_type=self.leave_types[0].name, date=getdate()
+		)
+		self.assertEqual(leave_balance, 7)
+
+	def test_decrease_balance_after_leave_is_applied(self):
+		# allocation of 10 leaves, leave application for 3 days
+		mid_month = add_days(get_first_day(getdate()), 15)
+		make_leave_application(
+			employee=self.employees[0].name,
+			from_date=mid_month,
+			to_date=add_days(mid_month, 2),
+			leave_type=self.leave_types[0].name,
+		)
+		# adjustment of 6 days made after applications
+		create_leave_adjustment(
+			self.leave_allocation,
+			adjustment_type="Allocate",
+			leaves_to_adjust=6,
+			posting_date=get_last_day(getdate()),
+		).submit()
+		# so total balance should be 10 - 3 + 6 = 13
+		leave_balance = get_leave_balance_on(
+			employee=self.employees[0].name, leave_type=self.leave_types[0].name, date=get_last_day(getdate())
+		)
+		self.assertEqual(leave_balance, 13)
+
+
+def create_leave_adjustment(leave_allocation, adjustment_type, leaves_to_adjust=None, posting_date=None):
+	leave_adjustment = frappe.new_doc(
+		"Leave Adjustment",
+		employee=leave_allocation.employee,
+		leave_allocation=leave_allocation.name,
+		leave_type=leave_allocation.leave_type,
+		posting_date=posting_date or getdate(),
+		adjustment_type=adjustment_type,
+		leaves_to_adjust=leaves_to_adjust or 10,
+	)
+	return leave_adjustment
