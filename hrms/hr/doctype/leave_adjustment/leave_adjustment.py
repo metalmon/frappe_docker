@@ -20,9 +20,9 @@ class LeaveAdjustment(Document):
 
 	def set_leaves_after_adjustment(self):
 		if self.adjustment_type == "Allocate":
-			self.leaves_after_adjustment = flt(self.allocated_leaves + self.leaves_to_adjust)
+			self.leaves_after_adjustment = flt(self.allocated_leaves) + flt(self.leaves_to_adjust)
 		elif self.adjustment_type == "Reduce":
-			self.leaves_after_adjustment = flt(self.allocated_leaves - self.leaves_to_adjust)
+			self.leaves_after_adjustment = flt(self.allocated_leaves) - flt(self.leaves_to_adjust)
 
 	def validate(self):
 		self.validate_duplicate_leave_adjustment()
@@ -53,7 +53,7 @@ class LeaveAdjustment(Document):
 
 		max_leaves_allowed = frappe.db.get_value("Leave Type", self.leave_type, "max_leaves_allowed")
 
-		new_allocation = flt(self.allocated_leaves + self.leaves_to_adjust)
+		new_allocation = flt(self.allocated_leaves) + flt(self.leaves_to_adjust)
 
 		if max_leaves_allowed and (new_allocation > max_leaves_allowed):
 			frappe.throw(
