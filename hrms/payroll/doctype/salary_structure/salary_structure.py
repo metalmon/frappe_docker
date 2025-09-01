@@ -429,7 +429,16 @@ def validate_max_benefit_for_flexible_benefit(employee_benefits, max_benefits=No
 		return
 
 	benefit_total = 0
+	benefit_components = []
+
 	for benefit in employee_benefits:
+		if benefit.salary_component in benefit_components:
+			frappe.throw(
+				_("Salary Component {0} cannot be selected more than once in Employee Benefits").format(
+					benefit.salary_component
+				)
+			)
+
 		benefit_total += benefit.amount
 		max_of_component = frappe.db.get_value(
 			"Salary Component", benefit.salary_component, "max_benefit_amount"
@@ -445,10 +454,11 @@ def validate_max_benefit_for_flexible_benefit(employee_benefits, max_benefits=No
 					get_link_to_form("Salary Component", benefit.salary_component),
 				)
 			)
+		benefit_components.append(benefit.salary_component)
 
 	if max_benefits and benefit_total > max_benefits:
 		frappe.throw(
-			_("Total of all employee benefits cannot be greater that Max Benefits Amount {0}}").format(
+			_("Total of all employee benefits cannot be greater that Max Benefits Amount {0}").format(
 				max_benefits
 			),
 			title=_("Invalid Benefit Amounts"),
