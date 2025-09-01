@@ -10,6 +10,11 @@ from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import create_leave_l
 
 
 class LeaveAdjustment(Document):
+	def before_validate(self):
+		system_precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 3
+		precision = self.precision("leaves_to_adjust") or system_precision
+		self.leaves_to_adjust = flt(self.leaves_to_adjust, precision)
+
 	def before_save(self):
 		self.set_leaves_after_adjustment()
 
@@ -48,9 +53,7 @@ class LeaveAdjustment(Document):
 
 		max_leaves_allowed = frappe.db.get_value("Leave Type", self.leave_type, "max_leaves_allowed")
 
-		precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
-
-		new_allocation = flt(self.allocated_leaves + self.leaves_to_adjust, precision)
+		new_allocation = flt(self.allocated_leaves + self.leaves_to_adjust)
 
 		if max_leaves_allowed and (new_allocation > max_leaves_allowed):
 			frappe.throw(
@@ -66,9 +69,8 @@ class LeaveAdjustment(Document):
 		leave_balance = get_leave_balance_on(
 			employee=self.employee, leave_type=self.leave_type, date=self.posting_date
 		)
-		precision = cint(frappe.db.get_single_value("System Settings", "float_precision")) or 2
 
-		if leave_balance < flt(self.leaves_to_adjust, precision):
+		if leave_balance < self.leaves_to_adjust:
 			frappe.throw(
 				_("Reduction is more than {0}'s available leave balance {1} for leave type {2}").format(
 					frappe.bold(self.employee_name), frappe.bold(leave_balance), frappe.bold(self.leave_type)
