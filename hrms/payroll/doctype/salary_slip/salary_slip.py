@@ -37,6 +37,7 @@ from hrms.hr.utils import validate_active_employee
 from hrms.payroll.doctype.additional_salary.additional_salary import get_additional_salaries
 from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
 	create_employee_benefit_ledger_entry,
+	delete_employee_benefit_ledger_entry,
 )
 from hrms.payroll.doctype.payroll_entry.payroll_entry import get_salary_withholdings, get_start_end_dates
 from hrms.payroll.doctype.payroll_period.payroll_period import (
@@ -256,7 +257,7 @@ class SalarySlip(TransactionBase):
 		self.set_status()
 		self.update_status()
 		self.update_payment_status_for_gratuity_and_leave_encashment()
-		create_employee_benefit_ledger_entry(self, delete=True)
+		delete_employee_benefit_ledger_entry(self.name)
 
 		cancel_loan_repayment_entry(self)
 		self.publish_update()
@@ -1371,7 +1372,7 @@ class SalarySlip(TransactionBase):
 
 		return benefit_details_parent, benefit_details_doctype
 
-	def add_current_period_employee_benefits(self, employee_benefits):
+	def add_current_period_employee_benefits(self, employee_benefits: dict):
 		"""Add flexible benefit payouts and accruals to salary slip Accrued Benefits table. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
 		for benefit in employee_benefits:
 			if benefit.amount == 0:
@@ -1410,7 +1411,7 @@ class SalarySlip(TransactionBase):
 				}
 			)
 
-	def get_current_period_employee_benefit_amounts(self, employee_benefits):
+	def get_current_period_employee_benefit_amounts(self, employee_benefits: dict) -> dict:
 		"""Calculate employee benefit amounts for the current salary slip period based on payout method."""
 		from collections import defaultdict
 

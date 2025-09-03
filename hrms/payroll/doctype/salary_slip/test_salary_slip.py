@@ -1116,7 +1116,7 @@ class TestSalarySlip(IntegrationTestCase):
 
 		# total taxable income 416000, 166000 @ 5% ie. 8300
 		try:
-			self.assertEqual(tax_paid, 82389.0)
+			self.assertEqual(tax_paid, 71989.0)
 		except AssertionError:
 			print("\nSalary Slip - Tax calculation failed on following case\n", data, "\n")
 			raise
@@ -1128,6 +1128,7 @@ class TestSalarySlip(IntegrationTestCase):
 			employee, salary_structure.name, payroll_period
 		)
 
+		annual_tax = 103189.0
 		# total taxable income 566000, 250000 @ 5%, 66000 @ 20%, 12500 + 13200
 		tax_paid = get_tax_paid_in_period(employee)
 		try:

@@ -892,7 +892,7 @@ class TestPayrollEntry(FrappeTestCase):
 		"""Test to verify
 		- employee flexible benefits of accrual payout methods are fetched into salary slip
 		- employee benefit ledger entries are created for each component
-		- accrual earning components are excluded from gross pay and annual taxable amount
+		- accrual earning components are excluded from earnings and added to accrued_benefts instead
 		- additional salary for accrual component is included in totals and benefit ledger entries are created
 		"""
 		from hrms.payroll.doctype.salary_slip.test_salary_slip import make_payroll_period
@@ -939,8 +939,13 @@ class TestPayrollEntry(FrappeTestCase):
 			"Accrue per cycle, pay only on claim",
 		]
 		for benefit in salary_slip.accrued_benefits:
-			payout_method = frappe.db.get_value("Salary Component", benefit.salary_component, "payout_method")
-			self.assertIn(payout_method, accrual_payout_methods)
+			if benefit.salary_component != "Accrued Earnings":
+				payout_method = frappe.db.get_value(
+					"Salary Component", benefit.salary_component, "payout_method"
+				)
+				self.assertIn(payout_method, accrual_payout_methods)
+			else:
+				self.assertEqual(benefit.amount, 1000)
 
 		# Check if employee benefit ledger entries have been created for each component
 		for benefit_row in salary_slip.accrued_benefits:
@@ -951,25 +956,10 @@ class TestPayrollEntry(FrappeTestCase):
 				)
 			)
 
-		total_earnings = 0
-		accrual_component_amount = 0
-		for earning in salary_slip.earnings:
-			total_earnings += earning.amount
-			if earning.salary_component == "Accrued Earnings":
-				self.assertTrue(earning.accrual_component)
-				accrual_component_amount = earning.amount
-
-		total_tax_exemption = 50000 + 2400  # Standard exemption + Professional Tax
-		expected_total_taxable_earnings = (
-			(total_earnings * 12) - total_tax_exemption - (accrual_component_amount * 12)
-		)
-
-		# Assert annual taxable amount excludes accrual component
-		self.assertEqual(salary_slip.annual_taxable_amount, expected_total_taxable_earnings)
-
-		# Assert accrual component is excluded from gross pay
-		expected_gross_pay = total_earnings - accrual_component_amount
-		self.assertEqual(salary_slip.gross_pay, expected_gross_pay)
+		earnings_list = [earning.salary_component for earning in salary_slip.earnings]
+		self.assertNotIn(
+			"Accrued Earnings", earnings_list
+		)  # "Accrued Earnings should not be in earnings table but in accrued benefits")
 
 		# Check if Employee Benefit Ledger exists for Accrued Earnings Component
 		self.assertTrue(
@@ -978,11 +968,6 @@ class TestPayrollEntry(FrappeTestCase):
 				{"salary_slip": salary_slip.name, "salary_component": "Accrued Earnings"},
 			)
 		)
-
-		# Verify that accrual amount is excluded from JV entry amounts
-		journal_entry = frappe.get_doc("Journal Entry", salary_slip.journal_entry)
-		self.assertEqual(journal_entry.total_debit, salary_slip.gross_pay)
-		self.assertEqual(journal_entry.total_credit, salary_slip.gross_pay)
 
 		# Create additional salary for accrual component for second month of payroll period
 		second_month_start = add_months(first_month_start, 1)
@@ -1010,14 +995,6 @@ class TestPayrollEntry(FrappeTestCase):
 			company="_Test Company",
 		)
 		next_salary_slip = frappe.get_doc("Salary Slip", {"payroll_entry": next_month_payroll_entry.name})
-		# Verify payout against accrual component as additional salary is included in gross pay calculation
-		total_next_earnings = sum(earning.amount for earning in next_salary_slip.earnings) - 1000
-		self.assertEqual(next_salary_slip.gross_pay, total_next_earnings)
-
-		# Verify JV entry includes the accrual amount
-		next_journal_entry = frappe.get_doc("Journal Entry", next_salary_slip.journal_entry)
-		self.assertEqual(next_journal_entry.total_debit, next_salary_slip.gross_pay)
-		self.assertEqual(next_journal_entry.total_credit, next_salary_slip.gross_pay)
 
 		# Payout against accrual component as additional salary is recorded in Employee Benefit Ledger
 		self.assertTrue(

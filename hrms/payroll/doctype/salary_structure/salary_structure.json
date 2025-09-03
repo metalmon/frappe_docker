@@ -241,7 +241,7 @@
   {
    "fieldname": "employee_benefits",
    "fieldtype": "Table",
-   "label": "Employee Benefits",
+   "label": "Flexible Benefits",
    "options": "Employee Benefit Detail"
   }
  ],
@@ -249,7 +249,7 @@
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-28 11:40:15.376785",
+ "modified": "2025-09-03 17:05:57.083000",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",

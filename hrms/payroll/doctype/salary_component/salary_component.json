@@ -259,7 +259,8 @@
    "description": "If enabled, this component allows to accrue amounts without adding them to earnings. The accrued balance is tracked in the Employee Benefit Ledger and can be paid out later as needed.",
    "fieldname": "accrual_component",
    "fieldtype": "Check",
-   "label": "Accrual Component"
+   "label": "Accrual Component",
+   "read_only_depends_on": "eval:doc.is_flexible_benefit==1;"
   },
   {
    "depends_on": "is_flexible_benefit",
@@ -267,7 +268,7 @@
    "fieldtype": "Select",
    "label": "Payout Method",
    "mandatory_depends_on": "is_flexible_benefit",
-   "options": "Accrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
+   "options": "\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
   },
   {
    "default": "0",
@@ -280,7 +281,7 @@
  "icon": "fa fa-flag",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-08-20 11:35:58.999661",
+ "modified": "2025-09-03 21:08:36.142313",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Component",

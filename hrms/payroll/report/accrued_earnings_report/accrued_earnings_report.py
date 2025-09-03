@@ -37,6 +37,12 @@ def get_columns() -> list[dict]:
 			"width": 150,
 		},
 		{
+			"label": _("Yearly Benefit"),
+			"fieldname": "yearly_benefit",
+			"fieldtype": "Currency",
+			"width": 120,
+		},
+		{
 			"label": _("Total Accrued"),
 			"fieldname": "total_accrued",
 			"fieldtype": "Currency",
@@ -87,6 +93,7 @@ def get_data(filters):
 			EBL.salary_component,
 			EBL.transaction_type,
 			EBL.amount,
+			EBL.yearly_benefit,
 			SC.accrual_component,
 			EBL.flexible_benefit,
 		)
@@ -141,6 +148,7 @@ def get_data(filters):
 				"payroll_period": entry.payroll_period,
 				"salary_component": entry.salary_component,
 				"flexible_benefit": entry.flexible_benefit or 0,
+				"yearly_benefit": entry.yearly_benefit or 0,
 				"total_accrued": 0,
 				"total_payout": 0,
 				"unpaid_accrual": 0,
@@ -159,12 +167,12 @@ def get_data(filters):
 		# Add create additional salary button only for non-flexible benefits with unpaid accrual
 		if not row_data["flexible_benefit"] and row_data["unpaid_accrual"] > 0:
 			row_data["create_additional_salary"] = f"""
-				<button class='btn btn-xs btn-primary'
+				<a
 						onclick="create_additional_salary('{row_data['employee']}',
 													   '{row_data['salary_component']}',
 													   {row_data['unpaid_accrual']})">
 					Create Additional Salary
-				</button>
+				</a>
 			"""
 		else:
 			row_data["create_additional_salary"] = ""

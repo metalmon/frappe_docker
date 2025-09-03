@@ -12,16 +12,6 @@ class EmployeeBenefitLedger(Document):
 
 
 def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
-	EmployeeBenefitLedger = frappe.qb.DocType("Employee Benefit Ledger")
-
-	if delete:
-		(
-			frappe.qb.from_(EmployeeBenefitLedger)
-			.delete()
-			.where(EmployeeBenefitLedger.salary_slip == ref_doc.name)
-		).run()
-		return
-
 	components = (args or {}).get("benefit_ledger_components") or []
 	if not components:
 		return
@@ -63,6 +53,16 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 			)
 
 		frappe.get_doc(entry).insert()
+
+
+def delete_employee_benefit_ledger_entry(ref_doc_name):
+	EmployeeBenefitLedger = frappe.qb.DocType("Employee Benefit Ledger")
+	(
+		frappe.qb.from_(EmployeeBenefitLedger)
+		.delete()
+		.where(EmployeeBenefitLedger.salary_slip == ref_doc_name)
+	).run()
+	return
 
 
 def get_max_claim_eligible(employee, payroll_period, benefit_component, current_month_benefit_amount=0):
