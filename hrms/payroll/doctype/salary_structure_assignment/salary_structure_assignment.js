@@ -101,7 +101,6 @@ frappe.ui.form.on("Salary Structure Assignment", {
 	},
 
 	salary_structure: (frm) => {
-		console.log("hoii");
 		if (frm.doc.salary_structure) {
 			frappe.db.get_doc("Salary Structure", frm.doc.salary_structure).then((doc) => {
 				frm.clear_table("employee_benefits");

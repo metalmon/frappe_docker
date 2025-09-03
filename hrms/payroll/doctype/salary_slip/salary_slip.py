@@ -35,9 +35,6 @@ from erpnext.utilities.transaction_base import TransactionBase
 
 from hrms.hr.utils import validate_active_employee
 from hrms.payroll.doctype.additional_salary.additional_salary import get_additional_salaries
-from hrms.payroll.doctype.employee_benefit_application.employee_benefit_application import (
-	get_benefit_component_amount,
-)
 from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
 	create_employee_benefit_ledger_entry,
 )
@@ -1315,9 +1312,14 @@ class SalarySlip(TransactionBase):
 			raise
 
 	def add_employee_benefits(self):
-		"""Fetch employee benefits from Salary Structure Assignment. Get amounts for accrual or payouts for each and add to salary slip"""
-		EmployeeBenefitDetail = frappe.qb.DocType("Employee Benefit Detail")
+		# Fetch employee benefits based on mandatory benefit application setting, get amounts for accrual or payouts for each and add to salary slip accrued_benefits/earnings table
+		benefit_details_parent, benefit_details_doctype = self.get_benefits_details_parent()
+
+		if not benefit_details_parent:
+			return
+
 		SalaryComponent = frappe.qb.DocType("Salary Component")
+		EmployeeBenefitDetail = frappe.qb.DocType(benefit_details_doctype)
 		employee_benefits = (
 			frappe.qb.from_(EmployeeBenefitDetail)
 			.join(SalaryComponent)
@@ -1330,12 +1332,9 @@ class SalarySlip(TransactionBase):
 				SalaryComponent.round_to_the_nearest_integer,
 				SalaryComponent.final_cycle_accrual_payout,
 			)
-			.where(EmployeeBenefitDetail.parent == self._salary_structure_assignment.name)
+			.where(EmployeeBenefitDetail.parent == benefit_details_parent)
 			.where(SalaryComponent.is_flexible_benefit == 1)
-			.where(
-				(SalaryComponent.payout_method == "Accrue and payout at end of payroll period")
-				| (SalaryComponent.payout_method == "Accrue per cycle, pay only on claim")
-			)
+			.where(SalaryComponent.accrual_component == 1)
 			.run(as_dict=True)
 		)
 
@@ -1343,8 +1342,37 @@ class SalarySlip(TransactionBase):
 			employee_benefits = self.get_current_period_employee_benefit_amounts(employee_benefits)
 			self.add_current_period_employee_benefits(employee_benefits)
 
+	def get_benefits_details_parent(self):
+		mandatory_benefit_application = frappe.db.get_single_value(
+			"Payroll Settings", "mandatory_benefit_application"
+		)
+		benefit_details_parent = None
+		benefit_details_doctype = None
+		# Check if Employee Benefit Application exists
+		employee_benefit_application = frappe.db.get_value(
+			"Employee Benefit Application",
+			{"employee": self.employee, "payroll_period": self.payroll_period.name, "docstatus": 1},
+			"name",
+		)
+
+		if mandatory_benefit_application:
+			# If mandatory, only consider Employee Benefit Application
+			if employee_benefit_application:
+				benefit_details_parent = employee_benefit_application
+				benefit_details_doctype = "Employee Benefit Application Detail"
+		else:
+			# If not mandatory, prefer Employee Benefit Application but fallback to Salary Structure Assignment
+			if employee_benefit_application:
+				benefit_details_parent = employee_benefit_application
+				benefit_details_doctype = "Employee Benefit Application Detail"
+			else:
+				benefit_details_parent = self._salary_structure_assignment.name
+				benefit_details_doctype = "Employee Benefit Detail"
+
+		return benefit_details_parent, benefit_details_doctype
+
 	def add_current_period_employee_benefits(self, employee_benefits):
-		"""Add flexible benefit payouts and accruals to salary slip Earnings and Accrued Benefits tables respectively. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
+		"""Add flexible benefit payouts and accruals to salary slip Accrued Benefits table. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
 		for benefit in employee_benefits:
 			if benefit.amount == 0:
 				continue
