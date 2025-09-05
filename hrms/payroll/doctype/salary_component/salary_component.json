@@ -268,7 +268,7 @@
    "fieldtype": "Select",
    "label": "Payout Method",
    "mandatory_depends_on": "is_flexible_benefit",
-   "options": "\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim up to full period limit"
+   "options": "\nAccrue and payout at end of payroll period\nAccrue per cycle, pay only on claim\nAllow claim for full benefit amount"
   },
   {
    "default": "0",
@@ -281,7 +281,7 @@
  "icon": "fa fa-flag",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-03 21:08:36.142313",
+ "modified": "2025-09-04 08:25:35.159988",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Component",

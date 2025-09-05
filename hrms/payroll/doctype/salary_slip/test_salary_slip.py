@@ -2122,7 +2122,7 @@ def make_employee_benefit_earning_components(setup=False, test_tax=False, compan
 				"abbr": "LTA",
 				"is_flexible_benefit": 1,
 				"type": "Earning",
-				"payout_method": "Allow claim up to full period limit",
+				"payout_method": "Allow claim for full benefit amount",
 				"max_benefit_amount": 50000,
 				"accrual_component": 0,
 			},

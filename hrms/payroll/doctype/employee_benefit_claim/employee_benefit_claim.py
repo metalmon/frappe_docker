@@ -169,7 +169,7 @@ def get_benefit_components(doctype, txt, searchfield, start, page_len, filters):
 		.where(EmployeeBenefitDetail.parent == salary_structure_assignment)
 		.where(
 			(SalaryComponent.payout_method == "Accrue per cycle, pay only on claim")
-			| (SalaryComponent.payout_method == "Allow claim up to full period limit")
+			| (SalaryComponent.payout_method == "Allow claim for full benefit amount")
 		)
 	).run()
 

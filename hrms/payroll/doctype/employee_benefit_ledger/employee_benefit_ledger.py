@@ -24,6 +24,7 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 		"posting_date": ref_doc.posting_date,
 		"salary_slip": ref_doc.name,
 		"payroll_period": args.get("payroll_period"),
+		"salary_structure_assignment": args.get("salary_structure_assignment"),
 	}
 
 	for component in components:
@@ -84,7 +85,7 @@ def get_max_claim_eligible(employee, payroll_period, benefit_component, current_
 					"Accrued amount {0} is less than paid amount {1} for Benefit {2} in payroll period {3}"
 				).format(accrued, paid, benefit_component.name, payroll_period)
 			)
-	elif payout_method == "Allow claim up to full period limit":
+	elif payout_method == "Allow claim for full benefit amount":
 		claim_eligible = benefit_component.amount - paid
 
 	return claim_eligible
