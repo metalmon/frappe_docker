@@ -121,7 +121,7 @@ function applyFilters(fields) {
 				is_group: 0,
 				root_type: "Asset",
 				account_type: "Receivable",
-				account_currency: ("in", currencies),
+				account_currency: ["in", currencies],
 			}
 		}
 
