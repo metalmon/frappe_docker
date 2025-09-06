@@ -120,6 +120,7 @@ function applyFilters(fields) {
 				company: employeeAdvance.value.company,
 				is_group: 0,
 				root_type: "Asset",
+				account_type: "Receivable",
 				account_currency: ("in", currencies),
 			}
 		}
