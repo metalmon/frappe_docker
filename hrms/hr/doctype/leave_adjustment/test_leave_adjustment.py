@@ -33,7 +33,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 			new_leaves_allocated=10,
 			from_date=get_first_day(getdate()),
 			to_date=get_last_day(getdate()),
-		).submit()
+		)
+		self.leave_allocation.submit()
 
 	def test_duplicate_leave_adjustment(self):
 		create_leave_adjustment(self.leave_allocation, adjustment_type="Reduce", leaves_to_adjust=3).submit()
@@ -49,7 +50,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 			employee_name=self.employees[0].employee_name,
 			leave_type=leave_type.name,
 			new_leaves_allocated=25,
-		).submit()
+		)
+		leave_allocation.submit()
 		leave_adjustment = create_leave_adjustment(
 			leave_allocation, adjustment_type="Allocate", leaves_to_adjust=10
 		)
@@ -117,7 +119,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 	def test_precision(self):
 		leave_adjustment = create_leave_adjustment(
 			self.leave_allocation, adjustment_type="Allocate", leaves_to_adjust=5.126
-		).submit()
+		)
+		leave_adjustment.submit()
 		leave_adjustment.reload()
 		self.assertEqual(leave_adjustment.leaves_to_adjust, 5.13)
 
@@ -133,7 +136,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 			from_date=add_to_date(getdate(), months=-13),
 			to_date=add_to_date(getdate(), months=-1),
 			new_leaves_allocated=10,
-		).submit()
+		)
+		leave_allocation.submit()
 		# backdated leave adjustment
 		create_leave_adjustment(
 			leave_allocation,
@@ -166,7 +170,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 			from_date=add_to_date(getdate(), months=-13),
 			to_date=add_to_date(getdate(), months=-1),
 			new_leaves_allocated=10,
-		).submit()
+		)
+		leave_allocation.submit()
 		create_leave_adjustment(
 			leave_allocation,
 			adjustment_type="Reduce",
@@ -202,7 +207,8 @@ class TestLeaveAdjustment(HRMSTestSuite):
 			from_date=add_to_date(getdate(), months=-13),
 			to_date=add_to_date(getdate(), months=-1),
 			new_leaves_allocated=10,
-		).submit()
+		)
+		leave_allocation.submit()
 		create_leave_adjustment(
 			leave_allocation,
 			adjustment_type="Allocate",
