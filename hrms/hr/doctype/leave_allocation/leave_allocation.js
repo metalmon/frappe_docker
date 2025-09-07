@@ -70,6 +70,11 @@ frappe.ui.form.on("Leave Allocation", {
 									reqd: 1,
 									default: frappe.datetime.get_today(),
 								},
+								{
+									label: "Reason for Adjustment",
+									fieldname: "reason_for_adjustment",
+									fieldtype: "Small Text",
+								},
 							],
 							primary_action_label: "Adjust Leaves",
 							primary_action(values) {
