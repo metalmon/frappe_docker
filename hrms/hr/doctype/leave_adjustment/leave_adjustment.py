@@ -119,7 +119,7 @@ def get_leave_allocation_for_posting_date(employee, leave_type, posting_date):
 @frappe.validate_and_sanitize_search_inputs
 def get_allocated_leave_types(doctype, txt, searchfield, start, page_len, filters):
 	"""
-	Returns the leave allocation for the given employee, leave type and posting date.
+	Returns the leave types allocated to the given employee
 	"""
 	return frappe.get_all(
 		"Leave Allocation",
