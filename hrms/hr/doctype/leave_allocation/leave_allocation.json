@@ -32,6 +32,7 @@
   "amended_from",
   "earned_leave_schedule_section",
   "earned_leave_schedule",
+  "retry_failed_allocations",
   "notes",
   "description"
  ],
@@ -234,18 +235,22 @@
    "reqd": 1
   },
   {
-   "collapsible": 1,
-   "collapsible_depends_on": "true;",
    "depends_on": "eval:doc.earned_leave_schedule.length;",
    "fieldname": "earned_leave_schedule_section",
    "fieldtype": "Section Break",
    "label": "Earned Leave Schedule"
   },
   {
-   "allow_on_submit": 1,
    "fieldname": "earned_leave_schedule",
    "fieldtype": "Table",
-   "options": "Earned Leave Schedule"
+   "options": "Earned Leave Schedule",
+   "read_only": 1
+  },
+  {
+   "fieldname": "retry_failed_allocations",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Retry Failed Allocations"
   }
  ],
  "icon": "fa fa-ok",
@@ -253,7 +258,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-07 17:52:39.864217",
+ "modified": "2025-09-08 16:08:44.666709",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Allocation",

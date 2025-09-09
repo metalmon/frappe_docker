@@ -20,6 +20,7 @@ frappe.ui.form.on("Leave Allocation", {
 				return value;
 			}
 		};
+
 		frm.refresh_field("earned_leave_schedule");
 	},
 	onload: function (frm) {
@@ -116,6 +117,8 @@ frappe.ui.form.on("Leave Allocation", {
 				);
 			}
 		}
+
+		frm.trigger("toggle_retry_button");
 	},
 
 	expire_allocation: function (frm) {
@@ -178,6 +181,33 @@ frappe.ui.form.on("Leave Allocation", {
 				"Leave Policy",
 			);
 		}
+	},
+
+	toggle_retry_button: function (frm) {
+		toggle_button = frm.doc.earned_leave_schedule.some((row) => row.attempted && row.failed);
+		frm.toggle_display("retry_failed_allocations", toggle_button);
+	},
+
+	retry_failed_allocations: function (frm) {
+		let failed_allocations = frm.doc.earned_leave_schedule.filter(
+			(row) => row.attempted && row.failed,
+		);
+
+		frappe.call({
+			method: "retry_failed_allocations",
+			doc: frm.doc,
+			args: failed_allocations,
+			freeze: true,
+			freeze_message: __("Retrying allocations"),
+			callback: function (r) {
+				frappe.show_alert({
+					message: __("Retry Successful"),
+					indicator: "green",
+				});
+				frm.reload_doc();
+				frm.refresh_field("retry_failed_allocations");
+			},
+		});
 	},
 
 	calculate_total_leaves_allocated: function (frm) {

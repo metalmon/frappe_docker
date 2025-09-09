@@ -64,7 +64,7 @@
    "in_list_view": 1,
    "in_preview": 1,
    "label": "Allocated Via",
-   "options": "\nScheduler\nLeave Policy Assignment",
+   "options": "\nScheduler\nLeave Policy Assignment\nManually",
    "read_only": 1
   },
   {
@@ -92,7 +92,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-28 10:29:05.825102",
+ "modified": "2025-09-08 13:02:10.998159",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Earned Leave Schedule",
