@@ -6,16 +6,17 @@ import calendar
 import frappe
 from frappe import _
 from frappe.model.document import Document
+from frappe.utils import flt
 
 
 class PayrollCorrection(Document):
 	def validate(self):
+		if self.days_to_reverse <= 0:
+			frappe.throw(_("Days to Reverse must be greater than zero."))
 		self.validate_days()
 		self.insert_breakup_table()
 
 	def on_submit(self):
-		if self.days_to_reverse <= 0:
-			frappe.throw(_("Days to Reverse must be greater than zero."))
 		self.validate_arrear_details()
 		self.insert_additional_salary()
 
@@ -33,6 +34,7 @@ class PayrollCorrection(Document):
 					"payroll_period": self.payroll_period,
 					"salary_slip_reference": self.salary_slip_reference,
 					"employee": self.employee,
+					"name": ["!=", self.name],
 				},
 				fields=["days_to_reverse"],
 			)
@@ -102,6 +104,7 @@ class PayrollCorrection(Document):
 	def insert_breakup_table(self):
 		# Get arrear salary components from salary slip that are not additional salary and add amounts to the breakup table
 		salary_slip = frappe.get_doc("Salary Slip", self.salary_slip_reference)
+		precision = frappe.db.get_single_value("System Settings", "currency_precision") or 2
 		if not salary_slip:
 			frappe.throw(_("Salary Slip not found."))
 
@@ -147,12 +150,12 @@ class PayrollCorrection(Document):
 		for component in arrear_components:
 			component_data = salary_slip_components[component]
 
-			per_day_amount = component_data["default_amount"] / total_working_days
-			arrear_amount = per_day_amount * self.days_to_reverse
+			per_day_amount = flt(component_data["default_amount"] / total_working_days)
+			arrear_amount = flt(per_day_amount * self.days_to_reverse)
 
 			self.append(
 				component_data["section"],
-				{"salary_component": component, "amount": arrear_amount},
+				{"salary_component": component, "amount": flt(arrear_amount, precision)},
 			)
 
 	def validate_arrear_details(self):

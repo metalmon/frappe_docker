@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class SalaryAdjustmentChild(Document):
+class PayrollCorrectionChild(Document):
 	pass

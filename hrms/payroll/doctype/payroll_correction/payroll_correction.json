@@ -156,7 +156,7 @@
    "fieldname": "earning_arrear_details",
    "fieldtype": "Table",
    "label": "Earnings Arrear Details",
-   "options": "Salary Adjustment Child",
+   "options": "Payroll Correction Child",
    "read_only": 1
   },
   {
@@ -167,7 +167,7 @@
    "fieldname": "deductions_arrear_details",
    "fieldtype": "Table",
    "label": "Deductions Arrear Details",
-   "options": "Salary Adjustment Child",
+   "options": "Payroll Correction Child",
    "read_only": 1
   },
   {
@@ -187,7 +187,7 @@
    "link_fieldname": "ref_docname"
   }
  ],
- "modified": "2025-09-09 21:33:45.846085",
+ "modified": "2025-09-10 15:56:47.763383",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Payroll Correction",
