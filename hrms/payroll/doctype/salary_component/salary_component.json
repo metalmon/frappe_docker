@@ -27,8 +27,7 @@
   "do_not_include_in_total",
   "do_not_include_in_accounts",
   "remove_if_zero_valued",
-  "is_arrear",
-  "mapping_component",
+  "arrear_component",
   "disabled",
   "section_break_5",
   "accounts",
@@ -85,7 +84,8 @@
    "fieldname": "depends_on_payment_days",
    "fieldtype": "Check",
    "label": "Depends on Payment Days",
-   "print_hide": 1
+   "print_hide": 1,
+   "read_only_depends_on": "eval:doc.arrear_component==1"
   },
   {
    "default": "0",
@@ -257,10 +257,10 @@
   },
   {
    "default": "0",
-   "description": "If the arrear checkbox is checked, this component is treated as an arrear component.",
-   "fieldname": "is_arrear",
+   "description": "If enabled, this component is treated as an arrear component.",
+   "fieldname": "arrear_component",
    "fieldtype": "Check",
-   "label": "Is Arrear"
+   "label": "Arrear Component"
   },
   {
    "depends_on": "is_arrear",

@@ -14,9 +14,9 @@
   "company",
   "currency",
   "payroll_period",
-  "additional_salary_date",
+  "payroll_date",
   "section_break_xdag",
-  "select_month_for_lwp_reversal",
+  "month_for_lwp_reversal",
   "salary_slip_reference",
   "working_days",
   "absent_days",
@@ -92,19 +92,12 @@
    "reqd": 1
   },
   {
-   "description": "Choose the date on which you want to create these components as arrears.",
-   "fieldname": "additional_salary_date",
-   "fieldtype": "Date",
-   "label": "Additional Salary Date",
-   "reqd": 1
-  },
-  {
    "fieldname": "section_break_xdag",
    "fieldtype": "Section Break"
   },
   {
    "depends_on": "payroll_period",
-   "fieldname": "select_month_for_lwp_reversal",
+   "fieldname": "month_for_lwp_reversal",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Select Month for LWP Reversal",
@@ -176,6 +169,13 @@
    "label": "Deductions Arrear Details",
    "options": "Salary Adjustment Child",
    "read_only": 1
+  },
+  {
+   "description": "Choose the date on which you want to create these components as arrears.",
+   "fieldname": "payroll_date",
+   "fieldtype": "Date",
+   "label": "Payroll Date",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
@@ -187,7 +187,7 @@
    "link_fieldname": "ref_docname"
   }
  ],
- "modified": "2025-04-04 19:17:44.575475",
+ "modified": "2025-09-09 21:33:45.846085",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Payroll Correction",
@@ -236,7 +236,9 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "employee_name"
 }
