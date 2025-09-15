@@ -2132,6 +2132,7 @@ def make_employee_benefit_earning_components(setup=False, test_tax=False, compan
 				"is_flexible_benefit": 1,
 				"type": "Earning",
 				"payout_method": "Accrue per cycle, pay only on claim",
+				"final_cycle_accrual_payout": 1,
 				"accrual_component": 1,
 			},
 			{

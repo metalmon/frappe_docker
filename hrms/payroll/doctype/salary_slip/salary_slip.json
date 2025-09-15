@@ -745,6 +745,7 @@
    "fieldtype": "Table",
    "label": "Accrued Benefits",
    "options": "Employee Benefit Detail",
+   "print_hide": 1,
    "read_only": 1
   }
  ],
@@ -752,7 +753,7 @@
  "idx": 9,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-25 20:05:09.898172",
+ "modified": "2025-09-15 15:50:53.529366",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Slip",
@@ -789,6 +790,7 @@
    "role": "Employee"
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "employee_name",
  "show_name_in_global_search": 1,
  "sort_field": "creation",

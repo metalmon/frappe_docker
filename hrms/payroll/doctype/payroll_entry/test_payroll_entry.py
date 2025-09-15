@@ -894,8 +894,14 @@ class TestPayrollEntry(FrappeTestCase):
 		- employee benefit ledger entries are created for each component
 		- accrual earning components are excluded from earnings and added to accrued_benefts instead
 		- additional salary for accrual component is included in totals and benefit ledger entries are created
+		- unclaimed benefits and benefit type of "Accrue and Payout at end of Payroll Perod" are paid out in final month of payroll period
 		"""
-		from hrms.payroll.doctype.salary_slip.test_salary_slip import make_payroll_period
+		from hrms.payroll.doctype.salary_slip.test_salary_slip import (
+			create_salary_slips_for_payroll_period,
+			make_payroll_period,
+		)
+
+		frappe.db.set_value("Company", "_Test Company", "default_holiday_list", "_Test Holiday List")
 
 		make_payroll_period()
 		emp = make_employee(
@@ -1006,6 +1012,26 @@ class TestPayrollEntry(FrappeTestCase):
 					"transaction_type": "Payout",
 				},
 			)
+		)
+
+		frappe.db.delete("Salary Slip", {"employee": emp})
+
+		# check if unclaimed benefits and benefit type of "Accrue and Payout at end of Payroll Perod" are paid out in final month of payroll period
+		create_salary_slips_for_payroll_period(emp, "Test Benefit Accrual", payroll_period)
+
+		salary_slip = frappe.get_all(
+			"Salary Slip", filters={"employee": emp}, order_by="posting_date desc", limit=1, pluck="name"
+		)
+		salary_slip = frappe.get_doc("Salary Slip", salary_slip[0])
+
+		earnings_components = {earning.salary_component: earning.amount for earning in salary_slip.earnings}
+		self.assertEqual(
+			earnings_components.get("Internet Reimbursement"),
+			24000,
+		)
+		self.assertEqual(
+			earnings_components.get("Mediclaim Allowance"),
+			48000,
 		)
 
 

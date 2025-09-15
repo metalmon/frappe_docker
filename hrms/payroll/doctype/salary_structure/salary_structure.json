@@ -24,6 +24,7 @@
   "salary_component",
   "hour_rate",
   "earning_deduction",
+  "column_break_besp",
   "earnings",
   "deductions",
   "employee_benefits",
@@ -239,17 +240,22 @@
    "search_index": 1
   },
   {
+   "description": "Enter yearly benefit amounts",
    "fieldname": "employee_benefits",
    "fieldtype": "Table",
    "label": "Flexible Benefits",
    "options": "Employee Benefit Detail"
+  },
+  {
+   "fieldname": "column_break_besp",
+   "fieldtype": "Column Break"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-03 17:05:57.083000",
+ "modified": "2025-09-15 15:56:52.814944",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Structure",
