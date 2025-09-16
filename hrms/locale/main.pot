@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe HR VERSION\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
-"POT-Creation-Date: 2025-09-07 09:33+0000\n"
-"PO-Revision-Date: 2025-09-07 09:33+0000\n"
+"POT-Creation-Date: 2025-09-14 09:34+0000\n"
+"PO-Revision-Date: 2025-09-14 09:34+0000\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: contact@frappe.io\n"
 "MIME-Version: 1.0\n"
@@ -554,7 +554,7 @@ msgstr ""
 #: hrms/hr/doctype/job_requisition/job_requisition.js:78
 #: hrms/hr/doctype/job_requisition/job_requisition.js:81
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:45
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:114
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:98
 #: hrms/payroll/doctype/salary_structure/salary_structure.js:159
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.js:77
 msgid "Actions"
@@ -731,6 +731,19 @@ msgstr ""
 msgid "Address of Organizer"
 msgstr ""
 
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:48
+msgid "Adjust Allocation"
+msgstr ""
+
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:412
+msgid "Adjustment Created Successfully"
+msgstr ""
+
+#. Label of the adjustment_type (Select) field in DocType 'Leave Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Adjustment Type"
+msgstr ""
+
 #. Option for the 'Level' (Select) field in DocType 'Training Event'
 #: hrms/hr/doctype/training_event/training_event.json
 msgid "Advance"
@@ -810,6 +823,12 @@ msgstr ""
 msgid "All the mandatory tasks for employee creation are not completed yet."
 msgstr ""
 
+#. Option for the 'Adjustment Type' (Select) field in DocType 'Leave
+#. Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Allocate"
+msgstr ""
+
 #. Label of the allocate_based_on_leave_policy (Check) field in DocType 'Leave
 #. Control Panel'
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.json
@@ -818,10 +837,6 @@ msgstr ""
 
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.js:176
 msgid "Allocate Leave"
-msgstr ""
-
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:66
-msgid "Allocate Leaves"
 msgstr ""
 
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.js:192
@@ -839,6 +854,8 @@ msgstr ""
 msgid "Allocated Amount"
 msgstr ""
 
+#. Label of the allocated_leaves (Float) field in DocType 'Leave Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_application/leave_application.js:75
 msgid "Allocated Leaves"
 msgstr ""
@@ -859,8 +876,23 @@ msgstr ""
 msgid "Allocation"
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:128
+#. Label of the section_break_etvg (Section Break) field in DocType 'Leave
+#. Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Allocation Details"
+msgstr ""
+
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:114
 msgid "Allocation Expired!"
+msgstr ""
+
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:60
+msgid "Allocation is greater than the maximum allowed {0} for leave type {1}"
+msgstr ""
+
+#. Label of the leave_allocation (Link) field in DocType 'Leave Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Allocation to Adjust"
 msgstr ""
 
 #. Label of the allow_employee_checkin_from_mobile_app (Check) field in DocType
@@ -966,6 +998,7 @@ msgstr ""
 #. Label of the amended_from (Link) field in DocType 'Interview'
 #. Label of the amended_from (Link) field in DocType 'Interview Feedback'
 #. Label of the amended_from (Link) field in DocType 'Job Offer'
+#. Label of the amended_from (Link) field in DocType 'Leave Adjustment'
 #. Label of the amended_from (Link) field in DocType 'Leave Allocation'
 #. Label of the amended_from (Link) field in DocType 'Leave Application'
 #. Label of the amended_from (Link) field in DocType 'Leave Encashment'
@@ -1020,6 +1053,7 @@ msgstr ""
 #: hrms/hr/doctype/interview/interview.json
 #: hrms/hr/doctype/interview_feedback/interview_feedback.json
 #: hrms/hr/doctype/job_offer/job_offer.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_encashment/leave_encashment.json
@@ -3939,6 +3973,10 @@ msgstr ""
 msgid "Duplicate Job Requisition"
 msgstr ""
 
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:40
+msgid "Duplicate Leave Adjustment"
+msgstr ""
+
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:157
 msgid "Duplicate Overwritten Salary"
 msgstr ""
@@ -4131,6 +4169,7 @@ msgstr ""
 #. Label of the employee (Link) field in DocType 'Exit Interview'
 #. Label of the employee (Link) field in DocType 'Full and Final Statement'
 #. Label of the employee (Link) field in DocType 'Goal'
+#. Label of the employee (Link) field in DocType 'Leave Adjustment'
 #. Label of the employee (Link) field in DocType 'Leave Allocation'
 #. Label of the employee (Link) field in DocType 'Leave Application'
 #. Label of the employee (Link) field in DocType 'Leave Encashment'
@@ -4203,6 +4242,7 @@ msgstr ""
 #: hrms/hr/doctype/grievance_type/grievance_type.json
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 #: hrms/hr/doctype/interest/interest.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.js:132
@@ -4593,6 +4633,7 @@ msgstr ""
 #. Label of the employee_name (Data) field in DocType 'Full and Final
 #. Statement'
 #. Label of the employee_name (Data) field in DocType 'Goal'
+#. Label of the employee_name (Data) field in DocType 'Leave Adjustment'
 #. Label of the employee_name (Data) field in DocType 'Leave Allocation'
 #. Label of the employee_name (Data) field in DocType 'Leave Application'
 #. Label of the employee_name (Data) field in DocType 'Leave Encashment'
@@ -4643,6 +4684,7 @@ msgstr ""
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.json
 #: hrms/hr/doctype/goal/goal.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_encashment/leave_encashment.json
@@ -5218,11 +5260,15 @@ msgstr ""
 msgid "Energy Points"
 msgstr ""
 
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:48
+msgid "Enter a non-zero value to adjust."
+msgstr ""
+
 #: hrms/hr/doctype/hr_settings/hr_settings.js:34
 msgid "Enter the Standard Working Hours for a normal work day. These hours will be used in calculations of reports such as Employee Hours Utilization and Project Profitability analysis."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:222
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:208
 msgid "Enter the number of leaves you want to allocate for the period."
 msgstr ""
 
@@ -5684,7 +5730,7 @@ msgstr ""
 msgid "Expire Carry Forwarded Leaves (Days)"
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.py:493
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:509
 msgid "Expire Leaves"
 msgstr ""
 
@@ -6088,6 +6134,7 @@ msgid "From Amount"
 msgstr ""
 
 #. Label of the from_date (Date) field in DocType 'Attendance Request'
+#. Label of the from_date (Date) field in DocType 'Leave Adjustment'
 #. Label of the from_date (Date) field in DocType 'Leave Allocation'
 #. Label of the from_date (Date) field in DocType 'Leave Application'
 #. Label of the from_date (Date) field in DocType 'Leave Control Panel'
@@ -6107,6 +6154,7 @@ msgstr ""
 #: frontend/src/views/leave/List.vue:56
 #: hrms/hr/dashboard_chart_source/hiring_vs_attrition_count/hiring_vs_attrition_count.js:15
 #: hrms/hr/doctype/attendance_request/attendance_request.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.json
@@ -6570,6 +6618,7 @@ msgstr ""
 #: hrms/hr/doctype/interview_round/interview_round.json
 #: hrms/hr/doctype/interview_type/interview_type.json
 #: hrms/hr/doctype/job_offer_term_template/job_offer_term_template.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_encashment/leave_encashment.json
@@ -6651,6 +6700,7 @@ msgstr ""
 #: hrms/hr/doctype/job_applicant_source/job_applicant_source.json
 #: hrms/hr/doctype/job_offer/job_offer.json
 #: hrms/hr/doctype/job_opening/job_opening.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_block_list/leave_block_list.json
@@ -6815,7 +6865,7 @@ msgid "Hold"
 msgstr ""
 
 #: hrms/hr/doctype/attendance/attendance.py:296
-#: hrms/hr/doctype/leave_application/leave_application.py:1380
+#: hrms/hr/doctype/leave_application/leave_application.py:1388
 #: hrms/hr/report/employees_working_on_a_holiday/employees_working_on_a_holiday.py:46
 msgid "Holiday"
 msgstr ""
@@ -7942,6 +7992,15 @@ msgstr ""
 msgid "Leave"
 msgstr ""
 
+#. Name of a DocType
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Leave Adjustment"
+msgstr ""
+
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:41
+msgid "Leave Adjustment for this allocation already exists: {0}. Please amend existing adjustment."
+msgstr ""
+
 #. Label of the leave_allocation (Link) field in DocType 'Compensatory Leave
 #. Request'
 #. Name of a DocType
@@ -8056,7 +8115,7 @@ msgstr ""
 msgid "Leave Block List Name"
 msgstr ""
 
-#: hrms/hr/doctype/leave_application/leave_application.py:1356
+#: hrms/hr/doctype/leave_application/leave_application.py:1364
 msgid "Leave Blocked"
 msgstr ""
 
@@ -8176,6 +8235,7 @@ msgstr ""
 
 #. Label of the leave_type (Link) field in DocType 'Attendance'
 #. Label of the leave_type (Link) field in DocType 'Compensatory Leave Request'
+#. Label of the leave_type (Link) field in DocType 'Leave Adjustment'
 #. Label of the leave_type (Link) field in DocType 'Leave Allocation'
 #. Label of the leave_type (Link) field in DocType 'Leave Application'
 #. Label of the leave_type (Link) field in DocType 'Leave Block List'
@@ -8190,6 +8250,7 @@ msgstr ""
 #: hrms/hr/doctype/attendance/attendance.json
 #: hrms/hr/doctype/compensatory_leave_request/compensatory_leave_request.json
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.js:179
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_application/leave_application_dashboard.html:6
@@ -8228,7 +8289,7 @@ msgstr ""
 msgid "Leave Type {0} cannot be allocated since it is leave without pay"
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.py:482
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:498
 msgid "Leave Type {0} cannot be carry-forwarded"
 msgstr ""
 
@@ -8310,13 +8371,19 @@ msgstr ""
 msgid "Leaves & Holidays"
 msgstr ""
 
+#. Label of the leaves_after_adjustment (Float) field in DocType 'Leave
+#. Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Leaves After Adjustment"
+msgstr ""
+
 #. Label of the leaves_allocated (Check) field in DocType 'Leave Policy
 #. Assignment'
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.json
 msgid "Leaves Allocated"
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.py:487
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:503
 msgid "Leaves Expired"
 msgstr ""
 
@@ -8330,6 +8397,11 @@ msgstr ""
 
 #: hrms/setup.py:405
 msgid "Leaves per Year"
+msgstr ""
+
+#. Label of the leaves_to_adjust (Float) field in DocType 'Leave Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Leaves to Adjust"
 msgstr ""
 
 #: hrms/hr/doctype/leave_type/leave_type.js:42
@@ -9238,6 +9310,10 @@ msgstr ""
 
 #: hrms/hr/doctype/goal/goal_list.js:94
 msgid "No items selected"
+msgstr ""
+
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.js:46
+msgid "No leave allocation found for {0} for {1} on given date."
 msgstr ""
 
 #: hrms/hr/doctype/attendance/attendance.py:197
@@ -10587,6 +10663,7 @@ msgstr ""
 #. Label of the posting_date (Date) field in DocType 'Expense Claim'
 #. Label of the posting_date (Date) field in DocType 'Expense Claim Advance'
 #. Label of the posting_date (Date) field in DocType 'Job Requisition'
+#. Label of the posting_date (Date) field in DocType 'Leave Adjustment'
 #. Label of the posting_date (Date) field in DocType 'Leave Application'
 #. Label of the posting_date (Date) field in DocType 'Leave Encashment'
 #. Label of the posting_date (Date) field in DocType 'Overtime Slip'
@@ -10598,6 +10675,7 @@ msgstr ""
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 #: hrms/hr/doctype/job_requisition/job_requisition.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_encashment/leave_encashment.json
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
@@ -10974,6 +11052,12 @@ msgstr ""
 msgid "Reason"
 msgstr ""
 
+#. Label of the reason_for_adjustment (Small Text) field in DocType 'Leave
+#. Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Reason for Adjustment"
+msgstr ""
+
 #. Label of the reason_for_requesting (Text) field in DocType 'Job Requisition'
 #: hrms/hr/doctype/job_requisition/job_requisition.json
 msgid "Reason for Requesting"
@@ -11041,8 +11125,18 @@ msgstr ""
 msgid "Red"
 msgstr ""
 
+#. Option for the 'Adjustment Type' (Select) field in DocType 'Leave
+#. Adjustment'
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
+msgid "Reduce"
+msgstr ""
+
 #: hrms/hr/doctype/leave_type/leave_type.py:69
 msgid "Reducing maximum leaves allowed after allocation may cause scheduler to allocate incorrect number of earned leaves. Proceed with caution."
+msgstr ""
+
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:75
+msgid "Reduction is more than {0}'s available leave balance {1} for leave type {2}"
 msgstr ""
 
 #. Label of the reference (Link) field in DocType 'Full and Final Asset'
@@ -12105,7 +12199,7 @@ msgstr ""
 msgid "Select an employee to get the employee advance."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:200
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:186
 msgid "Select the Employee for which you want to allocate leaves."
 msgstr ""
 
@@ -12113,15 +12207,15 @@ msgstr ""
 msgid "Select the Employee."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:205
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:191
 msgid "Select the Leave Type like Sick leave, Privilege Leave, Casual Leave, etc."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:217
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:203
 msgid "Select the date after which this Leave Allocation will expire."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.js:212
+#: hrms/hr/doctype/leave_allocation/leave_allocation.js:198
 msgid "Select the date from which this Leave Allocation will be valid."
 msgstr ""
 
@@ -12280,6 +12374,7 @@ msgstr ""
 #. Label of the naming_series (Select) field in DocType 'Attendance'
 #. Label of the naming_series (Select) field in DocType 'Employee Advance'
 #. Label of the naming_series (Select) field in DocType 'Expense Claim'
+#. Label of the naming_series (Select) field in DocType 'Leave Adjustment'
 #. Label of the naming_series (Select) field in DocType 'Leave Allocation'
 #. Label of the naming_series (Select) field in DocType 'Leave Application'
 #. Label of the naming_series (Select) field in DocType 'Vehicle Log'
@@ -12288,6 +12383,7 @@ msgstr ""
 #: hrms/hr/doctype/attendance/attendance.json
 #: hrms/hr/doctype/employee_advance/employee_advance.json
 #: hrms/hr/doctype/expense_claim/expense_claim.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
@@ -13589,6 +13685,7 @@ msgid "To Amount"
 msgstr ""
 
 #. Label of the to_date (Date) field in DocType 'Attendance Request'
+#. Label of the to_date (Date) field in DocType 'Leave Adjustment'
 #. Label of the to_date (Date) field in DocType 'Leave Allocation'
 #. Label of the to_date (Date) field in DocType 'Leave Application'
 #. Label of the to_date (Date) field in DocType 'Leave Control Panel'
@@ -13605,6 +13702,7 @@ msgstr ""
 #: frontend/src/views/leave/List.vue:57
 #: hrms/hr/dashboard_chart_source/hiring_vs_attrition_count/hiring_vs_attrition_count.js:22
 #: hrms/hr/doctype/attendance_request/attendance_request.json
+#: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.json
@@ -14167,7 +14265,7 @@ msgstr ""
 #. Label of the transaction_name (Dynamic Link) field in DocType 'Leave Ledger
 #. Entry'
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.json
-#: hrms/hr/report/leave_ledger/leave_ledger.js:66
+#: hrms/hr/report/leave_ledger/leave_ledger.js:72
 #: hrms/hr/report/leave_ledger/leave_ledger.py:78
 msgid "Transaction Name"
 msgstr ""
@@ -14932,7 +15030,7 @@ msgstr ""
 msgid "You can only upload JPG, PNG, PDF, TXT or Microsoft documents."
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.py:505
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:521
 msgid "You do not have permission to complete this action"
 msgstr ""
 
@@ -15171,7 +15269,7 @@ msgstr ""
 msgid "{0} leaves allocated successfully"
 msgstr ""
 
-#: hrms/hr/doctype/leave_allocation/leave_allocation.py:488
+#: hrms/hr/doctype/leave_allocation/leave_allocation.py:504
 msgid "{0} leaves from allocation for {1} leave type have expired and will be processed during the next scheduled job. It is recommended to expire them now before creating new leave policy assignments."
 msgstr ""
 
