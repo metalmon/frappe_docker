@@ -602,6 +602,8 @@ class PayrollEntry(Document):
 				employee_wise_accounting_enabled,
 			)
 
+			# when party is not required, skip the validation in journal & gl entry
+			frappe.flags.party_not_required_for_receivable_payable = True
 			self.make_journal_entry(
 				accounts,
 				currencies,
@@ -613,6 +615,7 @@ class PayrollEntry(Document):
 				submit_journal_entry=True,
 				submitted_salary_slips=submitted_salary_slips,
 			)
+			frappe.flags.party_not_required_for_receivable_payable = False
 
 	def make_journal_entry(
 		self,
