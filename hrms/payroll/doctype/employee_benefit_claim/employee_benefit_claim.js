@@ -8,6 +8,7 @@ frappe.ui.form.on("Employee Benefit Claim", {
 				filters: {
 					employee: frm.doc.employee,
 					date: frm.doc.payroll_date,
+					company: frm.doc.company,
 				},
 			};
 		});
@@ -35,7 +36,7 @@ frappe.ui.form.on("Employee Benefit Claim", {
 	},
 	earning_component: (frm) => {
 		if (frm.doc.earning_component) {
-			frm.call("get_benefit_details", () => {
+			frm.call("get_benefit_details").then(() => {
 				frm.refresh_fields();
 			});
 		} else {

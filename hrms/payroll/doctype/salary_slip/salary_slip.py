@@ -1314,7 +1314,9 @@ class SalarySlip(TransactionBase):
 
 	def add_employee_benefits(self):
 		# Fetch employee benefits based on mandatory benefit application setting, get amounts for accrual or payouts for each and add to salary slip accrued_benefits/earnings table
-		benefit_details_parent, benefit_details_doctype = self.get_benefits_details_parent()
+		benefit_details_parent, benefit_details_doctype = get_benefits_details_parent(
+			self.employee, self.payroll_period.name, self._salary_structure_assignment.name
+		)
 
 		if not benefit_details_parent:
 			return
@@ -1342,35 +1344,6 @@ class SalarySlip(TransactionBase):
 		if employee_benefits:
 			employee_benefits = self.get_current_period_employee_benefit_amounts(employee_benefits)
 			self.add_current_period_employee_benefits(employee_benefits)
-
-	def get_benefits_details_parent(self):
-		mandatory_benefit_application = frappe.db.get_single_value(
-			"Payroll Settings", "mandatory_benefit_application"
-		)
-		benefit_details_parent = None
-		benefit_details_doctype = None
-		# Check if Employee Benefit Application exists
-		employee_benefit_application = frappe.db.get_value(
-			"Employee Benefit Application",
-			{"employee": self.employee, "payroll_period": self.payroll_period.name, "docstatus": 1},
-			"name",
-		)
-
-		if mandatory_benefit_application:
-			# If mandatory, only consider Employee Benefit Application
-			if employee_benefit_application:
-				benefit_details_parent = employee_benefit_application
-				benefit_details_doctype = "Employee Benefit Application Detail"
-		else:
-			# If not mandatory, prefer Employee Benefit Application but fallback to Salary Structure Assignment
-			if employee_benefit_application:
-				benefit_details_parent = employee_benefit_application
-				benefit_details_doctype = "Employee Benefit Application Detail"
-			else:
-				benefit_details_parent = self._salary_structure_assignment.name
-				benefit_details_doctype = "Employee Benefit Detail"
-
-		return benefit_details_parent, benefit_details_doctype
 
 	def add_current_period_employee_benefits(self, employee_benefits: dict):
 		"""Add flexible benefit payouts and accruals to salary slip Accrued Benefits table. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
@@ -2373,6 +2346,40 @@ class SalarySlip(TransactionBase):
 						"available_leaves": flt(leave_values.get("remaining_leaves")),
 					},
 				)
+
+
+def get_benefits_details_parent(employee, payroll_period, salary_structure_assignment):
+	"""Returns the parent and doctype of benefit details based on the following logic:
+	1. If 'Mandatory Benefit Application' is enabled in Payroll Settings, only consider Employee Benefit Application
+	2. If not enabled, prefer Employee Benefit Application but fallback to Salary Structure Assignment if
+	   former does not exist"""
+	mandatory_benefit_application = frappe.db.get_single_value(
+		"Payroll Settings", "mandatory_benefit_application"
+	)
+	benefit_details_parent = None
+	benefit_details_doctype = None
+	# Check if Employee Benefit Application exists
+	employee_benefit_application = frappe.db.get_value(
+		"Employee Benefit Application",
+		{"employee": employee, "payroll_period": payroll_period, "docstatus": 1},
+		"name",
+	)
+
+	if mandatory_benefit_application:
+		# If mandatory, only consider Employee Benefit Application
+		if employee_benefit_application:
+			benefit_details_parent = employee_benefit_application
+			benefit_details_doctype = "Employee Benefit Application Detail"
+	else:
+		# If not mandatory, prefer Employee Benefit Application but fallback to Salary Structure Assignment
+		if employee_benefit_application:
+			benefit_details_parent = employee_benefit_application
+			benefit_details_doctype = "Employee Benefit Application Detail"
+		else:
+			benefit_details_parent = salary_structure_assignment
+			benefit_details_doctype = "Employee Benefit Detail"
+
+	return benefit_details_parent, benefit_details_doctype
 
 
 def unlink_ref_doc_from_salary_slip(doc, method=None):
