@@ -182,18 +182,21 @@ class SalaryStructureAssignment(Document):
 def get_assigned_salary_structure(employee, on_date):
 	if not employee or not on_date:
 		return None
-	salary_structure = frappe.db.sql(
-		"""
-		select salary_structure from `tabSalary Structure Assignment`
-		where employee=%(employee)s
-		and docstatus = 1
-		and %(on_date)s >= from_date order by from_date desc limit 1""",
-		{
-			"employee": employee,
-			"on_date": on_date,
-		},
+
+	salary_structure_assignment = frappe.qb.DocType("Salary Structure Assignment")
+
+	query = (
+		frappe.qb.from_(salary_structure_assignment)
+		.select(salary_structure_assignment.salary_structure)
+		.where(salary_structure_assignment.employee == employee)
+		.where(salary_structure_assignment.docstatus == 1)
+		.where(on_date >= salary_structure_assignment.from_date)
+		.orderby(salary_structure_assignment.from_date, order=frappe.qb.desc)
+		.limit(1)
 	)
-	return salary_structure[0][0] if salary_structure else None
+
+	result = query.run()
+	return result[0][0] if result else None
 
 
 @frappe.whitelist()

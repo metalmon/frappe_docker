@@ -183,7 +183,7 @@ def get_benefit_components(doctype, txt, searchfield, start, page_len, filters):
 			employee, payroll_period, salary_structure_assignment
 		)
 
-		if not (benefit_details_parent and benefit_details_doctype):
+		if not benefit_details_parent:
 			return []
 
 		SalaryComponent = frappe.qb.DocType("Salary Component")

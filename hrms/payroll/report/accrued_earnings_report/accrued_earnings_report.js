@@ -95,17 +95,17 @@ frappe.query_reports["Accrued Earnings Report"] = {
 	],
 };
 
-// Function to create additional salary with pre-populated fields
+// To create additional salary with pre-populated fields
 function create_additional_salary(employee, salary_component, amount) {
 	let company = frappe.query_report.get_filter_value("company");
 
-	// Navigate to new Additional Salary form with pre-populated fields
 	const doc = frappe.model.get_new_doc("Additional Salary");
 	doc.company = company;
 	doc.employee = employee;
 	doc.salary_component = salary_component;
+	doc.type = "Earning";
 	doc.is_recurring = 0;
-	doc.payroll_date = new Date();
+	doc.payroll_date = frappe.datetime.get_today();
 	doc.amount = amount;
 	doc.overwrite_salary_structure_amount = 0;
 	doc.ref_doctype = "Employee Benefit Ledger";

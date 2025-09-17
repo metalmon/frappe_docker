@@ -8,7 +8,14 @@ from frappe.utils import flt
 
 
 class EmployeeBenefitLedger(Document):
-	pass
+	def validate(self):
+		type = frappe.db.get_cached_value("Salary Component", self.salary_component, "type", cache=True)
+		if type != "Earning":
+			frappe.throw(
+				_(
+					"Salary Component {0} must be of type 'Earning' to be used in Employee Benefit Ledger"
+				).format(self.salary_component)
+			)
 
 
 def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):

@@ -1510,7 +1510,7 @@ class SalarySlip(TransactionBase):
 
 		# Pay out all unclaimed benefits in final cycle if final payout option is enabled
 		if is_last_payroll_cycle and benefit.final_cycle_accrual_payout:
-			current_period_benefit = total_accrued + current_period_benefit - total_paid
+			current_period_benefit = max(total_accrued + current_period_benefit - total_paid, 0)
 			is_accrual = 0
 
 		return current_period_benefit, is_accrual
@@ -1549,7 +1549,7 @@ class SalarySlip(TransactionBase):
 							"amount": additional_salary.amount,
 							"is_accrual": 0,
 							"transaction_type": "Payout",
-							flexible_benefit: flexible_benefit,
+							"flexible_benefit": flexible_benefit,
 							"remarks": remarks,
 						}
 					)

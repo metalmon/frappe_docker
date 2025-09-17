@@ -2221,21 +2221,6 @@ def create_proof_submission(employee, payroll_period, amount):
 	return submission_date
 
 
-def create_benefit_claim(employee, payroll_period, amount, component):  # TODO: update this
-	claim_date = add_months(payroll_period.start_date, random.randint(0, 11))
-	frappe.get_doc(
-		{
-			"doctype": "Employee Benefit Claim",
-			"employee": employee,
-			"claimed_amount": amount,
-			"payroll_date": claim_date,
-			"earning_component": component,
-			"currency": erpnext.get_default_currency(),
-		}
-	).submit()
-	return claim_date
-
-
 def create_tax_slab(
 	payroll_period,
 	effective_date=None,
