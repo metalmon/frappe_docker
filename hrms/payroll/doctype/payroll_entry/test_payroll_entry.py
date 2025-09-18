@@ -55,6 +55,7 @@ class TestPayrollEntry(FrappeTestCase):
 			"Employee Cost Center",
 			"Payroll Employee Detail",
 			"Additional Salary",
+			"Employee Benefit Ledger",
 		]:
 			frappe.db.delete(dt)
 
@@ -965,7 +966,7 @@ class TestPayrollEntry(FrappeTestCase):
 		earnings_list = [earning.salary_component for earning in salary_slip.earnings]
 		self.assertNotIn(
 			"Accrued Earnings", earnings_list
-		)  # "Accrued Earnings should not be in earnings table but in accrued benefits")
+		)  # "Accrued Earnings component should not be in earnings table but in accrued benefits")
 
 		# Check if Employee Benefit Ledger exists for Accrued Earnings Component
 		self.assertTrue(
@@ -1015,6 +1016,7 @@ class TestPayrollEntry(FrappeTestCase):
 		)
 
 		frappe.db.delete("Salary Slip", {"employee": emp})
+		frappe.db.delete("Employee Benefit Ledger")
 
 		# check if unclaimed benefits and benefit type of "Accrue and Payout at end of Payroll Perod" are paid out in final month of payroll period
 		create_salary_slips_for_payroll_period(emp, "Test Benefit Accrual", payroll_period)
@@ -1023,15 +1025,15 @@ class TestPayrollEntry(FrappeTestCase):
 			"Salary Slip", filters={"employee": emp}, order_by="posting_date desc", limit=1, pluck="name"
 		)
 		salary_slip = frappe.get_doc("Salary Slip", salary_slip[0])
-
 		earnings_components = {earning.salary_component: earning.amount for earning in salary_slip.earnings}
+
 		self.assertEqual(
 			earnings_components.get("Internet Reimbursement"),
-			24000,
+			12000,
 		)
 		self.assertEqual(
 			earnings_components.get("Mediclaim Allowance"),
-			48000,
+			24000,
 		)
 
 

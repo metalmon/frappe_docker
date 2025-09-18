@@ -277,6 +277,8 @@ class SalarySlip(TransactionBase):
 		if not self.has_custom_naming_series:
 			revert_series_if_last(self.default_series, self.name)
 
+		delete_employee_benefit_ledger_entry(self.name)
+
 	def get_status(self):
 		if self.docstatus == 2:
 			return "Cancelled"
@@ -1351,7 +1353,7 @@ class SalarySlip(TransactionBase):
 	def add_current_period_employee_benefits(self, employee_benefits: dict):
 		"""Add flexible benefit payouts and accruals to salary slip Accrued Benefits table. Maintain benefit_ledger_components list to track accruals and payouts in this payroll cycle to be added to Employee Benefit Ledger."""
 		for benefit in employee_benefits:
-			if benefit.amount == 0:
+			if benefit.amount <= 0:
 				continue
 
 			earning_component = get_salary_component_data(benefit.salary_component)
@@ -1505,6 +1507,10 @@ class SalarySlip(TransactionBase):
 		]
 		claimed_amount = sum(row.additional_amount for row in benefit_claims) if benefit_claims else 0
 		total_paid += claimed_amount
+
+		if total_paid >= total_accrued:
+			#  this implies that claim includes current period amount as well
+			current_period_benefit = total_accrued + current_period_benefit - total_paid
 
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
 			current_period_benefit = (
