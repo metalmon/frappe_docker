@@ -1510,10 +1510,6 @@ class SalarySlip(TransactionBase):
 		claimed_amount = sum(row.additional_amount for row in benefit_claims) if benefit_claims else 0
 		total_paid += claimed_amount
 
-		if total_paid >= total_accrued:
-			#  this implies that claim includes current period amount as well
-			current_period_benefit = total_accrued + current_period_benefit - total_paid
-
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
 			current_period_benefit = (
 				benefit.yearly_amount - total_accrued
