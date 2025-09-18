@@ -247,9 +247,10 @@ class SalarySlip(TransactionBase):
 	def create_benefits_ledger_entry(self):
 		if self.benefit_ledger_components:
 			args = {
-				"salary_structure_assignment": self._salary_structure_assignment.name,
 				"payroll_period": self.payroll_period.name,
 				"benefit_ledger_components": self.benefit_ledger_components,
+				"benefit_details_parent": self.benefit_details_parent,
+				"benefit_details_doctype": self.benefit_details_doctype,
 			}
 			create_employee_benefit_ledger_entry(self, args)
 
@@ -1319,15 +1320,15 @@ class SalarySlip(TransactionBase):
 		if not self.payroll_period:
 			return
 
-		benefit_details_parent, benefit_details_doctype = get_benefits_details_parent(
+		self.benefit_details_parent, self.benefit_details_doctype = get_benefits_details_parent(
 			self.employee, self.payroll_period.name, self._salary_structure_assignment.name
 		)
 
-		if not benefit_details_parent:
+		if not self.benefit_details_parent:
 			return
 
 		SalaryComponent = frappe.qb.DocType("Salary Component")
-		EmployeeBenefitDetail = frappe.qb.DocType(benefit_details_doctype)
+		EmployeeBenefitDetail = frappe.qb.DocType(self.benefit_details_doctype)
 		employee_benefits = (
 			frappe.qb.from_(EmployeeBenefitDetail)
 			.join(SalaryComponent)
@@ -1340,7 +1341,7 @@ class SalarySlip(TransactionBase):
 				SalaryComponent.round_to_the_nearest_integer,
 				SalaryComponent.final_cycle_accrual_payout,
 			)
-			.where(EmployeeBenefitDetail.parent == benefit_details_parent)
+			.where(EmployeeBenefitDetail.parent == self.benefit_details_parent)
 			.where(SalaryComponent.is_flexible_benefit == 1)
 			.where(SalaryComponent.accrual_component == 1)
 			.run(as_dict=True)
@@ -1385,6 +1386,7 @@ class SalarySlip(TransactionBase):
 					"amount": flt(benefit.amount),
 					"transaction_type": transaction_type,
 					"flexible_benefit": 1,
+					"yearly_benefit": benefit.get("yearly_amount", 0),
 					"remarks": remarks,
 				}
 			)

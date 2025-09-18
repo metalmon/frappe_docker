@@ -31,8 +31,14 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 		"posting_date": ref_doc.posting_date,
 		"salary_slip": ref_doc.name,
 		"payroll_period": args.get("payroll_period"),
-		"salary_structure_assignment": args.get("salary_structure_assignment"),
 	}
+
+	reference_doctype = (
+		"Salary Structure Assignment"
+		if args.get("benefit_details_doctype") == "Employee Benefit Detail"
+		else "Employee Benefit Application"
+	)
+	reference_document = args.get("benefit_details_parent")
 
 	for component in components:
 		entry = base_entry.copy()
@@ -47,18 +53,22 @@ def create_employee_benefit_ledger_entry(ref_doc, args=None, delete=False):
 			}
 		)
 
-		if entry["flexible_benefit"] == 1 and not entry["yearly_benefit"]:
-			entry["yearly_benefit"] = (
-				frappe.db.get_value(
-					"Employee Benefit Detail",
-					{
-						"parent": args.get("salary_structure_assignment"),
-						"salary_component": entry["salary_component"],
-					},
-					"amount",
+		if entry["flexible_benefit"] == 1:
+			entry["reference_doctype"] = reference_doctype
+			entry["reference_document"] = reference_document
+
+			if not entry["yearly_benefit"]:
+				entry["yearly_benefit"] = (
+					frappe.db.get_value(
+						args.get("benefit_details_doctype"),
+						{
+							"parent": args.get("benefit_details_parent"),
+							"salary_component": entry["salary_component"],
+						},
+						"amount",
+					)
+					or 0
 				)
-				or 0
-			)
 
 		frappe.get_doc(entry).insert()
 

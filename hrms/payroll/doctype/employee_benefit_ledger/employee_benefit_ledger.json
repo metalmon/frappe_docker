@@ -12,7 +12,8 @@
   "column_break_llqa",
   "company",
   "payroll_period",
-  "salary_structure_assignment",
+  "reference_doctype",
+  "reference_document",
   "salary_slip",
   "employee_benefit_details_section",
   "transaction_type",
@@ -73,12 +74,6 @@
    "label": "Yearly Benefit"
   },
   {
-   "fieldname": "salary_structure_assignment",
-   "fieldtype": "Link",
-   "label": "Salary Structure Assignment",
-   "options": "Salary Structure Assignment"
-  },
-  {
    "fieldname": "payroll_period",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -123,12 +118,26 @@
    "fieldname": "flexible_benefit",
    "fieldtype": "Check",
    "label": "Flexible Benefit"
+  },
+  {
+   "depends_on": "eval:doc.flexible_benefit",
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference Doctype",
+   "options": "DocType"
+  },
+  {
+   "depends_on": "eval:doc.flexible_benefit",
+   "fieldname": "reference_document",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference Document",
+   "options": "reference_doctype"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-03 21:22:12.531513",
+ "modified": "2025-09-18 20:31:17.942493",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Employee Benefit Ledger",
