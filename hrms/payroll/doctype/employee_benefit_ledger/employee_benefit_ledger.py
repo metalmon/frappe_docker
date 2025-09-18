@@ -9,7 +9,7 @@ from frappe.utils import flt
 
 class EmployeeBenefitLedger(Document):
 	def validate(self):
-		type = frappe.db.get_cached_value("Salary Component", self.salary_component, "type", cache=True)
+		type = frappe.get_cached_value("Salary Component", self.salary_component, "type")
 		if type != "Earning":
 			frappe.throw(
 				_(

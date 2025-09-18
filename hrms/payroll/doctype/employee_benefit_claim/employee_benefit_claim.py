@@ -56,6 +56,9 @@ class EmployeeBenefitClaim(Document):
 			)
 			frappe.throw(msg, title=_("Duplicate Claim Detected"))
 
+	def on_submit(self):
+		self.create_additional_salary()
+
 	def get_existing_claim_for_month(self):
 		month_start_date = frappe.utils.get_first_day(self.payroll_date)
 		month_end_date = frappe.utils.get_last_day(self.payroll_date)
@@ -71,9 +74,6 @@ class EmployeeBenefitClaim(Document):
 			},
 			"name",
 		)
-
-	def on_submit(self):
-		self.create_additional_salary()
 
 	def create_additional_salary(self):
 		frappe.get_doc(

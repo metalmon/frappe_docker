@@ -1314,6 +1314,9 @@ class SalarySlip(TransactionBase):
 
 	def add_employee_benefits(self):
 		# Fetch employee benefits based on mandatory benefit application setting, get amounts for accrual or payouts for each and add to salary slip accrued_benefits/earnings table
+		if not self.payroll_period:
+			return
+
 		benefit_details_parent, benefit_details_doctype = get_benefits_details_parent(
 			self.employee, self.payroll_period.name, self._salary_structure_assignment.name
 		)
