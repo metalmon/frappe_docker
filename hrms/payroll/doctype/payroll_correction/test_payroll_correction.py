@@ -56,19 +56,19 @@ class TestPayrollCorrection(IntegrationTestCase):
 		salary_slip.submit()
 
 		arrear_doc = frappe.get_doc(
-			dict(
-				doctype="Payroll Correction",
-				employee=emp,
-				payroll_period=payroll_period.name,
-				payroll_date=add_days(payroll_period.start_date, 32),  # next month
-				company="_Test Company",
-				days_to_reverse=1,
-				month_for_lwp_reversal=calendar.month_name[payroll_period.start_date.month],
-				salary_slip_reference=salary_slip.name,
-				working_days=27,
-				lwp_days=1,
-				total_lwp_applied=1,
-			)
+			{
+				"doctype": "Payroll Correction",
+				"employee": emp,
+				"payroll_period": payroll_period.name,
+				"payroll_date": add_days(payroll_period.start_date, 32),  # next month
+				"company": "_Test Company",
+				"days_to_reverse": 1,
+				"month_for_lwp_reversal": calendar.month_name[payroll_period.start_date.month],
+				"salary_slip_reference": salary_slip.name,
+				"working_days": 27,
+				"lwp_days": 1,
+				"total_lwp_applied": 1,
+			}
 		).save()
 		arrear_doc.submit()
 
