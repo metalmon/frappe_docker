@@ -36,9 +36,7 @@ class TestGratuity(IntegrationTestCase):
 			relieving_date=self.relieving_date,
 		)
 
-		make_earning_salary_component(
-			setup=True, test_tax=True, company_list=["_Test Company"], include_flexi_benefits=True
-		)
+		make_earning_salary_component(setup=True, test_tax=True, company_list=["_Test Company"])
 		make_deduction_salary_component(setup=True, test_tax=True, company_list=["_Test Company"])
 		make_holiday_list()
 
