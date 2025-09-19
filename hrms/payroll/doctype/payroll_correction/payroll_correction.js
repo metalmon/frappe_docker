@@ -39,6 +39,10 @@ frappe.ui.form.on("Payroll Correction", {
 						[""].concat(months).join("\n"),
 					);
 					frm.refresh_field("month_for_lwp_reversal");
+				} else {
+					frm.lwp_array = [];
+					frm.set_df_property("month_for_lwp_reversal", "options", "");
+					frm.refresh_field("month_for_lwp_reversal");
 				}
 			},
 		});

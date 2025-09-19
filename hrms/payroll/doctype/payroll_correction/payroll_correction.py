@@ -144,6 +144,7 @@ class PayrollCorrection(Document):
 				filters={
 					"arrear_component": 1,
 					"name": ["in", salary_slip_components.keys()],
+					"variable_based_on_taxable_salary": 0,
 					"disabled": 0,
 				},
 				fields=["name"],

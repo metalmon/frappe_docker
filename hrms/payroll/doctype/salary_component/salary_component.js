@@ -92,6 +92,7 @@ frappe.ui.form.on("Salary Component", {
 		if (frm.doc.variable_based_on_taxable_salary) {
 			set_value_for_condition_and_formula(frm);
 		}
+		frm.set_value("arrear_component", 0);
 	},
 
 	add_update_structure_button: function (frm) {
