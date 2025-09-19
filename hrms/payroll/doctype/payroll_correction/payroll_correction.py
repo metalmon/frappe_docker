@@ -120,8 +120,6 @@ class PayrollCorrection(Document):
 		self.set("deduction_arrears", [])
 		self.set("accrual_arrears", [])
 
-		total_working_days = max(salary_slip.total_working_days, 1)
-
 		salary_slip_components = {}
 		arrear_components = []
 		for section in ["earnings", "deductions"]:
@@ -136,6 +134,7 @@ class PayrollCorrection(Document):
 			salary_slip_components[item.salary_component] = {
 				"default_amount": item.amount or 0,
 				"section": "accrual_arrears",
+				"accrual_component": True,
 			}
 
 		# Fetch arrear components that exist in the salary slip
@@ -161,6 +160,13 @@ class PayrollCorrection(Document):
 
 		for component in arrear_components:
 			component_data = salary_slip_components[component]
+
+			if component_data.get("accrual_component"):
+				total_working_days = salary_slip.get(
+					"payment_days", 1
+				)  # since accruals do not have default_amount field
+			else:
+				total_working_days = salary_slip.get("total_working_days", 1)
 
 			per_day_amount = flt(component_data["default_amount"] / total_working_days)
 			arrear_amount = flt(per_day_amount * self.days_to_reverse)

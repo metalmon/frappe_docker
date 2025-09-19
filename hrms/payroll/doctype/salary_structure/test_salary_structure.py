@@ -181,7 +181,9 @@ def make_salary_structure(
 	employee_benefits = []
 	if include_flexi_benefits:
 		employee_benefits = make_employee_benefit_earning_components(
-			setup=True, company_list=["_Test Company"]
+			setup=True,
+			company_list=["_Test Company"],
+			test_arrear=test_arrear,
 		)
 
 	details = {

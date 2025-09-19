@@ -170,8 +170,6 @@ class SalarySlip(TransactionBase):
 
 		self.add_leave_balances()
 
-		self.current_payroll_period = self.payroll_period.name
-
 		max_working_hours = frappe.db.get_single_value(
 			"Payroll Settings", "max_working_hours_against_timesheet"
 		)
@@ -183,6 +181,9 @@ class SalarySlip(TransactionBase):
 					),
 					alert=True,
 				)
+
+		if self.payroll_period and not self.current_payroll_period:
+			self.current_payroll_period = self.payroll_period.name
 
 	def check_salary_withholding(self):
 		withholding = get_salary_withholdings(self.start_date, self.end_date, self.employee)
