@@ -8,17 +8,22 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
 
+from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
+	delete_employee_benefit_ledger_entry,
+)
+
 
 class PayrollCorrection(Document):
 	def validate(self):
 		if self.days_to_reverse <= 0:
 			frappe.throw(_("Days to Reverse must be greater than zero."))
 		self.validate_days()
-		self.insert_breakup_table()
+		self.populate_breakup_table()
 
 	def on_submit(self):
 		self.validate_arrear_details()
-		self.insert_additional_salary()
+		self.create_additional_salary()
+		self.create_benefit_ledger_entry()
 
 	def validate_days(self):
 		if self.days_to_reverse and self.salary_slip_reference:
@@ -45,6 +50,9 @@ class PayrollCorrection(Document):
 						"You cannot reverse more than the total LWP days {0}. You have already reversed {1} days for this employee."
 					).format(self.total_lwp_applied, total_days_reversed)
 				)
+
+	def on_cancel(self):
+		delete_employee_benefit_ledger_entry("reference_document", self.name)
 
 	@frappe.whitelist()
 	def fetch_salary_slip_details(self):
@@ -101,43 +109,47 @@ class PayrollCorrection(Document):
 
 		return {"months": sorted_months, "slip_details": slip_details}
 
-	def insert_breakup_table(self):
+	def populate_breakup_table(self):
 		# Get arrear salary components from salary slip that are not additional salary and add amounts to the breakup table
 		salary_slip = frappe.get_doc("Salary Slip", self.salary_slip_reference)
 		precision = frappe.db.get_single_value("System Settings", "currency_precision") or 2
 		if not salary_slip:
 			frappe.throw(_("Salary Slip not found."))
 
-		self.set("earning_arrear_details", [])
-		self.set("deductions_arrear_details", [])
+		self.set("earning_arrears", [])
+		self.set("deduction_arrears", [])
+		self.set("accrual_arrears", [])
 
 		total_working_days = max(salary_slip.total_working_days, 1)
 
 		salary_slip_components = {}
+		arrear_components = []
 		for section in ["earnings", "deductions"]:
 			for item in getattr(salary_slip, section, []):
 				if not item.additional_salary:
 					salary_slip_components[item.salary_component] = {
 						"default_amount": item.default_amount or 0,
-						"section": "earning_arrear_details"
-						if section == "earnings"
-						else "deductions_arrear_details",
+						"section": "earning_arrears" if section == "earnings" else "deduction_arrears",
 					}
 
-		if not salary_slip_components:
-			return
+		for item in getattr(salary_slip, "accrued_benefits", []):
+			salary_slip_components[item.salary_component] = {
+				"default_amount": item.amount or 0,
+				"section": "accrual_arrears",
+			}
 
 		# Fetch arrear components that exist in the salary slip
-		arrear_components = frappe.db.get_list(
-			"Salary Component",
-			filters={
-				"arrear_component": 1,
-				"name": ["in", salary_slip_components.keys()],
-				"disabled": 0,
-			},
-			fields=["name"],
-			pluck="name",
-		)
+		if salary_slip_components:
+			arrear_components = frappe.db.get_list(
+				"Salary Component",
+				filters={
+					"arrear_component": 1,
+					"name": ["in", salary_slip_components.keys()],
+					"disabled": 0,
+				},
+				fields=["name"],
+				pluck="name",
+			)
 
 		if not arrear_components:
 			frappe.msgprint(
@@ -160,11 +172,11 @@ class PayrollCorrection(Document):
 
 	def validate_arrear_details(self):
 		# Ensure that there are arrear details to process
-		if not (self.earning_arrear_details or self.deductions_arrear_details):
+		if not (self.earning_arrears or self.deduction_arrears or self.accrual_arrears):
 			frappe.throw(_("No arrear details found"))
 
-	def insert_additional_salary(self):
-		for component in (self.earning_arrear_details or []) + (self.deductions_arrear_details or []):
+	def create_additional_salary(self):
+		for component in (self.earning_arrears or []) + (self.deduction_arrears or []):
 			additional_salary = frappe.get_doc(
 				{
 					"doctype": "Additional Salary",
@@ -181,3 +193,30 @@ class PayrollCorrection(Document):
 			)
 			additional_salary.insert()
 			additional_salary.submit()
+
+	def create_benefit_ledger_entry(self):
+		for component in self.accrual_arrears or []:
+			if not component.salary_component or not component.amount:
+				continue
+
+			is_flexible_benefit = frappe.db.get_value(
+				"Salary Component", component.salary_component, "is_flexible_benefit"
+			)
+
+			frappe.get_doc(
+				{
+					"doctype": "Employee Benefit Ledger",
+					"employee": self.employee,
+					"employee_name": self.employee_name,
+					"company": self.company,
+					"payroll_period": self.payroll_period,
+					"salary_component": component.salary_component,
+					"transaction_type": "Accrual",
+					"amount": component.amount,
+					"reference_doctype": "Payroll Correction",
+					"reference_document": self.name,
+					"remarks": "Accrual via Payroll Correction",
+					"salary_slip": self.salary_slip_reference,
+					"flexible_benefit": is_flexible_benefit,
+				}
+			).insert()

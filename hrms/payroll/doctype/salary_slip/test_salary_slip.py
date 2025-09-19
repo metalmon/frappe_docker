@@ -1882,7 +1882,7 @@ class TestSalarySlip(IntegrationTestCase):
 		arrear_doc.submit()
 
 		basic_salary_arrear = (65000 / 27) * 1
-		self.assertEqual(arrear_doc.get("earning_arrear_details")[0].amount, flt(basic_salary_arrear, 2))
+		self.assertEqual(arrear_doc.get("earning_arrears")[0].amount, flt(basic_salary_arrear, 2))
 		self.assertTrue(
 			frappe.db.exists(
 				"Additional Salary",
