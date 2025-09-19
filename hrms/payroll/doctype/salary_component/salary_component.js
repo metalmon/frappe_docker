@@ -35,14 +35,6 @@ frappe.ui.form.on("Salary Component", {
 				__("Create"),
 			);
 		}
-		frm.fields_dict["mapping_component"].get_query = function (doc) {
-			return {
-				filters: {
-					arrear_component: 0,
-					disabled: 0,
-				},
-			};
-		};
 	},
 
 	arrear_component: function (frm) {

@@ -44,8 +44,7 @@
   "payout_method",
   "final_cycle_accrual_payout",
   "column_break_9",
-  "max_benefit_amount",
-  "mapping_component"
+  "max_benefit_amount"
  ],
  "fields": [
   {
@@ -263,15 +262,6 @@
    "fieldtype": "Check",
    "label": "Arrear Component",
    "read_only_depends_on": "variable_based_on_taxable_salary"
-  },
-  {
-   "depends_on": "is_arrear",
-   "description": "Select a non-arrear and active salary component to link with the arrear calculation. Only components that are not marked as arrears and are enabled will be available for selection.",
-   "fieldname": "mapping_component",
-   "fieldtype": "Link",
-   "label": "Mapping Component",
-   "mandatory_depends_on": "is_arrear",
-   "options": "Salary Component"
   },
   {
    "default": "0",
