@@ -36,16 +36,16 @@ class TestPayrollCorrection(IntegrationTestCase):
 		)
 
 		leave_application = frappe.get_doc(
-			dict(
-				doctype="Leave Application",
-				employee=emp,
-				leave_type="Leave Without Pay",
-				from_date=payroll_period.start_date,
-				to_date=payroll_period.start_date,
-				company="_Test Company",
-				status="Approved",
-				leave_approver="test@example.com",
-			)
+			{
+				"doctype": "Leave Application",
+				"employee": emp,
+				"leave_type": "Leave Without Pay",
+				"from_date": payroll_period.start_date,
+				"to_date": payroll_period.start_date,
+				"company": "_Test Company",
+				"status": "Approved",
+				"leave_approver": "test@example.com",
+			}
 		).insert()
 		leave_application.submit()
 
