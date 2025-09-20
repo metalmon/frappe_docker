@@ -257,7 +257,7 @@
   },
   {
    "default": "0",
-   "description": "If enabled, this component is treated as an arrear component.",
+   "description": "If enabled, this component will be included in arrear calculations",
    "fieldname": "arrear_component",
    "fieldtype": "Check",
    "label": "Arrear Component",
@@ -291,7 +291,7 @@
  "icon": "fa fa-flag",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-19 20:52:13.695073",
+ "modified": "2025-09-19 21:36:05.950099",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Component",

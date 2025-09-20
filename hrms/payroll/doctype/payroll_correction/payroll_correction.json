@@ -18,11 +18,10 @@
   "section_break_xdag",
   "month_for_lwp_reversal",
   "working_days",
-  "absent_days",
+  "payment_days",
   "lwp_days",
   "column_break_uyjn",
   "salary_slip_reference",
-  "total_lwp_applied",
   "days_to_reverse",
   "section_break_giud",
   "earning_arrears",
@@ -121,28 +120,14 @@
   },
   {
    "depends_on": "salary_slip_reference",
-   "fieldname": "absent_days",
-   "fieldtype": "Float",
-   "label": "Absent Days",
-   "read_only": 1
-  },
-  {
-   "depends_on": "salary_slip_reference",
    "fieldname": "lwp_days",
    "fieldtype": "Float",
-   "label": "LWP Days",
+   "label": "Total Days Without Pay",
    "read_only": 1
   },
   {
    "fieldname": "column_break_uyjn",
    "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "salary_slip_reference",
-   "fieldname": "total_lwp_applied",
-   "fieldtype": "Float",
-   "label": "Total LWP Applied",
-   "read_only": 1
   },
   {
    "depends_on": "salary_slip_reference",
@@ -187,6 +172,13 @@
    "label": "Accrual Arrears",
    "options": "Payroll Correction Child",
    "read_only": 1
+  },
+  {
+   "depends_on": "salary_slip_reference",
+   "fieldname": "payment_days",
+   "fieldtype": "Float",
+   "label": "Payment Days",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
@@ -198,7 +190,7 @@
    "link_fieldname": "ref_docname"
   }
  ],
- "modified": "2025-09-19 21:32:53.714783",
+ "modified": "2025-09-20 17:12:38.862476",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Payroll Correction",

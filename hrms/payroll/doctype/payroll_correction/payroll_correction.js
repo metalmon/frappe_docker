@@ -16,13 +16,9 @@ frappe.ui.form.on("Payroll Correction", {
 	load_lwp_months(frm) {
 		if (!(frm.doc.employee && frm.doc.payroll_period && frm.doc.company)) {
 			frm.set_value("month_for_lwp_reversal", undefined);
-			[
-				"salary_slip_reference",
-				"absent_days",
-				"working_days",
-				"lwp_days",
-				"total_lwp_applied",
-			].forEach((f) => frm.set_value(f, undefined));
+			["salary_slip_reference", "payment_days", "working_days", "lwp_days"].forEach((f) =>
+				frm.set_value(f, undefined),
+			);
 			return;
 		}
 
@@ -55,12 +51,11 @@ frappe.ui.form.on("Payroll Correction", {
 
 		if (selected_entry) {
 			frm.set_value("salary_slip_reference", selected_entry.salary_slip_reference);
-			frm.set_value("absent_days", selected_entry.absent_days);
+			frm.set_value("payment_days", selected_entry.payment_days);
 			frm.set_value("working_days", selected_entry.working_days);
-			frm.set_value("lwp_days", selected_entry.leave_without_pay);
 			frm.set_value(
-				"total_lwp_applied",
-				selected_entry.absent_days + selected_entry.leave_without_pay,
+				"lwp_days",
+				Math.max(0, selected_entry.working_days - selected_entry.payment_days),
 			);
 		}
 

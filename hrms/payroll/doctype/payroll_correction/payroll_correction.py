@@ -29,9 +29,8 @@ class PayrollCorrection(Document):
 		if self.days_to_reverse and self.salary_slip_reference:
 			salary_slip = frappe.get_doc("Salary Slip", self.salary_slip_reference)
 			self.working_days = salary_slip.total_working_days
-			self.absent_days = salary_slip.absent_days or 0
-			self.lwp_days = salary_slip.leave_without_pay or 0
-			self.total_lwp_applied = self.absent_days + self.lwp_days
+			self.payment_days = salary_slip.payment_days
+			self.lwp_days = max((salary_slip.total_working_days - salary_slip.payment_days), 0)
 			payroll_corrections = frappe.get_all(
 				"Payroll Correction",
 				filters={
@@ -44,11 +43,11 @@ class PayrollCorrection(Document):
 				fields=["days_to_reverse"],
 			)
 			total_days_reversed = sum(entry["days_to_reverse"] for entry in payroll_corrections) or 0
-			if total_days_reversed + self.days_to_reverse > self.total_lwp_applied:
+			if total_days_reversed + self.days_to_reverse > self.lwp_days:
 				frappe.throw(
 					_(
 						"You cannot reverse more than the total LWP days {0}. You have already reversed {1} days for this employee."
-					).format(self.total_lwp_applied, total_days_reversed)
+					).format(self.lwp_days, total_days_reversed)
 				)
 
 	def on_cancel(self):
@@ -71,8 +70,7 @@ class PayrollCorrection(Document):
 			},
 			fields=[
 				"name",
-				"absent_days",
-				"leave_without_pay",
+				"payment_days",
 				"start_date",
 				"total_working_days",
 			],
