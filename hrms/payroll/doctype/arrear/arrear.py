@@ -19,10 +19,11 @@ class Arrear(Document):
 	def validate(self):
 		self.validate_dates()
 		self.validate_salary_structure_assignment()
-		self.calculate_component_arrears()
+		self.validate_duplicate_doc()
+		self.calculate_salary_structure_arrears()
 
 	def on_submit(self):
-		self.validate_arrear_details
+		self.validate_arrear_details()
 		self.create_additional_salary()
 		self.create_benefit_ledger_entry()
 
@@ -69,6 +70,44 @@ class Arrear(Document):
 				)
 			)
 
+	def validate_duplicate_doc(self):
+		if frappe.db.exists(
+			"Arrear",
+			{
+				"employee": self.employee,
+				"salary_structure": self.salary_structure,
+				"payroll_period": self.payroll_period,
+				"docstatus": 1,
+				"name": ["!=", self.name],
+			},
+		):
+			frappe.throw(
+				_(
+					"An Arrear document already exists for employee {0} with salary structure {1} in payroll period {2}"
+				).format(
+					frappe.bold(self.employee),
+					frappe.bold(self.salary_structure),
+					frappe.bold(self.payroll_period),
+				)
+			)
+
+	def calculate_salary_structure_arrears(self):
+		"""Calculate arrear amounts for each component across all salary slips."""
+		existing_salary_slips = self.get_existing_salary_slips()
+		salary_slip_names = [slip.get("name") for slip in existing_salary_slips]
+
+		# Existing components from processed slips
+		existing_components = self.fetch_existing_salary_components(salary_slip_names)
+		# Preview components using the new salary structure
+		new_structure_components = self.generate_preview_components(existing_salary_slips)
+
+		component_differences = self.compute_component_differences(
+			existing_components, new_structure_components
+		)
+
+		if component_differences:
+			self.populate_arrear_tables(component_differences)
+
 	def get_existing_salary_slips(self):
 		salary_slips = []
 
@@ -91,23 +130,6 @@ class Arrear(Document):
 			)
 
 		return salary_slips
-
-	def calculate_component_arrears(self):
-		"""Calculate arrear amounts for each component across all salary slips."""
-		existing_salary_slips = self.get_existing_salary_slips()
-		salary_slip_names = [slip.get("name") for slip in existing_salary_slips]
-
-		# Existing components from processed slips
-		existing_components = self.fetch_existing_salary_components(salary_slip_names)
-		# Preview components using the new salary structure
-		new_structure_components = self.generate_preview_components(existing_salary_slips)
-
-		component_differences = self.compute_component_differences(
-			existing_components, new_structure_components
-		)
-
-		if component_differences:
-			self.populate_arrear_tables(component_differences)
 
 	def fetch_existing_salary_components(self, salary_slips):
 		"""Fetch salary components and amounts from existing salary slips with arrear_component enabled.
