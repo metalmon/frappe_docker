@@ -7,13 +7,18 @@
  "field_order": [
   "employee",
   "employee_name",
-  "payroll_period",
   "salary_structure",
   "arrear_start_date",
   "column_break_itzd",
   "company",
   "currency",
+  "payroll_period",
   "payroll_date",
+  "arrears_tab",
+  "section_break_zegb",
+  "earning_arrears",
+  "deduction_arrears",
+  "accrual_arrears",
   "section_break_ubws",
   "amended_from"
  ],
@@ -98,13 +103,43 @@
    "options": "Currency",
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_zegb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "earning_arrears",
+   "fieldname": "earning_arrears",
+   "fieldtype": "Table",
+   "label": "Earning Arrears",
+   "options": "Payroll Correction Child"
+  },
+  {
+   "depends_on": "deduction_arrears",
+   "fieldname": "deduction_arrears",
+   "fieldtype": "Table",
+   "label": "Deduction Arrears",
+   "options": "Payroll Correction Child"
+  },
+  {
+   "depends_on": "accrual_arrears",
+   "fieldname": "accrual_arrears",
+   "fieldtype": "Table",
+   "label": "Accrual Arrears",
+   "options": "Payroll Correction Child"
+  },
+  {
+   "fieldname": "arrears_tab",
+   "fieldtype": "Tab Break",
+   "label": "Arrears"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-15 20:26:17.412941",
+ "modified": "2025-09-22 14:35:03.984366",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Arrear",
