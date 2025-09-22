@@ -21,18 +21,23 @@ class Arrear(Document):
 		self.validate_salary_structure_assignment()
 		self.calculate_component_arrears()
 
+	def on_submit(self):
+		self.validate_arrear_details
+		self.create_additional_salary()
+		self.create_benefit_ledger_entry()
+
 	def validate_dates(self):
-		if self.arrears_from_date and self.payroll_period:
-			if getdate(self.arrears_from_date) < self.payroll_period_details.start_date:
+		if self.arrear_start_date and self.payroll_period:
+			if getdate(self.arrear_start_date) < self.payroll_period_details.start_date:
 				frappe.throw(
 					_("From Date {0} cannot be before Payroll Period start date {1}").format(
-						self.arrears_from_date, self.payroll_period_details.start_date
+						self.arrear_start_date, self.payroll_period_details.start_date
 					)
 				)
-			elif getdate(self.arrears_from_date) > (self.payroll_period_details.end_date):
+			elif getdate(self.arrear_start_date) > (self.payroll_period_details.end_date):
 				frappe.throw(
 					_("From Date {0} cannot be after Payroll Period end date {1}").format(
-						self.arrears_from_date, self.payroll_period_details.end_date
+						self.arrear_start_date, self.payroll_period_details.end_date
 					)
 				)
 
@@ -47,7 +52,7 @@ class Arrear(Document):
 				"employee": self.employee,
 				"salary_structure": self.salary_structure,
 				"docstatus": 1,
-				"from_date": (">=", self.arrears_from_date),
+				"from_date": (">=", self.arrear_start_date),
 			},
 			["name", "from_date"],
 			as_dict=True,
@@ -60,18 +65,18 @@ class Arrear(Document):
 				).format(
 					frappe.bold(self.employee),
 					frappe.bold(self.salary_structure),
-					frappe.bold(self.arrears_from_date) or "",
+					frappe.bold(self.arrear_start_date) or "",
 				)
 			)
 
 	def get_existing_salary_slips(self):
 		salary_slips = []
 
-		if self.employee and self.arrears_from_date:
+		if self.employee and self.arrear_start_date:
 			filters = {
 				"employee": self.employee,
 				"docstatus": 1,
-				"start_date": (">=", self.arrears_from_date),
+				"start_date": (">=", self.arrear_start_date),
 			}
 
 			salary_slips = frappe.get_all(
@@ -82,7 +87,7 @@ class Arrear(Document):
 			)
 		if not salary_slips:
 			frappe.throw(
-				_("No salary slips found for the selected employee from {0}").format(self.arrears_from_date)
+				_("No salary slips found for the selected employee from {0}").format(self.arrear_start_date)
 			)
 
 		return salary_slips
@@ -291,3 +296,56 @@ class Arrear(Document):
 
 		for comp, total_amount in component_differences.get("accruals", {}).items():
 			self.append("accrual_arrears", {"salary_component": comp, "amount": total_amount})
+
+	def validate_arrear_details(self):
+		# Ensure that there are arrear details to process
+		if not (self.earning_arrears or self.deduction_arrears or self.accrual_arrears):
+			frappe.throw(_("No arrear details found"))
+
+	def create_additional_salary(self):
+		for component in (self.earning_arrears or []) + (self.deduction_arrears or []):
+			if not component.salary_component or not component.amount:
+				continue
+
+			additional_salary = frappe.get_doc(
+				{
+					"doctype": "Additional Salary",
+					"employee": self.employee,
+					"company": self.company,
+					"payroll_date": self.payroll_date,
+					"salary_component": component.salary_component,
+					"currency": self.currency,
+					"amount": component.amount,
+					"ref_doctype": "Arrear",
+					"ref_docname": self.name,
+					"overwrite_salary_structure_amount": 0,
+				}
+			)
+			additional_salary.insert()
+			additional_salary.submit()
+
+	def create_benefit_ledger_entry(self):
+		for component in self.accrual_arrears or []:
+			if not component.salary_component or not component.amount:
+				continue
+
+			is_flexible_benefit = frappe.db.get_value(
+				"Salary Component", component.salary_component, "is_flexible_benefit"
+			)
+
+			frappe.get_doc(
+				{
+					"doctype": "Employee Benefit Ledger",
+					"employee": self.employee,
+					"employee_name": self.employee_name,
+					"company": self.company,
+					"payroll_period": self.payroll_period,
+					"salary_component": component.salary_component,
+					"transaction_type": "Accrual",
+					"amount": component.amount,
+					"reference_doctype": "Arrear",
+					"reference_document": self.name,
+					"remarks": "Accrual via Arrears",
+					"flexible_benefit": is_flexible_benefit,
+				}
+			).insert()
