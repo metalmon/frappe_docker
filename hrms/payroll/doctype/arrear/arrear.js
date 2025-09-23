@@ -3,35 +3,21 @@
 
 frappe.ui.form.on("Arrear", {
 	setup(frm) {
-		company_fliter = {
-			filters: {
-				company: frm.doc.company || "",
-			},
-		};
-		frm.set_query("employee", () => {
-			return company_fliter;
-		});
-		frm.set_query("payroll_period", () => {
-			return company_fliter;
-		});
-		frm.set_query("salary_structure", () => {
-			return company_fliter;
-		});
+		const companyFilter = () =>
+			frm.doc.company ? { filters: { company: frm.doc.company } } : {};
+		frm.set_query("employee", () => companyFilter());
+		frm.set_query("payroll_period", () => companyFilter());
+		frm.set_query("salary_structure", () => companyFilter());
 	},
-	refresh(frm) {},
 
 	employee: (frm) => {
 		if (frm.doc.employee) {
-			frappe.run_serially([
-				() => frm.trigger("get_employee_currency"),
-				() => frm.trigger("set_company"),
-			]);
+			frm.trigger("get_employee_currency");
+			frm.trigger("set_company");
 		} else {
 			frm.set_value("company", null);
 		}
 	},
-
-	salary_structure: (frm) => {},
 
 	get_employee_currency: (frm) => {
 		frappe.call({
@@ -39,31 +25,23 @@ frappe.ui.form.on("Arrear", {
 			args: {
 				employee: frm.doc.employee,
 			},
-			callback: function (r) {
+			callback: (r) => {
 				if (r.message) {
-					console.log(r.message);
 					frm.set_value("currency", r.message);
-					// frm.refresh_field("currency");
 				}
 			},
 		});
 	},
 
 	set_company: (frm) => {
-		frappe.call({
-			method: "frappe.client.get_value",
-			args: {
-				doctype: "Employee",
-				fieldname: "company",
-				filters: {
-					name: frm.doc.employee,
-				},
-			},
-			callback: (data) => {
-				if (data.message) {
-					frm.set_value("company", data.message.company);
-				}
-			},
-		});
+		if (frm.doc.employee) {
+			return frappe.db
+				.get_value("Employee", frm.doc.employee, "company")
+				.then(({ message }) => {
+					if (message?.company) {
+						frm.set_value("company", message.company);
+					}
+				});
+		}
 	},
 });

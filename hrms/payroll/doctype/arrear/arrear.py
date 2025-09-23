@@ -6,6 +6,9 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import getdate
 
+from hrms.payroll.doctype.employee_benefit_ledger.employee_benefit_ledger import (
+	delete_employee_benefit_ledger_entry,
+)
 from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_slip
 
 
@@ -26,6 +29,9 @@ class Arrear(Document):
 		self.validate_arrear_details()
 		self.create_additional_salary()
 		self.create_benefit_ledger_entry()
+
+	def on_cancel(self):
+		delete_employee_benefit_ledger_entry("reference_document", self.name)
 
 	def validate_dates(self):
 		if self.arrear_start_date and self.payroll_period:
