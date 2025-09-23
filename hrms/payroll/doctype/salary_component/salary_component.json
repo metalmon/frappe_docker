@@ -85,7 +85,7 @@
    "fieldtype": "Check",
    "label": "Depends on Payment Days",
    "print_hide": 1,
-   "read_only_depends_on": "eval:doc.arrear_component==1"
+   "read_only_depends_on": "eval:doc.arrear_component && !doc.amount_based_on_formula"
   },
   {
    "default": "0",
@@ -291,7 +291,7 @@
  "icon": "fa fa-flag",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-19 21:36:05.950099",
+ "modified": "2025-09-23 11:28:17.375819",
  "modified_by": "Administrator",
  "module": "Payroll",
  "name": "Salary Component",

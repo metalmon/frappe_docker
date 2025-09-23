@@ -99,6 +99,7 @@ class PayrollCorrection(Document):
 					"leave_without_pay": slip.get("leave_without_pay"),
 					"month_name": month_name,
 					"working_days": slip.get("total_working_days"),
+					"payment_days": slip.get("payment_days"),
 					"start_date": slip.get("start_date"),
 				}
 			)
