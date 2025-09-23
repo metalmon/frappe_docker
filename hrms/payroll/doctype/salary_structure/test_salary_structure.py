@@ -164,13 +164,14 @@ def make_salary_structure(
 	dont_submit=False,
 	other_details=None,
 	test_tax=False,
-	test_arrear=False,
 	company=None,
 	currency=None,
 	payroll_period=None,
 	include_flexi_benefits=False,
 	base=None,
 	test_accrual_component=False,
+	test_arrear=False,
+	test_salary_structure_arrear=False,
 ):
 	if not currency:
 		currency = erpnext.get_default_currency()
@@ -198,7 +199,10 @@ def make_salary_structure(
 			test_arrear=test_arrear,
 		),
 		"deductions": make_deduction_salary_component(
-			setup=True, test_tax=test_tax, company_list=["_Test Company"]
+			setup=True,
+			test_tax=test_tax,
+			company_list=["_Test Company"],
+			test_salary_structure_arrear=test_salary_structure_arrear,
 		),
 		"employee_benefits": employee_benefits,
 		"payroll_frequency": payroll_frequency,
