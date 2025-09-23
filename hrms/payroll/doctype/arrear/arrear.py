@@ -98,7 +98,7 @@ class Arrear(Document):
 			)
 
 	def calculate_salary_structure_arrears(self):
-		"""Calculate arrear amounts for each component across all salary slips."""
+		# calculate arrear amounts for each component across processed salary slips and populate child tables
 		existing_salary_slips = self.get_existing_salary_slips()
 		salary_slip_names = [slip.get("name") for slip in existing_salary_slips]
 
@@ -137,7 +137,7 @@ class Arrear(Document):
 
 		return salary_slips
 
-	def fetch_existing_salary_components(self, salary_slips):
+	def fetch_existing_salary_components(self, salary_slips: list):
 		"""Fetch salary components and amounts from existing salary slips with arrear_component enabled.
 		Returns a dict: {"earnings": {component: total}, "deductions": {component: total}, "accruals": {component: total}}
 		"""
@@ -265,7 +265,7 @@ class Arrear(Document):
 
 		return {"earnings": preview_earnings, "deductions": preview_deductions, "accruals": preview_accruals}
 
-	def compute_component_differences(self, existing_components, new_components):
+	def compute_component_differences(self, existing_components: dict, new_components: dict):
 		"""Calculate component differences between existing and preview salary slips.
 		existing_components and new_components params are dicts with keys 'earnings','deductions','accruals'
 		"""
