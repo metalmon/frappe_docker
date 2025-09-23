@@ -14,7 +14,7 @@ from hrms.payroll.doctype.salary_structure.salary_structure import make_salary_s
 class TestPayrollCorrection(IntegrationTestCase):
 	def test_payroll_correction(self):
 		from hrms.payroll.doctype.salary_structure.test_salary_structure import make_salary_structure
-		# test payroll correction for earnings and accruals, ensure additional salary and employee benefit ledger entries are created\
+		# test payroll correction, ensure additional salary and employee benefit ledger entries are created\
 
 		frappe.db.set_single_value("Payroll Settings", "payroll_based_on", "Leave")
 
@@ -65,17 +65,24 @@ class TestPayrollCorrection(IntegrationTestCase):
 				"days_to_reverse": 1,
 				"month_for_lwp_reversal": calendar.month_name[payroll_period.start_date.month],
 				"salary_slip_reference": salary_slip.name,
-				"working_days": 27,
-				"lwp_days": 1,
-				"total_lwp_applied": 1,
+				"working_days": salary_slip.total_working_days,
+				"payment_days": salary_slip.payment_days,
+				"lwp_days": salary_slip.leave_without_pay,
 			}
 		).save()
 		arrear_doc.submit()
 
-		basic_salary_arrear = (65000 / 27) * 1
-		mediclaim_allowance_arrear = (24000 / 12 / 27) * 1
-		self.assertEqual(arrear_doc.get("earning_arrears")[0].amount, flt(basic_salary_arrear, 2))
-		self.assertEqual(arrear_doc.get("accrual_arrears")[0].amount, flt(mediclaim_allowance_arrear, 2))
+		earning_arrears = {row.salary_component: row.amount for row in arrear_doc.earning_arrears}
+		accrual_arrears = {row.salary_component: row.amount for row in arrear_doc.accrual_arrears}
+
+		basic_salary_arrear = flt((65000 / 27) * 1, 2)
+		self.assertIn("Basic Salary", earning_arrears)
+		self.assertEqual(earning_arrears["Basic Salary"], basic_salary_arrear)
+
+		mediclaim_allowance_arrear = flt((24000 / 12 / 27) * 1, 2)
+		self.assertIn("Mediclaim Allowance", accrual_arrears)
+		self.assertEqual(accrual_arrears["Mediclaim Allowance"], mediclaim_allowance_arrear)
+
 		self.assertTrue(
 			frappe.db.exists(
 				"Additional Salary",

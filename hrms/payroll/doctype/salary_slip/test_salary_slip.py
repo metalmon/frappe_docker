@@ -2017,6 +2017,7 @@ def make_earning_salary_component(
 			"type": "Earning",
 			"amount_based_on_formula": 1,
 			"depends_on_payment_days": 0,
+			"arrear_component": 1 if test_arrear else 0,
 		},
 		{"salary_component": "Leave Encashment", "abbr": "LE", "type": "Earning"},
 		{
@@ -2053,6 +2054,7 @@ def make_earning_salary_component(
 					"type": "Earning",
 					"accrual_component": 1,
 					"amount": 1000,
+					"arrear_component": 1,
 				}
 			]
 		)
@@ -2080,14 +2082,19 @@ def make_earning_salary_component(
 	return data
 
 
-def make_deduction_salary_component(setup=False, test_tax=False, company_list=None):
+def make_deduction_salary_component(
+	setup=False, test_tax=False, company_list=None, test_salary_structure_arrear=False
+):
 	data = [
 		{
 			"salary_component": "Professional Tax",
 			"abbr": "PT",
 			"type": "Deduction",
-			"amount": 200,
+			"amount": 300
+			if test_salary_structure_arrear
+			else 200,  # setting a different amount to test salary structure arrear calculation
 			"exempted_from_income_tax": 1,
+			"arrear_component": 1,
 		}
 	]
 	if not test_tax:

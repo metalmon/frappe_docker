@@ -99,6 +99,7 @@ class PayrollCorrection(Document):
 					"leave_without_pay": slip.get("leave_without_pay"),
 					"month_name": month_name,
 					"working_days": slip.get("total_working_days"),
+					"payment_days": slip.get("payment_days"),
 					"start_date": slip.get("start_date"),
 				}
 			)
@@ -110,7 +111,12 @@ class PayrollCorrection(Document):
 	def populate_breakup_table(self):
 		# Get arrear salary components from salary slip that are not additional salary and add amounts to the breakup table
 		salary_slip = frappe.get_doc("Salary Slip", self.salary_slip_reference)
-		precision = frappe.db.get_single_value("System Settings", "currency_precision") or 2
+
+		precision = (
+			salary_slip.precision("gross_pay")
+			or frappe.db.get_single_value("System Settings", "currency_precision")
+			or 2
+		)
 		if not salary_slip:
 			frappe.throw(_("Salary Slip not found."))
 
