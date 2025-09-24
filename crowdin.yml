@@ -8,4 +8,4 @@ pull_request_title: 'fix: sync translations from crowdin'
 pull_request_labels:
   - translation
 commit_message: 'fix: %language% translations'
-append_commit_message: 
+append_commit_message: false
