@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-24 12:30\n"
+"PO-Revision-Date: 2025-09-25 12:40\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -559,31 +559,31 @@ msgstr "Konto inte angiven för Lönekomponent {0}"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Accrual"
-msgstr ""
+msgstr "Periodisering"
 
 #. Label of the accrual_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Accrual Arrears"
-msgstr ""
+msgstr "Periodisering Skulder"
 
 #. Label of the accrual_component (Check) field in DocType 'Salary Component'
 #. Label of the accrual_component (Check) field in DocType 'Salary Detail'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "Accrual Component"
-msgstr ""
+msgstr "Periodisering Komponent"
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:65
 msgid "Accrual Component can only be set for Earning Salary Components."
-msgstr ""
+msgstr "Periodisering Komponent kan endast anges för Lönekomponenter."
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:85
 msgid "Accrual Component can only be set for Flexible Benefit Salary Components with accrual payout methods."
-msgstr ""
+msgstr "Periodisering Komponent kan endast anges för Flexibla Förmån Lönekomponenter med periodisering utbetalning metoder."
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:77
 msgid "Accrual Component must be set for Flexible Benefit Salary Components with accrual payout methods."
-msgstr ""
+msgstr "Periodisering Komponent måste anges för Flexibla Förmån Lönekomponenter med periodisering utbetalning metoder."
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:597
 msgid "Accrual Journal Entry for salaries from {0} to {1}"
@@ -592,26 +592,26 @@ msgstr "Periodisering Journal Post för Löner från {0} till {1}"
 #. Option for the 'Payout Method' (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Accrue and payout at end of payroll period"
-msgstr ""
+msgstr "Periodisera och betala vid löneperiodens slut"
 
 #. Option for the 'Payout Method' (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Accrue per cycle, pay only on claim"
-msgstr ""
+msgstr "Periodisera per cykel, betala endast vid anspråk"
 
 #. Label of the accrued_benefits (Table) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Accrued Benefits"
-msgstr ""
+msgstr "Periodiserade Förmåner"
 
 #. Name of a report
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.json
 msgid "Accrued Earnings Report"
-msgstr ""
+msgstr "Periodiserad Resultat Rapport"
 
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.py:99
 msgid "Accrued amount {0} is less than paid amount {1} for Benefit {2} in payroll period {3}"
-msgstr ""
+msgstr "Upplupet belopp {0} är lägre än utbetald belopp {1} för förmån {2} i löneperiod {3}"
 
 #. Label of the action (Select) field in DocType 'Full and Final Asset'
 #. Label of the action (Select) field in DocType 'Shift Assignment Tool'
@@ -699,7 +699,7 @@ msgstr "Faktiska Uttagbara Dagar"
 #. Label of the actual_overtime_duration (Float) field in DocType 'Attendance'
 #: hrms/hr/doctype/attendance/attendance.json
 msgid "Actual Overtime Duration"
-msgstr ""
+msgstr "Faktisk Övertid"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:419
 msgid "Actual balances aren't available because the leave application spans over different leave allocations. You can still apply for leaves which would be compensated during the next allocation."
@@ -810,16 +810,16 @@ msgstr "Arrangör Adress"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:48
 msgid "Adjust Allocation"
-msgstr ""
+msgstr "Justera Tilldelning"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:412
 msgid "Adjustment Created Successfully"
-msgstr ""
+msgstr "Justering Skapad"
 
 #. Label of the adjustment_type (Select) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Adjustment Type"
-msgstr ""
+msgstr "Justering Typ"
 
 #. Name of a role
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
@@ -840,7 +840,7 @@ msgstr "Förskott Konto"
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:44
 msgid "Advance Account is mandatory. Please set the <a href=\"/app/company/{0}#default_employee_advance_account\" target=\"_blank\">Default Employee Advance Account</a> in the Company record {0} and submit this document."
-msgstr ""
+msgstr "Förskott Konto erfordras. Ange <a href=\"/app/company/{0}#default_employee_advance_account\" target=\"_blank\">Standard Personal Förskott Konto</a> i Bolag Registret {0} och godkänn detta dokument."
 
 #. Label of the advance_amount (Currency) field in DocType 'Employee Advance'
 #. Label of the advance_amount (Data) field in DocType 'Travel Itinerary'
@@ -962,7 +962,7 @@ msgstr "Tilldelning"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocation Details"
-msgstr ""
+msgstr "Tilldelning Detaljer"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:114
 msgid "Allocation Expired!"
@@ -970,12 +970,12 @@ msgstr "Tilldelning Förfallen!"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:60
 msgid "Allocation is greater than the maximum allowed {0} for leave type {1}"
-msgstr ""
+msgstr "Tilldelning är högre än det högsta tillåtna {0} för frånvaro typ {1}"
 
 #. Label of the leave_allocation (Link) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocation to Adjust"
-msgstr ""
+msgstr "Tilldelning att Justera"
 
 #. Label of the allow_employee_checkin_from_mobile_app (Check) field in DocType
 #. 'HR Settings'
@@ -1045,7 +1045,7 @@ msgstr "Tillåt Utstämpling efter Skift Sluttid (Minuter)"
 #. Option for the 'Payout Method' (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Allow claim for full benefit amount"
-msgstr ""
+msgstr "Tillåt anspråk på full ersättning"
 
 #. Description of the 'Allow Users' (Section Break) field in DocType 'Leave
 #. Block List'
@@ -1302,7 +1302,7 @@ msgstr "Tillämplig För"
 #. DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Applicable Salary Components"
-msgstr ""
+msgstr "Tillämpliga Lönekomponenter"
 
 #. Description of the 'Required for Employee Creation' (Check) field in DocType
 #. 'Employee Boarding Activity'
@@ -1391,12 +1391,12 @@ msgstr "Ansök Nu"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Apply for Public Holiday"
-msgstr ""
+msgstr "Ansök för Allmän Helg"
 
 #. Label of the applicable_for_weekend (Check) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Apply for Weekend"
-msgstr ""
+msgstr "Ansök för Helg"
 
 #. Label of a Card Break in the Recruitment Workspace
 #: hrms/hr/workspace/recruitment/recruitment.json
@@ -1620,7 +1620,7 @@ msgstr "Är du säker på att du vill avvisa Personal Hänvisning?"
 #. Label of the arrear_component (Check) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Arrear Component"
-msgstr ""
+msgstr "Efterskott Komponent"
 
 #. Label of the arrival_date (Datetime) field in DocType 'Travel Itinerary'
 #: hrms/hr/doctype/travel_itinerary/travel_itinerary.json
@@ -2051,25 +2051,25 @@ msgstr "Förmån"
 #. Label of the amount (Currency) field in DocType 'Employee Benefit Detail'
 #: hrms/payroll/doctype/employee_benefit_detail/employee_benefit_detail.json
 msgid "Benefit Amount"
-msgstr ""
+msgstr "Förmån Belopp"
 
 #. Label of the employee_benefit_details_section (Section Break) field in
 #. DocType 'Employee Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Benefit Details"
-msgstr ""
+msgstr "Förmån Detaljer"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:36
 msgid "Benefit amount of component {0} exceeds {1}"
-msgstr ""
+msgstr "Förmån belopp för komponent {0} överstiger {1}"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:30
 msgid "Benefit amount of component {0} should be greater than 0"
-msgstr ""
+msgstr "Förmån belopp för komponent {0} ska vara högre än 0"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:448
 msgid "Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2} set in {3}"
-msgstr ""
+msgstr "Förmån belopp {0} för Lönekomponent {1} ska inte vara högre än högsta förmån belopp {2} som anges i {3}"
 
 #. Label of the section_break_4 (Section Break) field in DocType 'Employee
 #. Benefit Application'
@@ -2387,11 +2387,11 @@ msgstr "Ändra"
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:105
 msgid "Changed the status from {0} to {1} and Status for Other Half to {2} via Attendance Request"
-msgstr ""
+msgstr "Ändrade status från {0} till {1} och status för andra halvan till {2} via Närvaro Begäran"
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:109
 msgid "Changed the status from {0} to {1} via Attendance Request"
-msgstr ""
+msgstr "Ändrade status från {0} till {1} Närvaro Begäran"
 
 #: hrms/hr/doctype/leave_application/leave_application.js:187
 msgid "Changing '{0}' to {1}."
@@ -2471,13 +2471,16 @@ msgid "Choose how the hourly overtime amount is calculated:\n"
 "<ol style=\"padding-left:15px;\"><li>Fixed Hourly Rate: A fixed, manually entered hourly rate.</li>\n"
 "<li>Salary Component-Based:\n\n"
 "(Sum of selected component amounts) ÷ (Payment Days) ÷ (Standard Daily Hours)</li></ol>"
-msgstr ""
+msgstr "Välj hur timlön för övertid beräknas:\n"
+"<ol style=\"padding-left:15px;\"><li>Fast Timlön: Fast, manuellt angiven timlön.</li>\n"
+"<li>Lönekomponent Bserad:\n\n"
+"(Summan av valda komponent belopp) ÷ (Betalda Dagar) ÷ (Standard Dagliga Timmar)</li></ol>"
 
 #. Description of the 'Payroll Date' (Date) field in DocType 'Payroll
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Choose the date on which you want to create these components as arrears."
-msgstr ""
+msgstr "Välj datum då dessa komponenter ska skapas som efterskott."
 
 #. Label of the earning_component (Link) field in DocType 'Employee Benefit
 #. Claim'
@@ -2507,11 +2510,11 @@ msgstr "Begärd Belopp"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:34
 msgid "Claimed amount of employee {0} exceeds maximum amount eligible for claim {1}"
-msgstr ""
+msgstr "Anspråk belopp för {0} överstiger maximal belopp som är berättigat till anspråk {1}"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:30
 msgid "Claimed amount of employee {0} should be greater than 0"
-msgstr ""
+msgstr "Anspråk belopp för {0} ska vara högre än 0"
 
 #. Label of a Card Break in the Expense Claims Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
@@ -3092,11 +3095,11 @@ msgstr "Skapa Ny Personal"
 #. Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Create Overtime Slip For Eligible Employee(s)"
-msgstr ""
+msgstr "Skapa Övertid Specifikation för Berättigad Personal"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:83
 msgid "Create Overtime Slips"
-msgstr ""
+msgstr "Skapa Övertid Specifikationer"
 
 #: hrms/payroll/doctype/gratuity/gratuity.js:36
 msgid "Create Payment Entry"
@@ -3272,7 +3275,7 @@ msgstr "Aktuella Lediga Jobb"
 #. Label of the current_payroll_period (Link) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Current Payroll Period"
-msgstr ""
+msgstr "Aktuell Löneperiod"
 
 #. Option for the 'Calculate Gratuity Amount Based On' (Select) field in
 #. DocType 'Gratuity Rule'
@@ -3444,7 +3447,7 @@ msgstr "Anställning Datum"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:59
 msgid "Date {0} is repeated in Overtime Details"
-msgstr ""
+msgstr "Datum {0} upprepas i Övertid Detaljer"
 
 #. Label of the section_break_5 (Section Break) field in DocType 'Leave
 #. Application'
@@ -3464,11 +3467,11 @@ msgstr "Dagar för vilka helgdagar är spärrade för denna avdelning."
 #. Label of the days_to_reverse (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Days to Reverse"
-msgstr ""
+msgstr "Dagar att Ångra"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:19
 msgid "Days to Reverse must be greater than zero."
-msgstr ""
+msgstr "Dagar att återföra måste vara högre än noll."
 
 #: hrms/payroll/report/bank_remittance/bank_remittance.py:19
 msgid "Debit A/C Number"
@@ -3526,7 +3529,7 @@ msgstr "Avdrag"
 #. Label of the deduction_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Deduction Arrears"
-msgstr ""
+msgstr "Efterskott Avdrag"
 
 #. Label of a Card Break in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -4019,7 +4022,7 @@ msgstr "Avfärda"
 #: hrms/payroll/doctype/salary_component/salary_component.json
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "Do Not Include in Accounting Entries"
-msgstr ""
+msgstr "Inkludera inte i Bokföring Poster"
 
 #. Label of the do_not_include_in_total (Check) field in DocType 'Salary
 #. Component'
@@ -4097,7 +4100,7 @@ msgstr "Kopiera Närvaro"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:57
 msgid "Duplicate Claim Detected"
-msgstr ""
+msgstr "Dubblett av Anspråk Upptäckt"
 
 #: hrms/hr/doctype/appraisal/appraisal.py:62
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:106
@@ -4110,7 +4113,7 @@ msgstr "Duplicera Jobb Ansökan"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:40
 msgid "Duplicate Leave Adjustment"
-msgstr ""
+msgstr "Duplicera Frånvaro Justering"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:158
 msgid "Duplicate Overwritten Salary"
@@ -4186,7 +4189,7 @@ msgstr "Inkomst"
 #. Label of the earning_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Earning Arrears"
-msgstr ""
+msgstr "Inkomst Fordringar"
 
 #. Label of the earning_component (Link) field in DocType 'Leave Type'
 #. Label of the salary_component (Link) field in DocType 'Employee Benefit
@@ -4543,12 +4546,12 @@ msgstr "Förmån Anspråk"
 #. Name of a DocType
 #: hrms/payroll/doctype/employee_benefit_detail/employee_benefit_detail.json
 msgid "Employee Benefit Detail"
-msgstr ""
+msgstr "Personal Förmån Detaljer"
 
 #. Name of a DocType
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Employee Benefit Ledger"
-msgstr ""
+msgstr "Personal Förmån Register"
 
 #. Label of the employee_benefits_section (Section Break) field in DocType
 #. 'Salary Structure Assignment'
@@ -5111,11 +5114,11 @@ msgstr "Överföring kan inte godkännas före Överföring Datum"
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:133
 msgid "Employee advance account {0} should be of type {1}"
-msgstr ""
+msgstr "Personal Förskott Konto {0} ska vara av typ {1}"
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:73
 msgid "Employee advance account {0} should be of type {1}."
-msgstr ""
+msgstr "Personal Förskott Konto {0} ska vara av typ {1}."
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:27
 msgid "Employee can be named by Employee ID if you assign one, or via Naming Series. Select your preference here."
@@ -5146,7 +5149,7 @@ msgstr "Personal angiven som Frånvarande för andra halvan på grund av utebliv
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:456
 msgid "Employee {0} : {1}"
-msgstr ""
+msgstr "Personal {0} : {1}"
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:67
 msgid "Employee {0} already has an Attendance Request {1} that overlaps with this period"
@@ -5170,7 +5173,7 @@ msgstr "Personal {0} har redan ansökt om {1} mellan {2} och {3}: {4}"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:48
 msgid "Employee {0} has already claimed the benefit '{1}' for {2} ({3}).<br>To prevent overpayments, only one claim per benefit type is allowed in each payroll cycle."
-msgstr ""
+msgstr "{0} har redan ansökt om förmån \"{1}\" för {2} ({3}).<br>För att förhindra överbetalningar tillåts endast en ansökan per förmånstyp i varje lönecykel."
 
 #: hrms/hr/doctype/attendance/attendance.py:211
 msgid "Employee {0} is not active or does not exist"
@@ -5297,13 +5300,13 @@ msgstr "Aktivera Push-Notiser"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for public holidays. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Aktivera detta för att använda specifik multiplikator för helgdagar. Om inte aktiverad används standard multiplikator istället."
 
 #. Description of the 'Apply for Weekend' (Check) field in DocType 'Overtime
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for weekends. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Aktivera detta för att använda specifik multiplikator för helger. Om inte aktiverad används standard multiplikator istället."
 
 #. Label of the enabled (Check) field in DocType 'Daily Work Summary Group'
 #. Label of the enabled (Check) field in DocType 'Shift Schedule Assignment'
@@ -5317,7 +5320,7 @@ msgstr "Aktiverad"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Enabled only for Employee Benefit components from Salary Structure Assignment"
-msgstr ""
+msgstr "Aktiverad endast för Personal Förmån Komponenter från Löneart Tilldelning"
 
 #: frontend/src/views/AppSettings.vue:40
 msgid "Enabling Push Notifications..."
@@ -5432,7 +5435,7 @@ msgstr "Prestation Resultat"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:48
 msgid "Enter a non-zero value to adjust."
-msgstr ""
+msgstr "Ange ett värde som inte är noll för att justera."
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:34
 msgid "Enter the Standard Working Hours for a normal work day. These hours will be used in calculations of reports such as Employee Hours Utilization and Project Profitability analysis."
@@ -5442,7 +5445,7 @@ msgstr "Ange Standard Arbetstid för arbetsdag. Dessa timmar kommer att använda
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Enter the number of Leave Without Pay (LWP) days you want to reverse. This value cannot exceed the total LWP days recorded for the selected month"
-msgstr ""
+msgstr "Ange antal dagar för obetald frånvaro som du vill återställa. Detta värde får inte överstiga total anta obetalda dagar som registrerats för vald månad"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:208
 msgid "Enter the number of leaves you want to allocate for the period."
@@ -5452,7 +5455,7 @@ msgstr "Ange frånvaro antal du vill ta för period."
 #. Structure'
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 msgid "Enter yearly benefit amounts"
-msgstr ""
+msgstr "Ange Årliga Förmånsbelopp"
 
 #: frontend/src/components/FormField.vue:42
 msgid "Enter {0}"
@@ -5493,7 +5496,7 @@ msgstr "Fel vid borttagning av {0}"
 
 #: frontend/src/utils/commonUtils.js:46
 msgid "Error downloading PDF"
-msgstr ""
+msgstr "Fel vid nedladdning av PDF"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:1316
 msgid "Error in formula or condition"
@@ -5665,7 +5668,7 @@ msgstr "Befintlig Post"
 
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.py:37
 msgid "Existing Shift Assignments"
-msgstr ""
+msgstr "Befintliga Skift Tilldelningar"
 
 #. Option for the 'Final Decision' (Select) field in DocType 'Exit Interview'
 #: hrms/hr/doctype/exit_interview/exit_interview.json
@@ -5735,7 +5738,7 @@ msgstr "Avgång Frågeförmulär Webbformulär"
 #. Label of a quick_list in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
 msgid "Exits (This Month)"
-msgstr ""
+msgstr "Avgångar (Denna Månad)"
 
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:120
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:124
@@ -5959,7 +5962,7 @@ msgstr "Kunde inte ta bort standardinställningar för land {0}."
 
 #: hrms/api/__init__.py:769
 msgid "Failed to download PDF: {0}"
-msgstr ""
+msgstr "Misslyckades med att ladda ner PDF: {0}"
 
 #: hrms/hr/doctype/interview/interview.py:117
 msgid "Failed to send the Interview Reschedule notification. Please configure your email account."
@@ -6070,7 +6073,7 @@ msgstr "Hämta Geografisk Position"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:7
 msgid "Fetch Overtime Details"
-msgstr ""
+msgstr "Hämta Övertid Detaljer"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.js:33
 msgid "Fetch Shift"
@@ -6136,7 +6139,7 @@ msgstr "Filter Lista"
 #. Tool'
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.json
 msgid "Filter by Shift"
-msgstr ""
+msgstr "Filtrera efter Skift"
 
 #. Label of the filters_section (Section Break) field in DocType 'Appraisal
 #. Cycle'
@@ -6193,7 +6196,7 @@ msgstr "Bokföringsår {0} hittades inte"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Fixed Hourly Rate"
-msgstr ""
+msgstr "Fast Timlön"
 
 #. Label of a Card Break in the Expense Claims Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
@@ -6210,7 +6213,7 @@ msgstr "Fordon Ansvarig"
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.js:90
 msgid "Flexible Benefit"
-msgstr ""
+msgstr "Flexibel Förmån"
 
 #. Label of the employee_benefits (Table) field in DocType 'Employee Benefit
 #. Application'
@@ -6228,7 +6231,7 @@ msgstr "Flexibla Förmåner"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:64
 msgid "Flexible Component"
-msgstr ""
+msgstr "Flexibel Komponent"
 
 #. Option for the 'Mode of Travel' (Select) field in DocType 'Travel Itinerary'
 #: hrms/hr/doctype/travel_itinerary/travel_itinerary.json
@@ -7133,7 +7136,7 @@ msgstr "Timpris (Bolag Valuta)"
 #. Label of the hourly_rate (Currency) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Hourly Rate"
-msgstr ""
+msgstr "Timlön"
 
 #. Label of the hours (Float) field in DocType 'Training Result Employee'
 #: hrms/hr/doctype/training_result_employee/training_result_employee.json
@@ -7189,7 +7192,7 @@ msgstr "Om vald,kommer Lön Skuld bokföras per varje anställd"
 #. 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "If checked, flexible benefits are considered only if benefit application exists"
-msgstr ""
+msgstr "Om vald, inkluderas flexibla förmåner endast om förmånsansökan finns"
 
 #. Description of the 'Disable Rounded Total' (Check) field in DocType 'Payroll
 #. Settings'
@@ -7201,7 +7204,7 @@ msgstr "Om vald, döljs och inaktiveras fält Avrundat Totalt i Lönespecifikati
 #. field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "If checked, overtime slip creation can be handled as part of payroll processing"
-msgstr ""
+msgstr "Om vald, kan skapande av övertid specifikation hanteras som del av lönehantering"
 
 #. Description of the 'Exempted from Income Tax' (Check) field in DocType
 #. 'Salary Component'
@@ -7234,7 +7237,7 @@ msgstr "Om vald, dras betalning för lönedagar av för frånvaro på helgdagar.
 #: hrms/payroll/doctype/salary_component/salary_component.json
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "If enabled, the amount will be excluded from accounting entries during Journal Entry creation."
-msgstr ""
+msgstr "Om aktiverad, kommer belopp att uteslutas från Bokföring Poster när Journal Post skapas."
 
 #. Description of the 'Variable Based On Taxable Salary' (Check) field in
 #. DocType 'Salary Component'
@@ -7270,13 +7273,13 @@ msgstr "Om vald kommer värdet som anges eller beräknas i denna komponent inte 
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "If enabled, this component allows to accrue amounts without adding them to earnings. The accrued balance is tracked in the Employee Benefit Ledger and can be paid out later as needed."
-msgstr ""
+msgstr "Om den här komponenten är aktiverad kan man ackumulera belopp utan att lägga till dem i inkomster. Ackumulerad saldo spåras i Personal Förmån Register och kan betalas ut senare vid behov."
 
 #. Description of the 'Arrear Component' (Check) field in DocType 'Salary
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "If enabled, this component will be included in arrear calculations"
-msgstr ""
+msgstr "Om aktiverad, kommer denna komponent att inkluderas i beräkning av efterskott betalningar"
 
 #. Description of the 'Include holidays in Total no. of Working Days' (Check)
 #. field in DocType 'Payroll Settings'
@@ -7288,7 +7291,7 @@ msgstr "Om vald, kommer totalt antal arbetsdagar att inkludera helgdagar, och de
 #. 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "If greater than zero, this sets the maximum benefit amount assignable to any employee"
-msgstr ""
+msgstr "Om det är högre än noll anger detta maximal förmån belopp som kan tilldelas personal"
 
 #. Description of the 'Applies to Company' (Check) field in DocType 'Leave
 #. Block List'
@@ -7710,7 +7713,7 @@ msgstr "Intervjuer"
 #. Label of a quick_list in the Recruitment Workspace
 #: hrms/hr/workspace/recruitment/recruitment.json
 msgid "Interviews (This Week)"
-msgstr ""
+msgstr "Intervjuer (Denna Vecka)"
 
 #. Label of the introduction (Long Text) field in DocType 'Appointment Letter'
 #. Label of the introduction (Long Text) field in DocType 'Appointment Letter
@@ -7732,7 +7735,7 @@ msgstr "Ogiltig"
 #: hrms/payroll/doctype/salary_component/salary_component.py:80
 #: hrms/payroll/doctype/salary_component/salary_component.py:88
 msgid "Invalid Accrual Component"
-msgstr ""
+msgstr "Ogiltig Periodisering Komponent"
 
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.py:183
 msgid "Invalid Action"
@@ -7744,7 +7747,7 @@ msgstr "Ogiltig Extra Lön"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:464
 msgid "Invalid Benefit Amounts"
-msgstr ""
+msgstr "Ogiltiga Förmån Belopp"
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:144
 msgid "Invalid Cost Center"
@@ -8233,11 +8236,11 @@ msgstr "Frånvaro"
 #. Name of a DocType
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Leave Adjustment"
-msgstr ""
+msgstr "Frånvaro Justering"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:41
 msgid "Leave Adjustment for this allocation already exists: {0}. Please amend existing adjustment."
-msgstr ""
+msgstr "Frånvaro Justering för denna tilldelning finns redan: {0}. Ändra befintlig justering."
 
 #. Label of the leave_allocation (Link) field in DocType 'Compensatory Leave
 #. Request'
@@ -8254,7 +8257,7 @@ msgstr "Frånvaro Tilldelning"
 
 #: hrms/hr/doctype/leave_type/leave_type.py:68
 msgid "Leave Allocation Exists"
-msgstr ""
+msgstr "Frånvaro Tilldelning Finns"
 
 #. Label of the leave_allocations_section (Section Break) field in DocType
 #. 'Leave Policy'
@@ -8613,7 +8616,7 @@ msgstr "Frånvaro & Helgdagar"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Leaves After Adjustment"
-msgstr ""
+msgstr "Frånvaro Efter Justering"
 
 #. Label of the leaves_allocated (Check) field in DocType 'Leave Policy
 #. Assignment'
@@ -8640,7 +8643,7 @@ msgstr "Frånvaro per År"
 #. Label of the leaves_to_adjust (Float) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Leaves to Adjust"
-msgstr ""
+msgstr "Frånvaro att Justera"
 
 #: hrms/hr/doctype/leave_type/leave_type.js:42
 msgid "Leaves you can avail against a holiday you worked on. You can claim Compensatory Off Leave using Compensatory Leave Request. Click {0} to know more"
@@ -8830,7 +8833,7 @@ msgstr "Erfodrad"
 #. Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Mandatory Benefit Application"
-msgstr ""
+msgstr "Förmån Ansökan Erfordras"
 
 #: hrms/public/js/utils/index.js:37
 msgid "Mandatory fields required for this action:"
@@ -8939,7 +8942,7 @@ msgstr "Inställningar"
 #. Benefit Claim'
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.json
 msgid "Max Amount Eligible For Claim"
-msgstr ""
+msgstr "Maximalt Belopp Berättigat för Anspråk"
 
 #. Label of the max_benefit_amount (Currency) field in DocType 'Employee
 #. Benefit Application Detail'
@@ -8993,7 +8996,7 @@ msgstr "Maximum Arbetstid mot Tidrapport"
 #. Assignment'
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.json
 msgid "Maximum Benefit Amount"
-msgstr ""
+msgstr "Maximalt Förmån Belopp"
 
 #. Label of the maximum_carry_forwarded_leaves (Float) field in DocType 'Leave
 #. Type'
@@ -9036,13 +9039,13 @@ msgstr "Maximalt Frånvaro Tilldelning tillåten per Frånvaro Period"
 #. 'Overtime Details'
 #: hrms/hr/doctype/overtime_details/overtime_details.json
 msgid "Maximum Overtime Hours Allowed"
-msgstr ""
+msgstr "Maximalt Antal Tillåtna Övertid Timmar"
 
 #. Label of the maximum_overtime_hours_allowed (Float) field in DocType
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Maximum Overtime Hours Allowed Per Day"
-msgstr ""
+msgstr "Maximalt Antal Tillåtna Övertid Timmar per dag"
 
 #. Description of the 'Taxable Income Relief Threshold Limit' (Currency) field
 #. in DocType 'Income Tax Slab'
@@ -9110,7 +9113,7 @@ msgstr "Minimum antal arbetsdagar som erfordras sedan tillträde för att ansök
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:47
 msgid "Missing Advance Account"
-msgstr ""
+msgstr "Förskott Konto saknas"
 
 #: hrms/hr/utils.py:846
 msgid "Missing Field"
@@ -9136,7 +9139,7 @@ msgstr "Saknar Avgång Datum"
 
 #: hrms/payroll/report/provident_fund_deductions/provident_fund_deductions.py:18
 msgid "Missing Salary Components"
-msgstr ""
+msgstr "Lönekomponenter saknas"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:1842
 msgid "Missing Tax Slab"
@@ -9257,7 +9260,7 @@ msgstr "Flera Skift Tilldelningar"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Multipliers that adjust the hourly overtime amount for specific scenarios\n\n"
-msgstr ""
+msgstr "Multiplikatorer som justerar övertidsbelopp per timme för specifika fall\n\n"
 
 #: hrms/www/jobs/index.py:15
 msgid "My Account"
@@ -9371,7 +9374,7 @@ msgstr "Ny Återkoppling"
 #. Label of a quick_list in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
 msgid "New Hires (This Month)"
-msgstr ""
+msgstr "Nya Anställningar (Denna Månad)"
 
 #: hrms/hr/report/employee_leave_balance/employee_leave_balance.py:61
 msgid "New Leave(s) Allocated"
@@ -9441,11 +9444,11 @@ msgstr "Ingen Lönespecifikation hittades för: {0}"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:81
 msgid "No Salary Slips with {0} found for employee {1} for payroll period {2}."
-msgstr ""
+msgstr "Inga Lönespecifikationer med {0} hittades för {1} för löneperiod {2}."
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:69
 msgid "No Salary Structure Assignment found for employee {0} on date {1}"
-msgstr ""
+msgstr "Ingen Löneart Tilldelning hittades för {0} per den {1}"
 
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.py:116
 msgid "No Salary Structure Assignment found for employee {0} on or before {1}"
@@ -9497,15 +9500,15 @@ msgstr "Ingen tillämplig tabell hittades för beräkning av Belöning Belopp i 
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:154
 msgid "No arrear components found in the salary slip. Ensure Arrear Component is checked in the Salary Component master."
-msgstr ""
+msgstr "Inga Efterskott Komponenter hittades i Lönespecifikationen. Se till att Efterskott Komponent är angiven i Lönekomponent Inställningar."
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:181
 msgid "No arrear details found"
-msgstr ""
+msgstr "Inga detaljer om efterskott hittades"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:164
 msgid "No attendance records found for employee {0} between {1} and {2}"
-msgstr ""
+msgstr "Inga närvaro poster hittades för {0} mellan {1} och {2}"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:54
 msgid "No attendance records found for this criteria."
@@ -9553,7 +9556,7 @@ msgstr "Inga poster valda"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.js:46
 msgid "No leave allocation found for {0} for {1} on given date."
-msgstr ""
+msgstr "Ingen frånvaro tilldelning hittades för {0} för {1} på angiven datum."
 
 #: hrms/hr/doctype/attendance/attendance.py:197
 msgid "No leave record found for employee {0} on {1}"
@@ -10024,29 +10027,29 @@ msgstr "Överlappande Skift"
 #: hrms/hr/doctype/shift_type/shift_type.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime"
-msgstr ""
+msgstr "Övertid"
 
 #. Label of the overtime_calculation_method (Select) field in DocType 'Overtime
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime Amount Calculation"
-msgstr ""
+msgstr "Övertid Belopp Beräkning"
 
 #. Name of a DocType
 #. Label of the overtime_details (Table) field in DocType 'Overtime Slip'
 #: hrms/hr/doctype/overtime_details/overtime_details.json
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Overtime Details"
-msgstr ""
+msgstr "Övertid Detaljer"
 
 #. Label of the overtime_duration (Float) field in DocType 'Overtime Details'
 #: hrms/hr/doctype/overtime_details/overtime_details.json
 msgid "Overtime Duration"
-msgstr ""
+msgstr "Övertid Varaktighet"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:73
 msgid "Overtime Duration for {0} is greater than Maximum Overtime Hours Allowed"
-msgstr ""
+msgstr "Övertid Varaktighet för {0} är högre än Maximalt Tillåtna Övertid Timmar"
 
 #. Name of a DocType
 #. Label of the overtime_salary_component (Link) field in DocType 'Overtime
@@ -10054,63 +10057,63 @@ msgstr ""
 #: hrms/hr/doctype/overtime_salary_component/overtime_salary_component.json
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime Salary Component"
-msgstr ""
+msgstr "Övertid Lönekomponent"
 
 #. Name of a DocType
 #. Label of a Link in the Shift & Attendance Workspace
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime Slip"
-msgstr ""
+msgstr "Övertid Specifikation"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:457
 msgid "Overtime Slip Creation Error for {0}"
-msgstr ""
+msgstr "Fel vid skapande av Övertid Specifikation för {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:468
 msgid "Overtime Slip Creation Failed"
-msgstr ""
+msgstr "Skapande av Övertid Specifikation misslyckades"
 
 #. Label of the overtime_step (Select) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Overtime Slip Step"
-msgstr ""
+msgstr "Övertid Specifikation Steg"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:491
 msgid "Overtime Slip Submission Error for {0}"
-msgstr ""
+msgstr "Fel vid godkännande av Övertid Specifikation för {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:502
 msgid "Overtime Slip Submission Failed"
-msgstr ""
+msgstr "Godkännande av Övertid Specifikation misslyckades"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:497
 msgid "Overtime Slip Submitted"
-msgstr ""
+msgstr "Övertid Specifikation Godkänd"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:461
 msgid "Overtime Slip created for {0} employee(s)"
-msgstr ""
+msgstr "Övertid Specifikation skapad för {0}"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1209
 msgid "Overtime Slip creation is queued. It may take a few minutes"
-msgstr ""
+msgstr "Skapandet av Övertid Specifikation står i kö. Det kan ta några minuter"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1233
 msgid "Overtime Slip submission is queued. It may take a few minutes"
-msgstr ""
+msgstr "Godkännande av Övertid Specifikation står i kö. Det kan ta några minuter"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:48
 msgid "Overtime Slip:{0} has been created between {1} and {2}"
-msgstr ""
+msgstr "Övertid Specifikation:{0} är skapad mellan {1} och {2}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:463
 msgid "Overtime Slips Created"
-msgstr ""
+msgstr "Övertid Specifikationer skapade"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:495
 msgid "Overtime Slips submitted for {0} employee(s)"
-msgstr ""
+msgstr "Övertid Specifikationer godkända för {0}"
 
 #. Label of the overtime_type (Link) field in DocType 'Attendance'
 #. Label of the overtime_type (Link) field in DocType 'Employee Checkin'
@@ -10127,13 +10130,13 @@ msgstr ""
 #: hrms/hr/doctype/shift_type/shift_type.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime Type"
-msgstr ""
+msgstr "Övertid Typ"
 
 #. Description of the 'Overtime Salary Component' (Link) field in DocType
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime earnings will be booked under this salary component for payout."
-msgstr ""
+msgstr "Övertidsersättning bokförs under denna lönekomponent för utbetalning."
 
 #. Label of the employee_details_tab (Tab Break) field in DocType 'Appraisal'
 #. Label of the overview_tab (Tab Break) field in DocType 'Appraisal Cycle'
@@ -10272,7 +10275,7 @@ msgstr "Lösenord Regel för Lönespecifikation är inte angiven"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Pay Rate Multipliers"
-msgstr ""
+msgstr "Lönemultiplikatorer"
 
 #. Label of the pay_via_payment_entry (Check) field in DocType 'Leave
 #. Encashment'
@@ -10372,18 +10375,18 @@ msgstr "Betalning av {0} från {1} till {2}"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Payout"
-msgstr ""
+msgstr "Utbetalning"
 
 #. Label of the payout_method (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Payout Method"
-msgstr ""
+msgstr "Utbetalning Metod"
 
 #. Label of the final_cycle_accrual_payout (Check) field in DocType 'Salary
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Payout Unclaimed Amount in Final Payroll Cycle"
-msgstr ""
+msgstr "Betala Outnyttjad Belopp i Slutlig Lön"
 
 #. Label of the payroll (Section Break) field in DocType 'Leave Encashment'
 #. Label of a Card Break in the Salary Payout Workspace
@@ -10401,12 +10404,12 @@ msgstr "Lön Baserad På"
 #. Name of a DocType
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Payroll Correction"
-msgstr ""
+msgstr "Lönekorrigering"
 
 #. Name of a DocType
 #: hrms/payroll/doctype/payroll_correction_child/payroll_correction_child.json
 msgid "Payroll Correction Child"
-msgstr ""
+msgstr "Underordnad Lönekorrigering"
 
 #: hrms/setup.py:111 hrms/setup.py:274
 msgid "Payroll Cost Center"
@@ -10558,7 +10561,7 @@ msgstr "Lön Datum kan inte vara tidigare än Personal Anställning Datum."
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:24
 msgid "Payroll date cannot be in the past. This is to ensure that claims are made for the current or future payroll cycles."
-msgstr ""
+msgstr "Lönedatum får inte vara i det förflutna. Detta för att säkerställa att anspråk görs för nuvarande eller framtida löner."
 
 #. Option for the 'Status' (Select) field in DocType 'Employee Onboarding'
 #. Option for the 'Status' (Select) field in DocType 'Employee Referral'
@@ -10691,7 +10694,7 @@ msgstr "Ange Befattning"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:11
 msgid "Please fill in Employee, Posting Date, and Company before fetching overtime details."
-msgstr ""
+msgstr "Ange Personal, Bokföring Datum och Bolag innan du hämtar övertid detaljer."
 
 #: hrms/hr/doctype/shift_type/shift_type.py:49
 msgid "Please reduce {0} to avoid shift time overlapping with itself"
@@ -10985,7 +10988,7 @@ msgstr "Nuvarande Poster"
 #. Settings'
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 msgid "Prevent self approval for expense claims even if user has permissions"
-msgstr ""
+msgstr "Förhindra självgodkännande för utlägg anspråk även om användare har behörighet"
 
 #. Label of the prevent_self_leave_approval (Check) field in DocType 'HR
 #. Settings'
@@ -11157,7 +11160,7 @@ msgstr "Försäkring Fond Avdrag"
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Public Holiday Multiplier"
-msgstr ""
+msgstr "Allmän Helg Multiplikator"
 
 #. Label of the publish_applications_received (Check) field in DocType 'Job
 #. Opening'
@@ -11315,7 +11318,7 @@ msgstr "Anledning"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Reason for Adjustment"
-msgstr ""
+msgstr "Justering Anledning"
 
 #. Label of the reason_for_requesting (Text) field in DocType 'Job Requisition'
 #: hrms/hr/doctype/job_requisition/job_requisition.json
@@ -11388,15 +11391,15 @@ msgstr "Röd"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Reduce"
-msgstr ""
+msgstr "Minska"
 
 #: hrms/hr/doctype/leave_type/leave_type.py:69
 msgid "Reducing maximum leaves allowed after allocation may cause scheduler to allocate incorrect number of earned leaves. Proceed with caution."
-msgstr ""
+msgstr "Att minska maximal antal tillåten frånvaro efter tilldelning kan göra att schemaläggaren tilldelar felaktigt antal intjänad frånvaro. Var försiktig."
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:75
 msgid "Reduction is more than {0}'s available leave balance {1} for leave type {2}"
-msgstr ""
+msgstr "Minskning är högre än {0} tillgänglig frånvaro saldo {1} för frånvaro typ {2}"
 
 #. Label of the reference (Link) field in DocType 'Full and Final Asset'
 #: hrms/hr/doctype/expense_claim/expense_claim_dashboard.py:10
@@ -12060,7 +12063,7 @@ msgstr "Lönekomponent Konto"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Salary Component Based"
-msgstr ""
+msgstr "Lönekomponent Baserad"
 
 #. Label of the type (Data) field in DocType 'Additional Salary'
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
@@ -12075,7 +12078,7 @@ msgstr "Lönekomponent för tidrapport baserad lön."
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:437
 msgid "Salary Component {0} cannot be selected more than once in Employee Benefits"
-msgstr ""
+msgstr "Lönekomponent {0} kan inte väljas mer än en gång i Personal Förmåner"
 
 #: hrms/payroll/doctype/salary_component/salary_component.js:107
 msgid "Salary Component {0} is currently not used in any Salary Structure."
@@ -12083,7 +12086,7 @@ msgstr "Lönekomponent {0} används för närvarande inte i någon Löneart."
 
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.py:15
 msgid "Salary Component {0} must be of type 'Earning' to be used in Employee Benefit Ledger"
-msgstr ""
+msgstr "Lönekomponent {0} måste vara av typ \"Inkomst\" för att kunna användas i Personal Förmån Register"
 
 #. Label of the salary_currency (Link) field in DocType 'Employee Promotion'
 #: hrms/hr/doctype/employee_promotion/employee_promotion.json
@@ -12194,7 +12197,7 @@ msgstr "Lönespecifikation Lån"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Salary Slip Reference"
-msgstr ""
+msgstr "Lönespecifikation Referens"
 
 #. Label of the timesheets (Table) field in DocType 'Salary Slip'
 #. Name of a DocType
@@ -12213,7 +12216,7 @@ msgstr "Lönespecifikation skapande i kö. Det kan ta några minuter"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:115
 msgid "Salary Slip not found."
-msgstr ""
+msgstr "Lönespecifikation hittades inte."
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:336
 msgid "Salary Slip of employee {0} already created for this period"
@@ -12291,7 +12294,7 @@ msgstr "Löneart Tilldelning för Personal finns redan"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:223
 msgid "Salary Structure Assignment not found for employee {0} on date {1}"
-msgstr ""
+msgstr "Löneart tilldelning hittades inte för {0} per den {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:438
 msgid "Salary Structure Missing"
@@ -12303,7 +12306,7 @@ msgstr "Löneart måste godkännas innan {0} godkänns"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:92
 msgid "Salary Structure not assigned for employee {0} for date {1}"
-msgstr ""
+msgstr "Löneart är inte tilldelad för {0} per den {1}"
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:70
 msgid "Salary Structure {0} does not belong to company {1}"
@@ -12345,7 +12348,7 @@ msgstr "Lön Uppdelning baserat på Inkomst och Avdrag."
 
 #: hrms/payroll/report/provident_fund_deductions/provident_fund_deductions.py:15
 msgid "Salary components of type Provident Fund, Additional Provident Fund or Provident Fund Loan are not set up."
-msgstr ""
+msgstr "Lönekomponenter av typ Förmånsfond, Extra Förmånsfond eller Förmånsfond Lån är inte angivna."
 
 #. Description of the 'Applicable Earnings Component' (Table MultiSelect) field
 #. in DocType 'Gratuity Rule'
@@ -12424,7 +12427,7 @@ msgstr "Sök för Jobb"
 
 #: hrms/hr/doctype/overtime_type/overtime_type.py:16
 msgid "Select Applicable Components for Overtime Type"
-msgstr ""
+msgstr "Välj Tillämpliga Komponenter för Övertidstyp"
 
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:86
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_mobile.js:77
@@ -12459,7 +12462,7 @@ msgstr "Välj Intervju"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Select Month for LWP Reversal"
-msgstr ""
+msgstr "Välj Månad för Obetald Frånvaro Återföring"
 
 #. Description of the 'Payment Account' (Link) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -12525,7 +12528,7 @@ msgstr "Välj slut datum för Frånvaro."
 #. in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Select the salary components whose total will be used from the salary slip to calculate the hourly overtime rate."
-msgstr ""
+msgstr "Välj lönekomponenter vars totala summa ska användas från lönespecifikation för att beräkna övertid ersättning per timme."
 
 #: hrms/hr/doctype/leave_application/leave_application.js:312
 msgid "Select the start date for your Leave Application."
@@ -12576,7 +12579,7 @@ msgstr "Självlärd"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.py:115
 msgid "Self-approval for Expense Claims is not allowed"
-msgstr ""
+msgstr "Självgodkännande för Utlägg Anspråk är inte tillåtet"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:844
 msgid "Self-approval for leaves is not allowed"
@@ -12628,7 +12631,7 @@ msgstr "Avsändare"
 #. Label of the sender_copy (Link) field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Sender Copy"
-msgstr ""
+msgstr "Avsändare Kopia"
 
 #. Label of the sender_email (Data) field in DocType 'HR Settings'
 #. Label of the hiring_sender_email (Data) field in DocType 'HR Settings'
@@ -12890,7 +12893,7 @@ msgstr "Skift Tilldelning: {0} skapad för Personal: {1}"
 
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.py:135
 msgid "Shift Assignments created for the schedule between {0} and {1} via background job"
-msgstr ""
+msgstr "Skift tilldelningar skapade för schema mellan {0} och {1} via bakgrundsjobb"
 
 #. Name of a report
 #. Label of a Link in the Shift & Attendance Workspace
@@ -13040,7 +13043,7 @@ msgstr "Skift Typ"
 
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.py:21
 msgid "Shift assignments for {0} after {1} are already created. Please change {2} date to a date later than {3} {4}"
-msgstr ""
+msgstr "Skift tilldelningar för {0} efter {1} har redan skapats. Ändra {2} datum till ett datum senare än {3} {4}"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.js:42
 msgid "Shift has been successfully updated to {0}."
@@ -13183,7 +13186,7 @@ msgstr "Bemanning Plan {0} finns redan för Befattning {1}"
 #. Label of the standard_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Standard Multiplier"
-msgstr ""
+msgstr "Standard Multiplikator"
 
 #. Label of the standard_tax_exemption_amount (Currency) field in DocType
 #. 'Income Tax Slab'
@@ -13254,7 +13257,7 @@ msgstr "Start och Slut Datum inte i giltig Löneeriod, kan inte beräkna {0}."
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:27
 msgid "Start date cannot be greater than end date"
-msgstr ""
+msgstr "Startdatum kan inte vara senare än slutdatum"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:209
 msgid "Start date: {0}"
@@ -13419,7 +13422,7 @@ msgstr "Godkänn Nu"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:90
 msgid "Submit Overtime Slips"
-msgstr ""
+msgstr "Godkänn Övertid Specifikationer"
 
 #: hrms/payroll/doctype/employee_tax_exemption_declaration/employee_tax_exemption_declaration.js:43
 msgid "Submit Proof"
@@ -13454,7 +13457,7 @@ msgstr "Godkänd"
 #. Slip'
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Submitted via Payroll Entry"
-msgstr ""
+msgstr "Godkänn via Lönepost"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:430
 msgid "Submitting Salary Slips and creating Journal Entry..."
@@ -13497,7 +13500,7 @@ msgstr "Summa av alla tidigare tabeller"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:44
 msgid "Sum of benefit amounts {0} exceeds maximum limit of {1}"
-msgstr ""
+msgstr "Summan av förmånsbelopp {0} överskrider maxgräns för {1}"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:69
 msgid "Summarized View"
@@ -14116,7 +14119,7 @@ msgstr "Totalt Frånvarande"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:46
 msgid "Total Accrued"
-msgstr ""
+msgstr "Totalt Periodisering"
 
 #. Label of the total_actual_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Proof Submission'
@@ -14182,7 +14185,7 @@ msgstr "Totalt Fordrad Belopp"
 #. Label of the lwp_days (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Total Days Without Pay"
-msgstr ""
+msgstr "Totalt Antal Dagar Utan Lön"
 
 #. Label of the total_declared_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Declaration'
@@ -14319,7 +14322,7 @@ msgstr "Totalt Ofakturerade Timmar"
 #. Slip'
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Total Overtime Duration"
-msgstr ""
+msgstr "Total Övertid"
 
 #. Label of the total_payable_amount (Currency) field in DocType 'Full and
 #. Final Statement'
@@ -14334,7 +14337,7 @@ msgstr "Totalt Betalning"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:52
 msgid "Total Payout"
-msgstr ""
+msgstr "Total Utbetalning"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:126
 msgid "Total Present"
@@ -14415,7 +14418,7 @@ msgstr "Totalt tilldelad frånvaro erfordras för Frånvaro Typ {0}"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:461
 msgid "Total of all employee benefits cannot be greater that Max Benefits Amount {0}"
-msgstr ""
+msgstr "Summan av alla personal förmåner kan inte vara högre än Maximal Förmån Belopp {0}"
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:150
 msgid "Total percentage against cost centers should be 100"
@@ -14567,7 +14570,7 @@ msgstr "Utbildning"
 #. Label of a quick_list in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
 msgid "Trainings (This Week)"
-msgstr ""
+msgstr "Utbildningar (Denna Vecka)"
 
 #. Label of the transaction_date (Date) field in DocType 'Full and Final
 #. Statement'
@@ -14763,7 +14766,7 @@ msgstr "Obetald"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:58
 msgid "Unpaid Accrual"
-msgstr ""
+msgstr "Obetald Periodisering"
 
 #. Name of a report
 #. Label of a Link in the Expense Claims Workspace
@@ -15107,7 +15110,7 @@ msgstr "Onsdag"
 #. Label of the weekend_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Weekend Multiplier"
-msgstr ""
+msgstr "Helg Multiplikator"
 
 #. Option for the 'Set the frequency for holiday reminders' (Select) field in
 #. DocType 'HR Settings'
@@ -15304,14 +15307,14 @@ msgstr "Årsvis"
 #. Claim'
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.json
 msgid "Yearly Amount"
-msgstr ""
+msgstr "Årlig Belopp"
 
 #. Label of the yearly_benefit (Currency) field in DocType 'Employee Benefit
 #. Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:40
 msgid "Yearly Benefit"
-msgstr ""
+msgstr "Årlig Förmån"
 
 #. Option for the 'Roster Color' (Select) field in DocType 'Shift Type'
 #: hrms/hr/doctype/shift_type/shift_type.json
@@ -15360,7 +15363,7 @@ msgstr "Du kan bara ladda upp JPG, PNG, PDF, TXT eller Microsoft Dokument."
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:48
 msgid "You cannot reverse more than the total LWP days {0}. You have already reversed {1} days for this employee."
-msgstr ""
+msgstr "Du kan inte återföra mer än total antal obetald frånvaro dagar {0}. Du har redan återfört {1} dagar för denna personal."
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:521
 msgid "You do not have permission to complete this action"
@@ -15497,7 +15500,7 @@ msgstr "{0} & {1} mer"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:489
 msgid "{0} : {1}"
-msgstr ""
+msgstr "{0} : {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2506
 msgid "{0} <br> This error can be due to missing or deleted field."
@@ -15571,11 +15574,11 @@ msgstr "{0} har {1} aktiverat"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:187
 msgid "{0} is an Accrual Component and this will be recorded as a payout in Employee Benefits Ledger"
-msgstr ""
+msgstr "{0} är Periodisering Komponent och detta kommer att registreras som en utbetalning i Personal Förmåner Register"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:228
 msgid "{0} is an invalid Attendance Status."
-msgstr ""
+msgstr "{0} är ogiltig Närvaro Status."
 
 #: hrms/hr/report/employee_analytics/employee_analytics.py:14
 msgid "{0} is mandatory"
