@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-24 12:30\n"
+"PO-Revision-Date: 2025-09-25 12:41\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Norwegian Bokmal\n"
 "MIME-Version: 1.0\n"
@@ -1997,7 +1997,7 @@ msgstr ""
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Basic"
-msgstr ""
+msgstr "Grunnleggende"
 
 #. Label of the begin_on (Int) field in DocType 'Employee Boarding Activity'
 #: hrms/hr/doctype/employee_boarding_activity/employee_boarding_activity.json
@@ -5094,7 +5094,7 @@ msgstr ""
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:27
 msgid "Employee can be named by Employee ID if you assign one, or via Naming Series. Select your preference here."
-msgstr ""
+msgstr "Ansatte kan navngis med ansatt-ID hvis du tildeler en, eller via nummerserie. Velg din preferanse her."
 
 #. Label of the employee_name (Data) field in DocType 'Leave Policy Assignment'
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.json
