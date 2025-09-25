@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-24 12:29\n"
+"PO-Revision-Date: 2025-09-25 12:40\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -799,7 +799,7 @@ msgstr ""
 #. Name of a role
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Administrator"
-msgstr ""
+msgstr "Administrator"
 
 #. Option for the 'Level' (Select) field in DocType 'Training Event'
 #: hrms/hr/doctype/training_event/training_event.json
