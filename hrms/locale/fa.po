@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-24 12:30\n"
+"PO-Revision-Date: 2025-09-25 12:41\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -2366,7 +2366,7 @@ msgstr ""
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:109
 msgid "Changed the status from {0} to {1} via Attendance Request"
-msgstr ""
+msgstr "از طریق درخواست حضور و غیاب، وضعیت را از {0} به {1} تغییر داد"
 
 #: hrms/hr/doctype/leave_application/leave_application.js:187
 msgid "Changing '{0}' to {1}."
