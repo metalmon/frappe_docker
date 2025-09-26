@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-25 12:40\n"
+"PO-Revision-Date: 2025-09-26 12:46\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -962,7 +962,7 @@ msgstr "Allocation des congés"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocation Details"
-msgstr ""
+msgstr "Détails d'allocation"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:114
 msgid "Allocation Expired!"
@@ -8552,7 +8552,7 @@ msgstr "L'allocation {0} est liée à la demande de sortie {1}"
 
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:89
 msgid "Leave already have been assigned for this Leave Policy Assignment"
-msgstr "La permission a déjà été assignée à cette assignation de politique de congés"
+msgstr "Des congés ont déjà été attribués pour cette affectation de politique de congés"
 
 #. Label of the leave_and_expense_claim_settings (Section Break) field in
 #. DocType 'HR Settings'
