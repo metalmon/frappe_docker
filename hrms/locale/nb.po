@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-25 12:41\n"
+"PO-Revision-Date: 2025-09-27 12:52\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Norwegian Bokmal\n"
 "MIME-Version: 1.0\n"
@@ -884,7 +884,7 @@ msgstr ""
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocate"
-msgstr ""
+msgstr "Fordele"
 
 #. Label of the allocate_based_on_leave_policy (Check) field in DocType 'Leave
 #. Control Panel'
@@ -909,7 +909,7 @@ msgstr ""
 #. Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Allocated Amount"
-msgstr ""
+msgstr "Fordelt beløp"
 
 #. Label of the allocated_leaves (Float) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
@@ -2844,7 +2844,7 @@ msgstr ""
 #: frontend/src/components/FormView.vue:256
 #: frontend/src/components/FormView.vue:287
 msgid "Confirm"
-msgstr ""
+msgstr "Bekreft"
 
 #: frontend/src/components/CheckInPanel.vue:73
 msgid "Confirm {0}"
@@ -2886,7 +2886,7 @@ msgstr ""
 #. Label of the prefered_email (Data) field in DocType 'Travel Request'
 #: hrms/hr/doctype/travel_request/travel_request.json
 msgid "Contact Email"
-msgstr ""
+msgstr "E-postadresse for kontakt"
 
 #: frontend/src/views/Profile.vue:190
 msgid "Contact Information"
@@ -3942,7 +3942,7 @@ msgstr "Detaljer"
 #. Label of the details_of_sponsor (Data) field in DocType 'Travel Request'
 #: hrms/hr/doctype/travel_request/travel_request.json
 msgid "Details of Sponsor (Name, Location)"
-msgstr ""
+msgstr "Opplysninger om sponsor (navn, sted)"
 
 #. Label of the determine_check_in_and_check_out (Select) field in DocType
 #. 'Shift Type'
@@ -5521,7 +5521,7 @@ msgstr ""
 #: hrms/hr/notification/training_scheduled/training_scheduled.html:23
 #: hrms/templates/emails/training_event.html:6
 msgid "Event Location"
-msgstr ""
+msgstr "Arrangementssted"
 
 #. Label of the event_name (Data) field in DocType 'Training Event'
 #. Label of the event_name (Data) field in DocType 'Training Feedback'
@@ -6041,7 +6041,7 @@ msgstr ""
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Fetch Geolocation"
-msgstr ""
+msgstr "Hent geolokalisering"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:7
 msgid "Fetch Overtime Details"
@@ -6066,7 +6066,7 @@ msgstr ""
 
 #: hrms/public/js/utils/index.js:193
 msgid "Fetching your geolocation"
-msgstr ""
+msgstr "Henter geolokaliseringen din"
 
 #. Label of the fieldname (Data) field in DocType 'Employee Property History'
 #: hrms/hr/doctype/employee_property_history/employee_property_history.json
@@ -6503,16 +6503,16 @@ msgstr "Hovedbok"
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Geolocation"
-msgstr ""
+msgstr "Geolokalisering"
 
 #: hrms/public/js/utils/index.js:186 hrms/public/js/utils/index.js:212
 msgid "Geolocation Error"
-msgstr ""
+msgstr "Geolokaliseringsfeil"
 
 #: frontend/src/components/CheckInPanel.vue:143
 #: hrms/public/js/utils/index.js:185
 msgid "Geolocation is not supported by your current browser"
-msgstr ""
+msgstr "Geolokalisering støttes ikke av din nåværende nettleser"
 
 #: hrms/payroll/doctype/employee_tax_exemption_proof_submission/employee_tax_exemption_proof_submission.js:47
 msgid "Get Details From Declaration"
@@ -8139,7 +8139,7 @@ msgstr ""
 #. Label of the last_name (Data) field in DocType 'Employee Referral'
 #: hrms/hr/doctype/employee_referral/employee_referral.json
 msgid "Last Name"
-msgstr ""
+msgstr "Etternavn"
 
 #. Label of the last_odometer (Int) field in DocType 'Vehicle Log'
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
@@ -8719,17 +8719,17 @@ msgstr ""
 #: hrms/hr/report/vehicle_expenses/vehicle_expenses.py:33
 #: hrms/templates/generators/job_opening.html:66
 msgid "Location"
-msgstr ""
+msgstr "Sted"
 
 #. Label of the device_id (Data) field in DocType 'Employee Checkin'
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 msgid "Location / Device ID"
-msgstr ""
+msgstr "Sted / enhets-ID"
 
 #. Label of the location_name (Data) field in DocType 'Shift Location'
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Location Name"
-msgstr ""
+msgstr "Stedsnavn"
 
 #. Label of the lodging_required (Check) field in DocType 'Travel Itinerary'
 #: hrms/hr/doctype/travel_itinerary/travel_itinerary.json
@@ -11153,13 +11153,13 @@ msgstr ""
 #. Label of the purpose (Small Text) field in DocType 'Employee Advance'
 #: hrms/hr/doctype/employee_advance/employee_advance.json
 msgid "Purpose"
-msgstr ""
+msgstr "Formål"
 
 #. Label of the section_break_8 (Section Break) field in DocType 'Employee
 #. Advance'
 #: hrms/hr/doctype/employee_advance/employee_advance.json
 msgid "Purpose & Amount"
-msgstr ""
+msgstr "Formål og beløp"
 
 #. Name of a DocType
 #. Label of the purpose_of_travel (Data) field in DocType 'Purpose of Travel'
@@ -11169,7 +11169,7 @@ msgstr ""
 #: hrms/hr/doctype/travel_request/travel_request.json
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 msgid "Purpose of Travel"
-msgstr ""
+msgstr "Reiseformål"
 
 #: frontend/src/views/AppSettings.vue:128
 msgid "Push Notification permission denied"
@@ -11582,7 +11582,7 @@ msgstr ""
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "Reminder"
-msgstr ""
+msgstr "Påminnelse"
 
 #. Label of the reminders_section (Section Break) field in DocType 'HR
 #. Settings'
@@ -12904,7 +12904,7 @@ msgstr ""
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Shift Location"
-msgstr ""
+msgstr "Skiftsted"
 
 #. Label of the shift_request (Link) field in DocType 'Shift Assignment'
 #. Name of a DocType
@@ -14657,7 +14657,7 @@ msgstr ""
 
 #: hrms/public/js/utils/index.js:206
 msgid "Unable to retrieve your location"
-msgstr ""
+msgstr "Kunne ikke hente posisjonen din"
 
 #: hrms/hr/doctype/goal/goal.js:55
 msgid "Unarchive"
@@ -15631,7 +15631,7 @@ msgstr ""
 
 #: hrms/overrides/company.py:37 hrms/overrides/company.py:50
 msgid "{0}: {1}"
-msgstr ""
+msgstr "{0}: {1}"
 
 #: frontend/src/components/AttendanceRequestItem.vue:17
 #: frontend/src/components/LeaveRequestItem.vue:16
