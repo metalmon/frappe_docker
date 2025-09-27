@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-26 12:46\n"
+"PO-Revision-Date: 2025-09-27 12:52\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -9821,7 +9821,7 @@ msgstr "Spärrad"
 #: frontend/src/components/AttendanceCalendar.vue:80
 #: hrms/hr/doctype/attendance/attendance.json
 msgid "On Leave"
-msgstr "Frånvarande"
+msgstr "Ledig"
 
 #. Label of a Card Break in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
@@ -10982,7 +10982,7 @@ msgstr "Närvarande"
 
 #: hrms/hr/report/shift_attendance/shift_attendance.py:162
 msgid "Present Records"
-msgstr "Nuvarande Poster"
+msgstr "Närvaro Poster"
 
 #. Label of the prevent_self_expense_approval (Check) field in DocType 'HR
 #. Settings'
@@ -11650,7 +11650,7 @@ msgstr "Återbetala Förskött Belopp från Lön"
 #. Label of the repeat_on_days (Table) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Repeat On Days"
-msgstr "Upprepa dessa Dagar"
+msgstr "Veckodagar"
 
 #. Option for the 'Status' (Select) field in DocType 'Job Applicant'
 #: hrms/hr/doctype/job_applicant/job_applicant.json
