@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-27 12:52\n"
+"PO-Revision-Date: 2025-09-28 12:57\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Serbian (Latin)\n"
 "MIME-Version: 1.0\n"
@@ -2061,11 +2061,11 @@ msgstr "Detalji beneficije"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:36
 msgid "Benefit amount of component {0} exceeds {1}"
-msgstr ""
+msgstr "Iznos beneficije komponente {0} prelazi {1}"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:30
 msgid "Benefit amount of component {0} should be greater than 0"
-msgstr ""
+msgstr "Iznos beneficije komponente {0} mora biti veći od 0"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:448
 msgid "Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2} set in {3}"
@@ -2471,7 +2471,8 @@ msgid "Choose how the hourly overtime amount is calculated:\n"
 "<ol style=\"padding-left:15px;\"><li>Fixed Hourly Rate: A fixed, manually entered hourly rate.</li>\n"
 "<li>Salary Component-Based:\n\n"
 "(Sum of selected component amounts) ÷ (Payment Days) ÷ (Standard Daily Hours)</li></ol>"
-msgstr ""
+msgstr "Izaberite način obračuna satnice za prekovremeni rad:<ol style=\"padding-left:15px;\"><li>Fiksna satnica: Fiksna, ručno uneta satnica.</li><li>Zasnovano na komponenti zarade:\n\n"
+"(Zbir odabranih komponenti) ÷ (Dani isplate) ÷ (Standardni dnevni sati)</li></ol>"
 
 #. Description of the 'Payroll Date' (Date) field in DocType 'Payroll
 #. Correction'
@@ -3096,7 +3097,7 @@ msgstr "Kreiraj obračun prekovremenog rada za zaposleno lice"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:83
 msgid "Create Overtime Slips"
-msgstr ""
+msgstr "Kreiraj obračune prekovremenog rada"
 
 #: hrms/payroll/doctype/gratuity/gratuity.js:36
 msgid "Create Payment Entry"
@@ -3464,11 +3465,11 @@ msgstr "Dani kada su praznici blokirani za ovo odeljenje."
 #. Label of the days_to_reverse (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Days to Reverse"
-msgstr ""
+msgstr "Dani za storniranje"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:19
 msgid "Days to Reverse must be greater than zero."
-msgstr ""
+msgstr "Dani za storniranje moraju biti veći od nule."
 
 #: hrms/payroll/report/bank_remittance/bank_remittance.py:19
 msgid "Debit A/C Number"
@@ -3526,7 +3527,7 @@ msgstr "Odbitak"
 #. Label of the deduction_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Deduction Arrears"
-msgstr ""
+msgstr "Zaostatak odbitaka"
 
 #. Label of a Card Break in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -4110,7 +4111,7 @@ msgstr "Duplikat zahteva za zapošljavanje"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:40
 msgid "Duplicate Leave Adjustment"
-msgstr ""
+msgstr "Duplikat korekcije odsustva"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:158
 msgid "Duplicate Overwritten Salary"
@@ -4186,7 +4187,7 @@ msgstr "Prihod"
 #. Label of the earning_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Earning Arrears"
-msgstr ""
+msgstr "Zaostatak prihoda"
 
 #. Label of the earning_component (Link) field in DocType 'Leave Type'
 #. Label of the salary_component (Link) field in DocType 'Employee Benefit
@@ -5170,7 +5171,7 @@ msgstr "Zaposleno lice {0} je već podnelo zahtev za {1} u periodu od {2} do {3}
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:48
 msgid "Employee {0} has already claimed the benefit '{1}' for {2} ({3}).<br>To prevent overpayments, only one claim per benefit type is allowed in each payroll cycle."
-msgstr ""
+msgstr "Zaposleno lice {0} je već podnelo zahtev za beneficiju '{1}' za {2} ({3}).<br> U cilju sprečavanja preplate, dozvoljen je samo jedan zahtev po vrsti beneficije u svakom obračunskom ciklusu."
 
 #: hrms/hr/doctype/attendance/attendance.py:211
 msgid "Employee {0} is not active or does not exist"
@@ -5297,13 +5298,13 @@ msgstr "Omogući obaveštenja"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for public holidays. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Omogućite ovo kako bi koristili poseban koeficijent za državne praznike. Ukoliko nije označeno, koristi se standardni koeficijent."
 
 #. Description of the 'Apply for Weekend' (Check) field in DocType 'Overtime
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for weekends. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Omogućite ovo kako bi koristili poseban koeficijent za vikende. Ukoliko nije označeno, koristi se standardni koeficijent."
 
 #. Label of the enabled (Check) field in DocType 'Daily Work Summary Group'
 #. Label of the enabled (Check) field in DocType 'Shift Schedule Assignment'
@@ -5317,7 +5318,7 @@ msgstr "Omogućeno"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Enabled only for Employee Benefit components from Salary Structure Assignment"
-msgstr ""
+msgstr "Omogućeno samo za beneficije zaposlenih lica iz dodele strukture zarade"
 
 #: frontend/src/views/AppSettings.vue:40
 msgid "Enabling Push Notifications..."
@@ -5432,7 +5433,7 @@ msgstr "Energetski poeni"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:48
 msgid "Enter a non-zero value to adjust."
-msgstr ""
+msgstr "Unesite vrednost različitu od nule za korekciju."
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:34
 msgid "Enter the Standard Working Hours for a normal work day. These hours will be used in calculations of reports such as Employee Hours Utilization and Project Profitability analysis."
@@ -9371,7 +9372,7 @@ msgstr "Nova povratna informacija"
 #. Label of a quick_list in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
 msgid "New Hires (This Month)"
-msgstr ""
+msgstr "Nova zaposlena lica (ovaj mesec)"
 
 #: hrms/hr/report/employee_leave_balance/employee_leave_balance.py:61
 msgid "New Leave(s) Allocated"
@@ -9441,11 +9442,11 @@ msgstr "Nije pronađen obračunski listić za zaposleno lice: {0}"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:81
 msgid "No Salary Slips with {0} found for employee {1} for payroll period {2}."
-msgstr ""
+msgstr "Nisu pronađeni obračunski listići sa {0} za zaposleno lice {1} u obračunskom periodu {2}."
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:69
 msgid "No Salary Structure Assignment found for employee {0} on date {1}"
-msgstr ""
+msgstr "Nije pronađena struktura zarade za zaposleno lice {0} na datum {1}"
 
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.py:116
 msgid "No Salary Structure Assignment found for employee {0} on or before {1}"
@@ -9497,15 +9498,15 @@ msgstr "Nije pronađen odgovarajući razred za obračun iznosa otpremnine prema 
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:154
 msgid "No arrear components found in the salary slip. Ensure Arrear Component is checked in the Salary Component master."
-msgstr ""
+msgstr "Nisu pronađene komponente zaostatka u obračunskom listiću. Proverite da li je označena komponenta zaostatka u master podacima komponente zarade."
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:181
 msgid "No arrear details found"
-msgstr ""
+msgstr "Nisu pronađeni detalji zaostatka"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:164
 msgid "No attendance records found for employee {0} between {1} and {2}"
-msgstr ""
+msgstr "Nisu pronađeni zapisi prisustva za zaposleno lice {0} između {1} i {2}"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:54
 msgid "No attendance records found for this criteria."
@@ -9553,7 +9554,7 @@ msgstr "Nije izabrana nijedna stavka"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.js:46
 msgid "No leave allocation found for {0} for {1} on given date."
-msgstr ""
+msgstr "Nije pronađena dodela odsustva za {0} za {1} na dati datum."
 
 #: hrms/hr/doctype/attendance/attendance.py:197
 msgid "No leave record found for employee {0} on {1}"
@@ -10024,29 +10025,29 @@ msgstr "Preklapajuće smene"
 #: hrms/hr/doctype/shift_type/shift_type.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime"
-msgstr ""
+msgstr "Prekovremeni rad"
 
 #. Label of the overtime_calculation_method (Select) field in DocType 'Overtime
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime Amount Calculation"
-msgstr ""
+msgstr "Obračun iznosa prekovremenog rada"
 
 #. Name of a DocType
 #. Label of the overtime_details (Table) field in DocType 'Overtime Slip'
 #: hrms/hr/doctype/overtime_details/overtime_details.json
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Overtime Details"
-msgstr ""
+msgstr "Detalji prekovremenog rada"
 
 #. Label of the overtime_duration (Float) field in DocType 'Overtime Details'
 #: hrms/hr/doctype/overtime_details/overtime_details.json
 msgid "Overtime Duration"
-msgstr ""
+msgstr "Trajanje prekovremenog rada"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:73
 msgid "Overtime Duration for {0} is greater than Maximum Overtime Hours Allowed"
-msgstr ""
+msgstr "Trajanje prekovremenog rada za {0} je veće od maksimalno dozvoljenih časova"
 
 #. Name of a DocType
 #. Label of the overtime_salary_component (Link) field in DocType 'Overtime
@@ -10054,7 +10055,7 @@ msgstr ""
 #: hrms/hr/doctype/overtime_salary_component/overtime_salary_component.json
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime Salary Component"
-msgstr ""
+msgstr "Komponenta zarade za prekovremeni rad"
 
 #. Name of a DocType
 #. Label of a Link in the Shift & Attendance Workspace
@@ -10127,13 +10128,13 @@ msgstr ""
 #: hrms/hr/doctype/shift_type/shift_type.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime Type"
-msgstr ""
+msgstr "Vrsta prekovremenog rada"
 
 #. Description of the 'Overtime Salary Component' (Link) field in DocType
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Overtime earnings will be booked under this salary component for payout."
-msgstr ""
+msgstr "Prihodi od prekovremenog rada knjižiće se pod ovom komponentom zarade radi isplate."
 
 #. Label of the employee_details_tab (Tab Break) field in DocType 'Appraisal'
 #. Label of the overview_tab (Tab Break) field in DocType 'Appraisal Cycle'
@@ -10272,7 +10273,7 @@ msgstr "Politika lozinki za obračunski listić nije postavljena"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Pay Rate Multipliers"
-msgstr ""
+msgstr "Koeficijenti stope isplate"
 
 #. Label of the pay_via_payment_entry (Check) field in DocType 'Leave
 #. Encashment'
@@ -10372,18 +10373,18 @@ msgstr "Uplata {0} od {1} do {2}"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Payout"
-msgstr ""
+msgstr "Isplata"
 
 #. Label of the payout_method (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Payout Method"
-msgstr ""
+msgstr "Način isplate"
 
 #. Label of the final_cycle_accrual_payout (Check) field in DocType 'Salary
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Payout Unclaimed Amount in Final Payroll Cycle"
-msgstr ""
+msgstr "Isplata neiskorišćenog iznosa u završnom obračunskom ciklusu"
 
 #. Label of the payroll (Section Break) field in DocType 'Leave Encashment'
 #. Label of a Card Break in the Salary Payout Workspace
@@ -10401,12 +10402,12 @@ msgstr "Obračun zarade na osnovu"
 #. Name of a DocType
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Payroll Correction"
-msgstr ""
+msgstr "Korekcija obračuna zarada"
 
 #. Name of a DocType
 #: hrms/payroll/doctype/payroll_correction_child/payroll_correction_child.json
 msgid "Payroll Correction Child"
-msgstr ""
+msgstr "Zavisna stavka korekcije obračuna zarada"
 
 #: hrms/setup.py:111 hrms/setup.py:274
 msgid "Payroll Cost Center"
@@ -10558,7 +10559,7 @@ msgstr "Datum obračuna zarade ne može biti pre datuma zaposlenja zaposlenog li
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:24
 msgid "Payroll date cannot be in the past. This is to ensure that claims are made for the current or future payroll cycles."
-msgstr ""
+msgstr "Datum obračuna zarada ne može biti u prošlosti. Ovo osigurava da se zahtevi podnose za tekuće ili buduće obračunske cikluse."
 
 #. Option for the 'Status' (Select) field in DocType 'Employee Onboarding'
 #. Option for the 'Status' (Select) field in DocType 'Employee Referral'
@@ -10691,7 +10692,7 @@ msgstr "Molimo Vas da unesete poziciju"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:11
 msgid "Please fill in Employee, Posting Date, and Company before fetching overtime details."
-msgstr ""
+msgstr "Molimo Vas da unesete zaposleno lice, datum knjiženja i kompaniju pre preuzimanja detalja o prekovremenom radu."
 
 #: hrms/hr/doctype/shift_type/shift_type.py:49
 msgid "Please reduce {0} to avoid shift time overlapping with itself"
@@ -10985,7 +10986,7 @@ msgstr "Evidencija prisustva"
 #. Settings'
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 msgid "Prevent self approval for expense claims even if user has permissions"
-msgstr ""
+msgstr "Sprečiti samoodobravanje zahteva za troškove i ukoliko korisnik ima dozvole"
 
 #. Label of the prevent_self_leave_approval (Check) field in DocType 'HR
 #. Settings'
@@ -11157,7 +11158,7 @@ msgstr "Odbici za penzioni fond"
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Public Holiday Multiplier"
-msgstr ""
+msgstr "Koeficijent za državni praznik"
 
 #. Label of the publish_applications_received (Check) field in DocType 'Job
 #. Opening'
@@ -11315,7 +11316,7 @@ msgstr "Razlog"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Reason for Adjustment"
-msgstr ""
+msgstr "Razlog za korekciju"
 
 #. Label of the reason_for_requesting (Text) field in DocType 'Job Requisition'
 #: hrms/hr/doctype/job_requisition/job_requisition.json
@@ -11388,15 +11389,15 @@ msgstr "Crveno"
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Reduce"
-msgstr ""
+msgstr "Smanjenje"
 
 #: hrms/hr/doctype/leave_type/leave_type.py:69
 msgid "Reducing maximum leaves allowed after allocation may cause scheduler to allocate incorrect number of earned leaves. Proceed with caution."
-msgstr ""
+msgstr "Smanjenje maksimalnog broja dozvoljenih odsustva nakon dodele može dovesti do nepravilnog raspoređivanja zarađenih odsustava. Nastavite sa oprezom."
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:75
 msgid "Reduction is more than {0}'s available leave balance {1} for leave type {2}"
-msgstr ""
+msgstr "Smanjenje je veće od raspoloživog salda odsustva {1} za zaposleno lice {0} za vrstu odsustva {2}"
 
 #. Label of the reference (Link) field in DocType 'Full and Final Asset'
 #: hrms/hr/doctype/expense_claim/expense_claim_dashboard.py:10
@@ -12075,7 +12076,7 @@ msgstr "Komponenta zarade za evidenciju vremena na osnovu obračuna zarade."
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:437
 msgid "Salary Component {0} cannot be selected more than once in Employee Benefits"
-msgstr ""
+msgstr "Komponenta zarade {0} ne može biti izabrana više od jednom u beneficijama zaposlenog lica"
 
 #: hrms/payroll/doctype/salary_component/salary_component.js:107
 msgid "Salary Component {0} is currently not used in any Salary Structure."
@@ -12083,7 +12084,7 @@ msgstr "Komponenta zarade {0} trenutno nije korišćena ni u jednoj strukturi za
 
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.py:15
 msgid "Salary Component {0} must be of type 'Earning' to be used in Employee Benefit Ledger"
-msgstr ""
+msgstr "Komponentna zarade {0} mora biti vrste 'Prihod' kako bi mogla biti korišćena u knjizi beneficija zaposlenog lica"
 
 #. Label of the salary_currency (Link) field in DocType 'Employee Promotion'
 #: hrms/hr/doctype/employee_promotion/employee_promotion.json
@@ -12194,7 +12195,7 @@ msgstr "Obračunski listić za zajam"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Salary Slip Reference"
-msgstr ""
+msgstr "Referenca obračunskog listića"
 
 #. Label of the timesheets (Table) field in DocType 'Salary Slip'
 #. Name of a DocType
@@ -12213,7 +12214,7 @@ msgstr "Kreiranje obračunskog listića je u redu čekanja. Može potrajati neko
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:115
 msgid "Salary Slip not found."
-msgstr ""
+msgstr "Obračunski listić nije pronađen."
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:336
 msgid "Salary Slip of employee {0} already created for this period"
@@ -12291,7 +12292,7 @@ msgstr "Dodela strukture zarade za zaposleno lice već postoji"
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:223
 msgid "Salary Structure Assignment not found for employee {0} on date {1}"
-msgstr ""
+msgstr "Dodela strukture zarade nije pronađena za zaposleno lice {0} na datum {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:438
 msgid "Salary Structure Missing"
@@ -12303,7 +12304,7 @@ msgstr "Struktura zarade mora biti podneta pre podnošenja {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:92
 msgid "Salary Structure not assigned for employee {0} for date {1}"
-msgstr ""
+msgstr "Struktura zarade nije dodeljena zaposlenom licu {0} za datum {1}"
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:70
 msgid "Salary Structure {0} does not belong to company {1}"
@@ -12345,7 +12346,7 @@ msgstr "Struktura zarade po osnovu prihoda i odbitaka."
 
 #: hrms/payroll/report/provident_fund_deductions/provident_fund_deductions.py:15
 msgid "Salary components of type Provident Fund, Additional Provident Fund or Provident Fund Loan are not set up."
-msgstr ""
+msgstr "Komponente zarade vrste penzioni fond, dodatni penzioni fond ili kredit iz penzionog fonda nisu podešene."
 
 #. Description of the 'Applicable Earnings Component' (Table MultiSelect) field
 #. in DocType 'Gratuity Rule'
@@ -12424,7 +12425,7 @@ msgstr "Pretraga poslova"
 
 #: hrms/hr/doctype/overtime_type/overtime_type.py:16
 msgid "Select Applicable Components for Overtime Type"
-msgstr ""
+msgstr "Izaberite primenjive komponente za vrstu prekovremenog rada"
 
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:86
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_mobile.js:77
@@ -12576,7 +12577,7 @@ msgstr "Samostalno učenje"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.py:115
 msgid "Self-approval for Expense Claims is not allowed"
-msgstr ""
+msgstr "Samoodobravanje zahteva za troškove nije dozvoljeno"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:844
 msgid "Self-approval for leaves is not allowed"
@@ -12628,7 +12629,7 @@ msgstr "Pošiljalac"
 #. Label of the sender_copy (Link) field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Sender Copy"
-msgstr ""
+msgstr "Kopija pošiljaoca"
 
 #. Label of the sender_email (Data) field in DocType 'HR Settings'
 #. Label of the hiring_sender_email (Data) field in DocType 'HR Settings'
@@ -12890,7 +12891,7 @@ msgstr "Dodela smene: {0} je kreirana za zaposleno lice: {1}"
 
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.py:135
 msgid "Shift Assignments created for the schedule between {0} and {1} via background job"
-msgstr ""
+msgstr "Dodele smena kreirane za raspored između {0} i {1} putem pozadinskog zadatka"
 
 #. Name of a report
 #. Label of a Link in the Shift & Attendance Workspace
@@ -13040,7 +13041,7 @@ msgstr "Vrsta smene"
 
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.py:21
 msgid "Shift assignments for {0} after {1} are already created. Please change {2} date to a date later than {3} {4}"
-msgstr ""
+msgstr "Dodele smena za {0} nakon {1} su već kreirane. Molimo Vas da promenite datum {2} na kasniji od {3} {4}"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.js:42
 msgid "Shift has been successfully updated to {0}."
@@ -13183,7 +13184,7 @@ msgstr "Plan osoblja {0} već postoji za poziciju {1}"
 #. Label of the standard_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Standard Multiplier"
-msgstr ""
+msgstr "Standardni koeficijent"
 
 #. Label of the standard_tax_exemption_amount (Currency) field in DocType
 #. 'Income Tax Slab'
@@ -13254,7 +13255,7 @@ msgstr "Početni i krajnji datumi nisu važeći u obračunskom periodu, nije mog
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:27
 msgid "Start date cannot be greater than end date"
-msgstr ""
+msgstr "Datum početka ne može biti veći od datuma završetka"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:209
 msgid "Start date: {0}"
@@ -13454,7 +13455,7 @@ msgstr "Podneto"
 #. Slip'
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Submitted via Payroll Entry"
-msgstr ""
+msgstr "Podneto putem unosa obračuna zarada"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:430
 msgid "Submitting Salary Slips and creating Journal Entry..."
@@ -13497,7 +13498,7 @@ msgstr "Zbir svih prethodnih razreda"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:44
 msgid "Sum of benefit amounts {0} exceeds maximum limit of {1}"
-msgstr ""
+msgstr "Zbir iznosa beneficija {0} prelazi maksimalno ograničenje od {1}"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:69
 msgid "Summarized View"
@@ -14116,7 +14117,7 @@ msgstr "Ukupno izostanaka"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:46
 msgid "Total Accrued"
-msgstr ""
+msgstr "Ukupno obračunato"
 
 #. Label of the total_actual_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Proof Submission'
@@ -14182,7 +14183,7 @@ msgstr "Ukupan iznos naknade"
 #. Label of the lwp_days (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Total Days Without Pay"
-msgstr ""
+msgstr "Ukupan broj dana bez naknade"
 
 #. Label of the total_declared_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Declaration'
@@ -14319,7 +14320,7 @@ msgstr "Ukupan broj nefakturisanih časova"
 #. Slip'
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 msgid "Total Overtime Duration"
-msgstr ""
+msgstr "Ukupno trajanje prekovremenog rada"
 
 #. Label of the total_payable_amount (Currency) field in DocType 'Full and
 #. Final Statement'
@@ -14334,7 +14335,7 @@ msgstr "Ukupna uplata"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:52
 msgid "Total Payout"
-msgstr ""
+msgstr "Ukupna isplata"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:126
 msgid "Total Present"
@@ -14415,7 +14416,7 @@ msgstr "Ukupan broj dodeljenih odsustva je obavezan za vrstu odsustva {0}"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:461
 msgid "Total of all employee benefits cannot be greater that Max Benefits Amount {0}"
-msgstr ""
+msgstr "Zbir svih beneficija zaposlenog lica ne može biti veći od maksimalnog iznosa beneficije {0}"
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:150
 msgid "Total percentage against cost centers should be 100"
@@ -14567,7 +14568,7 @@ msgstr "Obuke"
 #. Label of a quick_list in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
 msgid "Trainings (This Week)"
-msgstr ""
+msgstr "Obuke (ove nedelje)"
 
 #. Label of the transaction_date (Date) field in DocType 'Full and Final
 #. Statement'
@@ -14763,7 +14764,7 @@ msgstr "Neplaćeno"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:58
 msgid "Unpaid Accrual"
-msgstr ""
+msgstr "Neisplaćeni obračun"
 
 #. Name of a report
 #. Label of a Link in the Expense Claims Workspace
@@ -15107,7 +15108,7 @@ msgstr "Sreda"
 #. Label of the weekend_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Weekend Multiplier"
-msgstr ""
+msgstr "Koeficijent za vikend"
 
 #. Option for the 'Set the frequency for holiday reminders' (Select) field in
 #. DocType 'HR Settings'
@@ -15304,14 +15305,14 @@ msgstr "Godišnje"
 #. Claim'
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.json
 msgid "Yearly Amount"
-msgstr ""
+msgstr "Godišnji iznos"
 
 #. Label of the yearly_benefit (Currency) field in DocType 'Employee Benefit
 #. Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:40
 msgid "Yearly Benefit"
-msgstr ""
+msgstr "Godišnja beneficija"
 
 #. Option for the 'Roster Color' (Select) field in DocType 'Shift Type'
 #: hrms/hr/doctype/shift_type/shift_type.json
@@ -15497,7 +15498,7 @@ msgstr "{0} i još {1}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:489
 msgid "{0} : {1}"
-msgstr ""
+msgstr "{0} : {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2506
 msgid "{0} <br> This error can be due to missing or deleted field."
@@ -15571,11 +15572,11 @@ msgstr "{0} ima omogućeno {1}"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:187
 msgid "{0} is an Accrual Component and this will be recorded as a payout in Employee Benefits Ledger"
-msgstr ""
+msgstr "{0} je obračunska komponenta i biće evidentirana kao isplata u knjizi beneficija zaposlenog lica"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:228
 msgid "{0} is an invalid Attendance Status."
-msgstr ""
+msgstr "{0} je nevažeći status prisustva."
 
 #: hrms/hr/report/employee_analytics/employee_analytics.py:14
 msgid "{0} is mandatory"
