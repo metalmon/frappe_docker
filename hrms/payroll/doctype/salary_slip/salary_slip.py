@@ -1513,8 +1513,12 @@ class SalarySlip(TransactionBase):
 			for row in self.earnings
 			if row.salary_component == benefit.salary_component and getattr(row, "additional_salary", None)
 		]
-		claimed_amount = sum(row.additional_amount for row in benefit_claims) if benefit_claims else 0
+		claimed_amount = sum(row.amount for row in benefit_claims) if benefit_claims else 0
 		total_paid += claimed_amount
+
+		# if more was paid than accrued, reduce current period accrual accordingly
+		if total_paid > total_accrued:
+			current_period_benefit -= total_paid - total_accrued
 
 		if 0 < (benefit.yearly_amount - total_accrued) < current_period_benefit:
 			current_period_benefit = (
