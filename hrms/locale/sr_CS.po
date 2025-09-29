@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-28 12:57\n"
+"PO-Revision-Date: 2025-09-29 13:45\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Serbian (Latin)\n"
 "MIME-Version: 1.0\n"
@@ -2065,7 +2065,7 @@ msgstr "Iznos beneficije komponente {0} prelazi {1}"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:30
 msgid "Benefit amount of component {0} should be greater than 0"
-msgstr "Iznos beneficije komponente {0} mora biti veći od 0"
+msgstr "Iznos beneficije komponente {0} treba biti veći od 0"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:448
 msgid "Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2} set in {3}"
@@ -3093,7 +3093,7 @@ msgstr "Kreiraj novi ID zaposlenog lica"
 #. Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Create Overtime Slip For Eligible Employee(s)"
-msgstr "Kreiraj obračun prekovremenog rada za zaposleno lice"
+msgstr "Kreiraj obračun prekovremenog rada za zaposleno lice koje ispunjava uslove"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:83
 msgid "Create Overtime Slips"
@@ -5443,7 +5443,7 @@ msgstr "Unesite standardni broj radnih časova za jedan normalan radni dan. Ovi 
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Enter the number of Leave Without Pay (LWP) days you want to reverse. This value cannot exceed the total LWP days recorded for the selected month"
-msgstr ""
+msgstr "Unesite broj dana odsustva bez naknade koje želite da stornirate. Ova vrednost ne može biti veća od ukupnog broja dana odsustva bez naknade evidentiranih za izabrani mesec"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:208
 msgid "Enter the number of leaves you want to allocate for the period."
@@ -7202,7 +7202,7 @@ msgstr "Ukoliko je označeno, sakriva i onemogućava polje zaokruženo ukupno u 
 #. field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "If checked, overtime slip creation can be handled as part of payroll processing"
-msgstr ""
+msgstr "Ukoliko je označeno, kreiranje obračuna prekovremenog rada može se obavljati u okviru procesa obračuna zarada"
 
 #. Description of the 'Exempted from Income Tax' (Check) field in DocType
 #. 'Salary Component'
@@ -10062,56 +10062,56 @@ msgstr "Komponenta zarade za prekovremeni rad"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime Slip"
-msgstr ""
+msgstr "Obračun prekovremenog rada"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:457
 msgid "Overtime Slip Creation Error for {0}"
-msgstr ""
+msgstr "Greška pri kreiranju obračuna prekovremenog rada za {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:468
 msgid "Overtime Slip Creation Failed"
-msgstr ""
+msgstr "Kreiranje obračuna prekovremenog rada je neuspešno"
 
 #. Label of the overtime_step (Select) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Overtime Slip Step"
-msgstr ""
+msgstr "Korak obračuna prekovremenog rada"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:491
 msgid "Overtime Slip Submission Error for {0}"
-msgstr ""
+msgstr "Greška pri podnošenju obračuna prekovremenog rada za {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:502
 msgid "Overtime Slip Submission Failed"
-msgstr ""
+msgstr "Kreiranje obračuna prekovremenog rada je neuspešno"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:497
 msgid "Overtime Slip Submitted"
-msgstr ""
+msgstr "Obračun prekovremenog rada je podnet"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:461
 msgid "Overtime Slip created for {0} employee(s)"
-msgstr ""
+msgstr "Obračun prekovremenog rada je kreiran za {0} zaposlena lica"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1209
 msgid "Overtime Slip creation is queued. It may take a few minutes"
-msgstr ""
+msgstr "Kreiranje obračuna prekovremenog rada je u redu čekanja. Može potrajati nekoliko minuta"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1233
 msgid "Overtime Slip submission is queued. It may take a few minutes"
-msgstr ""
+msgstr "Podnošenje obračuna prekovremenog rada je u redu čekanja. Može potrajati nekoliko minuta"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:48
 msgid "Overtime Slip:{0} has been created between {1} and {2}"
-msgstr ""
+msgstr "Obračun prekovremenog rada: {0} je kreiran između {1} i {2}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:463
 msgid "Overtime Slips Created"
-msgstr ""
+msgstr "Kreirani obračuni prekovremenog rada"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:495
 msgid "Overtime Slips submitted for {0} employee(s)"
-msgstr ""
+msgstr "Podneti obračuni prekovremenog rada za {0} zaposlenih lica"
 
 #. Label of the overtime_type (Link) field in DocType 'Attendance'
 #. Label of the overtime_type (Link) field in DocType 'Employee Checkin'
@@ -12061,7 +12061,7 @@ msgstr "Račun komponente zarade"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Salary Component Based"
-msgstr ""
+msgstr "Zasnovano na komponenti zarade"
 
 #. Label of the type (Data) field in DocType 'Additional Salary'
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
@@ -12460,7 +12460,7 @@ msgstr "Prvo izaberite intervju"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Select Month for LWP Reversal"
-msgstr ""
+msgstr "Izaberite mesec za storniranje odsustva bez naknade"
 
 #. Description of the 'Payment Account' (Link) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -12526,7 +12526,7 @@ msgstr "Izaberite datum završetka za Vaš zahtev za odsustvo."
 #. in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Select the salary components whose total will be used from the salary slip to calculate the hourly overtime rate."
-msgstr ""
+msgstr "Izaberite komponente zarade čiji će zbir iz obračunskog listića biti korišćen za obračuna satnice prekovremenog rada."
 
 #: hrms/hr/doctype/leave_application/leave_application.js:312
 msgid "Select the start date for your Leave Application."
@@ -13420,7 +13420,7 @@ msgstr "Podnesi sada"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:90
 msgid "Submit Overtime Slips"
-msgstr ""
+msgstr "Podnesi obračun prekovremenog rada"
 
 #: hrms/payroll/doctype/employee_tax_exemption_declaration/employee_tax_exemption_declaration.js:43
 msgid "Submit Proof"
@@ -15361,7 +15361,7 @@ msgstr "Možete otpremiti isključivo JPG, PNG, PDF, TXT ili Majkrosoft dokument
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:48
 msgid "You cannot reverse more than the total LWP days {0}. You have already reversed {1} days for this employee."
-msgstr ""
+msgstr "Nije moguće stornirati više od ukupnog broja dana odsustva bez naknade {0}. Već ste stornirali {1} dana za ovo zaposleno lice."
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:521
 msgid "You do not have permission to complete this action"
