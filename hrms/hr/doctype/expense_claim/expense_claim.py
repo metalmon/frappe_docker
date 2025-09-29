@@ -139,11 +139,9 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 
 		self.update_task_and_project()
 		self.make_gl_entries()
-		self.create_exchange_gain_loss_je()
-
 		update_reimbursed_amount(self)
-
 		self.update_claimed_amount_in_employee_advance()
+		self.create_exchange_gain_loss_je()
 
 	def on_update_after_submit(self):
 		if self.check_if_fields_updated([], {"taxes": ("account_head",), "expenses": ()}):
@@ -713,15 +711,16 @@ def update_outstanding_amount_in_payment_entry(expense_claim: dict, pe_reference
 
 def validate_expense_claim_in_jv(doc, method=None):
 	"""Validates Expense Claim amount in Journal Entry"""
-	for d in doc.accounts:
-		if d.reference_type == "Expense Claim":
-			outstanding_amt = get_outstanding_amount_for_claim(d.reference_name)
-			if d.debit and (d.debit > outstanding_amt):
-				frappe.throw(
-					_(
-						"Row No {0}: Amount cannot be greater than the Outstanding Amount against Expense Claim {1}. Outstanding Amount is {2}"
-					).format(d.idx, d.reference_name, outstanding_amt)
-				)
+	if doc.voucher_type != "Exchange Gain Or Loss":
+		for d in doc.accounts:
+			if d.reference_type == "Expense Claim":
+				outstanding_amt = get_outstanding_amount_for_claim(d.reference_name)
+				if d.debit and (d.debit > outstanding_amt):
+					frappe.throw(
+						_(
+							"Row No {0}: Amount cannot be greater than the Outstanding Amount against Expense Claim {1}. Outstanding Amount is {2}"
+						).format(d.idx, d.reference_name, outstanding_amt)
+					)
 
 
 @frappe.whitelist()

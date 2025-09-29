@@ -210,7 +210,7 @@
    "in_list_view": 1,
    "label": "Total Amount Reimbursed",
    "no_copy": 1,
-   "options": "Company:company:default_currency",
+   "options": "currency",
    "read_only": 1
   },
   {
@@ -505,7 +505,7 @@
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-29 12:28:22.257661",
+ "modified": "2025-09-29 16:39:23.417051",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Expense Claim",
