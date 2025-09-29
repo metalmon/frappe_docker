@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-28 12:57\n"
+"PO-Revision-Date: 2025-09-29 13:45\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Serbian (Cyrillic)\n"
 "MIME-Version: 1.0\n"
@@ -2061,11 +2061,11 @@ msgstr "Детаљи бенефиције"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:36
 msgid "Benefit amount of component {0} exceeds {1}"
-msgstr ""
+msgstr "Износ бенефиције компоненте {0} прелази {1}"
 
 #: hrms/payroll/doctype/employee_benefit_application/employee_benefit_application.py:30
 msgid "Benefit amount of component {0} should be greater than 0"
-msgstr ""
+msgstr "Износ бенефиције компоненте {0} треба бити већи од 0"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:448
 msgid "Benefit amount {0} for Salary Component {1} should not be greater than maximum benefit amount {2} set in {3}"
@@ -2471,7 +2471,8 @@ msgid "Choose how the hourly overtime amount is calculated:\n"
 "<ol style=\"padding-left:15px;\"><li>Fixed Hourly Rate: A fixed, manually entered hourly rate.</li>\n"
 "<li>Salary Component-Based:\n\n"
 "(Sum of selected component amounts) ÷ (Payment Days) ÷ (Standard Daily Hours)</li></ol>"
-msgstr ""
+msgstr "Изаберите начин обрачуна сатнице за прековремени рад:<ol style=\"padding-left:15px;\"><li>Фиксна сатница: Фиксна, ручно унета сатница.</li><li>Засновано на компоненти зараде:\n\n"
+"(Збир одабраних компоненти) ÷ (Дани исплате) ÷ (Стандардни дневни сати)</li></ol>"
 
 #. Description of the 'Payroll Date' (Date) field in DocType 'Payroll
 #. Correction'
@@ -3092,11 +3093,11 @@ msgstr "Креирај нови ИД запосленог лица"
 #. Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Create Overtime Slip For Eligible Employee(s)"
-msgstr "Креирај обрачун прековременог рада за запослено лице"
+msgstr "Креирај обрачун прековременог рада за запослено лице које испуњава услове"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:83
 msgid "Create Overtime Slips"
-msgstr ""
+msgstr "Креирај обрачуне прековременог рада"
 
 #: hrms/payroll/doctype/gratuity/gratuity.js:36
 msgid "Create Payment Entry"
@@ -3464,11 +3465,11 @@ msgstr "Дани када су празници блокирани за ово �
 #. Label of the days_to_reverse (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Days to Reverse"
-msgstr ""
+msgstr "Дани за сторнирање"
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:19
 msgid "Days to Reverse must be greater than zero."
-msgstr ""
+msgstr "Дани за сторнирање морају бити већи од нуле."
 
 #: hrms/payroll/report/bank_remittance/bank_remittance.py:19
 msgid "Debit A/C Number"
@@ -3526,7 +3527,7 @@ msgstr "Одбитак"
 #. Label of the deduction_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Deduction Arrears"
-msgstr ""
+msgstr "Заостатак одбитака"
 
 #. Label of a Card Break in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -4110,7 +4111,7 @@ msgstr "Дупликат захтева за запошљавање"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:40
 msgid "Duplicate Leave Adjustment"
-msgstr ""
+msgstr "Дупликат корекције одсуства"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:158
 msgid "Duplicate Overwritten Salary"
@@ -4186,7 +4187,7 @@ msgstr "Приход"
 #. Label of the earning_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Earning Arrears"
-msgstr ""
+msgstr "Заостатак прихода"
 
 #. Label of the earning_component (Link) field in DocType 'Leave Type'
 #. Label of the salary_component (Link) field in DocType 'Employee Benefit
@@ -5170,7 +5171,7 @@ msgstr "Запослено лице {0} је већ поднело захтев 
 
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.py:48
 msgid "Employee {0} has already claimed the benefit '{1}' for {2} ({3}).<br>To prevent overpayments, only one claim per benefit type is allowed in each payroll cycle."
-msgstr ""
+msgstr "Запослено лице {0} је већ поднело захтев за бенефицију '{1}' за {2} ({3}).<br> У циљу спречавања преплате, дозвољен је само један захтев по врсти бенефиције у сваком обрачунском циклусу."
 
 #: hrms/hr/doctype/attendance/attendance.py:211
 msgid "Employee {0} is not active or does not exist"
@@ -5297,13 +5298,13 @@ msgstr "Омогући обавештења"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for public holidays. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Омогућите ово како би користили посебан коефицијент за државне празнике. Уколико није означено, користи се стандардни коефицијент."
 
 #. Description of the 'Apply for Weekend' (Check) field in DocType 'Overtime
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Enable this to use a specific multiplier for weekends. If unchecked, the standard multiplier will be used instead."
-msgstr ""
+msgstr "Омогућите ово како би користили посебан коефицијент за викенде. Уколико није означено, користи се стандардни коефицијент."
 
 #. Label of the enabled (Check) field in DocType 'Daily Work Summary Group'
 #. Label of the enabled (Check) field in DocType 'Shift Schedule Assignment'
@@ -5317,7 +5318,7 @@ msgstr "Омогућено"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Enabled only for Employee Benefit components from Salary Structure Assignment"
-msgstr ""
+msgstr "Омогућено само за бенефиције запослених лица из доделе структуре зараде"
 
 #: frontend/src/views/AppSettings.vue:40
 msgid "Enabling Push Notifications..."
@@ -5432,7 +5433,7 @@ msgstr "Енергетски поени"
 
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.py:48
 msgid "Enter a non-zero value to adjust."
-msgstr ""
+msgstr "Унесите вредност различиту од нуле за корекцију."
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:34
 msgid "Enter the Standard Working Hours for a normal work day. These hours will be used in calculations of reports such as Employee Hours Utilization and Project Profitability analysis."
@@ -5442,7 +5443,7 @@ msgstr "Унесите стандардни број радних часова �
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Enter the number of Leave Without Pay (LWP) days you want to reverse. This value cannot exceed the total LWP days recorded for the selected month"
-msgstr ""
+msgstr "Унесите број дана одсуства без накнаде које желите да сторнирате. Ова вредност не може бити већа од укупног броја дана одсуства без накнаде евидентираних за изабрани месец"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:208
 msgid "Enter the number of leaves you want to allocate for the period."
@@ -7201,7 +7202,7 @@ msgstr "Уколико је означено, сакрива и онемогућ
 #. field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "If checked, overtime slip creation can be handled as part of payroll processing"
-msgstr ""
+msgstr "Уколико је означено, креирање обрачуна прековременог рада може се обављати у оквиру процеса обрачуна зарада"
 
 #. Description of the 'Exempted from Income Tax' (Check) field in DocType
 #. 'Salary Component'
@@ -10061,56 +10062,56 @@ msgstr "Компонента зараде за прековремени рад"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Overtime Slip"
-msgstr ""
+msgstr "Обрачун прековременог рада"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:457
 msgid "Overtime Slip Creation Error for {0}"
-msgstr ""
+msgstr "Грешка при креирању обрачуна прековременог рада за {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:468
 msgid "Overtime Slip Creation Failed"
-msgstr ""
+msgstr "Креирање обрачуна прековременог рада је неуспешно"
 
 #. Label of the overtime_step (Select) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Overtime Slip Step"
-msgstr ""
+msgstr "Корак обрачуна прековременог рада"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:491
 msgid "Overtime Slip Submission Error for {0}"
-msgstr ""
+msgstr "Грешка при подношењу обрачуна прековременог рада за {0}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:502
 msgid "Overtime Slip Submission Failed"
-msgstr ""
+msgstr "Подношење обрачуна прековременог рада је неуспешно"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:497
 msgid "Overtime Slip Submitted"
-msgstr ""
+msgstr "Обрачун прековременог рада је поднет"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:461
 msgid "Overtime Slip created for {0} employee(s)"
-msgstr ""
+msgstr "Обрачуна прековременог рада је креиран за {0} запослена лица"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1209
 msgid "Overtime Slip creation is queued. It may take a few minutes"
-msgstr ""
+msgstr "Креирање обрачуна прековременог рада је у реду чекања. Може потрајати неколико минута"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1233
 msgid "Overtime Slip submission is queued. It may take a few minutes"
-msgstr ""
+msgstr "Подношење обрачуна прековременог рада је у реду чекања. Може потрајати неколико минута"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:48
 msgid "Overtime Slip:{0} has been created between {1} and {2}"
-msgstr ""
+msgstr "Обрачун прековременог рада: {0} је креиран између {1} и {2}"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:463
 msgid "Overtime Slips Created"
-msgstr ""
+msgstr "Креирани обрачуни прековременог рада"
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:495
 msgid "Overtime Slips submitted for {0} employee(s)"
-msgstr ""
+msgstr "Поднети обрачуни прековременог рада за {0} запослених лица"
 
 #. Label of the overtime_type (Link) field in DocType 'Attendance'
 #. Label of the overtime_type (Link) field in DocType 'Employee Checkin'
@@ -12060,7 +12061,7 @@ msgstr "Рачун компоненте зараде"
 #. 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Salary Component Based"
-msgstr ""
+msgstr "Засновано на компоненти зараде"
 
 #. Label of the type (Data) field in DocType 'Additional Salary'
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
@@ -12459,7 +12460,7 @@ msgstr "Прво изаберите интервју"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Select Month for LWP Reversal"
-msgstr ""
+msgstr "Изаберите месец за сторнирање одсуства без накнаде"
 
 #. Description of the 'Payment Account' (Link) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -12525,7 +12526,7 @@ msgstr "Изаберите датум завршетка за Ваш захте�
 #. in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Select the salary components whose total will be used from the salary slip to calculate the hourly overtime rate."
-msgstr ""
+msgstr "Изаберите компоненте зараде чији ће збир из обрачунског листића бити коришћен за обрачун сатнице прековременог рада."
 
 #: hrms/hr/doctype/leave_application/leave_application.js:312
 msgid "Select the start date for your Leave Application."
@@ -13419,7 +13420,7 @@ msgstr "Поднеси сада"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:90
 msgid "Submit Overtime Slips"
-msgstr ""
+msgstr "Поднеси обрачун прековременог рада"
 
 #: hrms/payroll/doctype/employee_tax_exemption_declaration/employee_tax_exemption_declaration.js:43
 msgid "Submit Proof"
@@ -15360,7 +15361,7 @@ msgstr "Можете отпремити искључиво JPG, PNG, PDF, ТXТ 
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:48
 msgid "You cannot reverse more than the total LWP days {0}. You have already reversed {1} days for this employee."
-msgstr ""
+msgstr "Није могуће сторнирати више од укупног броја дана одсуства без накнаде {0}. Већ сте сторнирали {1} дана за ово запослено лице."
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:521
 msgid "You do not have permission to complete this action"
