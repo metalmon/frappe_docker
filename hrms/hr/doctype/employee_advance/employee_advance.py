@@ -27,7 +27,7 @@ class EmployeeAdvance(Document):
 
 	def validate(self):
 		validate_active_employee(self.employee)
-		self.validate_exchange_rate()
+		self.validate_advance_account_currency()
 		self.validate_advance_account_type()
 		self.set_status()
 		self.set_pending_amount()
@@ -62,10 +62,6 @@ class EmployeeAdvance(Document):
 		employee_user = frappe.db.get_value("Employee", self.employee, "user_id", cache=True)
 		hrms.refetch_resource("hrms:employee_advance_balance", employee_user)
 
-	def validate_exchange_rate(self):
-		if not self.exchange_rate:
-			frappe.throw(_("Exchange Rate cannot be zero."))
-
 	def validate_advance_account_type(self):
 		account_type = frappe.db.get_value("Account", self.advance_account, "account_type")
 		if account_type != "Receivable":
@@ -74,6 +70,16 @@ class EmployeeAdvance(Document):
 					get_link_to_form("Account", self.advance_account), frappe.bold("Receivable")
 				)
 			)
+
+	def validate_advance_account_currency(self):
+		if self.currency and self.advance_account:
+			account_currency = frappe.db.get_value("Account", self.advance_account, "account_currency")
+			if self.currency != account_currency:
+				frappe.throw(
+					_(
+						"Advance Account {} currency should be same as Salary Currency of Employee {}. Please select same currency Advance Account"
+					).format(frappe.bold(self.advance_account), frappe.bold(self.employee))
+				)
 
 	def set_status(self, update=False):
 		precision = self.precision("paid_amount")
@@ -179,6 +185,12 @@ class EmployeeAdvance(Document):
 		self.db_set("paid_amount", paid_amount)
 		self.db_set("return_amount", return_amount)
 		self.set_status(update=True)
+
+		base_paid_amount = flt(
+			flt(paid_amount, self.precision("paid_amount")) * self.exchange_rate,
+			self.precision("base_paid_amount"),
+		)
+		self.db_set("base_paid_amount", base_paid_amount)
 
 	def update_claimed_amount(self):
 		claimed_amount = (
