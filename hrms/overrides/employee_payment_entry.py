@@ -124,7 +124,13 @@ def get_payment_entry_for_employee(dt, dn, party_amount=None, bank_account=None,
 		pe.paid_to_account_currency, pe.paid_from_account_currency, pe.posting_date
 	)
 	paid_amount, received_amount = get_paid_amount_and_received_amount(
-		doc, party_account_currency, bank, outstanding_amount, payment_type, bank_amount, current_exchange_rate,
+		doc,
+		party_account_currency,
+		bank,
+		outstanding_amount,
+		payment_type,
+		bank_amount,
+		current_exchange_rate,
 	)
 	pe.paid_amount = paid_amount
 	pe.received_amount = received_amount

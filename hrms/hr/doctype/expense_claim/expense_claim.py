@@ -22,6 +22,7 @@ import hrms
 from hrms.hr.utils import set_employee_name, share_doc_with_approver, validate_active_employee
 from hrms.mixins.pwa_notifications import PWANotificationsMixin
 
+
 class InvalidExpenseApproverError(frappe.ValidationError):
 	pass
 
@@ -327,7 +328,9 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 		total_advance_exchange_gain_loss = 0
 		for advance in self.advances:
 			if advance.base_allocated_amount and self.base_total_advance_amount:
-				allocated_amount_in_adv_exchange_rate = flt(advance.allocated_amount) * flt(advance.exchange_rate)
+				allocated_amount_in_adv_exchange_rate = flt(advance.allocated_amount) * flt(
+					advance.exchange_rate
+				)
 				total_advance_exchange_gain_loss += flt(
 					(advance.base_allocated_amount - allocated_amount_in_adv_exchange_rate),
 					self.precision("total_exchange_gain_loss"),
