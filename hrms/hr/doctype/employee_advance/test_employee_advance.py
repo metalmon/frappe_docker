@@ -314,9 +314,9 @@ class TestEmployeeAdvance(IntegrationTestCase):
 			account_type="Receivable",
 		)
 
-		frappe.db.set_value("Company", "_Test Company", "default_employee_advance_account", account)
-
-		advance = make_employee_advance(employee, {"currency": "USD", "exchange_rate": 80})
+		advance = make_employee_advance(
+			employee, {"currency": "USD", "exchange_rate": 80, "advance_account": account}
+		)
 		make_payment_entry(advance, 1000)
 		advance.reload()
 
@@ -343,17 +343,10 @@ class TestEmployeeAdvance(IntegrationTestCase):
 
 	def test_employee_advance_when_different_advance_currency(self):
 		employee = make_employee("test_adv_in_advance_currency@example.com", "_Test Company")
-
-		advance = make_employee_advance(employee, {"currency": "USD", "exchange_rate": 80})
-		frappe.db.set_value(
-			"Company", "_Test Company", "default_employee_advance_account", "_Test Employee Advance - _TC"
+		advance = make_employee_advance(
+			employee, {"currency": "USD", "exchange_rate": 80}, do_not_submit=True
 		)
-		make_payment_entry(advance)
-
-		advance.reload()
-
-		self.assertEqual(advance.status, "Paid")
-		self.assertEqual(advance.paid_amount, 1000)
+		self.assertRaises(frappe.ValidationError, advance.save)
 
 	def update_company_in_fiscal_year(self):
 		fy_entries = frappe.get_all("Fiscal Year")
@@ -387,7 +380,7 @@ def make_payment_entry(advance, amount=None):
 	return payment_entry
 
 
-def make_employee_advance(employee_name, args=None):
+def make_employee_advance(employee_name, args=None, do_not_submit=False):
 	doc = frappe.new_doc("Employee Advance")
 	doc.employee = employee_name
 	doc.company = "_Test Company"
@@ -397,13 +390,17 @@ def make_employee_advance(employee_name, args=None):
 	doc.advance_amount = 1000
 	doc.posting_date = nowdate()
 	doc.advance_account = "_Test Employee Advance - _TC"
+	account_type = frappe.db.get_value("Account", "_Test Employee Advance - _TC", "account_type")
+	if not account_type:
+		frappe.db.set_value("Account", "_Test Employee Advance - _TC", "account_type", "Receivable")
 
 	if args:
 		doc.update(args)
 
+	if do_not_submit:
+		return doc
 	doc.insert()
 	doc.submit()
-
 	return doc
 
 
@@ -430,6 +427,7 @@ def get_advances_for_claim(claim, advance_name, amount=None):
 				"return_amount": entry.return_amount,
 				"unclaimed_amount": entry.paid_amount - entry.claimed_amount,
 				"allocated_amount": allocated_amount,
+				"exchange_rate": 1,
 			},
 		)
 

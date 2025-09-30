@@ -163,9 +163,6 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 	def update_claimed_amount_in_employee_advance(self):
 		for d in self.get("advances"):
 			frappe.get_doc("Employee Advance", d.employee_advance).update_claimed_amount()
-			if self.docstatus != 1:
-				self.set_base_fields_amount(self, ["advance_paid", "unclaimed_amount"], d.exchange_rate)
-				self.set_base_fields_amount(self, ["allocated_amount"], d.exchange_rate)
 
 	def update_task_and_project(self):
 		if self.task:
@@ -321,53 +318,60 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 			)
 
 	def create_exchange_gain_loss_je(self):
-		dr_or_cr = "credit" if self.total_exchange_gain_loss > 0 else "debit"
-		reverse_dr_or_cr = "debit" if dr_or_cr == "credit" else "credit"
-		gain_loss_account = frappe.get_cached_value("Company", self.company, "exchange_gain_loss_account")
+		if not self.advances:
+			return
 
+		per_advance_gain_loss = 0
 		total_advance_exchange_gain_loss = 0
 		for advance in self.advances:
 			if advance.base_allocated_amount and self.base_total_advance_amount:
 				allocated_amount_in_adv_exchange_rate = flt(advance.allocated_amount) * flt(
 					advance.exchange_rate
 				)
-				total_advance_exchange_gain_loss += flt(
+				per_advance_gain_loss += flt(
 					(advance.base_allocated_amount - allocated_amount_in_adv_exchange_rate),
 					self.precision("total_exchange_gain_loss"),
 				)
-				advance.db_set("exchange_gain_loss", total_advance_exchange_gain_loss)
-		self.db_set(
-			{
-				"total_exchange_gain_loss": total_advance_exchange_gain_loss,
-				"gain_loss_account": gain_loss_account,
-			}
-		)
 
-		je = create_gain_loss_journal(
-			company=self.company,
-			posting_date=today(),
-			party_type="Employee",
-			party=self.employee,
-			party_account=self.payable_account,
-			gain_loss_account=self.gain_loss_account,
-			exc_gain_loss=self.total_exchange_gain_loss,
-			dr_or_cr=dr_or_cr,
-			reverse_dr_or_cr=reverse_dr_or_cr,
-			ref1_dt=self.doctype,
-			ref1_dn=self.name,
-			ref1_detail_no=1,
-			ref2_dt=self.doctype,
-			ref2_dn=self.name,
-			ref2_detail_no=1,
-			cost_center=self.cost_center,
-			dimensions={},
-		)
-		frappe.msgprint(
-			_("All Exchange Gain/Loss amount of {0} has been booked through {1}").format(
-				self.name,
-				get_link_to_form("Journal Entry", je),
+				if per_advance_gain_loss:
+					advance.db_set("exchange_gain_loss", per_advance_gain_loss)
+					total_advance_exchange_gain_loss += per_advance_gain_loss
+		if total_advance_exchange_gain_loss:
+			gain_loss_account = frappe.get_cached_value("Company", self.company, "exchange_gain_loss_account")
+			self.db_set(
+				{
+					"total_exchange_gain_loss": total_advance_exchange_gain_loss,
+					"gain_loss_account": gain_loss_account,
+				}
 			)
-		)
+			dr_or_cr = "credit" if self.total_exchange_gain_loss > 0 else "debit"
+			reverse_dr_or_cr = "debit" if dr_or_cr == "credit" else "credit"
+
+			je = create_gain_loss_journal(
+				company=self.company,
+				posting_date=today(),
+				party_type="Employee",
+				party=self.employee,
+				party_account=self.payable_account,
+				gain_loss_account=self.gain_loss_account,
+				exc_gain_loss=self.total_exchange_gain_loss,
+				dr_or_cr=dr_or_cr,
+				reverse_dr_or_cr=reverse_dr_or_cr,
+				ref1_dt=self.doctype,
+				ref1_dn=self.name,
+				ref1_detail_no=1,
+				ref2_dt=self.doctype,
+				ref2_dn=self.name,
+				ref2_detail_no=1,
+				cost_center=self.cost_center,
+				dimensions={},
+			)
+			frappe.msgprint(
+				_("All Exchange Gain/Loss amount of {0} has been booked through {1}").format(
+					self.name,
+					get_link_to_form("Journal Entry", je),
+				)
+			)
 
 	def validate_account_details(self):
 		for data in self.expenses:
@@ -401,11 +405,12 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 	def set_base_fields_amount(self, doc, fields, exchange_rate=None):
 		"""set values in base currency"""
 		for f in fields:
-			val = flt(
-				flt(doc.get(f), doc.precision(f)) * self.exchange_rate or exchange_rate,
-				doc.precision("base_" + f),
-			)
-			doc.set("base_" + f, val)
+			if doc.get(f):
+				val = flt(
+					flt(doc.get(f), doc.precision(f)) * self.exchange_rate or exchange_rate,
+					doc.precision("base_" + f),
+				)
+				doc.set("base_" + f, val)
 
 	@frappe.whitelist()
 	def calculate_taxes(self):
@@ -421,6 +426,7 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 
 			tax.total = flt(tax.tax_amount) + flt(self.total_sanctioned_amount)
 			self.total_taxes_and_charges += flt(tax.tax_amount)
+			self.set_base_fields_amount(tax, ["tax_amount", "total"])
 
 		self.round_floats_in(self, ["total_taxes_and_charges"])
 
@@ -460,6 +466,8 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 				)
 
 			self.total_advance_amount += flt(d.allocated_amount)
+			self.set_base_fields_amount(d, ["advance_paid", "unclaimed_amount"], d.exchange_rate)
+			self.set_base_fields_amount(d, ["allocated_amount"], d.exchange_rate)
 
 		if self.total_advance_amount:
 			self.round_floats_in(self, ["total_advance_amount"])

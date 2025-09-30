@@ -395,21 +395,8 @@ class TestExpenseClaim(HRMSTestSuite):
 
 	def test_rejected_expense_claim(self):
 		payable_account = get_payable_account(company_name)
-		expense_claim = frappe.get_doc(
-			{
-				"doctype": "Expense Claim",
-				"employee": "_T-Employee-00001",
-				"payable_account": payable_account,
-				"approval_status": "Rejected",
-				"expenses": [
-					{
-						"expense_type": "Travel",
-						"default_account": "Travel Expenses - _TC3",
-						"amount": 300,
-						"sanctioned_amount": 200,
-					}
-				],
-			}
+		expense_claim = make_expense_claim(
+			payable_account, 300, 200, company_name, "Travel Expenses - _TC3", approval_status="Rejected"
 		)
 		expense_claim.submit()
 
@@ -756,6 +743,7 @@ def make_expense_claim(
 	do_not_submit=False,
 	taxes=None,
 	employee=None,
+	approval_status="Approved",
 ):
 	if not employee:
 		employee = frappe.db.get_value("Employee", {"status": "Active", "company": company})
@@ -767,9 +755,10 @@ def make_expense_claim(
 		"doctype": "Expense Claim",
 		"employee": employee,
 		"payable_account": payable_account,
-		"approval_status": "Approved",
+		"approval_status": approval_status,
 		"company": company,
 		"currency": currency,
+		"exchange_rate": 1,
 		"expenses": [
 			{
 				"expense_type": "Travel",
