@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-25 12:40\n"
+"PO-Revision-Date: 2025-09-30 14:29\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -8675,7 +8675,7 @@ msgstr ""
 
 #: frontend/src/views/Notifications.vue:88
 msgid "Load more"
-msgstr ""
+msgstr "Továbbiak Betöltése"
 
 #. Label of the loan (Link) field in DocType 'Salary Slip Loan'
 #: hrms/payroll/doctype/salary_slip_loan/salary_slip_loan.json
@@ -11545,7 +11545,7 @@ msgstr ""
 
 #: frontend/src/components/FormView.vue:43
 msgid "Reload"
-msgstr ""
+msgstr "Újratöltés"
 
 #. Label of the remaining_benefit (Currency) field in DocType 'Employee Benefit
 #. Application'

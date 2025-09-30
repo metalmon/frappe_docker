@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-25 12:41\n"
+"PO-Revision-Date: 2025-09-30 14:29\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -12169,7 +12169,7 @@ msgstr "وام فیش حقوق"
 #. Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
 msgid "Salary Slip Reference"
-msgstr ""
+msgstr "مرجع فیش حقوقی"
 
 #. Label of the timesheets (Table) field in DocType 'Salary Slip'
 #. Name of a DocType
@@ -12188,7 +12188,7 @@ msgstr "ایجاد فیش حقوقی در صف است. ممکن است چند د
 
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.py:115
 msgid "Salary Slip not found."
-msgstr ""
+msgstr "فیش حقوقی پیدا نشد."
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:336
 msgid "Salary Slip of employee {0} already created for this period"
@@ -13158,7 +13158,7 @@ msgstr "طرح کارگزینی {0} از قبل برای نقش سازمانی {
 #. Label of the standard_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Standard Multiplier"
-msgstr ""
+msgstr "ضریب استاندارد"
 
 #. Label of the standard_tax_exemption_amount (Currency) field in DocType
 #. 'Income Tax Slab'
@@ -13394,7 +13394,7 @@ msgstr "اکنون ارسال کنید"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:90
 msgid "Submit Overtime Slips"
-msgstr ""
+msgstr "ارسال فیش‌های اضافه کاری"
 
 #: hrms/payroll/doctype/employee_tax_exemption_declaration/employee_tax_exemption_declaration.js:43
 msgid "Submit Proof"
@@ -15082,7 +15082,7 @@ msgstr "چهارشنبه"
 #. Label of the weekend_multiplier (Float) field in DocType 'Overtime Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Weekend Multiplier"
-msgstr ""
+msgstr "ضریب آخر هفته"
 
 #. Option for the 'Set the frequency for holiday reminders' (Select) field in
 #. DocType 'HR Settings'
@@ -15472,7 +15472,7 @@ msgstr ""
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:489
 msgid "{0} : {1}"
-msgstr ""
+msgstr "{0} : {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2506
 msgid "{0} <br> This error can be due to missing or deleted field."

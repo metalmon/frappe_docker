@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-27 12:52\n"
+"PO-Revision-Date: 2025-09-30 14:29\n"
 "Last-Translator: contact@frappe.io\n"
-"Language-Team: Norwegian Bokmal\n"
+"Language-Team: Tamil\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,16 +13,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: frappe\n"
 "X-Crowdin-Project-ID: 639578\n"
-"X-Crowdin-Language: nb\n"
+"X-Crowdin-Language: ta\n"
 "X-Crowdin-File: /[frappe.hrms] develop/hrms/locale/main.pot\n"
 "X-Crowdin-File-ID: 58\n"
-"Language: nb_NO\n"
+"Language: ta_IN\n"
 
 #. Label of the unlink_payment_on_cancellation_of_employee_advance (Check)
 #. field in DocType 'HR Settings'
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 msgid " Unlink Payment on Cancellation of Employee Advance"
-msgstr "Fjern kobling til betaling ved kansellering av forskudd til ansatt"
+msgstr ""
 
 #: hrms/hr/report/employee_leave_balance/employee_leave_balance.py:23
 msgid "\"From Date\" can not be greater than or equal to \"To Date\""
@@ -52,161 +52,161 @@ msgstr ""
 #. Option for the 'Rounding' (Select) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
 msgid "0.25"
-msgstr "0.25"
+msgstr ""
 
 #. Option for the 'Rounding' (Select) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
 msgid "0.5"
-msgstr "0.5"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "00:00"
-msgstr "00:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "01:00"
-msgstr "01:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "02:00"
-msgstr "02:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "03:00"
-msgstr "03:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "04:00"
-msgstr "04:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "05:00"
-msgstr "05:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "06:00"
-msgstr "06:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "07:00"
-msgstr "07:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "08:00"
-msgstr "08:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "09:00"
-msgstr "09:00"
+msgstr ""
 
 #. Option for the 'Rounding' (Select) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
 msgid "1.0"
-msgstr "1.0"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "10:00"
-msgstr "10-00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "11:00"
-msgstr "11-00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "12:00"
-msgstr "12:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "13:00"
-msgstr "13:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "14:00"
-msgstr "14:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "15:00"
-msgstr "15:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "16:00"
-msgstr "16:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "17:00"
-msgstr "17:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "18:00"
-msgstr "18:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "19:00"
-msgstr "19:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "20:00"
-msgstr "20:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "21:00"
-msgstr "21:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "22:00"
-msgstr "22:00"
+msgstr ""
 
 #. Option for the 'Send Emails At' (Select) field in DocType 'Daily Work
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "23:00"
-msgstr "23:00"
+msgstr ""
 
 #: hrms/payroll/doctype/bulk_salary_structure_assignment/bulk_salary_structure_assignment.js:272
 msgid "<b>Base</b> amount has not been set for the following employee(s): {0}"
@@ -274,7 +274,7 @@ msgstr ""
 #. Attendance Tool'
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.json
 msgid "<hr>"
-msgstr "<hr>"
+msgstr ""
 
 #. Header text in the Employee Lifecycle Workspace
 #. Header text in the Expense Claims Workspace
@@ -297,7 +297,7 @@ msgstr ""
 #. Header text in the Overview Workspace
 #: hrms/hr/workspace/overview/overview.json
 msgid "<span class=\"h4\"><b>Reports &amp; Masters</b></span>"
-msgstr "<span class=\"h4\"><b>Rapporter og stamdata</b></span>"
+msgstr ""
 
 #. Header text in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -411,7 +411,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_component_account/salary_component_account.json
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 msgid "Account"
-msgstr "Konto"
+msgstr ""
 
 #. Label of the account_head (Link) field in DocType 'Expense Taxes and
 #. Charges'
@@ -447,7 +447,7 @@ msgstr ""
 #: hrms/hr/doctype/leave_encashment/leave_encashment.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounting"
-msgstr "Regnskap"
+msgstr ""
 
 #. Label of the accounting_dimensions_tab (Tab Break) field in DocType 'Payroll
 #. Entry'
@@ -464,7 +464,7 @@ msgstr ""
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounting Dimension"
-msgstr "Regnskapsdimensjon"
+msgstr ""
 
 #. Label of the accounting_dimensions_section (Section Break) field in DocType
 #. 'Expense Claim'
@@ -485,11 +485,11 @@ msgstr "Regnskapsdimensjon"
 #: hrms/hr/doctype/travel_request/travel_request.json
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Accounting Dimensions"
-msgstr "Regnskapsdimensjoner"
+msgstr ""
 
 #: hrms/hr/doctype/expense_claim/expense_claim.js:122
 msgid "Accounting Ledger"
-msgstr "Hovedbok"
+msgstr ""
 
 #. Label of a Card Break in the Expense Claims Workspace
 #. Label of a Card Break in the Salary Payout Workspace
@@ -505,26 +505,26 @@ msgstr ""
 #: hrms/hr/doctype/expense_claim_type/expense_claim_type.json
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "Accounts"
-msgstr "Kontoer"
+msgstr ""
 
 #. Label of a Link in the Expense Claims Workspace
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounts Payable"
-msgstr "Leverandørreskontro"
+msgstr ""
 
 #. Label of a Link in the Expense Claims Workspace
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounts Receivable"
-msgstr "Kundefordringer"
+msgstr ""
 
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounts Settings"
-msgstr "Kontoinnstillinger"
+msgstr ""
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:58
 msgid "Accounts not set for Salary Component {0}"
@@ -610,7 +610,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure/salary_structure.js:159
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.js:77
 msgid "Actions"
-msgstr "Handlinger"
+msgstr ""
 
 #. Option for the 'Status' (Select) field in DocType 'Shift Assignment'
 #. Option for the 'Status' (Select) field in DocType 'Shift Assignment Tool'
@@ -623,7 +623,7 @@ msgstr "Handlinger"
 #: hrms/hr/report/employee_leave_balance_summary/employee_leave_balance_summary.js:40
 #: hrms/hr/report/leave_ledger/leave_ledger.js:38
 msgid "Active"
-msgstr "Aktiv"
+msgstr ""
 
 #. Label of the activities (Table) field in DocType 'Employee Onboarding'
 #. Label of the section_break_7 (Section Break) field in DocType 'Employee
@@ -799,7 +799,7 @@ msgstr ""
 #. Name of a role
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Administrator"
-msgstr "Administrator"
+msgstr ""
 
 #. Option for the 'Level' (Select) field in DocType 'Training Event'
 #: hrms/hr/doctype/training_event/training_event.json
@@ -884,7 +884,7 @@ msgstr ""
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocate"
-msgstr "Fordele"
+msgstr ""
 
 #. Label of the allocate_based_on_leave_policy (Check) field in DocType 'Leave
 #. Control Panel'
@@ -909,7 +909,7 @@ msgstr ""
 #. Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Allocated Amount"
-msgstr "Fordelt beløp"
+msgstr ""
 
 #. Label of the allocated_leaves (Float) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
@@ -1178,7 +1178,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 #: hrms/payroll/report/professional_tax_deductions/professional_tax_deductions.py:32
 msgid "Amount"
-msgstr "Beløp"
+msgstr ""
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:49
 msgid "Amount Based on Formula"
@@ -1355,7 +1355,7 @@ msgstr ""
 
 #: frontend/src/components/ListFiltersActionSheet.vue:83
 msgid "Apply Filters"
-msgstr "Bruk filtre"
+msgstr ""
 
 #: hrms/templates/generators/job_opening.html:29
 #: hrms/templates/generators/job_opening.html:209
@@ -1586,7 +1586,7 @@ msgstr ""
 #: hrms/payroll/doctype/bulk_salary_structure_assignment/bulk_salary_structure_assignment.js:270
 #: hrms/payroll/doctype/salary_component/salary_component.js:129
 msgid "Are you sure you want to proceed?"
-msgstr "Er du sikker på at du vil fortsette?"
+msgstr ""
 
 #: hrms/hr/doctype/employee_referral/employee_referral.js:9
 msgid "Are you sure you want to reject the Employee Referral?"
@@ -1655,7 +1655,7 @@ msgstr ""
 
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.js:270
 msgid "Assigning..."
-msgstr "Tilordner..."
+msgstr ""
 
 #. Label of the assignment_based_on (Select) field in DocType 'Leave Policy
 #. Assignment'
@@ -1678,7 +1678,7 @@ msgstr ""
 #. Grievance'
 #: hrms/hr/doctype/employee_grievance/employee_grievance.json
 msgid "Associated Document Type"
-msgstr "Tilknyttet DocType"
+msgstr ""
 
 #: hrms/hr/doctype/exit_interview/exit_interview.py:105
 msgid "At least one interview has to be selected."
@@ -1918,7 +1918,7 @@ msgstr ""
 #. Description of the 'Final Score' (Float) field in DocType 'Appraisal'
 #: hrms/hr/doctype/appraisal/appraisal.json
 msgid "Average of Goal Score, Feedback Score, and Self Appraisal Score (out of 5)"
-msgstr "Gjennomsnittlig resultat for måloppnåelse, tilbakemelding og egenvurdering (ut av 5)"
+msgstr ""
 
 #: hrms/public/js/templates/interview_feedback.html:16
 msgid "Average rating of demonstrated skills"
@@ -1947,7 +1947,7 @@ msgstr ""
 
 #: hrms/payroll/report/salary_payments_via_ecs/salary_payments_via_ecs.py:55
 msgid "Bank"
-msgstr "Bank"
+msgstr ""
 
 #. Label of the bank_account (Link) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -1997,7 +1997,7 @@ msgstr ""
 #. Type'
 #: hrms/hr/doctype/overtime_type/overtime_type.json
 msgid "Basic"
-msgstr "Grunnleggende"
+msgstr ""
 
 #. Label of the begin_on (Int) field in DocType 'Employee Boarding Activity'
 #: hrms/hr/doctype/employee_boarding_activity/employee_boarding_activity.json
@@ -2196,7 +2196,7 @@ msgstr ""
 #. DocType 'Appraisal Cycle'
 #: hrms/hr/doctype/appraisal_cycle/appraisal_cycle.json
 msgid "By default, the Final Score is calculated as the average of Goal Score, Feedback Score, and Self Appraisal Score. Enable this to set a different formula"
-msgstr "Som standard beregnes sluttresultatet som gjennomsnittet av resultat for måloppnåelse, tilbakemelding og egenvurdering. Aktiver dette for å angi en annen formel"
+msgstr ""
 
 #. Label of the ctc (Currency) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
@@ -2238,7 +2238,7 @@ msgstr ""
 #: frontend/src/components/FormView.vue:240
 #: frontend/src/components/RequestActionSheet.vue:143
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr ""
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:139
 msgid "Cancellation Queued"
@@ -2270,7 +2270,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "Cancelled"
-msgstr "Avbrutt"
+msgstr ""
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:55
 msgid "Cannot Modify Time"
@@ -2358,7 +2358,7 @@ msgstr ""
 #. Option for the 'Type' (Select) field in DocType 'Vehicle Service'
 #: hrms/hr/doctype/vehicle_service/vehicle_service.json
 msgid "Change"
-msgstr "Endre"
+msgstr ""
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:105
 msgid "Changed the status from {0} to {1} and Status for Other Half to {2} via Attendance Request"
@@ -2379,7 +2379,7 @@ msgstr ""
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Chart of Accounts"
-msgstr "Kontoplan"
+msgstr ""
 
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -2388,7 +2388,7 @@ msgstr ""
 
 #: hrms/public/js/utils/index.js:147
 msgid "Check <a href='/app/List/Error Log?reference_doctype={0}'>{1}</a> for more details"
-msgstr "Sjekk <a href='/app/List/Error Log?reference_doctype={0}'>{1}</a> for flere detaljer"
+msgstr ""
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1499
 msgid "Check Error Log {0} for more details."
@@ -2562,7 +2562,7 @@ msgstr ""
 #. Label of the color (Color) field in DocType 'Leave Application'
 #: hrms/hr/doctype/leave_application/leave_application.json
 msgid "Color"
-msgstr "Farge"
+msgstr ""
 
 #. Label of the comments (Text) field in DocType 'Training Result Employee'
 #. Label of the comments (Small Text) field in DocType 'Travel Request Costing'
@@ -2728,7 +2728,7 @@ msgstr ""
 #: hrms/payroll/report/salary_register/salary_register.py:155
 #: hrms/public/js/salary_slip_deductions_report_filters.js:7
 msgid "Company"
-msgstr "Selskap"
+msgstr ""
 
 #. Label of the section_break_nngy (Section Break) field in DocType 'Job
 #. Opening'
@@ -2844,7 +2844,7 @@ msgstr ""
 #: frontend/src/components/FormView.vue:256
 #: frontend/src/components/FormView.vue:287
 msgid "Confirm"
-msgstr "Bekreft"
+msgstr ""
 
 #: frontend/src/components/CheckInPanel.vue:73
 msgid "Confirm {0}"
@@ -2855,7 +2855,7 @@ msgstr ""
 #: hrms/hr/doctype/job_requisition/job_requisition.json
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Connections"
-msgstr "Koblinger"
+msgstr ""
 
 #: hrms/hr/report/shift_attendance/shift_attendance.js:58
 msgid "Consider Grace Period"
@@ -2886,7 +2886,7 @@ msgstr ""
 #. Label of the prefered_email (Data) field in DocType 'Travel Request'
 #: hrms/hr/doctype/travel_request/travel_request.json
 msgid "Contact Email"
-msgstr "E-postadresse for kontakt"
+msgstr ""
 
 #: frontend/src/views/Profile.vue:190
 msgid "Contact Information"
@@ -2908,7 +2908,7 @@ msgstr ""
 
 #: hrms/payroll/doctype/bulk_salary_structure_assignment/bulk_salary_structure_assignment.js:277
 msgid "Continue"
-msgstr "Fortsett"
+msgstr ""
 
 #: hrms/setup.py:385
 msgid "Contract"
@@ -2943,7 +2943,7 @@ msgstr ""
 #: hrms/payroll/doctype/gratuity/gratuity.json
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Cost Center"
-msgstr "Kostnadssenter"
+msgstr ""
 
 #. Label of the payroll_cost_centers (Table) field in DocType 'Salary Structure
 #. Assignment'
@@ -3275,7 +3275,7 @@ msgstr ""
 #: hrms/hr/report/project_profitability/project_profitability.js:31
 #: hrms/hr/report/project_profitability/project_profitability.py:133
 msgid "Customer"
-msgstr "Kunde"
+msgstr ""
 
 #. Option for the 'Roster Color' (Select) field in DocType 'Shift Type'
 #: hrms/hr/doctype/shift_type/shift_type.json
@@ -3385,7 +3385,7 @@ msgstr ""
 #: hrms/hr/doctype/goal/goal_tree.js:38
 #: hrms/hr/report/daily_work_summary_replies/daily_work_summary_replies.js:16
 msgid "Date Range"
-msgstr "Datointervall"
+msgstr ""
 
 #: hrms/hr/doctype/leave_block_list/leave_block_list.py:19
 msgid "Date is repeated"
@@ -3937,12 +3937,12 @@ msgstr ""
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/templates/emails/training_event.html:4
 msgid "Details"
-msgstr "Detaljer"
+msgstr ""
 
 #. Label of the details_of_sponsor (Data) field in DocType 'Travel Request'
 #: hrms/hr/doctype/travel_request/travel_request.json
 msgid "Details of Sponsor (Name, Location)"
-msgstr "Opplysninger om sponsor (navn, sted)"
+msgstr ""
 
 #. Label of the determine_check_in_and_check_out (Select) field in DocType
 #. 'Shift Type'
@@ -3985,7 +3985,7 @@ msgstr ""
 
 #: frontend/src/components/WorkflowActionSheet.vue:111
 msgid "Dismiss"
-msgstr "Avvis"
+msgstr ""
 
 #. Label of the do_not_include_in_accounts (Check) field in DocType 'Salary
 #. Component'
@@ -4010,7 +4010,7 @@ msgstr ""
 
 #: hrms/hr/doctype/goal/goal.js:116
 msgid "Do you still want to proceed?"
-msgstr "Vil du fortsatt fortsette?"
+msgstr ""
 
 #: hrms/hr/doctype/interview/interview.py:68
 msgid "Do you want to update the Job Applicant {0} as {1} based on this interview result?"
@@ -4018,7 +4018,7 @@ msgstr ""
 
 #: hrms/payroll/report/salary_register/salary_register.js:48
 msgid "Document Status"
-msgstr "Dokumentstatus"
+msgstr ""
 
 #: frontend/src/components/RequestActionSheet.vue:292
 msgid "Document {0} failed!"
@@ -4064,7 +4064,7 @@ msgstr ""
 #. Label of a Link in the Expense Claims Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 msgid "Driver"
-msgstr "Sjåfør"
+msgstr ""
 
 #: hrms/hr/doctype/attendance/attendance.py:77
 msgid "Duplicate Attendance"
@@ -4077,7 +4077,7 @@ msgstr ""
 #: hrms/hr/doctype/appraisal/appraisal.py:62
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:106
 msgid "Duplicate Entry"
-msgstr "Dupliser oppføring"
+msgstr ""
 
 #: hrms/hr/doctype/job_requisition/job_requisition.py:35
 msgid "Duplicate Job Requisition"
@@ -4234,7 +4234,7 @@ msgstr ""
 #. Label of the email_id (Data) field in DocType 'Job Applicant'
 #: hrms/hr/doctype/job_applicant/job_applicant.json
 msgid "Email Address"
-msgstr "E-postadresse"
+msgstr ""
 
 #. Label of the email (Data) field in DocType 'Exit Interview'
 #: hrms/hr/doctype/exit_interview/exit_interview.json
@@ -4259,7 +4259,7 @@ msgstr ""
 #. Label of the email_template (Link) field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Email Template"
-msgstr "Mal for e-post"
+msgstr ""
 
 #: hrms/hr/doctype/leave_application/leave_application.py:699
 msgid "Email sent to {0}"
@@ -4444,7 +4444,7 @@ msgstr ""
 #: hrms/payroll/report/salary_register/salary_register.py:115
 #: hrms/public/js/templates/employees_with_unmarked_attendance.html:17
 msgid "Employee"
-msgstr "Ansatt"
+msgstr ""
 
 #: hrms/payroll/report/bank_remittance/bank_remittance.py:40
 msgid "Employee A/C Number"
@@ -5094,7 +5094,7 @@ msgstr ""
 
 #: hrms/hr/doctype/hr_settings/hr_settings.js:27
 msgid "Employee can be named by Employee ID if you assign one, or via Naming Series. Select your preference here."
-msgstr "Ansatte kan navngis med ansatt-ID hvis du tildeler en, eller via nummerserie. Velg din preferanse her."
+msgstr ""
 
 #. Label of the employee_name (Data) field in DocType 'Leave Policy Assignment'
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.json
@@ -5286,7 +5286,7 @@ msgstr ""
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.json
 #: hrms/payroll/doctype/salary_slip/salary_slip.js:285
 msgid "Enabled"
-msgstr "Aktivert"
+msgstr ""
 
 #. Description of the 'Flexible Benefit' (Check) field in DocType 'Employee
 #. Benefit Ledger'
@@ -5451,7 +5451,7 @@ msgstr ""
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:372
 #: hrms/hr/utils.py:867
 msgid "Error Log"
-msgstr "Feillogg"
+msgstr ""
 
 #. Label of the error_message (Small Text) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -5488,7 +5488,7 @@ msgstr ""
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2591
 msgid "Error while evaluating the {doctype} {doclink} at row {row_id}. <br><br> <b>Error:</b> {error} <br><br> <b>Hint:</b> {description}"
-msgstr "Feil under evaluering av {doctype} {doclink} på rad {row_id}. <br><br> <b>Feil under evaluering:</b> {error} <br><br> <b>Hint:</b> {description}"
+msgstr ""
 
 #. Label of the estimated_cost_per_position (Currency) field in DocType
 #. 'Staffing Plan Detail'
@@ -5521,7 +5521,7 @@ msgstr ""
 #: hrms/hr/notification/training_scheduled/training_scheduled.html:23
 #: hrms/templates/emails/training_event.html:6
 msgid "Event Location"
-msgstr "Arrangementssted"
+msgstr ""
 
 #. Label of the event_name (Data) field in DocType 'Training Event'
 #. Label of the event_name (Data) field in DocType 'Training Feedback'
@@ -5539,17 +5539,17 @@ msgstr ""
 #. Option for the 'Frequency' (Select) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Every 2 Weeks"
-msgstr "Annenhver uke"
+msgstr ""
 
 #. Option for the 'Frequency' (Select) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Every 3 Weeks"
-msgstr "Hver tredje uke"
+msgstr ""
 
 #. Option for the 'Frequency' (Select) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Every 4 Weeks"
-msgstr "Hver fjerde uke"
+msgstr ""
 
 #. Option for the 'Working Hours Calculation Based On' (Select) field in
 #. DocType 'Shift Type'
@@ -5560,7 +5560,7 @@ msgstr ""
 #. Option for the 'Frequency' (Select) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Every Week"
-msgstr "Hver uke"
+msgstr ""
 
 #: hrms/controllers/employee_reminders.py:218
 msgid "Everyone, let’s congratulate them on their work anniversary!"
@@ -5913,7 +5913,7 @@ msgstr ""
 
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:116
 msgid "Export"
-msgstr "Eksporter"
+msgstr ""
 
 #: hrms/public/js/hierarchy_chart/hierarchy_chart_desktop.js:137
 msgid "Exporting..."
@@ -6041,7 +6041,7 @@ msgstr ""
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Fetch Geolocation"
-msgstr "Hent geolokalisering"
+msgstr ""
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:7
 msgid "Fetch Overtime Details"
@@ -6066,7 +6066,7 @@ msgstr ""
 
 #: hrms/public/js/utils/index.js:193
 msgid "Fetching your geolocation"
-msgstr "Henter geolokaliseringen din"
+msgstr ""
 
 #. Label of the fieldname (Data) field in DocType 'Employee Property History'
 #: hrms/hr/doctype/employee_property_history/employee_property_history.json
@@ -6178,7 +6178,7 @@ msgstr ""
 #. Name of a role
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
 msgid "Fleet Manager"
-msgstr "Flåteansvarlig"
+msgstr ""
 
 #. Label of the flexible_benefit (Check) field in DocType 'Employee Benefit
 #. Ledger'
@@ -6293,7 +6293,7 @@ msgstr ""
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 #: hrms/hr/doctype/vehicle_service/vehicle_service.json
 msgid "Frequency"
-msgstr "Frekvens"
+msgstr ""
 
 #: frontend/src/components/AttendanceCalendar.vue:117
 #: hrms/hr/doctype/leave_block_list/leave_block_list.js:57
@@ -6441,7 +6441,7 @@ msgstr ""
 #: hrms/hr/doctype/employee_referral/employee_referral.json
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 msgid "Full Name"
-msgstr "Fullt navn"
+msgstr ""
 
 #. Name of a DocType
 #: hrms/hr/doctype/full_and_final_asset/full_and_final_asset.json
@@ -6489,30 +6489,30 @@ msgstr ""
 #: hrms/hr/report/employee_analytics/employee_analytics.py:36
 #: hrms/hr/report/employee_birthday/employee_birthday.py:27
 msgid "Gender"
-msgstr "Kjønn"
+msgstr ""
 
 #. Label of a Link in the Expense Claims Workspace
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "General Ledger"
-msgstr "Hovedbok"
+msgstr ""
 
 #. Label of the geolocation (Geolocation) field in DocType 'Employee Checkin'
 #. Label of the geolocation (Geolocation) field in DocType 'Shift Location'
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Geolocation"
-msgstr "Geolokalisering"
+msgstr ""
 
 #: hrms/public/js/utils/index.js:186 hrms/public/js/utils/index.js:212
 msgid "Geolocation Error"
-msgstr "Geolokaliseringsfeil"
+msgstr ""
 
 #: frontend/src/components/CheckInPanel.vue:143
 #: hrms/public/js/utils/index.js:185
 msgid "Geolocation is not supported by your current browser"
-msgstr "Geolokalisering støttes ikke av din nåværende nettleser"
+msgstr ""
 
 #: hrms/payroll/doctype/employee_tax_exemption_proof_submission/employee_tax_exemption_proof_submission.js:47
 msgid "Get Details From Declaration"
@@ -6570,7 +6570,7 @@ msgstr ""
 #: hrms/hr/doctype/goal/goal.json hrms/hr/doctype/goal/goal_tree.js:45
 #: hrms/hr/workspace/performance/performance.json
 msgid "Goal"
-msgstr "Mål"
+msgstr ""
 
 #. Label of the goal_completion (Percent) field in DocType 'Appraisal KRA'
 #: hrms/hr/doctype/appraisal_kra/appraisal_kra.json
@@ -6580,21 +6580,21 @@ msgstr ""
 #: hrms/hr/report/appraisal_overview/appraisal_overview.py:55
 #: hrms/hr/report/appraisal_overview/appraisal_overview.py:122
 msgid "Goal Score"
-msgstr "Måloppnåelse"
+msgstr ""
 
 #. Label of the goal_score_percentage (Float) field in DocType 'Appraisal'
 #: hrms/hr/doctype/appraisal/appraisal.json
 msgid "Goal Score (%)"
-msgstr "Måloppnåelse (%)"
+msgstr ""
 
 #. Label of the goal_score (Float) field in DocType 'Appraisal KRA'
 #: hrms/hr/doctype/appraisal_kra/appraisal_kra.json
 msgid "Goal Score (weighted)"
-msgstr "Måloppnåelse (vektet)"
+msgstr ""
 
 #: hrms/hr/doctype/goal/goal.py:81
 msgid "Goal progress percentage cannot be more than 100."
-msgstr "Prosent måloppnåelse kan ikke være mer enn 100."
+msgstr ""
 
 #: hrms/hr/doctype/goal/goal.py:71
 msgid "Goal should be aligned with the same KRA as its parent goal."
@@ -6836,7 +6836,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "HR Manager"
-msgstr "HR-leder"
+msgstr ""
 
 #. Name of a DocType
 #. Label of a Link in the Overview Workspace
@@ -6921,7 +6921,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.json
 msgid "HR User"
-msgstr "HR-bruker"
+msgstr ""
 
 #: hrms/config/desktop.py:5
 msgid "HRMS"
@@ -7013,7 +7013,7 @@ msgstr ""
 
 #: hrms/hr/notification/training_feedback/training_feedback.html:1
 msgid "Hello"
-msgstr "Hei"
+msgstr ""
 
 #. Label of the help (HTML) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
@@ -7081,11 +7081,11 @@ msgstr ""
 
 #: hrms/controllers/employee_reminders.py:65
 msgid "Holidays this Week."
-msgstr "Helligdager denne uken."
+msgstr ""
 
 #: frontend/src/components/BottomTabs.vue:43 hrms/www/jobs/index.py:13
 msgid "Home"
-msgstr "Hjem"
+msgstr ""
 
 #. Label of the horizontal_break (HTML) field in DocType 'Employee Attendance
 #. Tool'
@@ -7152,7 +7152,7 @@ msgstr ""
 #: hrms/hr/doctype/identification_document_type/identification_document_type.json
 #: hrms/hr/doctype/travel_request/travel_request.json
 msgid "Identification Document Type"
-msgstr "Identifikasjons-dokumenttype (DocType)"
+msgstr ""
 
 #. Description of the 'Process Payroll Accounting Entry based on Employee'
 #. (Check) field in DocType 'Payroll Settings'
@@ -7303,7 +7303,7 @@ msgstr ""
 
 #: hrms/hr/doctype/upload_attendance/upload_attendance.js:50
 msgid "Importing {0} of {1}"
-msgstr "Importerer {0} av {1}"
+msgstr ""
 
 #. Option for the 'Status' (Select) field in DocType 'Employee Onboarding'
 #. Option for the 'Status' (Select) field in DocType 'Employee Referral'
@@ -7343,7 +7343,7 @@ msgstr ""
 #: hrms/hr/report/employee_leave_balance_summary/employee_leave_balance_summary.js:41
 #: hrms/hr/report/leave_ledger/leave_ledger.js:39
 msgid "Inactive"
-msgstr "Inaktiv"
+msgstr ""
 
 #. Label of the incentive_section (Section Break) field in DocType 'Employee
 #. Incentive'
@@ -7711,7 +7711,7 @@ msgstr ""
 
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.py:183
 msgid "Invalid Action"
-msgstr "Ugyldig handling"
+msgstr ""
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:182
 msgid "Invalid Additional Salary"
@@ -7806,7 +7806,7 @@ msgstr ""
 #. Label of the is_default (Select) field in DocType 'Salary Structure'
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 msgid "Is Default"
-msgstr "Er standard"
+msgstr ""
 
 #. Label of the is_earned_leave (Check) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
@@ -8057,7 +8057,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_withholding_cycle/salary_withholding_cycle.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Journal Entry"
-msgstr "Journalinnføring"
+msgstr ""
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:18
 #: hrms/public/js/salary_slip_deductions_report_filters.js:25
@@ -8139,7 +8139,7 @@ msgstr ""
 #. Label of the last_name (Data) field in DocType 'Employee Referral'
 #: hrms/hr/doctype/employee_referral/employee_referral.json
 msgid "Last Name"
-msgstr "Etternavn"
+msgstr ""
 
 #. Label of the last_odometer (Int) field in DocType 'Vehicle Log'
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
@@ -8624,14 +8624,14 @@ msgstr ""
 #. Label of the lft (Int) field in DocType 'Goal'
 #: hrms/hr/doctype/goal/goal.json
 msgid "Left"
-msgstr "Venstre"
+msgstr ""
 
 #: hrms/hr/report/employee_leave_balance/employee_leave_balance.js:47
 #: hrms/hr/report/employee_leave_balance_summary/employee_leave_balance_summary.js:43
 #: hrms/hr/report/leave_ledger/leave_ledger.js:41
 msgctxt "Employee"
 msgid "Left"
-msgstr "Venstre"
+msgstr ""
 
 #. Label of the letter_head (Link) field in DocType 'Job Offer'
 #. Label of the letter_head (Link) field in DocType 'Leave Application'
@@ -8642,12 +8642,12 @@ msgstr "Venstre"
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 msgid "Letter Head"
-msgstr "Brevhode"
+msgstr ""
 
 #. Label of the level (Select) field in DocType 'Training Event'
 #: hrms/hr/doctype/training_event/training_event.json
 msgid "Level"
-msgstr "Nivå"
+msgstr ""
 
 #. Label of the license_plate (Link) field in DocType 'Vehicle Log'
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
@@ -8667,7 +8667,7 @@ msgstr ""
 #. 'Goal'
 #: hrms/hr/doctype/goal/goal.json hrms/hr/doctype/goal/goal_tree.js:97
 msgid "Link the cycle and tag KRA to your goal to update the appraisal's goal score based on the goal progress"
-msgstr "Koble syklusen og knytt KRA til målet ditt for å oppdatere vurderingens måloppnåelse basert på fremdriften"
+msgstr ""
 
 #: hrms/controllers/employee_boarding_controller.py:154
 msgid "Linked Project {} and Tasks deleted."
@@ -8675,7 +8675,7 @@ msgstr ""
 
 #: frontend/src/views/Notifications.vue:88
 msgid "Load more"
-msgstr "Last inn mer"
+msgstr ""
 
 #. Label of the loan (Link) field in DocType 'Salary Slip Loan'
 #: hrms/payroll/doctype/salary_slip_loan/salary_slip_loan.json
@@ -8719,17 +8719,17 @@ msgstr ""
 #: hrms/hr/report/vehicle_expenses/vehicle_expenses.py:33
 #: hrms/templates/generators/job_opening.html:66
 msgid "Location"
-msgstr "Sted"
+msgstr ""
 
 #. Label of the device_id (Data) field in DocType 'Employee Checkin'
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 msgid "Location / Device ID"
-msgstr "Sted / enhets-ID"
+msgstr ""
 
 #. Label of the location_name (Data) field in DocType 'Shift Location'
 #: hrms/hr/doctype/shift_location/shift_location.json
 msgid "Location Name"
-msgstr "Stedsnavn"
+msgstr ""
 
 #. Label of the lodging_required (Check) field in DocType 'Travel Itinerary'
 #: hrms/hr/doctype/travel_itinerary/travel_itinerary.json
@@ -8752,7 +8752,7 @@ msgstr ""
 
 #: frontend/src/views/Login.vue:34
 msgid "Login"
-msgstr "Logg inn"
+msgstr ""
 
 #: frontend/src/views/InvalidEmployee.vue:7
 msgid "Login Failed"
@@ -8799,7 +8799,7 @@ msgstr ""
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.js:257
 #: hrms/hr/doctype/goal/goal.js:104
 msgid "Mandatory"
-msgstr "Påkrevet"
+msgstr ""
 
 #. Label of the mandatory_benefit_application (Check) field in DocType 'Payroll
 #. Settings'
@@ -8813,7 +8813,7 @@ msgstr ""
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:213
 msgid "Mandatory fields required in {0}"
-msgstr "Påkrevd felt kreves i {0}"
+msgstr ""
 
 #. Option for the 'Work Experience Calculation Method' (Select) field in
 #. DocType 'Gratuity Rule'
@@ -8848,7 +8848,7 @@ msgstr ""
 
 #: frontend/src/views/Notifications.vue:49
 msgid "Mark all as read"
-msgstr "Merk alle som lest"
+msgstr ""
 
 #: hrms/hr/doctype/appraisal_cycle/appraisal_cycle.js:58
 #: hrms/hr/doctype/appraisal_cycle/appraisal_cycle.js:62
@@ -9049,7 +9049,7 @@ msgstr ""
 
 #: frontend/src/components/FormView.vue:51
 msgid "Menu"
-msgstr "Meny"
+msgstr ""
 
 #. Label of the message (Text Editor) field in DocType 'Daily Work Summary
 #. Group'
@@ -9058,7 +9058,7 @@ msgstr "Meny"
 #: hrms/hr/doctype/pwa_notification/pwa_notification.json
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:1532
 msgid "Message"
-msgstr "Melding"
+msgstr ""
 
 #. Option for the 'Frequency' (Select) field in DocType 'Vehicle Service'
 #: hrms/hr/doctype/vehicle_service/vehicle_service.json
@@ -9089,13 +9089,13 @@ msgstr ""
 
 #: hrms/hr/utils.py:846
 msgid "Missing Field"
-msgstr "Manglende felt"
+msgstr ""
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.js:10
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:226
 #: hrms/public/js/utils/index.js:41
 msgid "Missing Fields"
-msgstr "Manglende felt"
+msgstr ""
 
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:85
 msgid "Missing Mandatory Field"
@@ -9203,7 +9203,7 @@ msgstr ""
 
 #: hrms/hr/page/team_updates/team_updates.js:26
 msgid "More"
-msgstr "Mer"
+msgstr ""
 
 #. Label of the more_info_section (Section Break) field in DocType 'Employee
 #. Advance'
@@ -9236,7 +9236,7 @@ msgstr ""
 
 #: hrms/www/jobs/index.py:15
 msgid "My Account"
-msgstr "Min Konto"
+msgstr ""
 
 #: frontend/src/views/employee_advance/List.vue:19
 msgid "My Advances"
@@ -9280,7 +9280,7 @@ msgstr ""
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 #: hrms/hr/doctype/job_requisition/job_requisition.json
 msgid "Naming Series"
-msgstr "Nummerserie"
+msgstr ""
 
 #. Label of the net_pay (Currency) field in DocType 'Salary Slip'
 #. Label of the net_pay (Currency) field in DocType 'Salary Structure'
@@ -9371,7 +9371,7 @@ msgstr ""
 
 #: frontend/src/components/FormView.vue:58
 msgid "New {0}"
-msgstr "Ny {0}"
+msgstr ""
 
 #. Option for the 'Is Active' (Select) field in DocType 'Salary Structure'
 #. Option for the 'Is Default' (Select) field in DocType 'Salary Structure'
@@ -9581,7 +9581,7 @@ msgstr ""
 
 #: frontend/src/components/ListView.vue:93
 msgid "No {0} found"
-msgstr "Ingen {0} funnet"
+msgstr ""
 
 #. Option for the 'Meal Preference' (Select) field in DocType 'Travel
 #. Itinerary'
@@ -9671,7 +9671,7 @@ msgstr ""
 
 #: frontend/src/views/Notifications.vue:17
 msgid "Notifications"
-msgstr "Varsler"
+msgstr ""
 
 #. Label of the notify_users_by_email (Check) field in DocType 'Employee
 #. Onboarding'
@@ -9930,7 +9930,7 @@ msgstr ""
 #. Label of a Card Break in the Overview Workspace
 #: hrms/hr/workspace/overview/overview.json
 msgid "Other Reports"
-msgstr "Andre rapporter"
+msgstr ""
 
 #. Label of the other_settings_section (Section Break) field in DocType
 #. 'Payroll Settings'
@@ -9957,7 +9957,7 @@ msgstr ""
 #. Description of the 'Total Goal Score' (Float) field in DocType 'Appraisal'
 #: hrms/hr/doctype/appraisal/appraisal.json
 msgid "Out of 5"
-msgstr "Av 5"
+msgstr ""
 
 #. Label of a chart in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -10228,7 +10228,7 @@ msgstr ""
 
 #: frontend/src/views/Login.vue:22
 msgid "Password"
-msgstr "Passord"
+msgstr ""
 
 #. Label of the password_policy (Data) field in DocType 'Payroll Settings'
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
@@ -10277,7 +10277,7 @@ msgstr ""
 #. Final Statement'
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.json
 msgid "Payables"
-msgstr "Leverandørgjeld"
+msgstr ""
 
 #: hrms/hr/doctype/employee_advance/employee_advance.js:51
 #: hrms/hr/doctype/expense_claim/expense_claim.js:105
@@ -10332,7 +10332,7 @@ msgstr ""
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Payment Entry"
-msgstr "Registrering av utbetaling"
+msgstr ""
 
 #. Label of the section_break_5 (Tab Break) field in DocType 'Gratuity'
 #: hrms/payroll/doctype/gratuity/gratuity.json
@@ -10594,7 +10594,7 @@ msgstr ""
 #. Label of the percentage (Int) field in DocType 'Employee Cost Center'
 #: hrms/payroll/doctype/employee_cost_center/employee_cost_center.json
 msgid "Percentage (%)"
-msgstr "Prosentandel (%)"
+msgstr ""
 
 #. Name of a Workspace
 #: hrms/hr/workspace/performance/performance.json
@@ -11093,7 +11093,7 @@ msgstr ""
 #: hrms/hr/report/project_profitability/project_profitability.py:162
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Project"
-msgstr "Prosjekt"
+msgstr ""
 
 #. Name of a report
 #. Label of a Link in the Shift & Attendance Workspace
@@ -11153,13 +11153,13 @@ msgstr ""
 #. Label of the purpose (Small Text) field in DocType 'Employee Advance'
 #: hrms/hr/doctype/employee_advance/employee_advance.json
 msgid "Purpose"
-msgstr "Formål"
+msgstr ""
 
 #. Label of the section_break_8 (Section Break) field in DocType 'Employee
 #. Advance'
 #: hrms/hr/doctype/employee_advance/employee_advance.json
 msgid "Purpose & Amount"
-msgstr "Formål og beløp"
+msgstr ""
 
 #. Name of a DocType
 #. Label of the purpose_of_travel (Data) field in DocType 'Purpose of Travel'
@@ -11169,7 +11169,7 @@ msgstr "Formål og beløp"
 #: hrms/hr/doctype/travel_request/travel_request.json
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 msgid "Purpose of Travel"
-msgstr "Reiseformål"
+msgstr ""
 
 #: frontend/src/views/AppSettings.vue:128
 msgid "Push Notification permission denied"
@@ -11200,7 +11200,7 @@ msgstr ""
 #. Option for the 'Status' (Select) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Queued"
-msgstr "I kø"
+msgstr ""
 
 #. Label of the quick_filters_section (Section Break) field in DocType 'Leave
 #. Control Panel'
@@ -11266,7 +11266,7 @@ msgstr ""
 #. Label of the read (Check) field in DocType 'PWA Notification'
 #: hrms/hr/doctype/pwa_notification/pwa_notification.json
 msgid "Read"
-msgstr "Lest"
+msgstr ""
 
 #. Label of the reason_section (Section Break) field in DocType 'Attendance
 #. Request'
@@ -11311,7 +11311,7 @@ msgstr ""
 #. Final Statement'
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.json
 msgid "Receivables"
-msgstr "Fordringer"
+msgstr ""
 
 #: frontend/src/views/attendance/Dashboard.vue:14
 msgid "Recent Attendance Requests"
@@ -11384,7 +11384,7 @@ msgstr ""
 #. Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Reference Doctype"
-msgstr "Referanse-DocType"
+msgstr ""
 
 #. Label of the reference_document (Dynamic Link) field in DocType 'Full and
 #. Final Outstanding Statement'
@@ -11419,7 +11419,7 @@ msgstr ""
 #: hrms/hr/doctype/pwa_notification/pwa_notification.json
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
 msgid "Reference Document Type"
-msgstr "Dokumenttype (DocType) referanse"
+msgstr ""
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:371
 #: hrms/hr/doctype/leave_application/leave_application.py:504
@@ -11435,7 +11435,7 @@ msgstr ""
 #: hrms/hr/doctype/job_opening/job_opening.json
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
 msgid "References"
-msgstr "Referanser"
+msgstr ""
 
 #. Label of the referral_payment_status (Select) field in DocType 'Employee
 #. Referral'
@@ -11452,7 +11452,7 @@ msgstr ""
 #. Label of the referrer (Link) field in DocType 'Employee Referral'
 #: hrms/hr/doctype/employee_referral/employee_referral.json
 msgid "Referrer"
-msgstr "Henviser"
+msgstr ""
 
 #. Label of the referrer_details_section (Section Break) field in DocType
 #. 'Employee Referral'
@@ -11545,7 +11545,7 @@ msgstr ""
 
 #: frontend/src/components/FormView.vue:43
 msgid "Reload"
-msgstr "Last inn på nytt"
+msgstr ""
 
 #. Label of the remaining_benefit (Currency) field in DocType 'Employee Benefit
 #. Application'
@@ -11582,7 +11582,7 @@ msgstr ""
 #. Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "Reminder"
-msgstr "Påminnelse"
+msgstr ""
 
 #. Label of the reminders_section (Section Break) field in DocType 'HR
 #. Settings'
@@ -11649,7 +11649,7 @@ msgstr ""
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 #: hrms/payroll/workspace/tax_&_benefits/tax_&_benefits.json
 msgid "Reports"
-msgstr "Rapporter"
+msgstr ""
 
 #. Label of the reports_to (Link) field in DocType 'Employee Grievance'
 #. Label of the reports_to (Link) field in DocType 'Exit Interview'
@@ -11715,7 +11715,7 @@ msgstr ""
 
 #: frontend/src/views/Login.vue:57
 msgid "Reset Password"
-msgstr "Tilbakestill passordet"
+msgstr ""
 
 #. Label of the resignation_letter_date (Date) field in DocType 'Employee
 #. Separation'
@@ -11761,7 +11761,7 @@ msgstr ""
 #: hrms/hr/doctype/interview/interview.js:149
 #: hrms/hr/doctype/interview_feedback/interview_feedback.json
 msgid "Result"
-msgstr "Resultat"
+msgstr ""
 
 #. Label of the resume (Attach) field in DocType 'Employee Referral'
 #. Label of the section_break_6 (Section Break) field in DocType 'Job
@@ -11854,12 +11854,12 @@ msgstr ""
 #. Label of the rgt (Int) field in DocType 'Goal'
 #: hrms/hr/doctype/goal/goal.json
 msgid "Right"
-msgstr "Høyre"
+msgstr ""
 
 #. Label of the role (Link) field in DocType 'Employee Boarding Activity'
 #: hrms/hr/doctype/employee_boarding_activity/employee_boarding_activity.json
 msgid "Role"
-msgstr "Rolle"
+msgstr ""
 
 #. Label of the role_allowed_to_create_backdated_leave_application (Link) field
 #. in DocType 'HR Settings'
@@ -11964,7 +11964,7 @@ msgstr ""
 
 #: hrms/hr/doctype/appraisal/appraisal.py:135
 msgid "Row {0}: Goal Score cannot be greater than 5"
-msgstr "Rad {0}: Måloppnåelsen kan ikke være større enn 5"
+msgstr ""
 
 #: hrms/payroll/doctype/salary_slip/salary_slip_loan_utils.py:59
 msgid "Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"
@@ -12334,7 +12334,7 @@ msgstr ""
 
 #: hrms/hr/report/project_profitability/project_profitability.py:148
 msgid "Sales Invoice"
-msgstr "Salgsfaktura"
+msgstr ""
 
 #: hrms/hr/doctype/expense_claim_type/expense_claim_type.py:22
 msgid "Same Company is entered more than once"
@@ -12368,7 +12368,7 @@ msgstr ""
 #: hrms/hr/doctype/training_event/training_event.json
 #: hrms/hr/doctype/training_program/training_program.json
 msgid "Scheduled"
-msgstr "Planlagt"
+msgstr ""
 
 #. Label of the scheduled_on (Date) field in DocType 'Interview'
 #: hrms/hr/doctype/interview/interview.json
@@ -12378,12 +12378,12 @@ msgstr ""
 #. Label of the score (Float) field in DocType 'Appraisal Goal'
 #: hrms/hr/doctype/appraisal_goal/appraisal_goal.json
 msgid "Score (0-5)"
-msgstr "Måloppnåelse (0-5)"
+msgstr ""
 
 #. Label of the score_earned (Float) field in DocType 'Appraisal Goal'
 #: hrms/hr/doctype/appraisal_goal/appraisal_goal.json
 msgid "Score Earned"
-msgstr "Opptjent måloppnåelse"
+msgstr ""
 
 #: hrms/hr/doctype/appraisal/appraisal.js:131
 msgid "Score must be less than or equal to 5"
@@ -12523,7 +12523,7 @@ msgstr ""
 #: frontend/src/components/FormField.vue:19
 #: frontend/src/components/FormField.vue:116 frontend/src/components/Link.vue:6
 msgid "Select {0}"
-msgstr "Velg {0}"
+msgstr ""
 
 #. Label of the self_appraisal_tab (Tab Break) field in DocType 'Appraisal'
 #: hrms/hr/doctype/appraisal/appraisal.json
@@ -12620,7 +12620,7 @@ msgstr ""
 #. Option for the 'Status' (Select) field in DocType 'Daily Work Summary'
 #: hrms/hr/doctype/daily_work_summary/daily_work_summary.json
 msgid "Sent"
-msgstr "Sendt"
+msgstr ""
 
 #: hrms/hr/doctype/exit_interview/exit_interview.py:132
 msgid "Sent Successfully: {0}"
@@ -12662,7 +12662,7 @@ msgstr ""
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
 #: hrms/payroll/doctype/additional_salary/additional_salary.json
 msgid "Series"
-msgstr "Nummerserie"
+msgstr ""
 
 #. Option for the 'Type' (Select) field in DocType 'Vehicle Service'
 #: hrms/hr/doctype/vehicle_service/vehicle_service.json
@@ -12785,7 +12785,7 @@ msgstr ""
 #: hrms/hr/workspace/leaves/leaves.json
 #: hrms/hr/workspace/overview/overview.json
 msgid "Setup"
-msgstr "Oppsett"
+msgstr ""
 
 #: hrms/hr/utils.py:703
 msgid "Shared document with the user {0} with 'Submit' permission"
@@ -12904,7 +12904,7 @@ msgstr ""
 #: hrms/hr/doctype/shift_schedule_assignment/shift_schedule_assignment.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Shift Location"
-msgstr "Skiftsted"
+msgstr ""
 
 #. Label of the shift_request (Link) field in DocType 'Shift Assignment'
 #. Name of a DocType
@@ -13322,7 +13322,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #. Label of the half_day_status (Select) field in DocType 'Attendance'
 #. Label of the half_day_status (Select) field in DocType 'Employee Attendance
@@ -13490,7 +13490,7 @@ msgstr ""
 #: hrms/hr/doctype/training_program/training_program.json
 #: hrms/hr/doctype/vehicle_log/vehicle_log.json
 msgid "Supplier"
-msgstr "Leverandør"
+msgstr ""
 
 #: hrms/hr/report/employee_leave_balance/employee_leave_balance.js:46
 #: hrms/hr/report/employee_leave_balance_summary/employee_leave_balance_summary.js:42
@@ -13569,7 +13569,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "System Manager"
-msgstr "Systemansvarlig"
+msgstr ""
 
 #. Option for the 'Work Experience Calculation Method' (Select) field in
 #. DocType 'Gratuity Rule'
@@ -13724,7 +13724,7 @@ msgstr ""
 
 #: hrms/templates/emails/training_event.html:20
 msgid "Thank you"
-msgstr "Tusen takk"
+msgstr ""
 
 #: hrms/overrides/company.py:131
 msgid "The currency of {0} should be same as the company's default currency. Please select another account."
@@ -13885,7 +13885,7 @@ msgstr ""
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
 msgid "Time"
-msgstr "Tidspunkt"
+msgstr ""
 
 #: hrms/hr/dashboard_chart_source/hiring_vs_attrition_count/hiring_vs_attrition_count.js:28
 msgid "Time Interval"
@@ -14226,7 +14226,7 @@ msgstr ""
 #: hrms/hr/doctype/appraisal/appraisal.json
 #: hrms/hr/doctype/appraisal_cycle/appraisal_cycle.js:79
 msgid "Total Goal Score"
-msgstr "Total måloppnåelse"
+msgstr ""
 
 #: hrms/payroll/report/salary_payments_based_on_payment_mode/salary_payments_based_on_payment_mode.py:141
 msgid "Total Gross Pay"
@@ -14414,7 +14414,7 @@ msgstr ""
 
 #: hrms/hr/doctype/appraisal/appraisal.py:153 hrms/mixins/appraisal.py:17
 msgid "Total weightage for all {0} must add up to 100. Currently, it is {1}%"
-msgstr "Total vekt for alle {0} må summeres til 100. For øyeblikket er den {1}%"
+msgstr ""
 
 #. Label of the total_working_days_per_year (Float) field in DocType 'Gratuity
 #. Rule'
@@ -14657,7 +14657,7 @@ msgstr ""
 
 #: hrms/public/js/utils/index.js:206
 msgid "Unable to retrieve your location"
-msgstr "Kunne ikke hente posisjonen din"
+msgstr ""
 
 #: hrms/hr/doctype/goal/goal.js:55
 msgid "Unarchive"
@@ -14885,12 +14885,12 @@ msgstr ""
 #: hrms/hr/doctype/goal/goal.json hrms/hr/doctype/interviewer/interviewer.json
 #: hrms/hr/report/daily_work_summary_replies/daily_work_summary_replies.py:20
 msgid "User"
-msgstr "Bruker"
+msgstr ""
 
 #. Label of the users (Table) field in DocType 'Daily Work Summary Group'
 #: hrms/hr/doctype/daily_work_summary_group/daily_work_summary_group.json
 msgid "Users"
-msgstr "Brukere"
+msgstr ""
 
 #: hrms/hr/report/project_profitability/project_profitability.py:188
 msgid "Utilization"
@@ -14991,7 +14991,7 @@ msgstr ""
 
 #: frontend/src/views/Login.vue:98
 msgid "Verify"
-msgstr "Verifiser"
+msgstr ""
 
 #: hrms/hr/doctype/employee_onboarding/employee_onboarding.js:31
 #: hrms/hr/doctype/employee_onboarding/employee_onboarding.js:40
@@ -15007,7 +15007,7 @@ msgstr ""
 
 #: frontend/src/components/Holidays.vue:10
 msgid "View All"
-msgstr "Vis alle"
+msgstr ""
 
 #: hrms/hr/doctype/appraisal/appraisal.js:56
 #: hrms/hr/doctype/appraisal_cycle/appraisal_cycle.js:22
@@ -15025,7 +15025,7 @@ msgstr ""
 #: frontend/src/components/RequestList.vue:27
 #: frontend/src/views/expense_claim/Dashboard.vue:41
 msgid "View List"
-msgstr "Vis liste"
+msgstr ""
 
 #: frontend/src/views/Home.vue:57
 msgid "View Salary Slips"
@@ -15098,7 +15098,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "Weekly"
-msgstr "Ukentlig"
+msgstr ""
 
 #. Label of the per_weightage (Float) field in DocType 'Appraisal Goal'
 #. Label of the per_weightage (Percent) field in DocType 'Appraisal KRA'
@@ -15111,7 +15111,7 @@ msgstr "Ukentlig"
 #: hrms/hr/doctype/appraisal_template_goal/appraisal_template_goal.json
 #: hrms/hr/doctype/employee_feedback_rating/employee_feedback_rating.json
 msgid "Weightage (%)"
-msgstr "Vekting (%)"
+msgstr ""
 
 #. Description of the 'Status' (Select) field in DocType 'Shift Assignment
 #. Tool'
@@ -15299,7 +15299,7 @@ msgstr ""
 #: frontend/src/components/FormView.vue:310
 #: hrms/payroll/doctype/salary_structure/salary_structure.json
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 #: hrms/hr/doctype/hr_settings/hr_settings.py:86
 msgid "Yes, Proceed"
@@ -15631,7 +15631,7 @@ msgstr ""
 
 #: hrms/overrides/company.py:37 hrms/overrides/company.py:50
 msgid "{0}: {1}"
-msgstr "{0}: {1}"
+msgstr ""
 
 #: frontend/src/components/AttendanceRequestItem.vue:17
 #: frontend/src/components/LeaveRequestItem.vue:16

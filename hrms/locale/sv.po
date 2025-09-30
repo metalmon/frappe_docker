@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-09-21 09:34+0000\n"
-"PO-Revision-Date: 2025-09-25 12:40\n"
+"PO-Revision-Date: 2025-09-27 12:52\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -559,7 +559,7 @@ msgstr "Konto inte angiven för Lönekomponent {0}"
 #. Benefit Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Accrual"
-msgstr "Periodisering"
+msgstr "Beräkning"
 
 #. Label of the accrual_arrears (Table) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
@@ -571,23 +571,23 @@ msgstr "Periodisering Skulder"
 #: hrms/payroll/doctype/salary_component/salary_component.json
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "Accrual Component"
-msgstr "Periodisering Komponent"
+msgstr "Beräkning Komponent"
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:65
 msgid "Accrual Component can only be set for Earning Salary Components."
-msgstr "Periodisering Komponent kan endast anges för Lönekomponenter."
+msgstr "Beräkning Komponent kan endast anges för Lönekomponenter."
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:85
 msgid "Accrual Component can only be set for Flexible Benefit Salary Components with accrual payout methods."
-msgstr "Periodisering Komponent kan endast anges för Flexibla Förmån Lönekomponenter med periodisering utbetalning metoder."
+msgstr "Beräkning Komponent kan endast anges för Flexibla Förmån Lönekomponenter med beräknade utbetalning metoder."
 
 #: hrms/payroll/doctype/salary_component/salary_component.py:77
 msgid "Accrual Component must be set for Flexible Benefit Salary Components with accrual payout methods."
-msgstr "Periodisering Komponent måste anges för Flexibla Förmån Lönekomponenter med periodisering utbetalning metoder."
+msgstr "Beräkning Komponent måste anges för Flexibla Förmån Lönekomponenter med beräknade utbetalning metoder."
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:597
 msgid "Accrual Journal Entry for salaries from {0} to {1}"
-msgstr "Periodisering Journal Post för Löner från {0} till {1}"
+msgstr "Beräknad Journal Post för Löner från {0} till {1}"
 
 #. Option for the 'Payout Method' (Select) field in DocType 'Salary Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
@@ -7273,7 +7273,7 @@ msgstr "Om vald kommer värdet som anges eller beräknas i denna komponent inte 
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "If enabled, this component allows to accrue amounts without adding them to earnings. The accrued balance is tracked in the Employee Benefit Ledger and can be paid out later as needed."
-msgstr "Om den här komponenten är aktiverad kan man ackumulera belopp utan att lägga till dem i inkomster. Ackumulerad saldo spåras i Personal Förmån Register och kan betalas ut senare vid behov."
+msgstr "Om denna komponent är aktiverad kan man ackumulera belopp utan att lägga till dem i inkomster. Ackumulerad saldo spåras i Personal Förmån Register och kan betalas ut senare vid behov."
 
 #. Description of the 'Arrear Component' (Check) field in DocType 'Salary
 #. Component'
@@ -7735,7 +7735,7 @@ msgstr "Ogiltig"
 #: hrms/payroll/doctype/salary_component/salary_component.py:80
 #: hrms/payroll/doctype/salary_component/salary_component.py:88
 msgid "Invalid Accrual Component"
-msgstr "Ogiltig Periodisering Komponent"
+msgstr "Ogiltig Beräkning Komponent"
 
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.py:183
 msgid "Invalid Action"
@@ -9821,7 +9821,7 @@ msgstr "Spärrad"
 #: frontend/src/components/AttendanceCalendar.vue:80
 #: hrms/hr/doctype/attendance/attendance.json
 msgid "On Leave"
-msgstr "Frånvarande"
+msgstr "Ledig"
 
 #. Label of a Card Break in the Employee Lifecycle Workspace
 #: hrms/hr/workspace/employee_lifecycle/employee_lifecycle.json
@@ -10982,7 +10982,7 @@ msgstr "Närvarande"
 
 #: hrms/hr/report/shift_attendance/shift_attendance.py:162
 msgid "Present Records"
-msgstr "Nuvarande Poster"
+msgstr "Närvaro Poster"
 
 #. Label of the prevent_self_expense_approval (Check) field in DocType 'HR
 #. Settings'
@@ -11650,7 +11650,7 @@ msgstr "Återbetala Förskött Belopp från Lön"
 #. Label of the repeat_on_days (Table) field in DocType 'Shift Schedule'
 #: hrms/hr/doctype/shift_schedule/shift_schedule.json
 msgid "Repeat On Days"
-msgstr "Upprepa dessa Dagar"
+msgstr "Veckodagar"
 
 #. Option for the 'Status' (Select) field in DocType 'Job Applicant'
 #: hrms/hr/doctype/job_applicant/job_applicant.json
@@ -13901,7 +13901,7 @@ msgstr "Detta kommer att skriva över skatt komponent {0} på lönespecifikation
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:421
 msgid "This will submit Salary Slips and create accrual Journal Entry. Do you want to proceed?"
-msgstr "Detta kommer att godkänna Lönespecifikation och skapa Periodiserad Journal Post. Vill du fortsätta?"
+msgstr "Detta kommer att godkänna Lönespecifikation och skapa Beräknad Journal Post. Vill du fortsätta?"
 
 #: frontend/src/components/AttendanceCalendar.vue:116
 #: hrms/hr/doctype/leave_block_list/leave_block_list.js:52
@@ -14766,7 +14766,7 @@ msgstr "Obetald"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:58
 msgid "Unpaid Accrual"
-msgstr "Obetald Periodisering"
+msgstr "Obetald Beräkning"
 
 #. Name of a report
 #. Label of a Link in the Expense Claims Workspace
@@ -15574,7 +15574,7 @@ msgstr "{0} har {1} aktiverat"
 
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:187
 msgid "{0} is an Accrual Component and this will be recorded as a payout in Employee Benefits Ledger"
-msgstr "{0} är Periodisering Komponent och detta kommer att registreras som en utbetalning i Personal Förmåner Register"
+msgstr "{0} är Beräkning Komponent och detta kommer att registreras som en utbetalning i Personal Förmåner Register"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:228
 msgid "{0} is an invalid Attendance Status."
