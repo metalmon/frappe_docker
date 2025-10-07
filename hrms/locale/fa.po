@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-10-05 09:33+0000\n"
-"PO-Revision-Date: 2025-10-06 15:59\n"
+"PO-Revision-Date: 2025-10-07 15:58\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -1366,7 +1366,7 @@ msgstr "درخواست دادن"
 #. Description of a DocType
 #: hrms/hr/doctype/leave_application/leave_application.json
 msgid "Apply / Approve Leaves"
-msgstr "درخواست / تایید مرخصی"
+msgstr "درخواست / تأیید مرخصی"
 
 #: frontend/src/components/ListFiltersActionSheet.vue:83
 msgid "Apply Filters"
@@ -1536,7 +1536,7 @@ msgstr "تصویب"
 #. Label of the approval_status (Select) field in DocType 'Expense Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Approval Status"
-msgstr "وضعیت تایید"
+msgstr "وضعیت تأیید"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.py:138
 msgid "Approval Status must be 'Approved' or 'Rejected'"
@@ -1556,7 +1556,7 @@ msgstr ""
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/shift_request/shift_request.json
 msgid "Approved"
-msgstr "تایید شده"
+msgstr "تأیید شده"
 
 #. Label of the approver (Link) field in DocType 'Department Approver'
 #. Label of the approver (Link) field in DocType 'Shift Assignment Tool'
@@ -2880,7 +2880,7 @@ msgstr "کنفرانس"
 #: frontend/src/components/FormView.vue:256
 #: frontend/src/components/FormView.vue:287
 msgid "Confirm"
-msgstr "تایید"
+msgstr "تأیید"
 
 #: frontend/src/components/CheckInPanel.vue:73
 msgid "Confirm {0}"
@@ -3783,7 +3783,7 @@ msgstr "دپارتمان"
 #. Name of a DocType
 #: hrms/hr/doctype/department_approver/department_approver.json
 msgid "Department Approver"
-msgstr "تایید کننده دپارتمان"
+msgstr "تأیید کننده دپارتمان"
 
 #. Label of a chart in the Recruitment Workspace
 #: hrms/hr/workspace/recruitment/recruitment.json
@@ -5704,7 +5704,7 @@ msgstr ""
 #: hrms/hr/doctype/exit_interview/exit_interview.json
 #: hrms/hr/report/employee_exits/employee_exits.py:193
 msgid "Exit Confirmed"
-msgstr "خروج تایید شد"
+msgstr "خروج تأیید شد"
 
 #. Label of the exit_details_section (Section Break) field in DocType 'Salary
 #. Withholding'
@@ -7901,7 +7901,7 @@ msgstr "باطل شده"
 #: hrms/payroll/doctype/salary_component/salary_component.json
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "Is Flexible Benefit"
-msgstr "مزایای قابل انعطاف است"
+msgstr "مزایای انعطاف‌پذیر است"
 
 #. Label of the is_group (Check) field in DocType 'Goal'
 #: hrms/hr/doctype/goal/goal.json hrms/hr/doctype/goal/goal_tree.js:51
@@ -8338,7 +8338,7 @@ msgstr "دوره درخواست مرخصی نمی‌تواند بین دو تخ�
 
 #: hrms/setup.py:425 hrms/setup.py:427 hrms/setup.py:487
 msgid "Leave Approval Notification"
-msgstr "اعلان تایید مرخصی"
+msgstr "اعلان تأیید مرخصی"
 
 #. Label of the leave_approval_notification_template (Link) field in DocType
 #. 'HR Settings'
@@ -8352,13 +8352,13 @@ msgstr "الگوی اعلان تأیید مرخصی"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json hrms/setup.py:146
 #: hrms/setup.py:248
 msgid "Leave Approver"
-msgstr "تایید کننده مرخصی"
+msgstr "تأیید کننده مرخصی"
 
 #. Label of the leave_approver_mandatory_in_leave_application (Check) field in
 #. DocType 'HR Settings'
 #: hrms/hr/doctype/hr_settings/hr_settings.json
 msgid "Leave Approver Mandatory In Leave Application"
-msgstr "تایید کننده مرخصی اجباری در درخواست مرخصی"
+msgstr "تأیید کننده مرخصی اجباری در درخواست مرخصی"
 
 #. Label of the leave_approver_name (Data) field in DocType 'Leave Application'
 #: hrms/hr/doctype/leave_application/leave_application.json
@@ -8602,7 +8602,7 @@ msgstr "مرخصی بدون حقوق"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:509
 msgid "Leave Without Pay does not match with approved {} records"
-msgstr "مرخصی بدون حقوق با رکوردهای تایید شده {} مطابقت ندارد"
+msgstr "مرخصی بدون حقوق با رکوردهای تأیید شده {} مطابقت ندارد"
 
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.py:54
 msgid "Leave allocation {0} is linked with the Leave Application {1}"
@@ -8685,7 +8685,7 @@ msgstr "مرخصی‌ها منقضی شده‌اند"
 
 #: hrms/hr/doctype/leave_application/leave_application_dashboard.html:10
 msgid "Leaves Pending Approval"
-msgstr "مرخصی‌های در انتظار تایید"
+msgstr "مرخصی‌های در انتظار تأیید"
 
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:82
 msgid "Leaves for the Leave Type {0} won't be carry-forwarded since carry-forwarding is disabled."
@@ -9936,7 +9936,7 @@ msgstr "فقط برنامه های کاربردی با وضعیت \"تأیید �
 
 #: hrms/hr/doctype/shift_request/shift_request.py:46
 msgid "Only Shift Request with status 'Approved' and 'Rejected' can be submitted"
-msgstr "فقط درخواست Shift با وضعیت \"تایید\" و \"رد شده\" قابل ارسال است"
+msgstr "فقط درخواست Shift با وضعیت \"تأیید\" و \"رد شده\" قابل ارسال است"
 
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.py:33
 msgid "Only expired allocation can be cancelled"
@@ -9973,7 +9973,7 @@ msgstr "باز"
 #. Option for the 'Status' (Select) field in DocType 'Job Requisition'
 #: hrms/hr/doctype/job_requisition/job_requisition.json
 msgid "Open & Approved"
-msgstr "باز و تایید شده"
+msgstr "باز و تأیید شده"
 
 #: hrms/public/js/templates/feedback_history.html:44
 msgid "Open Feedback"
@@ -12626,7 +12626,7 @@ msgstr "نوع مرخصی مورد نظر کارمند را انتخاب کنی�
 
 #: hrms/hr/doctype/leave_application/leave_application.js:327
 msgid "Select your Leave Approver i.e. the person who approves or rejects your leaves."
-msgstr "تایید کننده مرخصی خود را انتخاب کنید، یعنی شخصی که مرخصی‌های شما را تایید یا رد می‌کند."
+msgstr "تأیید کننده مرخصی خود را انتخاب کنید، یعنی شخصی که مرخصی‌های شما را تأیید یا رد می‌کند."
 
 #: frontend/src/components/FormField.vue:19
 #: frontend/src/components/FormField.vue:116 frontend/src/components/Link.vue:6
@@ -12663,7 +12663,7 @@ msgstr ""
 
 #: hrms/hr/doctype/leave_application/leave_application.py:844
 msgid "Self-approval for leaves is not allowed"
-msgstr "خود تاییدی برای مرخصی مجاز نیست"
+msgstr "خود تأییدی برای مرخصی مجاز نیست"
 
 #. Option for the 'Type' (Select) field in DocType 'Training Event'
 #: hrms/hr/doctype/training_event/training_event.json
@@ -13027,7 +13027,7 @@ msgstr "درخواست شیفت"
 
 #: hrms/setup.py:139 hrms/setup.py:260
 msgid "Shift Request Approver"
-msgstr "تایید کننده درخواست شیفت"
+msgstr "تأیید کننده درخواست شیفت"
 
 #. Label of the shift_request_filters_section (Section Break) field in DocType
 #. 'Shift Assignment Tool'
@@ -13514,7 +13514,7 @@ msgstr "ارائه فیش حقوقی"
 
 #: hrms/hr/doctype/leave_application/leave_application.js:108
 msgid "Submit this Leave Application to confirm."
-msgstr "برای تایید این درخواست مرخصی را ارسال کنید."
+msgstr "برای تأیید این درخواست مرخصی را ارسال کنید."
 
 #: hrms/hr/doctype/employee_onboarding/employee_onboarding.py:39
 msgid "Submit this to create the Employee record"
@@ -13749,7 +13749,7 @@ msgstr "مالیات بر حقوق اضافی"
 #. Detail'
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 msgid "Tax on flexible benefit"
-msgstr "مالیات بر مزایای قابل انعطاف"
+msgstr "مالیات بر مزایای انعطاف‌پذیر"
 
 #. Label of the taxable_earnings_till_date (Currency) field in DocType 'Salary
 #. Structure Assignment'
@@ -13865,7 +13865,7 @@ msgstr "روزهای بین {0} تا {1} تعطیلات معتبر نیستند.
 
 #: hrms/setup.py:130
 msgid "The first Approver in the list will be set as the default Approver."
-msgstr "اولین تایید کننده در لیست به عنوان تایید کننده پیش‌فرض تنظیم می‌شود."
+msgstr "اولین تأیید کننده در لیست به عنوان تأیید کننده پیش‌فرض تنظیم می‌شود."
 
 #: hrms/hr/doctype/leave_type/leave_type.py:51
 msgid "The fraction of Daily Salary per Leave should be between 0 and 1"
@@ -15034,11 +15034,11 @@ msgstr "جای خالی تکمیل شد"
 #. Label of the validate_attendance (Check) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Validate Attendance"
-msgstr "تایید حضور و غیاب"
+msgstr "تأیید حضور و غیاب"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.js:404
 msgid "Validating Employee Attendance..."
-msgstr "تایید حضور و غیاب کارمند..."
+msgstr "تأیید حضور و غیاب کارمند..."
 
 #. Label of the value (Small Text) field in DocType 'Job Offer Term'
 #: hrms/hr/doctype/job_offer_term/job_offer_term.json
