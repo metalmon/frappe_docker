@@ -1764,10 +1764,13 @@ class SalarySlip(TransactionBase):
 		component_row.amount = amount
 
 		# Skip payment days adjustment for:
-		# 1. Arrear/Payroll Correction entries - already calculated based on LWP days in previous cycles
+		# 1. Arrear/Payroll Correction additional salary - already calculated based on LWP days in previous cycles
+		# 2. Employee Benefit Claim - payout often includes amount for previous cycles
 		# 2. Accrual components - paid based on accrual amounts from previous cycles
 		skip_payment_days_adjustment = (
-			additional_salary and additional_salary.get("ref_doctype") in ["Arrear", "Payroll Correction"]
+			additional_salary
+			and additional_salary.get("ref_doctype")
+			in ["Arrear", "Payroll Correction", "Employee Benefit Claim"]
 		) or component_row.accrual_component
 		if not skip_payment_days_adjustment:
 			self.update_component_amount_based_on_payment_days(component_row, remove_if_zero_valued)
