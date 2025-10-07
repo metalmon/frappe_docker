@@ -340,7 +340,7 @@ def make_salary_slip(
 	print_format=None,
 	for_preview=0,
 	ignore_permissions=False,
-	lwp_days_reversed=None,
+	lwp_days_corrected=None,
 ):
 	def postprocess(source, target):
 		if employee:
@@ -349,7 +349,7 @@ def make_salary_slip(
 				target.posting_date = posting_date
 
 		target.run_method(
-			"process_salary_structure", for_preview=for_preview, lwp_days_reversed=lwp_days_reversed
+			"process_salary_structure", for_preview=for_preview, lwp_days_corrected=lwp_days_corrected
 		)
 
 	doc = get_mapped_doc(

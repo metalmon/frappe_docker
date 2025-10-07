@@ -452,7 +452,7 @@ class SalarySlip(TransactionBase):
 
 		make_salary_slip(self._salary_structure_doc.name, self)
 
-	def get_working_days_details(self, lwp=None, for_preview=0, lwp_days_reversed=None):
+	def get_working_days_details(self, lwp=None, for_preview=0, lwp_days_corrected=None):
 		payroll_settings = frappe.get_cached_value(
 			"Payroll Settings",
 			None,
@@ -540,9 +540,9 @@ class SalarySlip(TransactionBase):
 		else:
 			self.payment_days = 0
 
-		if lwp_days_reversed and lwp_days_reversed > 0:
-			if verify_lwp_days_reversed(self.employee, self.start_date, self.end_date, lwp_days_reversed):
-				self.payment_days += lwp_days_reversed
+		if lwp_days_corrected and lwp_days_corrected > 0:
+			if verify_lwp_days_corrected(self.employee, self.start_date, self.end_date, lwp_days_corrected):
+				self.payment_days += lwp_days_corrected
 
 	def get_unmarked_days(
 		self, include_holidays_in_total_working_days: bool, holidays: list | None = None
@@ -2202,12 +2202,12 @@ class SalarySlip(TransactionBase):
 			status = self.get_status()
 		self.db_set("status", status)
 
-	def process_salary_structure(self, for_preview=0, lwp_days_reversed=None):
+	def process_salary_structure(self, for_preview=0, lwp_days_corrected=None):
 		"""Calculate salary after salary structure details have been updated"""
 		if self.payroll_frequency:
 			self.get_date_details()
 		self.pull_emp_details()
-		self.get_working_days_details(for_preview=for_preview, lwp_days_reversed=lwp_days_reversed)
+		self.get_working_days_details(for_preview=for_preview, lwp_days_corrected=lwp_days_corrected)
 		self.calculate_net_pay()
 
 	def pull_emp_details(self):
@@ -2613,8 +2613,8 @@ def throw_error_message(row, error, title, description=None):
 	frappe.throw(message, title=title)
 
 
-def verify_lwp_days_reversed(employee, start_date, end_date, lwp_days_reversed):
-	#  Verify that the provided lwp_days_reversed matches actual payroll corrections.
+def verify_lwp_days_corrected(employee, start_date, end_date, lwp_days_corrected):
+	#  Verify that the provided lwp_days_corrected matches actual payroll corrections.
 	PayrollCorrection = frappe.qb.DocType("Payroll Correction")
 	SalarySlip = frappe.qb.DocType("Salary Slip")
 
@@ -2637,11 +2637,11 @@ def verify_lwp_days_reversed(employee, start_date, end_date, lwp_days_reversed):
 		else 0.0
 	)
 
-	if lwp_days_reversed != actual_total:
+	if lwp_days_corrected != actual_total:
 		frappe.throw(
 			_(
 				"LWP Days Reversed ({0}) does not match actual Payroll Corrections total ({1}) for employee {2} from {3} to {4}"
-			).format(lwp_days_reversed, actual_total, employee, start_date, end_date),
+			).format(lwp_days_corrected, actual_total, employee, start_date, end_date),
 			title=_("Invalid LWP Days Reversed"),
 		)
 

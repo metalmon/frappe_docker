@@ -310,7 +310,10 @@ class Arrear(Document):
 			)
 
 			preview_slip = make_salary_slip(
-				self.salary_structure, salary_slip_doc, self.employee, lwp_days_reversed=total_days_to_reverse
+				self.salary_structure,
+				salary_slip_doc,
+				self.employee,
+				lwp_days_corrected=total_days_to_reverse,
 			)
 
 			# earnings
