@@ -302,12 +302,8 @@ class Arrear(Document):
 					(PayrollCorrection.salary_slip_reference == slip.name)
 					& (PayrollCorrection.docstatus == 1)
 				)
-			).run(as_dict=True)
-			total_days_to_reverse = (
-				total_days_to_reverse[0].total_days
-				if total_days_to_reverse and total_days_to_reverse[0].total_days
-				else 0.0
-			)
+			).run(pluck=True)
+			total_days_to_reverse = total_days_to_reverse[0] or 0.0
 
 			preview_slip = make_salary_slip(
 				self.salary_structure,

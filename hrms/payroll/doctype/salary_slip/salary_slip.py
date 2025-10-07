@@ -2629,13 +2629,9 @@ def verify_lwp_days_corrected(employee, start_date, end_date, lwp_days_corrected
 			& (SalarySlip.start_date == start_date)
 			& (SalarySlip.end_date == end_date)
 		)
-	).run(as_dict=True)
+	).run(pluck=True)
 
-	actual_total = (
-		actual_days_reversed[0].get("total_days", 0.0)
-		if actual_days_reversed and actual_days_reversed[0].get("total_days")
-		else 0.0
-	)
+	actual_total = actual_days_reversed[0] or 0.0
 
 	if lwp_days_corrected != actual_total:
 		frappe.throw(
