@@ -540,8 +540,9 @@ class SalarySlip(TransactionBase):
 		else:
 			self.payment_days = 0
 
-		if lwp_days_reversed:
-			self.payment_days += lwp_days_reversed
+		if lwp_days_reversed and lwp_days_reversed > 0:
+			if verify_lwp_days_reversed(self.employee, self.start_date, self.end_date, lwp_days_reversed):
+				self.payment_days += lwp_days_reversed
 
 	def get_unmarked_days(
 		self, include_holidays_in_total_working_days: bool, holidays: list | None = None
@@ -2607,6 +2608,41 @@ def throw_error_message(row, error, title, description=None):
 	).format(**data)
 
 	frappe.throw(message, title=title)
+
+
+def verify_lwp_days_reversed(employee, start_date, end_date, lwp_days_reversed):
+	#  Verify that the provided lwp_days_reversed matches actual payroll corrections.
+	PayrollCorrection = frappe.qb.DocType("Payroll Correction")
+	SalarySlip = frappe.qb.DocType("Salary Slip")
+
+	actual_days_reversed = (
+		frappe.qb.from_(PayrollCorrection)
+		.join(SalarySlip)
+		.on(PayrollCorrection.salary_slip_reference == SalarySlip.name)
+		.select(Sum(PayrollCorrection.days_to_reverse).as_("total_days"))
+		.where(
+			(PayrollCorrection.employee == employee)
+			& (PayrollCorrection.docstatus == 1)
+			& (SalarySlip.start_date == start_date)
+			& (SalarySlip.end_date == end_date)
+		)
+	).run(as_dict=True)
+
+	actual_total = (
+		actual_days_reversed[0].get("total_days", 0.0)
+		if actual_days_reversed and actual_days_reversed[0].get("total_days")
+		else 0.0
+	)
+
+	if lwp_days_reversed != actual_total:
+		frappe.throw(
+			_(
+				"LWP Days Reversed ({0}) does not match actual Payroll Corrections total ({1}) for employee {2} from {3} to {4}"
+			).format(lwp_days_reversed, actual_total, employee, start_date, end_date),
+			title=_("Invalid LWP Days Reversed"),
+		)
+
+	return True
 
 
 def on_doctype_update():

@@ -293,7 +293,7 @@ class Arrear(Document):
 				}
 			)
 
-			# check if any Payroll Corrections exist for this slip and sum days_to_reverse to get actual payment days
+			# check if any Payroll Corrections exist for this slip and sum days_to_reverse to get actual payment days for when previewing salary slip for new structure
 			PayrollCorrection = frappe.qb.DocType("Payroll Correction")
 			total_days_to_reverse = (
 				frappe.qb.from_(PayrollCorrection)
