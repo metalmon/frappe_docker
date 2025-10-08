@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-10-05 09:33+0000\n"
-"PO-Revision-Date: 2025-10-07 15:58\n"
+"PO-Revision-Date: 2025-10-08 16:01\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -5797,7 +5797,7 @@ msgstr "غرامت مورد انتظار"
 #. Label of a field in the job-application Web Form
 #: hrms/hr/web_form/job_application/job_application.json
 msgid "Expected Salary Range per month"
-msgstr ""
+msgstr "محدوده حقوق مورد انتظار در ماه"
 
 #. Name of a DocType
 #: hrms/hr/doctype/expected_skill_set/expected_skill_set.json
@@ -8012,7 +8012,7 @@ msgstr "متقاضیان کار مجاز به حضور دو بار برای یک
 #. Title of the job-application Web Form
 #: hrms/hr/web_form/job_application/job_application.json
 msgid "Job Application"
-msgstr ""
+msgstr "درخواست کار"
 
 #. Label of the job_application_route (Data) field in DocType 'Job Opening'
 #: hrms/hr/doctype/job_opening/job_opening.json
@@ -13838,7 +13838,7 @@ msgstr "متشکرم"
 #. Success message of the job-application Web Form
 #: hrms/hr/web_form/job_application/job_application.json
 msgid "Thank you for applying."
-msgstr ""
+msgstr "ممنون که درخواست دادید."
 
 #: hrms/overrides/company.py:131
 msgid "The currency of {0} should be same as the company's default currency. Please select another account."
