@@ -31,8 +31,14 @@ day_abbr = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 def execute(filters: Filters | None = None) -> tuple:
 	filters = frappe._dict(filters or {})
 
-	if not (filters.month and filters.year):
+	if not filters.filter_based_on:
+		frappe.throw(_("Please select Filter Based On"))
+
+	if filters.filter_based_on == "Month" and not (filters.month and filters.year):
 		frappe.throw(_("Please select month and year."))
+
+	if filters.filter_based_on == "Date Range" and not (filters.start_date and filters.end_date):
+		frappe.throw(_("Please set the date range."))
 
 	if not filters.company:
 		frappe.throw(_("Please select company."))
