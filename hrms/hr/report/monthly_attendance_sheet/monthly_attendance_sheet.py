@@ -16,7 +16,7 @@ from frappe.query_builder.functions import Count, Extract, Sum
 from frappe.utils import cint, cstr, formatdate, getdate
 from frappe.utils.nestedset import get_descendants_of
 
-from hrms.utils import get_date_range
+from hrms.utils import date_diff, get_date_range
 
 Filters = frappe._dict
 
@@ -43,8 +43,13 @@ def execute(filters: Filters | None = None) -> tuple:
 	if filters.filter_based_on == "Month" and not (filters.month and filters.year):
 		frappe.throw(_("Please select month and year."))
 
-	if filters.filter_based_on == "Date Range" and not (filters.start_date and filters.end_date):
-		frappe.throw(_("Please set the date range."))
+	if filters.filter_based_on == "Date Range":
+		if not (filters.start_date and filters.end_date):
+			frappe.throw(_("Please set the date range."))
+		if getdate(filters.start_date) > getdate(filters.end_date):
+			frappe.throw("Start date cannot be greater than end date.")
+		if date_diff(filters.end_date, filters.start_date) > 90:
+			frappe.throw(_("Please set a date range less than 90 days."))
 
 	if not filters.company:
 		frappe.throw(_("Please select company."))
