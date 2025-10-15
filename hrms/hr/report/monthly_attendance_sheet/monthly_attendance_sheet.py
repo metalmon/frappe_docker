@@ -47,7 +47,7 @@ def execute(filters: Filters | None = None) -> tuple:
 		if not (filters.start_date and filters.end_date):
 			frappe.throw(_("Please set the date range."))
 		if getdate(filters.start_date) > getdate(filters.end_date):
-			frappe.throw("Start date cannot be greater than end date.")
+			frappe.throw(_("Start date cannot be greater than end date."))
 		if date_diff(filters.end_date, filters.start_date) > 90:
 			frappe.throw(_("Please set a date range less than 90 days."))
 
