@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-10-12 09:33+0000\n"
-"PO-Revision-Date: 2025-10-14 17:29\n"
+"PO-Revision-Date: 2025-10-15 17:42\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -455,7 +455,7 @@ msgstr "Konto Nummer"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:115
 msgid "Account type should be set {0} for payroll payable account {1}, please set and try again"
-msgstr ""
+msgstr "Kontotyp ska anges som {0} för löneutbetalning konto {1}, ange och försök igen"
 
 #: hrms/overrides/company.py:124
 msgid "Account {0} does not belong to company: {1}"
@@ -7835,7 +7835,7 @@ msgstr "Ogiltiga Datum"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2641
 msgid "Invalid LWP Days Reversed"
-msgstr ""
+msgstr "Ogiltiga Obetalda Frånvaro Dagar Återförda"
 
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.py:25
 msgid "Invalid Leave Ledger Entry"
@@ -8242,7 +8242,7 @@ msgstr "Nyckel Resultat Område"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2638
 msgid "LWP Days Reversed ({0}) does not match actual Payroll Corrections total ({1}) for employee {2} from {3} to {4}"
-msgstr ""
+msgstr "Obetalda Frånvaro Dagar Återförda ({0}) stämmer inte med faktiska totala Lönekorrigeringar ({1}) för {2} från {3} till {4}"
 
 #. Option for the 'Allocate on Day' (Select) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
