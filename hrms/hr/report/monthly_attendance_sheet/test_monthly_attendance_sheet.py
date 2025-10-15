@@ -397,9 +397,32 @@ class TestMonthlyAttendanceSheet(IntegrationTestCase):
 
 	@set_holiday_list("Salary Slip Test Holiday List", "_Test Company")
 	def test_validations(self):
-		# validation error for filters without month and year
-		self.assertRaises(frappe.ValidationError, execute_report_with_invalid_filters)
+		# validation error for filters without filter based on
+		self.assertRaises(
+			frappe.ValidationError, execute_report_with_invalid_filters, invalid_filter_name="filter_based_on"
+		)
 
+		# validation error for filters without month and year
+		self.assertRaises(
+			frappe.ValidationError, execute_report_with_invalid_filters, invalid_filter_name="month"
+		)
+
+		# validation error for filters without start date
+		self.assertRaises(
+			frappe.ValidationError, execute_report_with_invalid_filters, invalid_filter_name="start_date"
+		)
+
+		# validation error for date range greater than 90 days
+		filters = frappe._dict(
+			{
+				"start_date": getdate(),
+				"end_date": add_days(getdate(), 100),
+				"company": self.company,
+				"group_by": "Department",
+				"filter_based_on": "Date Range",
+			}
+		)
+		self.assertRaises(frappe.ValidationError, execute, filters=filters)
 		# execute report without attendance record
 		previous_month_first = get_first_day_for_prev_month()
 
@@ -430,8 +453,19 @@ def get_leave_application(employee):
 	return make_leave_application(employee, from_date, to_date, "_Test Leave Type")
 
 
-def execute_report_with_invalid_filters():
-	filters = frappe._dict({"company": "_Test Company", "group_by": "Department"})
+def execute_report_with_invalid_filters(invalid_filter_name):
+	match invalid_filter_name:
+		case "filter_based_on":
+			filters = frappe._dict({"company": "_Test Company", "group_by": "Department"})
+		case "month":
+			filters = frappe._dict(
+				{"filter_based_on": "Month", "company": "_Test Company", "group_by": "Department"}
+			)
+		case "start_date":
+			filters = frappe._dict(
+				{"filter_based_on": "Date Range", "company": "_Test Company", "group_by": "Department"}
+			)
+
 	execute(filters=filters)
 
 
