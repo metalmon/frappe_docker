@@ -159,8 +159,8 @@ function validate_date_range(report) {
 
 	let start = frappe.datetime.str_to_obj(start_date);
 	let end = frappe.datetime.str_to_obj(end_date);
-	milli_seconds_in_a_day = 24 * 60 * 60 * 1000;
-	day_diff = Math.floor((end - start) / milli_seconds_in_a_day);
+	let milli_seconds_in_a_day = 24 * 60 * 60 * 1000;
+	let day_diff = Math.floor((end - start) / milli_seconds_in_a_day);
 	if (day_diff > 90) {
 		frappe.throw({
 			message: __("Please set a date range less than 90 days."),
