@@ -250,6 +250,7 @@ def get_data(filters: Filters, attendance_map: dict) -> list[dict]:
 			if records:
 				data.append({group_by_column: value})
 				data.extend(records)
+
 	else:
 		data = get_rows(employee_details, filters, holiday_map, attendance_map)
 
@@ -359,7 +360,7 @@ def get_employee_related_details(filters: Filters) -> tuple[dict, list]:
 			Employee.branch,
 			Employee.company,
 			Employee.holiday_list,
-			Extract("day", Employee.date_of_joining).as_("joined_date"),
+			(Employee.date_of_joining).as_("joined_date"),
 			Case()
 			.when(
 				joining_date_condition,
