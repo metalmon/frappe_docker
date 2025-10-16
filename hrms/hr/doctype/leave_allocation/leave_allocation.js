@@ -6,22 +6,7 @@ cur_frm.add_fetch("employee", "employee_name", "employee_name");
 
 frappe.ui.form.on("Leave Allocation", {
 	setup: function (frm) {
-		const df = frappe.meta.get_docfield(
-			"Earned Leave Schedule",
-			"allocation_date",
-			frm.doc.name,
-		);
-		df.formatter = function (value, df, options, row) {
-			if (row.attempted && row.failed) {
-				return `<span class="indicator red">${value}</span>`;
-			} else if (row.attempted && row.is_allocated) {
-				return `<span class="indicator green">${value}</span>`;
-			} else {
-				return value;
-			}
-		};
-
-		frm.refresh_field("earned_leave_schedule");
+		frm.trigger("set_indicator");
 	},
 	onload: function (frm) {
 		// Ignore cancellation of doctype on cancel all.
@@ -117,7 +102,7 @@ frappe.ui.form.on("Leave Allocation", {
 				);
 			}
 		}
-
+		frm.trigger("set_indicator");
 		frm.trigger("toggle_retry_button");
 	},
 
@@ -208,6 +193,23 @@ frappe.ui.form.on("Leave Allocation", {
 				frm.refresh_field("retry_failed_allocations");
 			},
 		});
+	},
+	set_indicator: function (frm) {
+		const df = frappe.meta.get_docfield(
+			"Earned Leave Schedule",
+			"allocation_date",
+			frm.doc.name,
+		);
+		df.formatter = function (value, df, options, row) {
+			if (row.attempted && row.failed) {
+				return `<span class="indicator red">${value}</span>`;
+			} else if (row.attempted && row.is_allocated) {
+				return `<span class="indicator green">${value}</span>`;
+			} else {
+				return value;
+			}
+		};
+		frm.refresh_field("earned_leave_schedule");
 	},
 
 	calculate_total_leaves_allocated: function (frm) {
