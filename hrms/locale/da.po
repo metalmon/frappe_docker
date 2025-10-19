@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-10-12 09:33+0000\n"
-"PO-Revision-Date: 2025-10-14 17:29\n"
+"PO-Revision-Date: 2025-10-19 19:01\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,11 @@ msgstr ""
 
 #: hrms/hr/report/employee_hours_utilization_based_on_timesheet/employee_hours_utilization_based_on_timesheet.py:86
 msgid "% Utilization (B + NB) / T"
-msgstr ""
+msgstr "% Udnyttelse (B + NB) / T"
 
 #: hrms/hr/report/employee_hours_utilization_based_on_timesheet/employee_hours_utilization_based_on_timesheet.py:92
 msgid "% Utilization (B / T)"
-msgstr ""
+msgstr "% Udnyttelse (B / T)"
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:157
 msgid "'employee_field_value' and 'timestamp' are required."
@@ -48,7 +48,7 @@ msgstr ""
 #: hrms/hr/utils.py:246
 #: hrms/payroll/doctype/payroll_period/payroll_period.py:53
 msgid ") for {0}"
-msgstr ""
+msgstr ") for {0}"
 
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.js:54
 msgid "...Fetching Employees"
@@ -378,13 +378,13 @@ msgstr ""
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:687
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Absent"
-msgstr ""
+msgstr "Fraværende"
 
 #. Label of the absent_days (Float) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/payroll/report/salary_register/salary_register.py:180
 msgid "Absent Days"
-msgstr ""
+msgstr "Fraværende Dager"
 
 #: hrms/hr/report/shift_attendance/shift_attendance.py:174
 msgid "Absent Records"
@@ -404,7 +404,7 @@ msgstr "Akademisk Bruger"
 #: hrms/overrides/employee_master.py:64 hrms/overrides/employee_master.py:80
 #: hrms/payroll/doctype/additional_salary/additional_salary.py:118
 msgid "Accepted"
-msgstr ""
+msgstr "Accepteret"
 
 #. Label of the account (Link) field in DocType 'Full and Final Asset'
 #. Label of the account (Link) field in DocType 'Full and Final Outstanding
@@ -426,7 +426,7 @@ msgstr ""
 
 #: hrms/payroll/report/salary_payments_via_ecs/salary_payments_via_ecs.py:56
 msgid "Account No"
-msgstr ""
+msgstr "Kontonummer"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:115
 msgid "Account type should be set {0} for payroll payable account {1}, please set and try again"
@@ -458,13 +458,13 @@ msgstr "Bogføring"
 #. Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Accounting & Payment"
-msgstr ""
+msgstr "Regnskab & Betaling"
 
 #. Label of the accounting_details (Section Break) field in DocType 'Expense
 #. Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Accounting Details"
-msgstr ""
+msgstr "Regnskab Detaljer"
 
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
@@ -501,7 +501,7 @@ msgstr "Bogføring Register"
 #: hrms/hr/workspace/expense_claims/expense_claims.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Accounting Reports"
-msgstr ""
+msgstr "Regnskab Rapporter"
 
 #. Label of the accounts (Table) field in DocType 'Expense Claim Type'
 #. Label of the section_break_5 (Section Break) field in DocType 'Salary
@@ -647,13 +647,13 @@ msgstr "Aktiv"
 #: hrms/hr/doctype/employee_separation/employee_separation.json
 #: hrms/hr/doctype/employee_separation_template/employee_separation_template.json
 msgid "Activities"
-msgstr ""
+msgstr "Aktiviteter"
 
 #. Label of the activity_name (Data) field in DocType 'Employee Boarding
 #. Activity'
 #: hrms/hr/doctype/employee_boarding_activity/employee_boarding_activity.json
 msgid "Activity Name"
-msgstr ""
+msgstr "Aktivitet Navn"
 
 #. Label of a Link in the Shift & Attendance Workspace
 #: hrms/hr/workspace/shift_&_attendance/shift_&_attendance.json
@@ -664,7 +664,7 @@ msgstr "Aktivitet Type"
 #. Proof Submission Detail'
 #: hrms/payroll/doctype/employee_tax_exemption_proof_submission_detail/employee_tax_exemption_proof_submission_detail.json
 msgid "Actual Amount"
-msgstr ""
+msgstr "Faktisk Beløb"
 
 #. Label of the actual_cost (Currency) field in DocType 'Full and Final Asset'
 #: hrms/hr/doctype/full_and_final_asset/full_and_final_asset.json
@@ -869,15 +869,15 @@ msgstr "Forskud"
 #: hrms/hr/doctype/leave_application/leave_application.json
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.json
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: hrms/hr/doctype/goal/goal_tree.js:215
 msgid "All Goals"
-msgstr ""
+msgstr "Alle Mål"
 
 #: hrms/hr/doctype/job_opening/job_opening.py:102
 msgid "All Jobs"
-msgstr ""
+msgstr "Alle Job"
 
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.py:66
 msgid "All allocated assets should be returned before submission"
@@ -891,7 +891,7 @@ msgstr ""
 #. Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
 msgid "Allocate"
-msgstr ""
+msgstr "Tildele"
 
 #. Label of the allocate_based_on_leave_policy (Check) field in DocType 'Leave
 #. Control Panel'
@@ -1160,7 +1160,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.json
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.json
 msgid "Amended From"
-msgstr ""
+msgstr "Ændret Fra"
 
 #. Label of the amount (Currency) field in DocType 'Expense Claim Detail'
 #. Label of the tax_amount (Currency) field in DocType 'Expense Taxes and
@@ -1191,7 +1191,7 @@ msgstr "Beløb"
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:49
 msgid "Amount Based on Formula"
-msgstr ""
+msgstr "Beløb Baseret på Formel"
 
 #. Label of the amount_based_on_formula (Check) field in DocType 'Salary
 #. Component'
@@ -1201,7 +1201,7 @@ msgstr ""
 #: hrms/payroll/doctype/salary_detail/salary_detail.json
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:108
 msgid "Amount based on formula"
-msgstr ""
+msgstr "Beløb Baseret på Formel"
 
 #. Description of the 'Claimed Amount' (Currency) field in DocType 'Employee
 #. Advance'
@@ -1375,7 +1375,7 @@ msgstr "Anvend Filtre"
 #: hrms/templates/generators/job_opening.html:29
 #: hrms/templates/generators/job_opening.html:209
 msgid "Apply Now"
-msgstr ""
+msgstr "Ansøg Nu"
 
 #. Label of the applicable_for_public_holiday (Check) field in DocType
 #. 'Overtime Type'
@@ -1981,39 +1981,39 @@ msgstr ""
 
 #: hrms/payroll/report/salary_payments_via_ecs/salary_payments_via_ecs.py:55
 msgid "Bank"
-msgstr ""
+msgstr "Bank"
 
 #. Label of the bank_account (Link) field in DocType 'Payroll Entry'
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
 msgid "Bank Account"
-msgstr ""
+msgstr "Bank Konto"
 
 #. Label of the bank_account_no (Data) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Bank Account No"
-msgstr ""
+msgstr "Bank Konto Nummer"
 
 #. Label of the section_break_75 (Tab Break) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Bank Details"
-msgstr ""
+msgstr "Bank Detaljer"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.js:156
 msgid "Bank Entries"
-msgstr ""
+msgstr "Bank Poster"
 
 #. Label of the bank_name (Data) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 #: hrms/payroll/report/bank_remittance/bank_remittance.py:38
 msgid "Bank Name"
-msgstr ""
+msgstr "Bank Navn"
 
 #. Name of a report
 #. Label of a Link in the Salary Payout Workspace
 #: hrms/payroll/report/bank_remittance/bank_remittance.json
 #: hrms/payroll/workspace/salary_payout/salary_payout.json
 msgid "Bank Remittance"
-msgstr ""
+msgstr "Bank Överførsel"
 
 #. Label of the base (Currency) field in DocType 'Salary Structure Assignment'
 #: hrms/payroll/doctype/bulk_salary_structure_assignment/bulk_salary_structure_assignment.js:180
@@ -2089,15 +2089,15 @@ msgstr ""
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.json
 #: hrms/payroll/workspace/tax_&_benefits/tax_&_benefits.json
 msgid "Benefits"
-msgstr ""
+msgstr "Fordele"
 
 #: hrms/hr/report/project_profitability/project_profitability.py:169
 msgid "Bill Amount"
-msgstr ""
+msgstr "Faktura Beløb"
 
 #: hrms/hr/report/employee_hours_utilization_based_on_timesheet/employee_hours_utilization_based_on_timesheet.py:249
 msgid "Billed Hours"
-msgstr ""
+msgstr "Fakturerede Timer"
 
 #: hrms/hr/report/employee_hours_utilization_based_on_timesheet/employee_hours_utilization_based_on_timesheet.py:68
 msgid "Billed Hours (B)"
@@ -2392,7 +2392,7 @@ msgstr ""
 #. Option for the 'Type' (Select) field in DocType 'Vehicle Service'
 #: hrms/hr/doctype/vehicle_service/vehicle_service.json
 msgid "Change"
-msgstr ""
+msgstr "Ændre"
 
 #: hrms/hr/doctype/attendance_request/attendance_request.py:105
 msgid "Changed the status from {0} to {1} and Status for Other Half to {2} via Attendance Request"
