@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-10-12 09:33+0000\n"
-"PO-Revision-Date: 2025-10-14 17:30\n"
+"PO-Revision-Date: 2025-10-20 19:08\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -1732,7 +1732,7 @@ msgstr ""
 #: hrms/payroll/doctype/employee_benefit_claim/employee_benefit_claim.json
 #: hrms/payroll/doctype/employee_tax_exemption_proof_submission/employee_tax_exemption_proof_submission.json
 msgid "Attachments"
-msgstr "پیوست ها"
+msgstr "پیوست‌ها"
 
 #. Name of a DocType
 #. Label of the attendance (Select) field in DocType 'Training Event Employee'
@@ -6138,7 +6138,7 @@ msgstr "نام فیلد"
 
 #: frontend/src/components/FilePreviewModal.vue:4
 msgid "File Preview"
-msgstr "پیش نمایش فایل"
+msgstr "پیش‌نمایش فایل"
 
 #: hrms/hr/doctype/leave_application/leave_application.js:99
 #: hrms/hr/doctype/leave_encashment/leave_encashment.js:50
@@ -9940,7 +9940,7 @@ msgstr "فقط مصاحبه هایی با وضعیت پاک شده یا رد ش�
 
 #: hrms/hr/doctype/leave_application/leave_application.py:103
 msgid "Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"
-msgstr "فقط برنامه های کاربردی با وضعیت \"تأیید شده\" و \"رد شده\" قابل ارسال هستند"
+msgstr "فقط برنامه‌های کاربردی با وضعیت \"تأیید شده\" و \"رد شده\" قابل ارسال هستند"
 
 #: hrms/hr/doctype/shift_request/shift_request.py:46
 msgid "Only Shift Request with status 'Approved' and 'Rejected' can be submitted"
@@ -11079,7 +11079,7 @@ msgstr "جلوگیری از خود تأییدی درخواست‌های مرخص
 #: hrms/payroll/doctype/salary_structure/salary_structure.js:193
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.js:73
 msgid "Preview Salary Slip"
-msgstr "پیش نمایش فیش حقوقی"
+msgstr "پیش‌نمایش فیش حقوقی"
 
 #. Label of the principal_amount (Currency) field in DocType 'Salary Slip Loan'
 #: hrms/payroll/doctype/salary_slip_loan/salary_slip_loan.json
@@ -13942,7 +13942,7 @@ msgstr "هیچ ساختار حقوقی به {0} اختصاص داده نشده �
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:392
 msgid "There's no Employee with Salary Structure: {0}. Assign {1} to an Employee to preview Salary Slip"
-msgstr "هیچ کارمندی با ساختار حقوق و دستمزد وجود ندارد: {0}. برای پیش نمایش فیش حقوقی، {1} را به یک کارمند اختصاص دهید"
+msgstr "هیچ کارمندی با ساختار حقوق و دستمزد وجود ندارد: {0}. برای پیش‌نمایش فیش حقوقی، {1} را به یک کارمند اختصاص دهید"
 
 #. Description of the 'Is Optional Leave' (Check) field in DocType 'Leave Type'
 #: hrms/hr/doctype/leave_type/leave_type.json
