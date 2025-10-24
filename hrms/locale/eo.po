@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
-"POT-Creation-Date: 2025-10-12 09:33+0000\n"
-"PO-Revision-Date: 2025-10-14 17:30\n"
+"POT-Creation-Date: 2025-10-19 09:34+0000\n"
+"PO-Revision-Date: 2025-10-23 19:47\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Esperanto\n"
 "MIME-Version: 1.0\n"
@@ -375,7 +375,7 @@ msgstr "crwdns140858:0crwdne140858:0"
 #: hrms/hr/doctype/attendance/attendance.json
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.json
 #: hrms/hr/doctype/training_event_employee/training_event_employee.json
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:687
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:732
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Absent"
 msgstr "crwdns140860:0crwdne140860:0"
@@ -1571,7 +1571,7 @@ msgstr "crwdns141002:0crwdne141002:0"
 msgid "Approvers"
 msgstr "crwdns148888:0crwdne148888:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:15
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:39
 #: hrms/public/js/salary_slip_deductions_report_filters.js:22
 msgid "Apr"
 msgstr "crwdns105292:0crwdne105292:0"
@@ -1793,6 +1793,7 @@ msgstr "crwdns105354:0crwdne105354:0"
 #. Name of a DocType
 #. Label of a Link in the Overview Workspace
 #. Label of a Link in the Shift & Attendance Workspace
+#: hrms/hr/doctype/attendance/attendance.js:18
 #: hrms/hr/doctype/attendance/attendance.json
 #: hrms/hr/doctype/attendance_request/attendance_request.json
 #: hrms/hr/workspace/overview/overview.json
@@ -1895,7 +1896,7 @@ msgstr "crwdns141054:0crwdne141054:0"
 msgid "Attrition Count"
 msgstr "crwdns105396:0crwdne105396:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:19
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:43
 #: hrms/public/js/salary_slip_deductions_report_filters.js:26
 msgid "Aug"
 msgstr "crwdns105398:0crwdne105398:0"
@@ -2730,7 +2731,7 @@ msgstr "crwdns105658:0crwdne105658:0"
 #: hrms/hr/report/employees_working_on_a_holiday/employees_working_on_a_holiday.js:34
 #: hrms/hr/report/leave_ledger/leave_ledger.js:46
 #: hrms/hr/report/leave_ledger/leave_ledger.py:103
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:49
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:88
 #: hrms/hr/report/project_profitability/project_profitability.js:9
 #: hrms/hr/report/recruitment_analytics/recruitment_analytics.js:9
 #: hrms/hr/report/shift_attendance/shift_attendance.js:40
@@ -3044,6 +3045,7 @@ msgstr "crwdns141216:0crwdne141216:0"
 
 #. Option for the 'Overtime Slip Step' (Select) field in DocType 'Payroll
 #. Entry'
+#: hrms/hr/doctype/attendance/attendance.js:26
 #: hrms/hr/doctype/employee_advance/employee_advance.js:55
 #: hrms/hr/doctype/employee_advance/employee_advance.js:67
 #: hrms/hr/doctype/employee_advance/employee_advance.js:84
@@ -3434,6 +3436,10 @@ msgstr "crwdns141258:0crwdne141258:0"
 msgid "Date Range"
 msgstr "crwdns106066:0crwdne106066:0"
 
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:167
+msgid "Date Range Exceeded"
+msgstr "crwdns160440:0crwdne160440:0"
+
 #: hrms/hr/doctype/leave_block_list/leave_block_list.py:19
 msgid "Date is repeated"
 msgstr "crwdns106068:0crwdne106068:0"
@@ -3496,7 +3502,7 @@ msgstr "crwdns159496:0crwdne159496:0"
 msgid "Debit A/C Number"
 msgstr "crwdns106090:0crwdne106090:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:23
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:47
 #: hrms/public/js/salary_slip_deductions_report_filters.js:30
 msgid "Dec"
 msgstr "crwdns106092:0crwdne106092:0"
@@ -4456,8 +4462,8 @@ msgstr "crwdns141362:0crwdne141362:0"
 #: hrms/hr/report/employees_working_on_a_holiday/employees_working_on_a_holiday.py:23
 #: hrms/hr/report/leave_ledger/leave_ledger.js:28
 #: hrms/hr/report/leave_ledger/leave_ledger.py:28
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:35
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:112
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:74
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:129
 #: hrms/hr/report/project_profitability/project_profitability.js:37
 #: hrms/hr/report/project_profitability/project_profitability.py:140
 #: hrms/hr/report/shift_attendance/shift_attendance.js:22
@@ -4896,7 +4902,7 @@ msgstr "crwdns148896:0crwdne148896:0"
 #: hrms/hr/report/employee_leave_balance_summary/employee_leave_balance_summary.py:23
 #: hrms/hr/report/employees_working_on_a_holiday/employees_working_on_a_holiday.py:30
 #: hrms/hr/report/leave_ledger/leave_ledger.py:35
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:118
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:135
 #: hrms/hr/report/project_profitability/project_profitability.py:145
 #: hrms/hr/report/shift_attendance/shift_attendance.py:31
 #: hrms/hr/report/unpaid_expense_claim/unpaid_expense_claim.py:19
@@ -5408,6 +5414,7 @@ msgstr "crwdns106966:0crwdne106966:0"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 #: hrms/hr/doctype/shift_assignment/shift_assignment.json
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.json
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:61
 #: hrms/hr/report/project_profitability/project_profitability.js:24
 #: hrms/hr/report/project_profitability/project_profitability.py:202
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -5532,7 +5539,7 @@ msgstr "crwdns159532:0crwdne159532:0"
 msgid "Error in formula or condition"
 msgstr "crwdns107014:0crwdne107014:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2530
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2532
 msgid "Error in formula or condition: {0} in Income Tax Slab"
 msgstr "crwdns107016:0{0}crwdne107016:0"
 
@@ -5544,7 +5551,7 @@ msgstr "crwdns141420:0crwdne141420:0"
 msgid "Error updating {0}"
 msgstr "crwdns151218:0{0}crwdne151218:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2609
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2611
 msgid "Error while evaluating the {doctype} {doclink} at row {row_id}. <br><br> <b>Error:</b> {error} <br><br> <b>Hint:</b> {description}"
 msgstr "crwdns107018:0{doctype}crwdnd107018:0{doclink}crwdnd107018:0{row_id}crwdnd107018:0{error}crwdnd107018:0{description}crwdne107018:0"
 
@@ -6030,7 +6037,7 @@ msgstr "crwdns141492:0crwdne141492:0"
 msgid "Failure Details"
 msgstr "crwdns141494:0crwdne141494:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:13
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:37
 #: hrms/public/js/salary_slip_deductions_report_filters.js:20
 msgid "Feb"
 msgstr "crwdns107204:0crwdne107204:0"
@@ -6150,6 +6157,7 @@ msgstr "crwdns107242:0crwdne107242:0"
 msgid "Filled"
 msgstr "crwdns141512:0crwdne141512:0"
 
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:8
 #: hrms/hr/report/vehicle_expenses/vehicle_expenses.js:7
 msgid "Filter Based On"
 msgstr "crwdns107246:0crwdne107246:0"
@@ -6806,7 +6814,7 @@ msgstr "crwdns141598:0crwdne141598:0"
 msgid "Group"
 msgstr "crwdns107496:0crwdne107496:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:57
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:96
 msgid "Group By"
 msgstr "crwdns107498:0crwdne107498:0"
 
@@ -7434,7 +7442,7 @@ msgstr "crwdns141676:0crwdne141676:0"
 msgid "Incentives"
 msgstr "crwdns107698:0crwdne107698:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:63
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:102
 msgid "Include Company Descendants"
 msgstr "crwdns148752:0crwdne148752:0"
 
@@ -7805,7 +7813,7 @@ msgstr "crwdns151884:0crwdne151884:0"
 msgid "Invalid Dates"
 msgstr "crwdns151982:0crwdne151982:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2641
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2643
 msgid "Invalid LWP Days Reversed"
 msgstr "crwdns160264:0crwdne160264:0"
 
@@ -7976,7 +7984,7 @@ msgstr "crwdns143268:0crwdne143268:0"
 msgid "Is Tax Applicable"
 msgstr "crwdns141758:0crwdne141758:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:12
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:36
 #: hrms/public/js/salary_slip_deductions_report_filters.js:19
 msgid "Jan"
 msgstr "crwdns107906:0crwdne107906:0"
@@ -8146,12 +8154,12 @@ msgstr "crwdns141768:0crwdne141768:0"
 msgid "Journal Entry"
 msgstr "crwdns141770:0crwdne141770:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:18
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:42
 #: hrms/public/js/salary_slip_deductions_report_filters.js:25
 msgid "July"
 msgstr "crwdns107992:0crwdne107992:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:17
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:41
 #: hrms/public/js/salary_slip_deductions_report_filters.js:24
 msgid "June"
 msgstr "crwdns107994:0crwdne107994:0"
@@ -8212,7 +8220,7 @@ msgstr "crwdns141778:0crwdne141778:0"
 msgid "Key Result Area"
 msgstr "crwdns141780:0crwdne141780:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2638
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2640
 msgid "LWP Days Reversed ({0}) does not match actual Payroll Corrections total ({1}) for employee {2} from {3} to {4}"
 msgstr "crwdns160266:0{0}crwdnd160266:0{1}crwdnd160266:0{2}crwdnd160266:0{3}crwdnd160266:0{4}crwdne160266:0"
 
@@ -8290,7 +8298,7 @@ msgstr "crwdns151248:0{0}crwdne151248:0"
 
 #. Option for the 'Calculate Payroll Working Days Based On' (Select) field in
 #. DocType 'Payroll Settings'
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:689
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:734
 #: hrms/overrides/dashboard_overrides.py:12
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Leave"
@@ -8920,7 +8928,7 @@ msgstr "crwdns141866:0crwdne141866:0"
 msgid "Manual Rating"
 msgstr "crwdns141868:0crwdne141868:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:14
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:38
 #: hrms/public/js/salary_slip_deductions_report_filters.js:21
 msgid "Mar"
 msgstr "crwdns108308:0crwdne108308:0"
@@ -9126,7 +9134,7 @@ msgstr "crwdns108384:0{0}crwdnd108384:0{1}crwdne108384:0"
 msgid "Maximum leave allowed in the leave type {0} is {1}"
 msgstr "crwdns108386:0{0}crwdnd108386:0{1}crwdne108386:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:16
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:40
 #: hrms/public/js/salary_slip_deductions_report_filters.js:23
 msgid "May"
 msgstr "crwdns108388:0crwdne108388:0"
@@ -9249,7 +9257,7 @@ msgstr "crwdns108428:0crwdne108428:0"
 #. Option for the 'Salary Paid Per' (Select) field in DocType 'Job Opening'
 #: hrms/hr/doctype/job_opening/job_opening.json
 #: hrms/hr/report/employee_birthday/employee_birthday.js:8
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:8
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:33
 #: hrms/public/js/salary_slip_deductions_report_filters.js:15
 msgid "Month"
 msgstr "crwdns108430:0crwdne108430:0"
@@ -9357,7 +9365,7 @@ msgid "Name"
 msgstr "crwdns108466:0crwdne108466:0"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:1306
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2525
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2527
 msgid "Name error"
 msgstr "crwdns108470:0crwdne108470:0"
 
@@ -9584,11 +9592,11 @@ msgstr "crwdns159604:0crwdne159604:0"
 msgid "No attendance records found for employee {0} between {1} and {2}"
 msgstr "crwdns159606:0{0}crwdnd159606:0{1}crwdnd159606:0{2}crwdne159606:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:54
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:71
 msgid "No attendance records found for this criteria."
 msgstr "crwdns108540:0crwdne108540:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:47
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:64
 msgid "No attendance records found."
 msgstr "crwdns108542:0crwdne108542:0"
 
@@ -9752,7 +9760,7 @@ msgstr "crwdns141988:0crwdne141988:0"
 msgid "Note: Total allocated leaves {0} shouldn't be less than already approved leaves {1} for the period"
 msgstr "crwdns108590:0{0}crwdnd108590:0{1}crwdne108590:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2167
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2169
 msgid "Note: Your salary slip is password protected, the password to unlock the PDF is of the format {0}."
 msgstr "crwdns141990:0{0}crwdne141990:0"
 
@@ -9788,7 +9796,7 @@ msgstr "crwdns151292:0crwdne151292:0"
 msgid "Notify users by email"
 msgstr "crwdns141994:0crwdne141994:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:22
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:46
 #: hrms/public/js/salary_slip_deductions_report_filters.js:29
 msgid "Nov"
 msgstr "crwdns108604:0crwdne108604:0"
@@ -9834,7 +9842,7 @@ msgstr "crwdns142002:0crwdne142002:0"
 msgid "Obtained Average Rating"
 msgstr "crwdns142004:0crwdne142004:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:21
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:45
 #: hrms/public/js/salary_slip_deductions_report_filters.js:28
 msgid "Oct"
 msgstr "crwdns108616:0crwdne108616:0"
@@ -10779,7 +10787,7 @@ msgstr "crwdns159666:0crwdne159666:0"
 msgid "Please reduce {0} to avoid shift time overlapping with itself"
 msgstr "crwdns152559:0{0}crwdne152559:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2156
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2158
 msgid "Please see attachment"
 msgstr "crwdns142108:0crwdne142108:0"
 
@@ -10795,6 +10803,10 @@ msgstr "crwdns108960:0crwdne108960:0"
 #: hrms/hr/employee_property_update.js:45
 msgid "Please select Employee first."
 msgstr "crwdns108962:0crwdne108962:0"
+
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:41
+msgid "Please select Filter Based On"
+msgstr "crwdns160442:0crwdne160442:0"
 
 #: hrms/payroll/doctype/salary_withholding/salary_withholding.js:25
 msgid "Please select From Date and Payroll Frequency first"
@@ -10849,7 +10861,7 @@ msgstr "crwdns142116:0crwdne142116:0"
 msgid "Please select at least one row to perform this action."
 msgstr "crwdns142118:0crwdne142118:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:38
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:55
 msgid "Please select company."
 msgstr "crwdns151922:0crwdne151922:0"
 
@@ -10866,7 +10878,7 @@ msgstr "crwdns108978:0crwdne108978:0"
 msgid "Please select half day attendance status."
 msgstr "crwdns155424:0crwdne155424:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:35
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:44
 msgid "Please select month and year."
 msgstr "crwdns108980:0crwdne108980:0"
 
@@ -10915,6 +10927,11 @@ msgstr "crwdns109000:0{0}crwdne109000:0"
 msgid "Please set a Default Cash Account in Company defaults"
 msgstr "crwdns109002:0crwdne109002:0"
 
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:166
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:52
+msgid "Please set a date range less than 90 days."
+msgstr "crwdns160444:0crwdne160444:0"
+
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:354
 msgid "Please set account in Salary Component {0}"
 msgstr "crwdns109004:0{0}crwdne109004:0"
@@ -10942,6 +10959,10 @@ msgstr "crwdns109014:0{0}crwdne109014:0"
 #: hrms/controllers/employee_boarding_controller.py:110
 msgid "Please set the Holiday List."
 msgstr "crwdns109016:0crwdne109016:0"
+
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:48
+msgid "Please set the date range."
+msgstr "crwdns160446:0crwdne160446:0"
 
 #: hrms/hr/doctype/exit_interview/exit_interview.js:21
 #: hrms/hr/doctype/exit_interview/exit_interview.py:21
@@ -11054,7 +11075,7 @@ msgstr "crwdns142124:0crwdne142124:0"
 #: hrms/hr/doctype/attendance/attendance.json
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.json
 #: hrms/hr/doctype/training_event_employee/training_event_employee.json
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:688
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:733
 #: hrms/payroll/doctype/payroll_settings/payroll_settings.json
 msgid "Present"
 msgstr "crwdns142126:0crwdne142126:0"
@@ -12444,7 +12465,7 @@ msgstr "crwdns159696:0crwdne159696:0"
 msgid "Salary components should be part of the Salary Structure."
 msgstr "crwdns142346:0crwdne142346:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2705
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2707
 msgid "Salary slip emails have been enqueued for sending. Check {0} for status."
 msgstr "crwdns109534:0{0}crwdne109534:0"
 
@@ -12742,7 +12763,7 @@ msgstr "crwdns142384:0crwdne142384:0"
 msgid "Sent Successfully: {0}"
 msgstr "crwdns148496:0{0}crwdne148496:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:20
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:44
 #: hrms/public/js/salary_slip_deductions_report_filters.js:27
 msgid "Sep"
 msgstr "crwdns109642:0crwdne109642:0"
@@ -12919,7 +12940,7 @@ msgstr "crwdns155426:0{0}crwdne155426:0"
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.js:173
 #: hrms/hr/doctype/employee_attendance_tool/employee_attendance_tool.json
 #: hrms/hr/doctype/employee_checkin/employee_checkin.json
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:165
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:182
 #: hrms/hr/report/shift_attendance/shift_attendance.py:36
 #: hrms/hr/report/shift_attendance/shift_attendance.py:205
 #: hrms/overrides/dashboard_overrides.py:33
@@ -13320,6 +13341,7 @@ msgstr "crwdns109832:0crwdne109832:0"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.json
 #: hrms/hr/doctype/shift_assignment/shift_assignment.json
 #: hrms/hr/doctype/shift_assignment_tool/shift_assignment_tool.json
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:54
 #: hrms/hr/report/project_profitability/project_profitability.js:17
 #: hrms/hr/report/project_profitability/project_profitability.py:201
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.json
@@ -13346,6 +13368,10 @@ msgstr "crwdns109860:0{0}crwdne109860:0"
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:27
 msgid "Start date cannot be greater than end date"
 msgstr "crwdns159714:0crwdne159714:0"
+
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:50
+msgid "Start date cannot be greater than end date."
+msgstr "crwdns160448:0crwdne160448:0"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:236
 msgid "Start date: {0}"
@@ -13590,7 +13616,7 @@ msgstr "crwdns142486:0crwdne142486:0"
 msgid "Sum of benefit amounts {0} exceeds maximum limit of {1}"
 msgstr "crwdns159720:0{0}crwdnd159720:0{1}crwdne159720:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:69
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:108
 msgid "Summarized View"
 msgstr "crwdns109978:0crwdne109978:0"
 
@@ -13622,7 +13648,7 @@ msgstr "crwdns142490:0{0}crwdne142490:0"
 msgid "Syntax error"
 msgstr "crwdns109990:0crwdne109990:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2528
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2530
 msgid "Syntax error in condition: {0} in Income Tax Slab"
 msgstr "crwdns109992:0{0}crwdne109992:0"
 
@@ -14211,7 +14237,7 @@ msgstr "crwdns148562:0{0}crwdnd148562:0{1}crwdne148562:0"
 msgid "Total"
 msgstr "crwdns110206:0crwdne110206:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:132
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:149
 msgid "Total Absent"
 msgstr "crwdns110210:0crwdne110210:0"
 
@@ -14305,7 +14331,7 @@ msgstr "crwdns110234:0crwdne110234:0"
 msgid "Total Deduction (Company Currency)"
 msgstr "crwdns142584:0crwdne142584:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:157
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:174
 msgid "Total Early Exits"
 msgstr "crwdns110242:0crwdne110242:0"
 
@@ -14358,7 +14384,7 @@ msgstr "crwdns142596:0crwdne142596:0"
 msgid "Total Gross Pay"
 msgstr "crwdns110258:0crwdne110258:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:134
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:151
 msgid "Total Holidays"
 msgstr "crwdns110260:0crwdne110260:0"
 
@@ -14375,7 +14401,7 @@ msgstr "crwdns142598:0crwdne142598:0"
 msgid "Total Interest Amount"
 msgstr "crwdns148922:0crwdne148922:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:151
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:168
 msgid "Total Late Entries"
 msgstr "crwdns110266:0crwdne110266:0"
 
@@ -14384,7 +14410,7 @@ msgstr "crwdns110266:0crwdne110266:0"
 msgid "Total Leave Days"
 msgstr "crwdns142600:0crwdne142600:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:131
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:148
 msgid "Total Leaves"
 msgstr "crwdns110270:0crwdne110270:0"
 
@@ -14437,7 +14463,7 @@ msgstr "crwdns142610:0crwdne142610:0"
 msgid "Total Payout"
 msgstr "crwdns159728:0crwdne159728:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:126
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:143
 msgid "Total Present"
 msgstr "crwdns110284:0crwdne110284:0"
 
@@ -14823,7 +14849,7 @@ msgstr "crwdns110450:0crwdne110450:0"
 msgid "Unmarked Check-in Logs Found"
 msgstr "crwdns152412:0crwdne152412:0"
 
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:140
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:157
 #: hrms/public/js/templates/employees_with_unmarked_attendance.html:19
 msgid "Unmarked Days"
 msgstr "crwdns110452:0crwdne110452:0"
@@ -15377,7 +15403,7 @@ msgstr "crwdns142744:0crwdne142744:0"
 
 #. Option for the 'Salary Paid Per' (Select) field in DocType 'Job Opening'
 #: hrms/hr/doctype/job_opening/job_opening.json
-#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:29
+#: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:68
 #: hrms/public/js/salary_slip_deductions_report_filters.js:36
 msgid "Year"
 msgstr "crwdns110658:0crwdne110658:0"
@@ -15602,7 +15628,7 @@ msgstr "crwdns151392:0{0}crwdnd151392:0{1}crwdne151392:0"
 msgid "{0} : {1}"
 msgstr "crwdns159744:0{0}crwdnd159744:0{1}crwdne159744:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2524
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2526
 msgid "{0} <br> This error can be due to missing or deleted field."
 msgstr "crwdns110718:0{0}crwdne110718:0"
 
@@ -15749,7 +15775,7 @@ msgstr "crwdns142780:0{0}crwdnd142780:0{1}crwdne142780:0"
 msgid "{0} {1} {2}?"
 msgstr "crwdns110760:0{0}crwdnd110760:0{1}crwdnd110760:0{2}crwdne110760:0"
 
-#: hrms/payroll/doctype/salary_slip/salary_slip.py:2188
+#: hrms/payroll/doctype/salary_slip/salary_slip.py:2190
 msgid "{0}: Employee email not found, hence email not sent"
 msgstr "crwdns110762:0{0}crwdne110762:0"
 
