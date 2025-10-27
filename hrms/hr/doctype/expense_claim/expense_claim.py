@@ -407,7 +407,7 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 		for f in fields:
 			if doc.get(f):
 				val = flt(
-					flt(doc.get(f), doc.precision(f)) * self.exchange_rate or exchange_rate,
+					flt(doc.get(f), doc.precision(f)) * (exchange_rate if exchange_rate else self.exchange_rate),
 					doc.precision("base_" + f),
 				)
 				doc.set("base_" + f, val)
@@ -467,7 +467,7 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 
 			self.total_advance_amount += flt(d.allocated_amount)
 			self.set_base_fields_amount(d, ["advance_paid", "unclaimed_amount"], d.exchange_rate)
-			self.set_base_fields_amount(d, ["allocated_amount"], d.exchange_rate)
+			self.set_base_fields_amount(d, ["allocated_amount"])
 
 		if self.total_advance_amount:
 			self.round_floats_in(self, ["total_advance_amount"])

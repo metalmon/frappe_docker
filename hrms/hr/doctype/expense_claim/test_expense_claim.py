@@ -59,13 +59,13 @@ class TestExpenseClaim(HRMSTestSuite):
 
 		payable_account = get_payable_account(company_name)
 
-		make_expense_claim(payable_account, 300, 200, company_name, "Travel Expenses - _TC3", project, task)
+		make_expense_claim(payable_account, 300, 200, company_name, "Travel Expenses - _TC3", project=project, task_name=task)
 
 		self.assertEqual(frappe.db.get_value("Task", task, "total_expense_claim"), 200)
 		self.assertEqual(frappe.db.get_value("Project", project, "total_expense_claim"), 200)
 
 		expense_claim2 = make_expense_claim(
-			payable_account, 600, 500, company_name, "Travel Expenses - _TC3", project, task
+			payable_account, 600, 500, company_name, "Travel Expenses - _TC3", project=project, task_name=task
 		)
 
 		self.assertEqual(frappe.db.get_value("Task", task, "total_expense_claim"), 700)
@@ -105,7 +105,7 @@ class TestExpenseClaim(HRMSTestSuite):
 
 		expense_claim = make_expense_claim(payable_account, 300, 200, company_name, "Travel Expenses - _TC3")
 
-		pe = make_payment_entry(expense_claim, 200)
+		pe = make_claim_payment_entry(expense_claim, 200)
 
 		expense_claim.load_from_db()
 		self.assertEqual(expense_claim.status, "Paid")
@@ -256,7 +256,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(claim.status, "Unpaid")
 
 		# reimburse remaning amount
-		make_payment_entry(claim, 500)
+		make_claim_payment_entry(claim, 500)
 		claim.reload()
 
 		self.assertEqual(claim.total_amount_reimbursed, 500)
@@ -447,7 +447,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		expense_claim.submit()
 
 		# Payment entry 1: paying 500
-		pe1 = make_payment_entry(expense_claim, 500)
+		pe1 = make_claim_payment_entry(expense_claim, 500)
 		pe1.reload()
 		self.assertEqual(pe1.references[0].outstanding_amount, 5000)
 
@@ -457,7 +457,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(expense_claim.total_amount_reimbursed, 500)
 
 		# Payment entry 2: paying 2000
-		pe2 = make_payment_entry(expense_claim, 2000)
+		pe2 = make_claim_payment_entry(expense_claim, 2000)
 		pe2.reload()
 		self.assertEqual(pe2.references[0].outstanding_amount, 3000)
 
@@ -467,7 +467,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(expense_claim.total_amount_reimbursed, 2500)
 
 		# Payment entry 3: paying 3000
-		pe3 = make_payment_entry(expense_claim, 3000)
+		pe3 = make_claim_payment_entry(expense_claim, 3000)
 		pe3.reload()
 		self.assertEqual(pe3.references[0].outstanding_amount, 0)
 
@@ -558,7 +558,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(expense_claim.total_taxes_and_charges, 9.16)
 		self.assertEqual(expense_claim.grand_total, 140)
 
-		pe = make_payment_entry(expense_claim, 140)
+		pe = make_claim_payment_entry(expense_claim, 140)
 
 		expense_claim.reload()
 		self.assertEqual(expense_claim.status, "Paid")
@@ -701,6 +701,157 @@ class TestExpenseClaim(HRMSTestSuite):
 
 		self.assertEqual(1, expense_claim.docstatus)
 
+	def test_multicurrency_claim(self):
+		from hrms.hr.doctype.employee_advance.test_employee_advance import (
+			create_advance_account,
+			get_advances_for_claim,
+			make_employee_advance,
+			make_payment_entry,
+		)
+		advance_account = create_advance_account("Employee Advance (USD)", "USD")
+		employee = make_employee(
+			"test_adv_in_multicurrency@example.com",
+			"_Test Company",
+			salary_currency="USD",
+			employee_advance_account=advance_account
+		)
+		advance = make_employee_advance(employee)
+		self.assertEqual(advance.status, "Unpaid")
+
+		payment_entry = make_payment_entry(advance, advance.advance_amount)
+		advance.reload()
+		self.assertEqual(advance.status, "Paid")
+		self.assertEqual(payment_entry.transaction_exchange_rate, advance.exchange_rate)
+		self.assertEqual(payment_entry.received_amount, advance.paid_amount)
+
+		expected_base_paid = flt(advance.paid_amount * payment_entry.transaction_exchange_rate, advance.precision("base_paid_amount"))
+		self.assertEqual(advance.base_paid_amount, expected_base_paid)
+		self.assertEqual(payment_entry.paid_amount, expected_base_paid)
+
+		payable_account = create_account(
+			account_name="Payroll Payable (USD)",
+			parent_account="Accounts Payable - _TC",
+			company="_Test Company",
+			account_currency="USD",
+			account_type="Payable",
+		)
+		claim_account = create_account(
+			account_name="Travel Expenses (USD)",
+			parent_account="Indirect Expenses - _TC",
+			company="_Test Company",
+			account_currency="USD",
+		)
+		claim = make_expense_claim(
+			payable_account,
+			advance.advance_amount,
+			advance.advance_amount,
+			"_Test Company",
+			claim_account,
+			args={"currency": advance.currency, "exchange_rate":advance.exchange_rate},
+			employee=employee,
+			do_not_submit=True,
+		)
+
+		claim = get_advances_for_claim(claim, advance.name)
+		claim.save().submit()
+		claim.reload()
+		advance.reload()
+		self.assertEqual(claim.status, "Paid")
+		self.assertEqual(claim.currency, advance.currency)
+		self.assertEqual(advance.status, "Claimed")
+		self.assertEqual(claim.total_sanctioned_amount, advance.advance_amount)
+		self.assertEqual(claim.exchange_rate, advance.exchange_rate)
+
+		for expense in claim.expenses:
+			base_amount = flt(expense.amount*claim.exchange_rate, expense.precision("base_amount"))
+			base_sanctioned = flt(expense.sanctioned_amount*claim.exchange_rate, expense.precision("base_sanctioned_amount"))
+			self.assertEqual(expense.base_amount, base_amount)
+			self.assertEqual(expense.base_sanctioned_amount, base_sanctioned)
+
+		for claim_advance in claim.advances:
+			base_advance_paid = flt(claim_advance.advance_paid * claim_advance.exchange_rate, claim_advance.precision("base_advance_paid"))
+			base_unclaimed_amount = flt(claim_advance.unclaimed_amount * claim_advance.exchange_rate, claim_advance.precision("base_unclaimed_amount"))
+			base_allocated_amount = flt(claim_advance.allocated_amount * claim_advance.exchange_rate, claim_advance.precision("base_allocated_amount"))
+			self.assertEqual(claim_advance.base_advance_paid, base_advance_paid)
+			self.assertEqual(claim_advance.base_unclaimed_amount, base_unclaimed_amount)
+			self.assertEqual(claim_advance.base_allocated_amount, base_allocated_amount)
+			self.assertEqual(claim_advance.exchange_rate, advance.exchange_rate)
+
+		total_base_sanctioned = flt(claim.total_sanctioned_amount * claim.exchange_rate, claim.precision("base_total_sanctioned_amount"))
+		total_advance_amount = flt(claim.total_advance_amount * claim.exchange_rate, claim.precision("base_total_advance_amount"))
+		grand_total = flt(claim.grand_total * claim.exchange_rate, claim.precision("base_grand_total"))
+		total_claimed_amount = flt(claim.total_claimed_amount * claim.exchange_rate, claim.precision("base_total_claimed_amount"))
+		self.assertEqual(claim.base_total_sanctioned_amount, total_base_sanctioned)
+		self.assertEqual(claim.base_total_advance_amount, total_advance_amount)
+		self.assertEqual(claim.base_grand_total, grand_total)
+		self.assertEqual(claim.base_total_claimed_amount, total_claimed_amount)
+		self.assertEqual(claim.total_exchange_gain_loss, 0)
+
+	def test_advance_claim_multicurrency_gain_loss(self):
+		from hrms.hr.doctype.employee_advance.test_employee_advance import (
+			create_advance_account,
+			get_advances_for_claim,
+			make_employee_advance,
+			make_payment_entry,
+		)
+		advance_account = create_advance_account("Employee Advance (USD)", "USD")
+		employee = make_employee(
+			"test_advance_claim_gain_loss_multicurrency@example.com",
+			"_Test Company",
+			salary_currency="USD",
+			employee_advance_account=advance_account
+		)
+		advance = make_employee_advance(employee)
+		self.assertEqual(advance.status, "Unpaid")
+
+		make_payment_entry(advance, advance.advance_amount)
+		advance.reload()
+		self.assertEqual(advance.status, "Paid")
+
+		payable_account = create_account(
+			account_name="Payroll Payable (USD)",
+			parent_account="Accounts Payable - _TC",
+			company="_Test Company",
+			account_currency="USD",
+			account_type="Payable",
+		)
+		claim_account = create_account(
+			account_name="Travel Expenses (USD)",
+			parent_account="Indirect Expenses - _TC",
+			company="_Test Company",
+			account_currency="USD",
+		)
+		claim = make_expense_claim(
+			payable_account,
+			advance.advance_amount,
+			advance.advance_amount,
+			"_Test Company",
+			claim_account,
+			args={"currency": advance.currency, "exchange_rate":65},
+			employee=employee,
+			do_not_submit=True,
+		)
+
+		claim = get_advances_for_claim(claim, advance.name)
+		claim.save().submit()
+		claim.reload()
+		advance.reload()
+		self.assertEqual(claim.status, "Paid")
+		self.assertEqual(advance.status, "Claimed")
+
+		for claim_advance in claim.advances:
+			self.assertEqual(claim_advance.exchange_gain_loss, 2100)
+		self.assertEqual(claim.total_exchange_gain_loss, 2100)
+
+		journal = frappe.db.get_value(
+			"Journal Entry Account", 
+			filters={"reference_type": "Expense Claim", "reference_name": claim.name, "docstatus": 1},
+			fieldname="parent"
+		)
+		gain_loss_jv = frappe.get_doc("Journal Entry", journal)
+		self.assertEqual(gain_loss_jv.voucher_type, "Exchange Gain Or Loss")
+		self.assertEqual(gain_loss_jv.total_debit, 2100)
+		self.assertEqual(gain_loss_jv.total_credit, 2100)
 
 def get_payable_account(company):
 	return frappe.get_cached_value("Company", company, "default_payable_account")
@@ -738,6 +889,7 @@ def make_expense_claim(
 	sanctioned_amount,
 	company,
 	account,
+	args=None,
 	project=None,
 	task_name=None,
 	do_not_submit=False,
@@ -773,6 +925,8 @@ def make_expense_claim(
 	if taxes:
 		expense_claim.update(taxes)
 
+	if args:
+		expense_claim.update(args)	
 	expense_claim = frappe.get_doc(expense_claim)
 
 	if project:
@@ -786,7 +940,7 @@ def make_expense_claim(
 	return expense_claim
 
 
-def make_payment_entry(expense_claim, amount):
+def make_claim_payment_entry(expense_claim, amount):
 	from hrms.overrides.employee_payment_entry import get_payment_entry_for_employee
 
 	pe = get_payment_entry_for_employee("Expense Claim", expense_claim.name)

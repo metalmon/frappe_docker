@@ -306,16 +306,10 @@ class TestEmployeeAdvance(IntegrationTestCase):
 	def test_employee_advance_when_different_company_currency(self):
 		employee = make_employee("test_adv_in_company_currency@example.com", "_Test Company")
 
-		account = create_account(
-			account_name="Employee Advance (USD)",
-			parent_account="Accounts Receivable - _TC",
-			company="_Test Company",
-			account_currency="USD",
-			account_type="Receivable",
-		)
+		advance_account = create_advance_account("Employee Advance (USD)", "USD")
 
 		advance = make_employee_advance(
-			employee, {"currency": "USD", "exchange_rate": 80, "advance_account": account}
+			employee, {"currency": "USD", "exchange_rate": 80, "advance_account": advance_account}
 		)
 		make_payment_entry(advance, 1000)
 		advance.reload()
@@ -325,15 +319,9 @@ class TestEmployeeAdvance(IntegrationTestCase):
 
 	def test_employee_advance_when_different_account_currency(self):
 		employee = make_employee("test_adv_in_account_currency@example.com", "_Test Company")
-		account = create_account(
-			account_name="Employee Advance (USD)",
-			parent_account="Accounts Receivable - _TC",
-			company="_Test Company",
-			account_currency="USD",
-			account_type="Receivable",
-		)
+		advance_account = create_advance_account("Employee Advance (USD)", "USD")
 
-		frappe.db.set_value("Company", "_Test Company", "default_employee_advance_account", account)
+		frappe.db.set_value("Company", "_Test Company", "default_employee_advance_account", advance_account)
 		advance = make_employee_advance(employee, {"currency": "INR", "exchange_rate": 1})
 		make_payment_entry(advance, 1000)
 		advance.reload()
@@ -357,6 +345,26 @@ class TestEmployeeAdvance(IntegrationTestCase):
 				fiscal_year.append("companies", {"company": "_Test Company"})
 				fiscal_year.save()
 
+	def test_multicurrency_advance(self):
+		advance_account = create_advance_account("Employee Advance (USD)", "USD")
+		employee = make_employee(
+			"test_adv_in_multicurrency@example.com",
+			"_Test Company",
+			salary_currency="USD",
+			employee_advance_account=advance_account
+		)
+		advance = make_employee_advance(employee)
+		self.assertEqual(advance.status, "Unpaid")
+
+		payment_entry = make_payment_entry(advance, advance.advance_amount)
+		advance.reload()
+		self.assertEqual(advance.status, "Paid")
+		self.assertEqual(payment_entry.transaction_exchange_rate, advance.exchange_rate)
+		self.assertEqual(payment_entry.received_amount, advance.paid_amount)
+
+		expected_base_paid = flt(advance.paid_amount * payment_entry.transaction_exchange_rate, advance.precision("base_paid_amount"))
+		self.assertEqual(advance.base_paid_amount, expected_base_paid)
+		self.assertEqual(payment_entry.paid_amount, expected_base_paid)
 
 def make_journal_entry_for_advance(advance):
 	journal_entry = frappe.get_doc(make_bank_entry("Employee Advance", advance.name))
@@ -381,15 +389,16 @@ def make_payment_entry(advance, amount=None):
 
 
 def make_employee_advance(employee_name, args=None, do_not_submit=False):
+	emp_details = frappe.db.get_value("Employee", employee_name, ["salary_currency", "employee_advance_account"], as_dict=True)
 	doc = frappe.new_doc("Employee Advance")
 	doc.employee = employee_name
 	doc.company = "_Test Company"
 	doc.purpose = "For site visit"
-	doc.currency = erpnext.get_company_currency("_Test company")
+	doc.currency = emp_details.salary_currency or erpnext.get_company_currency("_Test company")
 	doc.exchange_rate = 1
 	doc.advance_amount = 1000
 	doc.posting_date = nowdate()
-	doc.advance_account = "_Test Employee Advance - _TC"
+	doc.advance_account = emp_details.employee_advance_account or "_Test Employee Advance - _TC"
 	account_type = frappe.db.get_value("Account", "_Test Employee Advance - _TC", "account_type")
 	if not account_type:
 		frappe.db.set_value("Account", "_Test Employee Advance - _TC", "account_type", "Receivable")
@@ -427,8 +436,17 @@ def get_advances_for_claim(claim, advance_name, amount=None):
 				"return_amount": entry.return_amount,
 				"unclaimed_amount": entry.paid_amount - entry.claimed_amount,
 				"allocated_amount": allocated_amount,
-				"exchange_rate": 1,
+				"exchange_rate": entry.exchange_rate or 1,
 			},
 		)
 
 	return claim
+
+def create_advance_account(account_name, account_currency):
+	return create_account(
+		account_name=account_name,
+		parent_account="Accounts Receivable - _TC",
+		company="_Test Company",
+		account_currency=account_currency,
+		account_type="Receivable",
+	)
