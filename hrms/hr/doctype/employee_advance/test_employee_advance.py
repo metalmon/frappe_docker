@@ -351,7 +351,7 @@ class TestEmployeeAdvance(IntegrationTestCase):
 			"test_adv_in_multicurrency@example.com",
 			"_Test Company",
 			salary_currency="USD",
-			employee_advance_account=advance_account
+			employee_advance_account=advance_account,
 		)
 		advance = make_employee_advance(employee)
 		self.assertEqual(advance.status, "Unpaid")
@@ -362,9 +362,13 @@ class TestEmployeeAdvance(IntegrationTestCase):
 		self.assertEqual(payment_entry.transaction_exchange_rate, advance.exchange_rate)
 		self.assertEqual(payment_entry.received_amount, advance.paid_amount)
 
-		expected_base_paid = flt(advance.paid_amount * payment_entry.transaction_exchange_rate, advance.precision("base_paid_amount"))
+		expected_base_paid = flt(
+			advance.paid_amount * payment_entry.transaction_exchange_rate,
+			advance.precision("base_paid_amount"),
+		)
 		self.assertEqual(advance.base_paid_amount, expected_base_paid)
 		self.assertEqual(payment_entry.paid_amount, expected_base_paid)
+
 
 def make_journal_entry_for_advance(advance):
 	journal_entry = frappe.get_doc(make_bank_entry("Employee Advance", advance.name))
@@ -389,7 +393,9 @@ def make_payment_entry(advance, amount=None):
 
 
 def make_employee_advance(employee_name, args=None, do_not_submit=False):
-	emp_details = frappe.db.get_value("Employee", employee_name, ["salary_currency", "employee_advance_account"], as_dict=True)
+	emp_details = frappe.db.get_value(
+		"Employee", employee_name, ["salary_currency", "employee_advance_account"], as_dict=True
+	)
 	doc = frappe.new_doc("Employee Advance")
 	doc.employee = employee_name
 	doc.company = "_Test Company"
@@ -441,6 +447,7 @@ def get_advances_for_claim(claim, advance_name, amount=None):
 		)
 
 	return claim
+
 
 def create_advance_account(account_name, account_currency):
 	return create_account(

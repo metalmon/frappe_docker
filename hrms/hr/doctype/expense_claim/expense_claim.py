@@ -407,7 +407,8 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 		for f in fields:
 			if doc.get(f):
 				val = flt(
-					flt(doc.get(f), doc.precision(f)) * (exchange_rate if exchange_rate else self.exchange_rate),
+					flt(doc.get(f), doc.precision(f))
+					* (exchange_rate if exchange_rate else self.exchange_rate),
 					doc.precision("base_" + f),
 				)
 				doc.set("base_" + f, val)

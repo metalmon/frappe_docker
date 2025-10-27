@@ -59,7 +59,9 @@ class TestExpenseClaim(HRMSTestSuite):
 
 		payable_account = get_payable_account(company_name)
 
-		make_expense_claim(payable_account, 300, 200, company_name, "Travel Expenses - _TC3", project=project, task_name=task)
+		make_expense_claim(
+			payable_account, 300, 200, company_name, "Travel Expenses - _TC3", project=project, task_name=task
+		)
 
 		self.assertEqual(frappe.db.get_value("Task", task, "total_expense_claim"), 200)
 		self.assertEqual(frappe.db.get_value("Project", project, "total_expense_claim"), 200)
@@ -708,12 +710,13 @@ class TestExpenseClaim(HRMSTestSuite):
 			make_employee_advance,
 			make_payment_entry,
 		)
+
 		advance_account = create_advance_account("Employee Advance (USD)", "USD")
 		employee = make_employee(
 			"test_adv_in_multicurrency@example.com",
 			"_Test Company",
 			salary_currency="USD",
-			employee_advance_account=advance_account
+			employee_advance_account=advance_account,
 		)
 		advance = make_employee_advance(employee)
 		self.assertEqual(advance.status, "Unpaid")
@@ -724,7 +727,10 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(payment_entry.transaction_exchange_rate, advance.exchange_rate)
 		self.assertEqual(payment_entry.received_amount, advance.paid_amount)
 
-		expected_base_paid = flt(advance.paid_amount * payment_entry.transaction_exchange_rate, advance.precision("base_paid_amount"))
+		expected_base_paid = flt(
+			advance.paid_amount * payment_entry.transaction_exchange_rate,
+			advance.precision("base_paid_amount"),
+		)
 		self.assertEqual(advance.base_paid_amount, expected_base_paid)
 		self.assertEqual(payment_entry.paid_amount, expected_base_paid)
 
@@ -747,7 +753,7 @@ class TestExpenseClaim(HRMSTestSuite):
 			advance.advance_amount,
 			"_Test Company",
 			claim_account,
-			args={"currency": advance.currency, "exchange_rate":advance.exchange_rate},
+			args={"currency": advance.currency, "exchange_rate": advance.exchange_rate},
 			employee=employee,
 			do_not_submit=True,
 		)
@@ -763,24 +769,42 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(claim.exchange_rate, advance.exchange_rate)
 
 		for expense in claim.expenses:
-			base_amount = flt(expense.amount*claim.exchange_rate, expense.precision("base_amount"))
-			base_sanctioned = flt(expense.sanctioned_amount*claim.exchange_rate, expense.precision("base_sanctioned_amount"))
+			base_amount = flt(expense.amount * claim.exchange_rate, expense.precision("base_amount"))
+			base_sanctioned = flt(
+				expense.sanctioned_amount * claim.exchange_rate, expense.precision("base_sanctioned_amount")
+			)
 			self.assertEqual(expense.base_amount, base_amount)
 			self.assertEqual(expense.base_sanctioned_amount, base_sanctioned)
 
 		for claim_advance in claim.advances:
-			base_advance_paid = flt(claim_advance.advance_paid * claim_advance.exchange_rate, claim_advance.precision("base_advance_paid"))
-			base_unclaimed_amount = flt(claim_advance.unclaimed_amount * claim_advance.exchange_rate, claim_advance.precision("base_unclaimed_amount"))
-			base_allocated_amount = flt(claim_advance.allocated_amount * claim_advance.exchange_rate, claim_advance.precision("base_allocated_amount"))
+			base_advance_paid = flt(
+				claim_advance.advance_paid * claim_advance.exchange_rate,
+				claim_advance.precision("base_advance_paid"),
+			)
+			base_unclaimed_amount = flt(
+				claim_advance.unclaimed_amount * claim_advance.exchange_rate,
+				claim_advance.precision("base_unclaimed_amount"),
+			)
+			base_allocated_amount = flt(
+				claim_advance.allocated_amount * claim_advance.exchange_rate,
+				claim_advance.precision("base_allocated_amount"),
+			)
 			self.assertEqual(claim_advance.base_advance_paid, base_advance_paid)
 			self.assertEqual(claim_advance.base_unclaimed_amount, base_unclaimed_amount)
 			self.assertEqual(claim_advance.base_allocated_amount, base_allocated_amount)
 			self.assertEqual(claim_advance.exchange_rate, advance.exchange_rate)
 
-		total_base_sanctioned = flt(claim.total_sanctioned_amount * claim.exchange_rate, claim.precision("base_total_sanctioned_amount"))
-		total_advance_amount = flt(claim.total_advance_amount * claim.exchange_rate, claim.precision("base_total_advance_amount"))
+		total_base_sanctioned = flt(
+			claim.total_sanctioned_amount * claim.exchange_rate,
+			claim.precision("base_total_sanctioned_amount"),
+		)
+		total_advance_amount = flt(
+			claim.total_advance_amount * claim.exchange_rate, claim.precision("base_total_advance_amount")
+		)
 		grand_total = flt(claim.grand_total * claim.exchange_rate, claim.precision("base_grand_total"))
-		total_claimed_amount = flt(claim.total_claimed_amount * claim.exchange_rate, claim.precision("base_total_claimed_amount"))
+		total_claimed_amount = flt(
+			claim.total_claimed_amount * claim.exchange_rate, claim.precision("base_total_claimed_amount")
+		)
 		self.assertEqual(claim.base_total_sanctioned_amount, total_base_sanctioned)
 		self.assertEqual(claim.base_total_advance_amount, total_advance_amount)
 		self.assertEqual(claim.base_grand_total, grand_total)
@@ -794,12 +818,13 @@ class TestExpenseClaim(HRMSTestSuite):
 			make_employee_advance,
 			make_payment_entry,
 		)
+
 		advance_account = create_advance_account("Employee Advance (USD)", "USD")
 		employee = make_employee(
 			"test_advance_claim_gain_loss_multicurrency@example.com",
 			"_Test Company",
 			salary_currency="USD",
-			employee_advance_account=advance_account
+			employee_advance_account=advance_account,
 		)
 		advance = make_employee_advance(employee)
 		self.assertEqual(advance.status, "Unpaid")
@@ -827,7 +852,7 @@ class TestExpenseClaim(HRMSTestSuite):
 			advance.advance_amount,
 			"_Test Company",
 			claim_account,
-			args={"currency": advance.currency, "exchange_rate":65},
+			args={"currency": advance.currency, "exchange_rate": 65},
 			employee=employee,
 			do_not_submit=True,
 		)
@@ -844,14 +869,15 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(claim.total_exchange_gain_loss, 2100)
 
 		journal = frappe.db.get_value(
-			"Journal Entry Account", 
+			"Journal Entry Account",
 			filters={"reference_type": "Expense Claim", "reference_name": claim.name, "docstatus": 1},
-			fieldname="parent"
+			fieldname="parent",
 		)
 		gain_loss_jv = frappe.get_doc("Journal Entry", journal)
 		self.assertEqual(gain_loss_jv.voucher_type, "Exchange Gain Or Loss")
 		self.assertEqual(gain_loss_jv.total_debit, 2100)
 		self.assertEqual(gain_loss_jv.total_credit, 2100)
+
 
 def get_payable_account(company):
 	return frappe.get_cached_value("Company", company, "default_payable_account")
@@ -926,7 +952,7 @@ def make_expense_claim(
 		expense_claim.update(taxes)
 
 	if args:
-		expense_claim.update(args)	
+		expense_claim.update(args)
 	expense_claim = frappe.get_doc(expense_claim)
 
 	if project:
