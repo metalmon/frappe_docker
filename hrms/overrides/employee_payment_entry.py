@@ -303,3 +303,18 @@ def get_total_amount_and_exchange_rate(ref_doc, party_account_currency, company_
 		)
 
 	return total_amount, exchange_rate
+
+
+# update exchange rate in linked advance
+@frappe.whitelist()
+def set_exchange_rate_in_advance(doc, method=None):
+	if doc.references:
+		for reference_doc in doc.references:
+			if reference_doc.reference_doctype == "Employee Advance" and doc.target_exchange_rate:
+				frappe.db.set_value(
+					"Employee Advance",
+					reference_doc.reference_name,
+					"exchange_rate",
+					doc.target_exchange_rate,
+					update_modified=False,
+				)

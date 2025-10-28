@@ -180,6 +180,7 @@ doc_events = {
 		"on_submit": "hrms.hr.doctype.expense_claim.expense_claim.update_payment_for_expense_claim",
 		"on_cancel": "hrms.hr.doctype.expense_claim.expense_claim.update_payment_for_expense_claim",
 		"on_update_after_submit": "hrms.hr.doctype.expense_claim.expense_claim.update_payment_for_expense_claim",
+		"before_submit": "hrms.overrides.employee_payment_entry.set_exchange_rate_in_advance",
 	},
 	"Journal Entry": {
 		"validate": "hrms.hr.doctype.expense_claim.expense_claim.validate_expense_claim_in_jv",
