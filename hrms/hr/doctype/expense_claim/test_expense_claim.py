@@ -442,8 +442,9 @@ class TestExpenseClaim(HRMSTestSuite):
 	def test_multiple_payment_entries_against_expense(self):
 		# Creating expense claim
 		payable_account = get_payable_account("_Test Company")
+		employee = make_employee("test_multi_payment@expenseclaim.com", "_Test Company")
 		expense_claim = make_expense_claim(
-			payable_account, 5500, 5500, "_Test Company", "Travel Expenses - _TC"
+			payable_account, 5500, 5500, "_Test Company", "Travel Expenses - _TC", employee=employee
 		)
 		expense_claim.save()
 		expense_claim.submit()
