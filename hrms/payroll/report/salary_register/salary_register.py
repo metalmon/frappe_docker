@@ -74,7 +74,11 @@ def execute(filters=None):
 
 		else:
 			row.update(
-				{"gross_pay": ss.gross_pay, "total_deduction": ss.total_deduction, "net_pay": ss.net_pay}
+				{
+					"gross_pay": ss.gross_pay,
+					"total_deduction": flt(ss.total_deduction) + flt(ss.total_loan_repayment),
+					"net_pay": ss.net_pay,
+				}
 			)
 
 		data.append(row)
