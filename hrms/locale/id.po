@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-02 09:33+0000\n"
-"PO-Revision-Date: 2025-11-03 22:17\n"
+"PO-Revision-Date: 2025-11-05 09:41\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Indonesian\n"
 "MIME-Version: 1.0\n"
@@ -1890,7 +1890,7 @@ msgstr ""
 #. Event'
 #: hrms/hr/doctype/training_event/training_event.json
 msgid "Attendees"
-msgstr ""
+msgstr "Peserta"
 
 #: hrms/hr/dashboard_chart_source/hiring_vs_attrition_count/hiring_vs_attrition_count.py:56
 msgid "Attrition Count"
