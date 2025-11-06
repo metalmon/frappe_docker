@@ -120,7 +120,7 @@ class LeavePolicyAssignment(Document):
 		new_leaves_allocated = self.get_new_leaves(annual_allocation, leave_details, date_of_joining)
 
 		earned_leave_schedule = self.get_earned_leave_schedule(
-			annual_allocation, leave_details, date_of_joining
+			annual_allocation, leave_details, date_of_joining, new_leaves_allocated
 		)
 
 		allocation = frappe.get_doc(
@@ -162,7 +162,6 @@ class LeavePolicyAssignment(Document):
 				self.effective_to,
 				is_earned_leave=False,
 			)
-
 		# leave allocation should not exceed annual allocation as per policy assignment expect when allocation is of earned type and yearly
 		if new_leaves_allocated > annual_allocation and not (
 			leave_details.is_earned_leave and leave_details.earned_leave_frequency == "Yearly"
@@ -247,11 +246,58 @@ class LeavePolicyAssignment(Document):
 
 		return leaves
 
-	def get_earned_leave_schedule(self, annual_allocation, leave_details, date_of_joining):
+	def get_earned_leave_schedule(
+		self, annual_allocation, leave_details, date_of_joining, new_leaves_allocated
+	):
 		from hrms.hr.utils import get_expected_allocation_date_for_period, get_monthly_earned_leave
 
+		today = getdate(frappe.flags.current_date) or getdate()
 		from_date = getdate(self.effective_from)
 		to_date = getdate(self.effective_to)
+		months_to_add = {"Monthly": 1, "Quarterly": 3, "Half-Yearly": 6, "Yearly": 12}.get(
+			leave_details.earned_leave_frequency
+		)
+
+		schedule = []
+		if new_leaves_allocated:
+			schedule.append(
+				{
+					"allocation_date": today,
+					"number_of_leaves": new_leaves_allocated,
+					"is_allocated": 1,
+					"allocated_via": "Leave Policy Assignment",
+					"attempted": 1,
+				}
+			)
+
+		date = get_expected_allocation_date_for_period(
+			leave_details.earned_leave_frequency,
+			leave_details.allocate_on_day,
+			max(from_date, getdate(date_of_joining)),
+			date_of_joining,
+		)
+		if from_date < getdate(date_of_joining):
+			pro_rated_earned_leave = get_monthly_earned_leave(
+				date_of_joining,
+				annual_allocation,
+				leave_details.earned_leave_frequency,
+				leave_details.rounding,
+			)
+			schedule.append(
+				{
+					"allocation_date": date,
+					"number_of_leaves": pro_rated_earned_leave,
+					"is_allocated": 0,
+					"allocated_via": None,
+					"attempted": 0,
+				}
+			)
+			date = get_expected_allocation_date_for_period(
+				leave_details.earned_leave_frequency,
+				leave_details.allocate_on_day,
+				add_to_date(date, months=months_to_add),
+				date_of_joining,
+			)
 
 		periodically_earned_leave = get_monthly_earned_leave(
 			date_of_joining,
@@ -260,24 +306,22 @@ class LeavePolicyAssignment(Document):
 			leave_details.rounding,
 			pro_rated=False,
 		)
-		date = get_expected_allocation_date_for_period(
-			leave_details.earned_leave_frequency, leave_details.allocate_on_day, from_date, date_of_joining
-		)
-		today = getdate(frappe.flags.current_date) or getdate()
-		schedule = []
-		months_to_add = {"Monthly": 1, "Quarterly": 3, "Half-Yearly": 6, "Yearly": 12}.get(
-			leave_details.earned_leave_frequency
-		)
+
 		while date <= to_date:
 			row = {
 				"allocation_date": date,
 				"number_of_leaves": periodically_earned_leave,
-				"is_allocated": 1 if date <= today else 0,
-				"allocated_via": "Leave Policy Assignment" if date <= today else None,
-				"attempted": 1 if date <= today else 0,
+				"is_allocated": 0,
+				"allocated_via": None,
+				"attempted": 0,
 			}
 			schedule.append(row)
-			date = add_to_date(date, months=months_to_add)
+			date = get_expected_allocation_date_for_period(
+				leave_details.earned_leave_frequency,
+				leave_details.allocate_on_day,
+				add_to_date(date, months=months_to_add),
+				date_of_joining,
+			)
 
 		return schedule
 
