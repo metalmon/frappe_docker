@@ -292,7 +292,7 @@ def test_allocation_dates(
 		},
 	}
 
-	for dt, de in zip(allocation_dates, schedule_map[earned_leave_frequency][allocate_on_day], strict=False):
+	for dt, de in zip(allocation_dates, schedule_map[earned_leave_frequency][allocate_on_day], strict=True):
 		self.assertEqual(dt, de)
 
 
