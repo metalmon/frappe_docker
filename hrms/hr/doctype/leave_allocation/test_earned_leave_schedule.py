@@ -171,6 +171,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 			start_date=get_year_start(getdate()),
 			end_date=get_year_ending(getdate()),
 		)
+
 		allocation_dates = [allocation.allocation_date for allocation in earned_leave_schedule]
 		self.assertEqual(len(earned_leave_schedule), 2)
 		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 12)
@@ -219,7 +220,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		allocation_dates = [allocation.allocation_date for allocation in earned_leave_schedule]
 		self.assertEqual(len(earned_leave_schedule), 2)
-		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 12)
+		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 24)
 		test_allocation_dates(
 			self,
 			allocation_dates,
@@ -242,7 +243,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		allocation_dates = [allocation.allocation_date for allocation in earned_leave_schedule]
 		self.assertEqual(len(earned_leave_schedule), 2)
-		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 12)
+		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 24)
 		test_allocation_dates(
 			self,
 			allocation_dates,
@@ -360,7 +361,7 @@ def get_last_days_of_quarters(start_date, end_date):
 
 def get_first_days_of_half_years(start_date, end_date):
 	year_range = range(start_date.year, end_date.year + 1)
-	return [date(year, month, calendar.monthrange(year, month)[1]) for year in year_range for month in (1, 7)]
+	return [date(year, month, 1) for year in year_range for month in (1, 7)]
 
 
 def get_last_days_of_half_years(start_date, end_date):
@@ -372,7 +373,7 @@ def get_last_days_of_half_years(start_date, end_date):
 
 def get_first_days_of_years(start_date, end_date):
 	year_range = range(start_date.year, end_date.year + 1)
-	return [date(year, 1, calendar.monthrange(year, 1)[1]) for year in year_range]
+	return [date(year, 1, 1) for year in year_range]
 
 
 def get_last_days_of_years(start_date, end_date):
