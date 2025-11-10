@@ -257,7 +257,12 @@ class LeavePolicyAssignment(Document):
 		months_to_add = {"Monthly": 1, "Quarterly": 3, "Half-Yearly": 6, "Yearly": 12}.get(
 			leave_details.earned_leave_frequency
 		)
-
+		date = get_expected_allocation_date_for_period(
+			leave_details.earned_leave_frequency,
+			leave_details.allocate_on_day,
+			max(from_date, getdate(date_of_joining)),
+			date_of_joining,
+		)
 		schedule = []
 		if new_leaves_allocated:
 			schedule.append(
@@ -269,13 +274,13 @@ class LeavePolicyAssignment(Document):
 					"attempted": 1,
 				}
 			)
+			date = get_expected_allocation_date_for_period(
+				leave_details.earned_leave_frequency,
+				leave_details.allocate_on_day,
+				add_to_date(today, months=months_to_add),
+				date_of_joining,
+			)
 
-		date = get_expected_allocation_date_for_period(
-			leave_details.earned_leave_frequency,
-			leave_details.allocate_on_day,
-			max(from_date, getdate(date_of_joining)),
-			date_of_joining,
-		)
 		if from_date < getdate(date_of_joining):
 			pro_rated_earned_leave = get_monthly_earned_leave(
 				date_of_joining,
