@@ -1050,6 +1050,35 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		self.assertEqual(total_leaves_allocated, 6)
 
+	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
+		frappe.flags.current_date = get_year_start(getdate())
+		assignment = make_policy_assignment(
+			self.employee,
+			allocate_on_day="First Day",
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+			rounding=0.25,
+		)[0]
+		total_leaves_allocated = frappe.get_value(
+			"Leave Allocation",
+			{"employee": self.employee.name, "leave_policy_assignment": assignment},
+			"total_leaves_allocated",
+		)
+		self.assertEqual(total_leaves_allocated, 2)
+		frappe.db.delete("Earned Leave Schedule")
+		frappe.flags.current_date = add_months(get_year_start(getdate()), 1)
+		allocate_earned_leaves()
+		total_leaves_allocated = frappe.get_value(
+			"Leave Allocation",
+			{"employee": self.employee.name, "leave_policy_assignment": assignment},
+			"total_leaves_allocated",
+		)
+
+		self.assertEqual(total_leaves_allocated, 4)
+
 	def tearDown(self):
 		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
 		frappe.db.set_value("Employee", "_T-Employee-00002", "date_of_joining", self.original_doj)
