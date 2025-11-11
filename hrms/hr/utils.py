@@ -480,7 +480,7 @@ def send_email_for_failed_allocations(failed_allocations):
 		subject=_("Failure of Automatic Allocation of Earned Leaves"),
 		message=_(
 			"Automatic Leave Allocation has failed for the following Earned Leaves: {0}. Please check {1} for more details."
-		).format(get_link_to_form("Error Log", label="Error Log List"), allocations),
+		).format(allocations, get_link_to_form("Error Log", label="Error Log List")),
 	)
 
 
