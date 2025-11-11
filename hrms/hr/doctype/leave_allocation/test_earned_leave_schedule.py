@@ -286,7 +286,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 			start_date=add_months(get_year_start(getdate()), 4),
 			end_date=get_year_ending(getdate()),
 		)
-		frappe.db.commit()
+
 		self.assertEqual(len(earned_leave_schedule), 3)
 		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 4)
 		self.assertEqual(earned_leave_schedule[0].allocation_date, add_months(get_year_start(getdate()), 4))
