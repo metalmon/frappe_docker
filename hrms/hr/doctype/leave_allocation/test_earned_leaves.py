@@ -60,6 +60,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		from_date = get_year_start(getdate())
 		to_date = get_year_ending(getdate())
 		self.holiday_list = make_holiday_list(from_date=from_date, to_date=to_date)
+		frappe.db.set_value("Email Account", "_Test Email Account 1", "default_outgoing", 1)
 
 	def test_earned_leave_allocation(self):
 		"""Tests if Earned Leave allocation is 0 initially as it happens via scheduler"""
@@ -957,6 +958,30 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		# 4 months full leave 1/30*15 = 0.5 rounded to 0.25
 		self.assertEqual(total_leaves_allocated, 4.5)
+
+	def test_error_logging_failed_allocations(self):
+		frappe.flags.current_date = get_year_start(getdate())
+		assignment = make_policy_assignment(
+			self.employee,
+			allocate_on_day="First Day",
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+			rounding=0.25,
+		)[0]
+		total_leaves_allocated = frappe.get_value(
+			"Leave Allocation",
+			{"employee": self.employee.name, "leave_policy_assignment": assignment},
+			"total_leaves_allocated",
+		)
+		self.assertEqual(total_leaves_allocated, 2)
+		frappe.db.set_value("Leave Type", self.leave_type, "max_leaves_allowed", 2)
+		frappe.flags.current_date = add_months(get_year_start(getdate()), 1)
+		allocate_earned_leaves()
+		error_log = frappe.db.get_value("Error Log", {"reference_doctype": "Leave Allocation"})
+		self.assertIsNotNone(error_log)
 
 	def tearDown(self):
 		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)

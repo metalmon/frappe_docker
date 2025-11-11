@@ -38,6 +38,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		from_date = get_year_start(getdate())
 		to_date = get_year_ending(getdate())
 		self.holiday_list = make_holiday_list(from_date=from_date, to_date=to_date)
+		frappe.db.set_value("Email Account", "_Test Email Account 1", "default_outgoing", 1)
 
 	def tearDown(self):
 		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
