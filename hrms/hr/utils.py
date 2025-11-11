@@ -352,7 +352,7 @@ def allocate_earned_leaves():
 	"""Allocate earned leaves to Employees"""
 	e_leave_types = get_earned_leaves()
 	today = frappe.flags.current_date or getdate()
-
+	failed_allocations = []
 	for e_leave_type in e_leave_types:
 		leave_allocations = get_leave_allocations(today, e_leave_type.name)
 		for allocation in leave_allocations:
@@ -377,6 +377,9 @@ def allocate_earned_leaves():
 				)
 			except Exception as e:
 				log_allocation_error(allocation.name, e)
+				failed_allocations.append(allocation.name)
+	if failed_allocations:
+		send_email_for_failed_allocations(failed_allocations)
 
 
 def get_upcoming_earned_leave_from_schedule(allocation_name, today):
@@ -444,7 +447,7 @@ def update_previous_leave_allocation(allocation, annual_allocation, e_leave_type
 
 
 def log_allocation_error(allocation_name, error):
-	error_log = frappe.log_error(error)
+	error_log = frappe.log_error(error, reference_doctype="Leave Allocation")
 	text = _("{0}. Check error log {1} for more details.").format(
 		error_log.method, get_link_to_form("Error Log", error_log.name)
 	)
@@ -456,6 +459,29 @@ def log_allocation_error(allocation_name, error):
 	).set(earned_leave_schedule.attempted, 1).set(earned_leave_schedule.failed, 1).set(
 		earned_leave_schedule.failure_reason, text
 	).run()
+
+
+def send_email_for_failed_allocations(failed_allocations):
+	allocations = comma_and([get_link_to_form("Leave Allocation", x) for x in failed_allocations])
+	User = frappe.qb.DocType("User")
+	HasRole = frappe.qb.DocType("Has Role")
+	query = (
+		frappe.qb.from_(HasRole)
+		.left_join(User)
+		.on(HasRole.parent == User.name)
+		.select(HasRole.parent)
+		.distinct()
+		.where((HasRole.parenttype == "User") & (User.enabled == 1) & (HasRole.role == "HR Manager"))
+	)
+	hr_managers = query.run(pluck=True)
+
+	frappe.sendmail(
+		recipients=hr_managers,
+		subject=_("Failure of Automatic Allocation of Earned Leaves"),
+		message=_(
+			"Automatic Leave Allocation has failed for the following Earned Leaves: {0}. Please check {1} for more details."
+		).format(get_link_to_form("Error Log", label="Error Log List"), allocations),
+	)
 
 
 @frappe.whitelist()
