@@ -294,7 +294,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 6)
 		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_start(getdate()), 6))
 
-	def test_schedule_when_leave_policy_is_assigned_in_middle_of_the_period(self):
+	def test_schedule_when_leave_policy_is_assigned_in_middle_of_the_period_allocated_on_first_day(self):
 		frappe.flags.current_date = add_months(get_year_start(getdate()), 4)
 		earned_leave_schedule = create_earned_leave_schedule(
 			self.employee,
@@ -311,6 +311,24 @@ class TestLeaveAllocation(HRMSTestSuite):
 		self.assertEqual(earned_leave_schedule[0].allocation_date, add_months(get_year_start(getdate()), 4))
 		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 6)
 		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_start(getdate()), 6))
+
+	def test_schedule_when_leave_policy_is_assigned_in_middle_of_the_period_allocated_on_last_day(self):
+		frappe.flags.current_date = get_last_day(add_months(get_year_start(getdate()), 7))
+		earned_leave_schedule = create_earned_leave_schedule(
+			self.employee,
+			allocate_on_day="Last Day",
+			earned_leave_frequency="Quarterly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+		)
+
+		self.assertEqual(len(earned_leave_schedule), 3)
+		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 12)
+		self.assertEqual(earned_leave_schedule[0].allocation_date, frappe.flags.current_date)
+		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 6)
+		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_ending(getdate()), -3))
 
 
 def test_allocation_dates(
