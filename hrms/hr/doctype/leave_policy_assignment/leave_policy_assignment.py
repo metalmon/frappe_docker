@@ -413,7 +413,6 @@ def create_assignment_for_multiple_employees(employees, data):
 			frappe.db.savepoint(savepoint)
 			assignment.submit()
 		except Exception:
-			print
 			frappe.db.rollback(save_point=savepoint)
 			assignment.log_error("Leave Policy Assignment submission failed")
 			failed.append(assignment.name)
