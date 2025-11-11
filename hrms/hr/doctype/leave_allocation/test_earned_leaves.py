@@ -1009,6 +1009,47 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		self.assertIsNotNone(email)
 
+	def test_retry_failed_allocations(self):
+		frappe.flags.current_date = get_year_start(getdate())
+		assignment = make_policy_assignment(
+			self.employee,
+			allocate_on_day="First Day",
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+			rounding=0.25,
+		)[0]
+		leave_allocation = frappe.get_doc(
+			"Leave Allocation", {"employee": self.employee.name, "leave_policy_assignment": assignment}
+		)
+		frappe.db.set_value("Leave Type", self.leave_type, "max_leaves_allowed", 2)
+		# second month failed
+		frappe.flags.current_date = add_months(get_year_start(getdate()), 1)
+		allocate_earned_leaves()
+		# third month failed
+		frappe.flags.current_date = add_months(get_year_start(getdate()), 2)
+		allocate_earned_leaves()
+		# total failed should be 2
+		failed_allocations = frappe.get_all(
+			"Earned Leave Schedule", {"parent": leave_allocation.name, "attempted": 1, "failed": 1}, ["*"]
+		)
+		self.assertEqual(len(failed_allocations), 2)
+		frappe.db.set_value("Leave Type", self.leave_type, "max_leaves_allowed", 0)
+		leave_allocation.retry_failed_allocations(failed_allocations)
+		failed_allocations = frappe.get_all(
+			"Earned Leave Schedule", {"parent": leave_allocation.name, "attempted": 1, "failed": 1}
+		)
+		self.assertFalse(failed_allocations)
+
+		total_leaves_allocated = frappe.get_value(
+			"Leave Allocation",
+			{"employee": self.employee.name, "leave_policy_assignment": assignment},
+			"total_leaves_allocated",
+		)
+		self.assertEqual(total_leaves_allocated, 6)
+
 	def tearDown(self):
 		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
 		frappe.db.set_value("Employee", "_T-Employee-00002", "date_of_joining", self.original_doj)
