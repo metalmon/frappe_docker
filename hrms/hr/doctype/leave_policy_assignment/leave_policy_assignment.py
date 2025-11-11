@@ -216,6 +216,7 @@ class LeavePolicyAssignment(Document):
 		self, annual_allocation, leave_details, date_of_joining, periods_passed, consider_current_period
 	):
 		from hrms.hr.utils import get_monthly_earned_leave as get_periodically_earned_leave
+		from hrms.hr.utils import get_period_start_and_end
 
 		periodically_earned_leave = get_periodically_earned_leave(
 			date_of_joining,
@@ -226,20 +227,21 @@ class LeavePolicyAssignment(Document):
 		)
 
 		period_end_date = get_pro_rata_period_end_date(consider_current_period)
-
 		if getdate(self.effective_from) <= date_of_joining <= period_end_date:
 			# if the employee joined within the allocation period in some previous month,
 			# calculate pro-rated leave for that month
 			# and normal monthly earned leave for remaining passed months
+			start_date, end_date = get_period_start_and_end(
+				date_of_joining, leave_details.earned_leave_frequency
+			)
 			leaves = get_periodically_earned_leave(
 				date_of_joining,
 				annual_allocation,
 				leave_details.earned_leave_frequency,
 				leave_details.rounding,
-				get_first_day(date_of_joining),
-				get_last_day(date_of_joining),
+				start_date,
+				end_date,
 			)
-
 			leaves += periodically_earned_leave * (periods_passed - 1)
 		else:
 			leaves = periodically_earned_leave * periods_passed
@@ -249,18 +251,29 @@ class LeavePolicyAssignment(Document):
 	def get_earned_leave_schedule(
 		self, annual_allocation, leave_details, date_of_joining, new_leaves_allocated
 	):
-		from hrms.hr.utils import get_expected_allocation_date_for_period, get_monthly_earned_leave
+		from hrms.hr.utils import (
+			get_expected_allocation_date_for_period,
+			get_monthly_earned_leave,
+			get_sub_period_start_and_end,
+		)
 
 		today = getdate(frappe.flags.current_date) or getdate()
-		from_date = getdate(self.effective_from)
+		from_date = last_allocated_date = getdate(self.effective_from)
 		to_date = getdate(self.effective_to)
 		months_to_add = {"Monthly": 1, "Quarterly": 3, "Half-Yearly": 6, "Yearly": 12}.get(
 			leave_details.earned_leave_frequency
 		)
+		periodically_earned_leave = get_monthly_earned_leave(
+			date_of_joining,
+			annual_allocation,
+			leave_details.earned_leave_frequency,
+			leave_details.rounding,
+			pro_rated=False,
+		)
 		date = get_expected_allocation_date_for_period(
 			leave_details.earned_leave_frequency,
 			leave_details.allocate_on_day,
-			max(from_date, getdate(date_of_joining)),
+			from_date,
 			date_of_joining,
 		)
 		schedule = []
@@ -274,59 +287,38 @@ class LeavePolicyAssignment(Document):
 					"attempted": 1,
 				}
 			)
+			last_allocated_date = get_sub_period_start_and_end(today, leave_details.earned_leave_frequency)[1]
+
+		while date <= to_date:
+			date_already_passed = today > date
+			if date > last_allocated_date:
+				row = {
+					"allocation_date": date,
+					"number_of_leaves": periodically_earned_leave,
+					"is_allocated": 1 if date_already_passed else 0,
+					"allocated_via": "Leave Policy Assignment" if date_already_passed else None,
+					"attempted": 1 if date_already_passed else 0,
+				}
+				schedule.append(row)
 			date = get_expected_allocation_date_for_period(
 				leave_details.earned_leave_frequency,
 				leave_details.allocate_on_day,
-				add_to_date(today, months=months_to_add),
+				add_to_date(date, months=months_to_add),
 				date_of_joining,
 			)
-
 		if from_date < getdate(date_of_joining):
+			pro_rated_period_start, pro_rated_period_end = get_sub_period_start_and_end(
+				date_of_joining, leave_details.earned_leave_frequency
+			)
 			pro_rated_earned_leave = get_monthly_earned_leave(
 				date_of_joining,
 				annual_allocation,
 				leave_details.earned_leave_frequency,
 				leave_details.rounding,
+				pro_rated_period_start,
+				pro_rated_period_end,
 			)
-			schedule.append(
-				{
-					"allocation_date": date,
-					"number_of_leaves": pro_rated_earned_leave,
-					"is_allocated": 0,
-					"allocated_via": None,
-					"attempted": 0,
-				}
-			)
-			date = get_expected_allocation_date_for_period(
-				leave_details.earned_leave_frequency,
-				leave_details.allocate_on_day,
-				add_to_date(date, months=months_to_add),
-				date_of_joining,
-			)
-
-		periodically_earned_leave = get_monthly_earned_leave(
-			date_of_joining,
-			annual_allocation,
-			leave_details.earned_leave_frequency,
-			leave_details.rounding,
-			pro_rated=False,
-		)
-
-		while date <= to_date:
-			row = {
-				"allocation_date": date,
-				"number_of_leaves": periodically_earned_leave,
-				"is_allocated": 0,
-				"allocated_via": None,
-				"attempted": 0,
-			}
-			schedule.append(row)
-			date = get_expected_allocation_date_for_period(
-				leave_details.earned_leave_frequency,
-				leave_details.allocate_on_day,
-				add_to_date(date, months=months_to_add),
-				date_of_joining,
-			)
+			schedule[0]["number_of_leaves"] = pro_rated_earned_leave
 
 		return schedule
 
