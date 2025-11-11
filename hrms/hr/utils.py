@@ -476,13 +476,7 @@ def get_monthly_earned_leave(
 		if pro_rated:
 			if not (period_start_date or period_end_date):
 				today_date = frappe.flags.current_date or getdate()
-
-				period_start_date, period_end_date = {
-					"Monthly": (get_first_day(today_date), get_last_day(today_date)),
-					"Quarterly": (get_quarter_start(today_date), get_quarter_ending(today_date)),
-					"Half-Yearly": (get_semester_start(today_date), get_semester_end(today_date)),
-					"Yearly": (get_year_start(today_date), get_year_ending(today_date)),
-				}.get(frequency)
+				period_start_date, period_end_date = get_sub_period_start_and_end(today_date, frequency)
 
 			earned_leaves = calculate_pro_rated_leaves(
 				earned_leaves, date_of_joining, period_start_date, period_end_date, is_earned_leave=True
@@ -491,6 +485,15 @@ def get_monthly_earned_leave(
 		earned_leaves = round_earned_leaves(earned_leaves, rounding)
 
 	return earned_leaves
+
+
+def get_sub_period_start_and_end(date, frequency):
+	return {
+		"Monthly": (get_first_day(date), get_last_day(date)),
+		"Quarterly": (get_quarter_start(date), get_quarter_ending(date)),
+		"Half-Yearly": (get_semester_start(date), get_semester_end(date)),
+		"Yearly": (get_year_start(date), get_year_ending(date)),
+	}.get(frequency)
 
 
 def round_earned_leaves(earned_leaves, rounding):
