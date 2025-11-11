@@ -216,7 +216,7 @@ class LeavePolicyAssignment(Document):
 		self, annual_allocation, leave_details, date_of_joining, periods_passed, consider_current_period
 	):
 		from hrms.hr.utils import get_monthly_earned_leave as get_periodically_earned_leave
-		from hrms.hr.utils import get_period_start_and_end
+		from hrms.hr.utils import get_sub_period_start_and_end
 
 		periodically_earned_leave = get_periodically_earned_leave(
 			date_of_joining,
@@ -231,7 +231,7 @@ class LeavePolicyAssignment(Document):
 			# if the employee joined within the allocation period in some previous month,
 			# calculate pro-rated leave for that month
 			# and normal monthly earned leave for remaining passed months
-			start_date, end_date = get_period_start_and_end(
+			start_date, end_date = get_sub_period_start_and_end(
 				date_of_joining, leave_details.earned_leave_frequency
 			)
 			leaves = get_periodically_earned_leave(
@@ -413,6 +413,7 @@ def create_assignment_for_multiple_employees(employees, data):
 			frappe.db.savepoint(savepoint)
 			assignment.submit()
 		except Exception:
+			print
 			frappe.db.rollback(save_point=savepoint)
 			assignment.log_error("Leave Policy Assignment submission failed")
 			failed.append(assignment.name)
