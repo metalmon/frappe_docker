@@ -47,9 +47,12 @@ class TestLeaveAllocation(HRMSTestSuite):
 
 		employee = frappe.get_doc("Employee", "_T-Employee-00001")
 		self.original_doj = employee.date_of_joining
-
 		employee.date_of_joining = add_months(getdate(), -24)
 		employee.save()
+
+		employee2 = frappe.get_doc("Employee", "_T-Employee-00002")
+		employee2.date_of_joining = add_months(getdate(), -24)
+		employee2.save()
 
 		self.employee = employee
 		self.leave_type = "Test Earned Leave"
