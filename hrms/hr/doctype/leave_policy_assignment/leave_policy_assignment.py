@@ -291,7 +291,7 @@ class LeavePolicyAssignment(Document):
 
 		while date <= to_date:
 			date_already_passed = today > date
-			if date > last_allocated_date:
+			if date >= last_allocated_date:
 				row = {
 					"allocation_date": date,
 					"number_of_leaves": periodically_earned_leave,
