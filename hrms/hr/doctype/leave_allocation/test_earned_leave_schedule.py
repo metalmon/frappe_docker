@@ -274,7 +274,24 @@ class TestLeaveAllocation(HRMSTestSuite):
 		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_start(getdate()), 6))
 
 	def test_schedule_when_assignment_is_based_on_doj(self):
-		pass
+		self.employee.date_of_joining = add_months(get_year_start(getdate()), 4)
+		self.employee.save()
+		frappe.flags.current_date = add_months(get_year_start(getdate()), 4)
+		earned_leave_schedule = create_earned_leave_schedule(
+			self.employee,
+			allocate_on_day="First Day",
+			earned_leave_frequency="Quarterly",
+			annual_allocation=24,
+			assignment_based_on="Joining Date",
+			start_date=add_months(get_year_start(getdate()), 4),
+			end_date=get_year_ending(getdate()),
+		)
+		frappe.db.commit()
+		self.assertEqual(len(earned_leave_schedule), 3)
+		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 4)
+		self.assertEqual(earned_leave_schedule[0].allocation_date, add_months(get_year_start(getdate()), 4))
+		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 6)
+		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_start(getdate()), 6))
 
 	def test_schedule_when_leave_policy_is_assigned_in_middle_of_the_period(self):
 		pass
