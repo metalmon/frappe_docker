@@ -330,6 +330,34 @@ class TestLeaveAllocation(HRMSTestSuite):
 		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 6)
 		self.assertEqual(earned_leave_schedule[1].allocation_date, add_months(get_year_ending(getdate()), -3))
 
+	def test_schedule_when_doj_is_end_of_big_month(self):
+		frappe.flags.current_date = get_year_start(getdate())
+		self.employee.date_of_joining = get_last_day(get_year_start(getdate()))
+		self.employee.save()
+		earned_leave_schedule = create_earned_leave_schedule(
+			self.employee,
+			allocate_on_day="Date of Joining",
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+		)
+		allocation_dates = [allocation.allocation_date for allocation in earned_leave_schedule]
+		self.assertEqual(len(earned_leave_schedule), 12)
+		# prorated leave is 0 because the employee just joined
+		self.assertEqual(earned_leave_schedule[0].number_of_leaves, 0)
+		self.assertEqual(earned_leave_schedule[1].number_of_leaves, 2)
+		test_allocation_dates(
+			self,
+			allocation_dates,
+			get_year_start(getdate()),
+			get_year_ending(getdate()),
+			"Monthly",
+			"Last Day",
+			self.employee.date_of_joining,
+		)
+
 
 def test_allocation_dates(
 	self,
@@ -410,7 +438,11 @@ def get_doj_for_months(date_of_joining, start_date, end_date):
 	if not date_of_joining:
 		return
 	year_range = range(start_date.year, end_date.year + 1)
-	return [date(year, month, date_of_joining.day) for year in year_range for month in range(1, 13)]
+	return [
+		date(year, month, min(date_of_joining.day, calendar.monthrange(year, month)[1]))
+		for year in year_range
+		for month in range(1, 13)
+	]
 
 
 def get_first_days_of_quarters(start_date, end_date):
