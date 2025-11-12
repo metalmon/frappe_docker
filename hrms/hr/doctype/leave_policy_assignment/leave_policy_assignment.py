@@ -319,7 +319,6 @@ class LeavePolicyAssignment(Document):
 				pro_rated_period_end,
 			)
 			schedule[0]["number_of_leaves"] = pro_rated_earned_leave
-
 		return schedule
 
 

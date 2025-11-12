@@ -1,6 +1,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 # License: GNU General Public License v3. See license.txt
 
+import calendar
 import datetime
 
 import frappe
@@ -593,11 +594,15 @@ def create_additional_leave_ledger_entry(allocation, leaves, date):
 
 
 def get_expected_allocation_date_for_period(frequency, allocate_on_day, date, date_of_joining=None):
+	try:
+		doj = date_of_joining.replace(month=date.month, year=date.year)
+	except ValueError:
+		doj = datetime.date(date.year, date.month, calendar.monthrange(date.year, date.month)[1])
 	return {
 		"Monthly": {
 			"First Day": get_first_day(date),
 			"Last Day": get_last_day(date),
-			"Date of Joining": date_of_joining.replace(month=date.month, year=date.year),
+			"Date of Joining": doj,
 		},
 		"Quarterly": {
 			"First Day": get_quarter_start(date),
@@ -619,7 +624,7 @@ def get_salary_assignments(employee, payroll_period):
 
 	if not assignments or getdate(assignments[0].from_date) > getdate(start_date):
 		# if no assignments found for the given period
-		# or the  assignment hast started in the middle of the period
+		# or the assignment has started in the middle of the period
 		# get the last one assigned before the period start date
 		past_assignment = frappe.get_all(
 			"Salary Structure Assignment",
