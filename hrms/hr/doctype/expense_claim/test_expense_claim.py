@@ -2,11 +2,13 @@
 # See license.txt
 
 import frappe
-from frappe.utils import flt, nowdate, random_string
+from frappe.utils import flt, nowdate, random_string, today
 
+from erpnext import get_company_currency
 from erpnext.accounts.doctype.account.test_account import create_account
 from erpnext.accounts.doctype.payment_entry.test_payment_entry import get_payment_entry
 from erpnext.setup.doctype.employee.test_employee import make_employee
+from erpnext.setup.utils import get_exchange_rate
 
 from hrms.hr.doctype.expense_claim.expense_claim import (
 	MismatchError,
@@ -725,7 +727,6 @@ class TestExpenseClaim(HRMSTestSuite):
 		payment_entry = make_payment_entry(advance, advance.advance_amount)
 		advance.reload()
 		self.assertEqual(advance.status, "Paid")
-		self.assertEqual(payment_entry.transaction_exchange_rate, advance.exchange_rate)
 		self.assertEqual(payment_entry.received_amount, advance.paid_amount)
 
 		expected_base_paid = flt(
@@ -754,7 +755,12 @@ class TestExpenseClaim(HRMSTestSuite):
 			advance.advance_amount,
 			"_Test Company",
 			claim_account,
-			args={"currency": advance.currency, "exchange_rate": advance.exchange_rate},
+			args={
+				"currency": advance.currency,
+				"exchange_rate": get_exchange_rate(
+					advance.currency, get_company_currency("_Test Company"), today()
+				),
+			},
 			employee=employee,
 			do_not_submit=True,
 		)
@@ -767,7 +773,6 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(claim.currency, advance.currency)
 		self.assertEqual(advance.status, "Claimed")
 		self.assertEqual(claim.total_sanctioned_amount, advance.advance_amount)
-		self.assertEqual(claim.exchange_rate, advance.exchange_rate)
 
 		for expense in claim.expenses:
 			base_amount = flt(expense.amount * claim.exchange_rate, expense.precision("base_amount"))
@@ -787,13 +792,12 @@ class TestExpenseClaim(HRMSTestSuite):
 				claim_advance.precision("base_unclaimed_amount"),
 			)
 			base_allocated_amount = flt(
-				claim_advance.allocated_amount * claim_advance.exchange_rate,
+				claim_advance.allocated_amount * claim.exchange_rate,
 				claim_advance.precision("base_allocated_amount"),
 			)
 			self.assertEqual(claim_advance.base_advance_paid, base_advance_paid)
 			self.assertEqual(claim_advance.base_unclaimed_amount, base_unclaimed_amount)
 			self.assertEqual(claim_advance.base_allocated_amount, base_allocated_amount)
-			self.assertEqual(claim_advance.exchange_rate, advance.exchange_rate)
 
 		total_base_sanctioned = flt(
 			claim.total_sanctioned_amount * claim.exchange_rate,

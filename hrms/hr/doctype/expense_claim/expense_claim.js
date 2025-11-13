@@ -46,6 +46,7 @@ frappe.ui.form.on("Expense Claim", {
 					report_type: "Balance Sheet",
 					account_type: "Payable",
 					company: frm.doc.company,
+					account_currency: frm.doc.currency,
 					is_group: 0,
 				},
 			};
@@ -590,7 +591,6 @@ frappe.ui.form.on("Expense Claim Advance", {
 							flt(r.message[0].claimed_amount),
 							flt(r.message[0].return_amount),
 						);
-						child.exchange_rate = flt(r.message[0].exchange_rate);
 						set_in_company_currency(
 							frm,
 							child,

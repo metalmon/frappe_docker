@@ -39,7 +39,13 @@ frappe.ui.form.on("Employee Advance", {
 		if (
 			frm.doc.docstatus === 1 &&
 			flt(frm.doc.paid_amount) < flt(frm.doc.advance_amount) &&
-			frappe.model.can_create("Payment Entry")
+			frappe.model.can_create("Payment Entry") &&
+			!(
+				(frm.doc.repay_unclaimed_amount_from_salary == 1 && frm.doc.paid_amount) ||
+				(frm.doc.__onload &&
+					frm.doc.__onload.make_payment_via_journal_entry == 1 &&
+					frm.doc.paid_amount)
+			)
 		) {
 			frm.add_custom_button(
 				__("Payment"),
@@ -128,16 +134,18 @@ frappe.ui.form.on("Employee Advance", {
 		return frappe.call({
 			method: "hrms.hr.doctype.expense_claim.expense_claim.get_expense_claim",
 			args: {
-				employee_name: frm.doc.employee,
-				company: frm.doc.company,
-				currency: frm.doc.currency,
-				exchange_rate: frm.doc.exchange_rate,
-				employee_advance_name: frm.doc.name,
-				posting_date: frm.doc.posting_date,
-				paid_amount: frm.doc.paid_amount,
-				base_paid_amount: frm.doc.base_paid_amount,
-				claimed_amount: frm.doc.claimed_amount,
-				return_amount: frm.doc.return_amount,
+				advance_details: {
+					employee_name: frm.doc.employee,
+					company: frm.doc.company,
+					currency: frm.doc.currency,
+					employee_advance_name: frm.doc.name,
+					posting_date: frm.doc.posting_date,
+					paid_amount: frm.doc.paid_amount,
+					base_paid_amount: frm.doc.base_paid_amount,
+					claimed_amount: frm.doc.claimed_amount,
+					return_amount: frm.doc.return_amount,
+					payment_via_journal_entry: frm.doc.__onload.make_payment_via_journal_entry,
+				},
 			},
 			callback: function (r) {
 				const doclist = frappe.model.sync(r.message);
@@ -157,7 +165,6 @@ frappe.ui.form.on("Employee Advance", {
 				advance_account: frm.doc.advance_account,
 				mode_of_payment: frm.doc.mode_of_payment,
 				currency: frm.doc.currency,
-				exchange_rate: frm.doc.exchange_rate,
 			},
 			callback: function (r) {
 				const doclist = frappe.model.sync(r.message);

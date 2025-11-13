@@ -103,8 +103,9 @@ class EmployeeAdvance(Document):
 				and total_amount == flt(self.paid_amount, precision)
 			):
 				status = "Partly Claimed and Returned"
-			elif flt(self.paid_amount) > 0 and flt(self.advance_amount, precision) == flt(
-				self.paid_amount, precision
+			elif flt(self.paid_amount) > 0 and (
+				flt(self.advance_amount, precision) == flt(self.paid_amount, precision)
+				or (self.paid_amount and self.repay_unclaimed_amount_from_salary)
 			):
 				status = "Paid"
 			else:
@@ -122,11 +123,7 @@ class EmployeeAdvance(Document):
 	def set_total_advance_paid(self):
 		aple = frappe.qb.DocType("Advance Payment Ledger Entry")
 
-		account_type, account_curreny = frappe.get_value(
-			"Account", self.advance_account, ["account_type", "account_currency"]
-		)
-
-		company_currency = frappe.get_value("Company", self.company, "default_currency")
+		account_type = frappe.get_value("Account", self.advance_account, "account_type")
 
 		if account_type == "Receivable":
 			paid_amount_condition = aple.amount > 0
@@ -141,17 +138,21 @@ class EmployeeAdvance(Document):
 				)
 			)
 
-		paid_amount = (
+		aple_paid_amount = (
 			frappe.qb.from_(aple)
 			.select(Abs(Sum(aple.amount)).as_("paid_amount"))
+			.select(Abs(Sum(aple.base_amount)).as_("base_paid_amount"))
 			.where(
 				(aple.company == self.company)
 				& (aple.delinked == 0)
 				& (aple.against_voucher_type == self.doctype)
 				& (aple.against_voucher_no == self.name)
 				& (paid_amount_condition)
+				& (aple.event == "Submit")
 			)
-		).run(as_dict=True)[0].paid_amount or 0
+		).run(as_dict=True)[0] or {}
+		paid_amount = aple_paid_amount.get("paid_amount") or 0
+
 		return_amount = (
 			frappe.qb.from_(aple)
 			.select(Abs(Sum(aple.amount)).as_("return_amount"))
@@ -160,13 +161,10 @@ class EmployeeAdvance(Document):
 				& (aple.delinked == 0)
 				& (aple.against_voucher_type == self.doctype)
 				& (aple.against_voucher_no == self.name)
+				& (aple.voucher_type != "Expense Claim")
 				& (returned_amount_condition)
 			)
 		).run(as_dict=True)[0].return_amount or 0
-
-		if company_currency != self.currency and account_curreny == company_currency:
-			paid_amount = flt(paid_amount) / flt(self.exchange_rate)
-			return_amount = flt(return_amount) / flt(self.exchange_rate)
 
 		precision = self.precision("paid_amount")
 		paid_amount = flt(paid_amount, precision)
@@ -186,10 +184,7 @@ class EmployeeAdvance(Document):
 		self.db_set("return_amount", return_amount)
 		self.set_status(update=True)
 
-		base_paid_amount = flt(
-			flt(paid_amount, self.precision("paid_amount")) * self.exchange_rate,
-			self.precision("base_paid_amount"),
-		)
+		base_paid_amount = aple_paid_amount.get("base_paid_amount") or 0
 		self.db_set("base_paid_amount", base_paid_amount)
 
 	def update_claimed_amount(self):
@@ -241,34 +236,21 @@ class EmployeeAdvance(Document):
 @frappe.whitelist()
 def make_bank_entry(dt, dn):
 	doc = frappe.get_doc(dt, dn)
-	payment_account = get_default_bank_cash_account(
-		doc.company, account_type="Cash", mode_of_payment=doc.mode_of_payment
-	)
-	if not payment_account:
-		frappe.throw(_("Please set a Default Cash Account in Company defaults"))
-
-	advance_account_currency = frappe.db.get_value("Account", doc.advance_account, "account_currency")
-
-	advance_amount, advance_exchange_rate = get_advance_amount_advance_exchange_rate(
-		advance_account_currency, doc
-	)
-
-	paying_amount, paying_exchange_rate = get_paying_amount_paying_exchange_rate(payment_account, doc)
+	payment_account = get_same_currency_bank_cash_account(doc.company, doc.currency, doc.mode_of_payment)
 
 	je = frappe.new_doc("Journal Entry")
 	je.posting_date = nowdate()
 	je.voucher_type = "Bank Entry"
 	je.company = doc.company
 	je.remark = "Payment against Employee Advance: " + dn + "\n" + doc.purpose
-	je.multi_currency = 1 if advance_account_currency != payment_account.account_currency else 0
+	je.multi_currency = 1 if doc.currency != erpnext.get_company_currency(doc.company) else 0
 
 	je.append(
 		"accounts",
 		{
 			"account": doc.advance_account,
-			"account_currency": advance_account_currency,
-			"exchange_rate": flt(advance_exchange_rate),
-			"debit_in_account_currency": flt(advance_amount),
+			"account_currency": doc.currency,
+			"debit_in_account_currency": flt(doc.advance_amount),
 			"reference_type": "Employee Advance",
 			"reference_name": doc.name,
 			"party_type": "Employee",
@@ -281,38 +263,15 @@ def make_bank_entry(dt, dn):
 	je.append(
 		"accounts",
 		{
-			"account": payment_account.account,
+			"account": payment_account.account or payment_account.name,
 			"cost_center": erpnext.get_default_cost_center(doc.company),
-			"credit_in_account_currency": flt(paying_amount),
-			"account_currency": payment_account.account_currency,
+			"credit_in_account_currency": flt(doc.advance_amount),
+			"account_currency": doc.currency,
 			"account_type": payment_account.account_type,
-			"exchange_rate": flt(paying_exchange_rate),
 		},
 	)
 
 	return je.as_dict()
-
-
-def get_advance_amount_advance_exchange_rate(advance_account_currency, doc):
-	if advance_account_currency != doc.currency:
-		advance_amount = flt(doc.advance_amount) * flt(doc.exchange_rate)
-		advance_exchange_rate = 1
-	else:
-		advance_amount = doc.advance_amount
-		advance_exchange_rate = doc.exchange_rate
-
-	return advance_amount, advance_exchange_rate
-
-
-def get_paying_amount_paying_exchange_rate(payment_account, doc):
-	if payment_account.account_currency != doc.currency:
-		paying_amount = flt(doc.advance_amount) * flt(doc.exchange_rate)
-		paying_exchange_rate = 1
-	else:
-		paying_amount = doc.advance_amount
-		paying_exchange_rate = doc.exchange_rate
-
-	return paying_amount, paying_exchange_rate
 
 
 @frappe.whitelist()
@@ -342,14 +301,9 @@ def make_return_entry(
 	return_amount,
 	advance_account,
 	currency,
-	exchange_rate,
 	mode_of_payment=None,
 ):
-	bank_cash_account = get_default_bank_cash_account(
-		company, account_type="Cash", mode_of_payment=mode_of_payment
-	)
-	if not bank_cash_account:
-		frappe.throw(_("Please set a Default Cash Account in Company defaults"))
+	bank_cash_account = get_same_currency_bank_cash_account(company, currency, mode_of_payment)
 
 	advance_account_currency = frappe.db.get_value("Account", advance_account, "account_currency")
 
@@ -358,13 +312,9 @@ def make_return_entry(
 	je.voucher_type = get_voucher_type(mode_of_payment)
 	je.company = company
 	je.remark = "Return against Employee Advance: " + employee_advance_name
-	je.multi_currency = 1 if advance_account_currency != bank_cash_account.account_currency else 0
+	je.multi_currency = 1 if advance_account_currency != erpnext.get_company_currency(company) else 0
 
-	advance_account_amount = (
-		flt(return_amount)
-		if advance_account_currency == currency
-		else flt(return_amount) * flt(exchange_rate)
-	)
+	advance_account_amount = flt(return_amount)
 
 	je.append(
 		"accounts",
@@ -372,7 +322,6 @@ def make_return_entry(
 			"account": advance_account,
 			"credit_in_account_currency": advance_account_amount,
 			"account_currency": advance_account_currency,
-			"exchange_rate": flt(exchange_rate) if advance_account_currency == currency else 1,
 			"reference_type": "Employee Advance",
 			"reference_name": employee_advance_name,
 			"party_type": "Employee",
@@ -382,25 +331,54 @@ def make_return_entry(
 		},
 	)
 
-	bank_amount = (
-		flt(return_amount)
-		if bank_cash_account.account_currency == currency
-		else flt(return_amount) * flt(exchange_rate)
-	)
-
+	bank_amount = flt(return_amount)
 	je.append(
 		"accounts",
 		{
-			"account": bank_cash_account.account,
+			"account": bank_cash_account.account or bank_cash_account.name,
 			"debit_in_account_currency": bank_amount,
 			"account_currency": bank_cash_account.account_currency,
 			"account_type": bank_cash_account.account_type,
-			"exchange_rate": flt(exchange_rate) if bank_cash_account.account_currency == currency else 1,
 			"cost_center": erpnext.get_default_cost_center(company),
 		},
 	)
 
 	return je.as_dict()
+
+
+def get_same_currency_bank_cash_account(company, currency, mode_of_payment=None):
+	company_currency = erpnext.get_company_currency(company)
+	if currency == company_currency:
+		return get_default_bank_cash_account(company, account_type="Cash", mode_of_payment=mode_of_payment)
+
+	account = None
+	if mode_of_payment:
+		from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
+
+		account = get_bank_cash_account(mode_of_payment, company)
+
+	if not account:
+		accounts = frappe.get_all(
+			"Account",
+			filters={
+				"company": company,
+				"account_currency": currency,
+				"account_type": ["in", ["Cash", "Bank"]],
+				"is_group": 0,
+			},
+			limit=1,
+		)
+		if not accounts:
+			frappe.throw(
+				_("No Bank/Cash Account found for currency {0}. Please create one under company {1}.").format(
+					frappe.bold(currency), company
+				),
+				title=_("Account Not Found"),
+			)
+		account = accounts[0].name
+	return frappe.get_cached_value(
+		"Account", account, ["name", "account_currency", "account_type"], as_dict=True
+	)
 
 
 def get_voucher_type(mode_of_payment=None):
