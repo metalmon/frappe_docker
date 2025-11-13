@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-09 09:34+0000\n"
-"PO-Revision-Date: 2025-11-11 11:42\n"
+"PO-Revision-Date: 2025-11-13 12:16\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -2951,7 +2951,7 @@ msgstr "Kontaktnummer"
 
 #: hrms/payroll/doctype/bulk_salary_structure_assignment/bulk_salary_structure_assignment.js:277
 msgid "Continue"
-msgstr "Fortsetzen"
+msgstr "Weiter"
 
 #: hrms/setup.py:385
 msgid "Contract"
@@ -4046,7 +4046,7 @@ msgstr "Push-Benachrichtigungen werden deaktiviert..."
 
 #: frontend/src/components/WorkflowActionSheet.vue:111
 msgid "Dismiss"
-msgstr "Entlassen"
+msgstr "Verwerfen"
 
 #. Label of the do_not_include_in_accounts (Check) field in DocType 'Salary
 #. Component'
@@ -7389,7 +7389,7 @@ msgstr "Import erfolgreich"
 
 #: hrms/hr/doctype/upload_attendance/upload_attendance.js:50
 msgid "Importing {0} of {1}"
-msgstr "{0} von {1} wird importiert"
+msgstr "Importiere {0} von {1}"
 
 #. Option for the 'Status' (Select) field in DocType 'Employee Onboarding'
 #. Option for the 'Status' (Select) field in DocType 'Employee Referral'
@@ -11400,7 +11400,7 @@ msgstr "Abwesenheiten neu zuteilen"
 #. Label of the read (Check) field in DocType 'PWA Notification'
 #: hrms/hr/doctype/pwa_notification/pwa_notification.json
 msgid "Read"
-msgstr "Lesen"
+msgstr "Lese-Zugriff"
 
 #. Label of the reason_section (Section Break) field in DocType 'Attendance
 #. Request'
@@ -11523,7 +11523,7 @@ msgstr "Referenz"
 #. Ledger'
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.json
 msgid "Reference Doctype"
-msgstr "Referenztyp"
+msgstr "Referenz-DocType"
 
 #. Label of the reference_document (Dynamic Link) field in DocType 'Full and
 #. Final Outstanding Statement'
@@ -11591,7 +11591,7 @@ msgstr "Empfehlungsdetails"
 #. Label of the referrer (Link) field in DocType 'Employee Referral'
 #: hrms/hr/doctype/employee_referral/employee_referral.json
 msgid "Referrer"
-msgstr "Referrer"
+msgstr "Verweiser"
 
 #. Label of the referrer_details_section (Section Break) field in DocType
 #. 'Employee Referral'
