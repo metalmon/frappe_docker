@@ -355,7 +355,7 @@ def get_same_currency_bank_cash_account(company, currency, mode_of_payment=None)
 	if mode_of_payment:
 		from erpnext.accounts.doctype.sales_invoice.sales_invoice import get_bank_cash_account
 
-		account = get_bank_cash_account(mode_of_payment, company)
+		account = get_bank_cash_account(mode_of_payment, company).get("account")
 
 	if not account:
 		accounts = frappe.get_all(
