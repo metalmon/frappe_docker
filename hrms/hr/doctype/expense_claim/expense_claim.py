@@ -787,7 +787,7 @@ def get_expense_claim_advances(expense_claim, advance_details):
 				& (pe_ref.reference_name == advance_details.employee_advance_name)
 				& (pe_ref.allocated_amount > 0)
 			)
-		).run(as_dict=True, debug=1)
+		).run(as_dict=True)
 
 		for pe in payment_entries:
 			advance_paid = flt(pe.advance_paid) + flt(pe.unallocated_amount)
