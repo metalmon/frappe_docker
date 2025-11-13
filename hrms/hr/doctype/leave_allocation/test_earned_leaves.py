@@ -1052,41 +1052,49 @@ class TestLeaveAllocation(HRMSTestSuite):
 
 	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
 		frappe.flags.current_date = get_year_start(getdate())
-		assignment1 = make_policy_assignment(
-			self.employee,
-			allocate_on_day="First Day",
-			earned_leave_frequency="Monthly",
-			annual_allocation=24,
-			assignment_based_on="Leave Period",
-			start_date=get_year_start(getdate()),
-			end_date=get_year_ending(getdate()),
-			rounding=0.25,
-		)[0]
-		frappe.db.delete("Earned Leave Schedule")
 		employee = frappe.get_doc("Employee", "_T-Employee-00002")
-		assignment2 = make_policy_assignment(
-			employee,
-			allocate_on_day="First Day",
-			earned_leave_frequency="Monthly",
-			annual_allocation=24,
-			assignment_based_on="Leave Period",
+		leave_type = create_earned_leave_type(
+			"Test Earned Leave", "First Day", 0.5, earned_leave_frequency="Monthly"
+		)
+		leave_period = create_leave_period(
+			"Test Earned Leave Period",
 			start_date=get_year_start(getdate()),
 			end_date=get_year_ending(getdate()),
-			rounding=0.25,
-		)[0]
+		)
+		leave_policy = frappe.get_doc(
+			{
+				"doctype": "Leave Policy",
+				"title": "Test Earned Leave Policy",
+				"leave_policy_details": [{"leave_type": leave_type.name, "annual_allocation": 24}],
+			}
+		).insert()
+
+		data = {
+			"assignment_based_on": "Leave Period",
+			"leave_policy": leave_policy.name,
+			"leave_period": leave_period.name,
+			"carry_forward": 0,
+			"effective_from": get_year_start(getdate()),
+			"effective_to": get_year_ending(getdate()),
+		}
+
+		leave_policy_assignments = create_assignment_for_multiple_employees(
+			[self.employee.name, employee.name], frappe._dict(data)
+		)
+		leave_allocation = frappe.get_value("Leave Allocation", {"employee": self.employee.name}, "name")
+		frappe.db.delete("Earned Leave Schedule", {"parent": leave_allocation})
 		frappe.flags.current_date = add_months(get_year_start(getdate()), 1)
 		allocate_earned_leaves()
 		total_leaves_allocated_with_no_schedule = frappe.get_value(
 			"Leave Allocation",
-			{"employee": self.employee.name, "leave_policy_assignment": assignment1},
+			{"employee": self.employee.name, "leave_policy_assignment": leave_policy_assignments[0]},
 			"total_leaves_allocated",
 		)
 		total_leaves_allocated_with_schedule = frappe.get_value(
 			"Leave Allocation",
-			{"employee": employee.name, "leave_policy_assignment": assignment2},
+			{"employee": employee.name, "leave_policy_assignment": leave_policy_assignments[1]},
 			"total_leaves_allocated",
 		)
-
 		self.assertEqual(total_leaves_allocated_with_no_schedule, 4)
 		self.assertEqual(total_leaves_allocated_with_schedule, 4)
 
