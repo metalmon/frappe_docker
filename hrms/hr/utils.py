@@ -566,7 +566,7 @@ def get_leave_allocations(date, leave_type):
 			& (leave_allocation.leave_policy.isnotnull())
 			& (employee.status != "Left")
 		)
-		.groupby(earned_leave_schedule.parent)
+		.groupby(leave_allocation.name)
 	)
 	return query.run(as_dict=1) or []
 
