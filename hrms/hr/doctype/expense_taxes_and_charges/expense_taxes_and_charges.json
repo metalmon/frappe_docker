@@ -122,12 +122,13 @@
    "fieldname": "base_tax_amount",
    "fieldtype": "Currency",
    "label": "Amount (Company Currency)",
-   "options": "Company:company:default_currency"
+   "options": "Company:company:default_currency",
+   "read_only": 1
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2025-09-25 15:49:05.831739",
+ "modified": "2025-11-13 22:14:53.650756",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Expense Taxes and Charges",

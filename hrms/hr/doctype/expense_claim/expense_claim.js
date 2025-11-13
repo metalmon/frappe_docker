@@ -136,6 +136,7 @@ frappe.ui.form.on("Expense Claim", {
 
 	validate: function (frm) {
 		frm.trigger("calculate_total");
+		frm.events.set_child_cost_center(frm);
 	},
 
 	currency: function (frm) {
@@ -434,10 +435,6 @@ frappe.ui.form.on("Expense Claim", {
 		}
 	},
 
-	validate: function (frm) {
-		frm.events.set_child_cost_center(frm);
-	},
-
 	set_child_cost_center: function (frm) {
 		(frm.doc.expenses || []).forEach(function (d) {
 			if (!d.cost_center) {
@@ -465,7 +462,7 @@ frappe.ui.form.on("Expense Claim", {
 			return frappe.call({
 				method: "hrms.hr.doctype.expense_claim.expense_claim.get_advances",
 				args: {
-					employee: frm.doc.employee,
+					expense_claim: frm.doc,
 				},
 				callback: function (r, rt) {
 					if (r.message) {
@@ -475,17 +472,16 @@ frappe.ui.form.on("Expense Claim", {
 								"Expense Claim Advance",
 								"advances",
 							);
-							row.employee_advance = d.name;
+							row.employee_advance = d.employee_advance;
 							row.posting_date = d.posting_date;
 							row.advance_account = d.advance_account;
-							row.advance_paid = d.paid_amount;
-							row.unclaimed_amount = flt(d.paid_amount) - flt(d.claimed_amount);
+							row.advance_paid = d.advance_paid;
+							row.unclaimed_amount = d.unclaimed_amount;
 							row.return_amount = flt(d.return_amount);
-							row.allocated_amount = get_allocation_amount(
-								flt(d.paid_amount),
-								flt(d.claimed_amount),
-								flt(d.return_amount),
-							);
+							row.allocated_amount = d.allocated_amount;
+							row.exchange_rate = d.exchange_rate;
+							row.payment_entry = d.payment_entry;
+							row.payment_entry_reference = d.payment_entry_reference;
 						});
 						refresh_field("advances");
 					}
@@ -574,23 +570,21 @@ frappe.ui.form.on("Expense Claim Advance", {
 			return frappe.call({
 				method: "hrms.hr.doctype.expense_claim.expense_claim.get_advances",
 				args: {
-					employee: frm.doc.employee,
+					expense_claim: frm.doc,
 					advance_id: child.employee_advance,
 				},
 				callback: function (r, rt) {
 					if (r.message) {
-						child.employee_advance = r.message[0].name;
+						child.employee_advance = r.message[0].employee_advance;
 						child.posting_date = r.message[0].posting_date;
 						child.advance_account = r.message[0].advance_account;
-						child.advance_paid = r.message[0].paid_amount;
-						child.unclaimed_amount =
-							flt(r.message[0].paid_amount) - flt(r.message[0].claimed_amount);
+						child.advance_paid = r.message[0].advance_paid;
+						child.unclaimed_amount = r.message[0].unclaimed_amount;
 						child.return_amount = flt(r.message[0].return_amount);
-						child.allocated_amount = get_allocation_amount(
-							flt(r.message[0].paid_amount),
-							flt(r.message[0].claimed_amount),
-							flt(r.message[0].return_amount),
-						);
+						child.allocated_amount = flt(r.message[0].allocated_amount);
+						child.exchange_rate = r.message[0].exchange_rate;
+						child.payment_entry = r.message[0].payment_entry;
+						child.payment_entry_reference = r.message[0].payment_entry_reference;
 						set_in_company_currency(
 							frm,
 							child,
@@ -598,12 +592,12 @@ frappe.ui.form.on("Expense Claim Advance", {
 							r.message[0].exchange_rate,
 						);
 						set_in_company_currency(frm, child, ["allocated_amount"]);
-						frm.trigger("calculate_grand_total");
 						refresh_field("advances");
 					}
 				},
 			});
 		}
+		frm.trigger("calculate_grand_total");
 	},
 });
 
@@ -644,10 +638,6 @@ frappe.ui.form.on("Expense Taxes and Charges", {
 		frm.trigger("calculate_total_tax", cdt, cdn);
 	},
 });
-
-function get_allocation_amount(paid_amount, claimed_amount, return_amount) {
-	return paid_amount - (claimed_amount + return_amount);
-}
 
 async function set_in_company_currency(frm, doc, fields, exchange_rate = frm.doc.exchange_rate) {
 	await $.each(fields, function (i, f) {

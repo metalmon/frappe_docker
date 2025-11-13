@@ -678,7 +678,14 @@ def get_expense_claim_account(expense_claim_type, company):
 
 
 @frappe.whitelist()
-def get_advances(employee, advance_id=None):
+def get_advances(expense_claim, advance_id=None):
+	import json
+
+	if isinstance(expense_claim, str):
+		expense_claim = frappe._dict(json.loads(expense_claim))
+	expense_claim_doc = frappe.get_doc(expense_claim)
+	expense_claim_doc.advances = []
+
 	advance = frappe.qb.DocType("Employee Advance")
 
 	query = frappe.qb.from_(advance).select(
@@ -694,14 +701,22 @@ def get_advances(employee, advance_id=None):
 	if not advance_id:
 		query = query.where(
 			(advance.docstatus == 1)
-			& (advance.employee == employee)
+			& (advance.employee == expense_claim.employee)
 			& (advance.paid_amount > 0)
 			& (advance.status.notin(["Claimed", "Returned", "Partly Claimed and Returned"]))
 		)
 	else:
 		query = query.where(advance.name == advance_id)
 
-	return query.run(as_dict=True)
+	advances = query.run(as_dict=True)
+
+	payment_via_journal_entry = frappe.db.get_single_value(
+		"Accounts Settings", "make_payment_via_journal_entry"
+	)
+	for advance in advances:
+		advance.update({"payment_via_journal_entry": payment_via_journal_entry})
+		get_expense_claim_advances(expense_claim_doc, advance)
+	return expense_claim_doc.advances
 
 
 @frappe.whitelist()

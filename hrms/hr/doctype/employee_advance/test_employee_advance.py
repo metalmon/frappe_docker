@@ -15,7 +15,7 @@ from hrms.hr.doctype.employee_advance.employee_advance import (
 	make_bank_entry,
 	make_return_entry,
 )
-from hrms.hr.doctype.expense_claim.expense_claim import get_advances, get_expense_claim_advances
+from hrms.hr.doctype.expense_claim.expense_claim import get_advances
 from hrms.hr.doctype.expense_claim.test_expense_claim import (
 	get_payable_account,
 	make_expense_claim,
@@ -94,8 +94,8 @@ class TestEmployeeAdvance(IntegrationTestCase):
 		self.assertEqual(advance.status, "Claimed")
 
 		# advance should not be shown in claims
-		advances = get_advances(claim.employee)
-		advances = [entry.name for entry in advances]
+		advances = get_advances(claim)
+		advances = [entry.employee_advance for entry in advances]
 		self.assertTrue(advance.name not in advances)
 
 		# cancel claim; status should be Paid
@@ -151,8 +151,8 @@ class TestEmployeeAdvance(IntegrationTestCase):
 		self.assertEqual(advance.status, "Partly Claimed and Returned")
 
 		# advance should not be shown in claims
-		advances = get_advances(claim.employee)
-		advances = [entry.name for entry in advances]
+		advances = get_advances(claim)
+		advances = [entry.employee_advance for entry in advances]
 		self.assertTrue(advance.name not in advances)
 
 		# Cancel return entry; status should change to PAID
@@ -162,8 +162,8 @@ class TestEmployeeAdvance(IntegrationTestCase):
 		self.assertEqual(advance.status, "Paid")
 
 		# advance should be shown in claims
-		advances = get_advances(claim.employee)
-		advances = [entry.name for entry in advances]
+		advances = get_advances(claim)
+		advances = [entry.employee_advance for entry in advances]
 		self.assertTrue(advance.name in advances)
 
 	def test_repay_unclaimed_amount_from_salary(self):
@@ -418,16 +418,12 @@ def make_employee_advance(employee_name, args=None, do_not_submit=False):
 
 
 def get_advances_for_claim(claim, advance_name, amount=None):
-	advances = get_advances(claim.employee, advance_name)
-	payment_via_journal_entry = frappe.db.get_single_value(
-		"Accounts Settings", "make_payment_via_journal_entry"
-	)
+	advances = get_advances(claim, advance_name)
+	claim.advances = []
 	for advance in advances:
-		advance.update({"payment_via_journal_entry": payment_via_journal_entry})
-		get_expense_claim_advances(claim, advance)
 		if amount:
-			for advance in claim.advances:
-				advance.allocated_amount = amount
+			advance.allocated_amount = amount
+		claim.append("advances", advance)
 	return claim
 
 
