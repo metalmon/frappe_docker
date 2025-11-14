@@ -388,7 +388,6 @@ def get_upcoming_earned_leave_from_schedule(allocation_name, today):
 		"Earned Leave Schedule",
 		{"parent": allocation_name, "attempted": 0, "allocation_date": today},
 		["allocation_date", "number_of_leaves"],
-		cache=True,
 	)
 
 

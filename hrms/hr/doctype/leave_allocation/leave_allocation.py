@@ -413,6 +413,9 @@ class LeaveAllocation(Document):
 
 	@frappe.whitelist()
 	def retry_failed_allocations(self, failed_allocations):
+		if not frappe.has_permission(doctype="Leave Allocation", ptype="write", user=frappe.session.user):
+			frappe.throw(_("You do not have permission to complete this action"), frappe.PermissionError)
+
 		max_leaves_allowed, frequency = frappe.db.get_values(
 			"Leave Type", self.leave_type, ["max_leaves_allowed", "earned_leave_frequency"]
 		)[0]
@@ -452,12 +455,20 @@ class LeaveAllocation(Document):
 					self, allocation["number_of_leaves"], allocation["allocation_date"]
 				)
 				earned_leave_schedule = frappe.qb.DocType("Earned Leave Schedule")
-				frappe.qb.update(earned_leave_schedule).where(
-					(earned_leave_schedule.parent == self.name)
-					& (earned_leave_schedule.allocation_date == allocation["allocation_date"])
-				).set(earned_leave_schedule.is_allocated, 1).set(earned_leave_schedule.attempted, 1).set(
-					earned_leave_schedule.allocated_via, "Manually"
-				).set(earned_leave_schedule.failed, 0).set(earned_leave_schedule.failure_reason, "").run()
+				(
+					frappe.qb.update(earned_leave_schedule)
+					.where(
+						(earned_leave_schedule.parent == self.name)
+						& (earned_leave_schedule.allocation_date == allocation["allocation_date"])
+						& (earned_leave_schedule.attempted == 1)
+						& (earned_leave_schedule.failed == 1)
+					)
+					.set(earned_leave_schedule.is_allocated, 1)
+					.set(earned_leave_schedule.attempted, 1)
+					.set(earned_leave_schedule.allocated_via, "Manually")
+					.set(earned_leave_schedule.failed, 0)
+					.set(earned_leave_schedule.failure_reason, "")
+				).run()
 
 
 def get_previous_allocation(from_date, leave_type, employee):

@@ -169,19 +169,21 @@ frappe.ui.form.on("Leave Allocation", {
 	},
 
 	toggle_retry_button: function (frm) {
-		toggle_button = frm.doc.earned_leave_schedule.some((row) => row.attempted && row.failed);
+		const earned_leave_schedule = frm.doc.earned_leave_schedule || [];
+		let toggle_button =
+			earned_leave_schedule.some((row) => row.attempted && row.failed) && frm.perm[0]?.write;
 		frm.toggle_display("retry_failed_allocations", toggle_button);
 	},
 
 	retry_failed_allocations: function (frm) {
-		let failed_allocations = frm.doc.earned_leave_schedule.filter(
+		let failed_allocations = (frm.doc.earned_leave_schedule || []).filter(
 			(row) => row.attempted && row.failed,
 		);
 
 		frappe.call({
 			method: "retry_failed_allocations",
 			doc: frm.doc,
-			args: failed_allocations,
+			args: { failed_allocations },
 			freeze: true,
 			freeze_message: __("Retrying allocations"),
 			callback: function (r) {
