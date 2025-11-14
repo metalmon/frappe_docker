@@ -9,6 +9,7 @@ from frappe.utils import (
 	get_year_start,
 	getdate,
 )
+from frappe.utils.user import add_role
 
 from erpnext.setup.doctype.holiday_list.test_holiday_list import set_holiday_list
 
@@ -1049,6 +1050,35 @@ class TestLeaveAllocation(HRMSTestSuite):
 			"total_leaves_allocated",
 		)
 		self.assertEqual(total_leaves_allocated, 6)
+
+	def test_permission_check_for_retrying_failed_allocation(self):
+		frappe.flags.current_date = get_year_start(getdate())
+		assignment = make_policy_assignment(
+			self.employee,
+			allocate_on_day="First Day",
+			earned_leave_frequency="Monthly",
+			annual_allocation=24,
+			assignment_based_on="Leave Period",
+			start_date=get_year_start(getdate()),
+			end_date=get_year_ending(getdate()),
+			rounding=0.25,
+		)[0]
+		leave_allocation = frappe.get_doc(
+			"Leave Allocation", {"employee": self.employee.name, "leave_policy_assignment": assignment}
+		)
+		failed_allocations = frappe.get_all(
+			"Earned Leave Schedule", {"parent": leave_allocation.name, "attempted": 1, "failed": 1}, ["*"]
+		)
+		frappe.set_user(self.employee.user_id)
+		self.assertRaises(
+			frappe.PermissionError, leave_allocation.retry_failed_allocations, failed_allocations
+		)
+		add_role(self.employee.user_id, "HR Manager")
+		leave_allocation.retry_failed_allocations(failed_allocations)
+		failed_allocations = frappe.get_all(
+			"Earned Leave Schedule", {"parent": leave_allocation.name, "attempted": 1, "failed": 1}, ["*"]
+		)
+		self.assertFalse(failed_allocations)
 
 	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
 		frappe.flags.current_date = get_year_start(getdate())
