@@ -1080,6 +1080,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		)
 		self.assertFalse(failed_allocations)
 		frappe.set_user("Administrator")
+		frappe.get_doc("User", self.employee.user_id).remove_roles("HR Manager")
 
 	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
 		frappe.flags.current_date = get_year_start(getdate())
@@ -1139,6 +1140,8 @@ class TestLeaveAllocation(HRMSTestSuite):
 		self.assertEqual(total_leaves_allocated_with_no_schedule[0], 4)
 		self.assertEqual(total_leaves_allocated_with_no_schedule[1], 4)
 		self.assertEqual(total_leaves_allocated_with_schedule, 4)
+
+		frappe.delete_doc_if_exists("Employee", employee2.name, force=1)
 
 	def tearDown(self):
 		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
