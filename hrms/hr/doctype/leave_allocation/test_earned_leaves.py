@@ -1079,6 +1079,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 			"Earned Leave Schedule", {"parent": leave_allocation.name, "attempted": 1, "failed": 1}, ["*"]
 		)
 		self.assertFalse(failed_allocations)
+		frappe.set_user("Administrator")
 
 	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
 		frappe.flags.current_date = get_year_start(getdate())
