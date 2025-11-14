@@ -1052,7 +1052,10 @@ class TestLeaveAllocation(HRMSTestSuite):
 
 	def test_allocating_earned_leave_when_schedule_doesnt_exist(self):
 		frappe.flags.current_date = get_year_start(getdate())
-		employee = frappe.get_doc("Employee", "_T-Employee-00002")
+		employee1 = frappe.get_doc("Employee", "_T-Employee-00002")
+		employee2 = frappe.copy_doc(employee1)
+		employee2.user_id = None
+		employee2.insert()
 		leave_type = create_earned_leave_type(
 			"Test Earned Leave", "First Day", 0.5, earned_leave_frequency="Monthly"
 		)
@@ -1079,23 +1082,31 @@ class TestLeaveAllocation(HRMSTestSuite):
 		}
 
 		leave_policy_assignments = create_assignment_for_multiple_employees(
-			[self.employee.name, employee.name], frappe._dict(data)
+			[self.employee.name, employee1.name, employee2.name], frappe._dict(data)
 		)
-		leave_allocation = frappe.get_value("Leave Allocation", {"employee": self.employee.name}, "name")
-		frappe.db.delete("Earned Leave Schedule", {"parent": leave_allocation})
+		leave_allocations = frappe.db.get_values(
+			"Leave Allocation", {"employee": ("in", (employee1.name, employee2.name))}, pluck=True
+		)
+		frappe.db.delete("Earned Leave Schedule", {"parent": ("in", leave_allocations)})
 		frappe.flags.current_date = add_months(get_year_start(getdate()), 1)
 		allocate_earned_leaves()
-		total_leaves_allocated_with_no_schedule = frappe.get_value(
+		total_leaves_allocated_with_no_schedule = frappe.db.get_values(
+			"Leave Allocation",
+			{
+				"employee": ("in", (employee1.name, employee2.name)),
+				"leave_policy_assignment": ("in", leave_policy_assignments[1:]),
+			},
+			"total_leaves_allocated",
+			pluck=True,
+		)
+
+		total_leaves_allocated_with_schedule = frappe.get_value(
 			"Leave Allocation",
 			{"employee": self.employee.name, "leave_policy_assignment": leave_policy_assignments[0]},
 			"total_leaves_allocated",
 		)
-		total_leaves_allocated_with_schedule = frappe.get_value(
-			"Leave Allocation",
-			{"employee": employee.name, "leave_policy_assignment": leave_policy_assignments[1]},
-			"total_leaves_allocated",
-		)
-		self.assertEqual(total_leaves_allocated_with_no_schedule, 4)
+		self.assertEqual(total_leaves_allocated_with_no_schedule[0], 4)
+		self.assertEqual(total_leaves_allocated_with_no_schedule[1], 4)
 		self.assertEqual(total_leaves_allocated_with_schedule, 4)
 
 	def tearDown(self):
