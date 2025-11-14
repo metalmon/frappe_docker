@@ -448,9 +448,7 @@ def update_previous_leave_allocation(allocation, annual_allocation, e_leave_type
 
 def log_allocation_error(allocation_name, error):
 	error_log = frappe.log_error(error, reference_doctype="Leave Allocation")
-	text = _("{0}. Check error log {1} for more details.").format(
-		error_log.method, get_link_to_form("Error Log", error_log.name)
-	)
+	text = _("{0}. Check error log for more details.").format(error_log.method)
 	earned_leave_schedule = qb.DocType("Earned Leave Schedule")
 	today = getdate(frappe.flags.current_date) or getdate()
 
