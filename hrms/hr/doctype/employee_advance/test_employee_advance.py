@@ -99,6 +99,7 @@ class TestEmployeeAdvance(IntegrationTestCase):
 		self.assertTrue(advance.name not in advances)
 
 		# cancel claim; status should be Paid
+		claim.reload()
 		claim.cancel()
 		advance.reload()
 		self.assertEqual(advance.claimed_amount, 0)

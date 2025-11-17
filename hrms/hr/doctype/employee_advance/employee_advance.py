@@ -189,23 +189,21 @@ class EmployeeAdvance(Document):
 		self.db_set("base_paid_amount", base_paid_amount)
 
 	def update_claimed_amount(self):
-		claimed_amount = (
-			frappe.db.sql(
-				"""
-			SELECT sum(ifnull(allocated_amount, 0))
-			FROM `tabExpense Claim Advance` eca, `tabExpense Claim` ec
-			WHERE
-				eca.employee_advance = %s
-				AND ec.approval_status="Approved"
-				AND ec.name = eca.parent
-				AND ec.docstatus=1
-				AND eca.allocated_amount > 0
-		""",
-				self.name,
-			)[0][0]
-			or 0
-		)
+		ec = frappe.qb.DocType("Expense Claim")
+		eca = frappe.qb.DocType("Expense Claim Advance")
 
+		claimed_amount = (
+			frappe.qb.from_(ec)
+			.join(eca)
+			.on(ec.name == eca.parent)
+			.select(Sum(eca.allocated_amount))
+			.where(
+				(eca.employee_advance == self.name)
+				& (eca.allocated_amount > 0)
+				& (ec.approval_status == "Approved")
+				& (ec.docstatus == 1)
+			)
+		).run()[0][0] or 0
 		frappe.db.set_value("Employee Advance", self.name, "claimed_amount", flt(claimed_amount))
 		self.reload()
 		self.set_status(update=True)
