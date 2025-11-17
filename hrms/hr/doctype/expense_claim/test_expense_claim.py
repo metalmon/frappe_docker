@@ -595,7 +595,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		ledger_balance = frappe.db.get_all(
 			"GL Entry",
 			filters={"voucher_no": expense_claim.name, "is_cancelled": 0},
-			fields=["sum(debit) as total_debit", "sum(credit) as total_credit"],
+			fields=[{"SUM": "debit", "as": "total_debit"}, {"SUM": "credit", "as": "total_credit"}]
 		)
 		self.assertEqual(ledger_balance, expected_data)
 
@@ -608,7 +608,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		ledger_balance = frappe.db.get_all(
 			"GL Entry",
 			filters={"voucher_no": expense_claim.name, "is_cancelled": 0},
-			fields=["sum(debit) as total_debit", "sum(credit) as total_credit"],
+			fields=[{"SUM": "debit", "as": "total_debit"}, {"SUM": "credit", "as": "total_credit"}]
 		)
 		self.assertNotEqual(ledger_balance, expected_data)
 
@@ -622,7 +622,7 @@ class TestExpenseClaim(HRMSTestSuite):
 		ledger_balance = frappe.db.get_all(
 			"GL Entry",
 			filters={"voucher_no": expense_claim.name, "is_cancelled": 0},
-			fields=["sum(debit) as total_debit", "sum(credit) as total_credit"],
+			fields=[{"SUM": "debit", "as": "total_debit"}, {"SUM": "credit", "as": "total_credit"}]
 		)
 		self.assertEqual(ledger_balance, expected_data)
 
