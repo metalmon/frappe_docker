@@ -47,6 +47,6 @@ def get_unclaimed_expese_claims(filters):
 	)
 
 	if filters.get("employee"):
-		query.where(ec.employee == filters.get("employee"))
+		query = query.where(ec.employee == filters.get("employee"))
 
 	return query.run()
