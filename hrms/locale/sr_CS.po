@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-15 17:12+0000\n"
-"PO-Revision-Date: 2025-11-16 12:41\n"
+"PO-Revision-Date: 2025-11-18 10:51\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Serbian (Latin)\n"
 "MIME-Version: 1.0\n"
@@ -664,7 +664,7 @@ msgstr "Dodeljena odsustva"
 #. Label of the allocated_via (Select) field in DocType 'Earned Leave Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Allocated Via"
-msgstr ""
+msgstr "Dodeljeno putem"
 
 #: hrms/hr/doctype/leave_control_panel/leave_control_panel.js:205
 msgid "Allocating Leave"
@@ -673,7 +673,7 @@ msgstr "Dodeljivanje odsustva"
 #. Label of the allocation_date (Date) field in DocType 'Earned Leave Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Allocation Date"
-msgstr ""
+msgstr "Datum dodele"
 
 #. Label of the section_break_etvg (Section Break) field in DocType 'Leave
 #. Adjustment'
@@ -696,11 +696,11 @@ msgstr "Dodela za korekciju"
 
 #: hrms/hr/utils.py:435
 msgid "Allocation was skipped due to exceeding annual allocation set in leave policy"
-msgstr ""
+msgstr "Dodela je preskočena zbog prekoračenja godišnje dodele definisane politikom odsustva"
 
 #: hrms/hr/utils.py:425
 msgid "Allocation was skipped due to maximum leave allocation limit set in leave type. Please increase the limit and retry failed allocation."
-msgstr ""
+msgstr "Dodela je preskočena zbog maksimalnog ograničenja dodele odsustva postavljenog za vrstu odsustva. Molimo Vas da povećate ograničenje i pokušate ponovo neuspešnu dodelu."
 
 #. Label of the allow_employee_checkin_from_mobile_app (Check) field in DocType
 #. 'HR Settings'
@@ -1280,7 +1280,7 @@ msgstr "Priloži dokaz"
 #. Label of the attempted (Check) field in DocType 'Earned Leave Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Attempted"
-msgstr ""
+msgstr "Pokušano"
 
 #. Name of a DocType
 #. Label of the attendance (Select) field in DocType 'Training Event Employee'
@@ -1468,7 +1468,7 @@ msgstr "Automatski na osnovu napretka cilja"
 
 #: hrms/hr/utils.py:479
 msgid "Automatic Leave Allocation has failed for the following Earned Leaves: {0}. Please check {1} for more details."
-msgstr ""
+msgstr "Automatska dodela odsustva za sledeća stečena odsustva: {0} nije uspela. Pogledajte {1} za više detalja."
 
 #. Description of the 'Assets Allocated' (Section Break) field in DocType 'Full
 #. and Final Statement'
@@ -1748,11 +1748,11 @@ msgstr "Nije moguće dodeliti odsustvo van perioda dodele {0} - {1}"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:446
 msgid "Cannot allocate more leaves due to maximum leave allocation limit of {0} in leave policy assignment"
-msgstr ""
+msgstr "Nije moguće dodeliti više odsustava zbog maksimalnog ograničenja dodele odsustava od {0} u dodeli politike odsustva"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:438
 msgid "Cannot allocate more leaves due to maximum leaves allowed limit of {0} in {1} leave type."
-msgstr ""
+msgstr "Nije moguće dodeliti više odsustava zbog maksimalnog dozvoljenog ograničenja od {0} u vrsti odsustva {1}."
 
 #: hrms/api/roster.py:139
 msgid "Cannot break shift after end date"
@@ -2682,7 +2682,7 @@ msgstr "Učestalost stečenog odsustva"
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 msgid "Earned Leave Schedule"
-msgstr ""
+msgstr "Raspored stečenih odsustava"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:141
 msgid "Earned Leaves"
@@ -4003,11 +4003,11 @@ msgstr "Detalji o neuspehu"
 #. Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Failure Reason"
-msgstr ""
+msgstr "Razlog neuspeha"
 
 #: hrms/hr/utils.py:478
 msgid "Failure of Automatic Allocation of Earned Leaves"
-msgstr ""
+msgstr "Neuspeh automatske dodele stečenih odsustava"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:37
 #: hrms/public/js/salary_slip_deductions_report_filters.js:20
@@ -5303,7 +5303,7 @@ msgstr "Referenca fakture"
 #. Label of the is_allocated (Check) field in DocType 'Earned Leave Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Is Allocated"
-msgstr ""
+msgstr "Dodeljeno"
 
 #. Label of the is_applicable_for_referral_bonus (Check) field in DocType
 #. 'Employee Referral'
@@ -6232,7 +6232,7 @@ msgstr "Ručno ocenjivanje"
 #. Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Manually"
-msgstr ""
+msgstr "Ručno"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.js:38
 #: hrms/public/js/salary_slip_deductions_report_filters.js:21
@@ -6922,7 +6922,7 @@ msgstr "Broj pozicija"
 #. Schedule'
 #: hrms/hr/doctype/earned_leave_schedule/earned_leave_schedule.json
 msgid "Number of Leaves"
-msgstr ""
+msgstr "Broj odsustva"
 
 #. Label of the number_of_withholding_cycles (Int) field in DocType 'Salary
 #. Withholding'
@@ -8461,21 +8461,21 @@ msgstr "Starosna granica za penziju (u godinama)"
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:441
 #: hrms/hr/doctype/leave_allocation/leave_allocation.py:449
 msgid "Retry Failed"
-msgstr ""
+msgstr "Ponovni pokušaj nije uspeo"
 
 #. Label of the retry_failed_allocations (Button) field in DocType 'Leave
 #. Allocation'
 #: hrms/hr/doctype/leave_allocation/leave_allocation.json
 msgid "Retry Failed Allocations"
-msgstr ""
+msgstr "Ponovni pokušaj neuspešnih dodela"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:191
 msgid "Retry Successful"
-msgstr ""
+msgstr "Ponovni pokušaj je uspeo"
 
 #: hrms/hr/doctype/leave_allocation/leave_allocation.js:188
 msgid "Retrying allocations"
-msgstr ""
+msgstr "Pokušaj ponovne dodele"
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:178
 msgid "Return amount cannot be greater than unclaimed amount"
@@ -11425,7 +11425,7 @@ msgstr "{0} {1} {2}?"
 
 #: hrms/hr/utils.py:451
 msgid "{0}. Check error log for more details."
-msgstr ""
+msgstr "{0}. Proverite evidenciju grešaka za više detalja."
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:2190
 msgid "{0}: Employee email not found, hence email not sent"
