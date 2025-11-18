@@ -104,7 +104,6 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(len(gl_entry), 0)
 
 	def test_expense_claim_status_as_payment_from_payment_entry(self):
-		# Via Payment Entry
 		payable_account = get_payable_account(company_name)
 
 		expense_claim = make_expense_claim(payable_account, 300, 200, company_name, "Travel Expenses - _TC3")
@@ -882,6 +881,47 @@ class TestExpenseClaim(HRMSTestSuite):
 		self.assertEqual(gain_loss_jv.voucher_type, "Exchange Gain Or Loss")
 		self.assertEqual(gain_loss_jv.total_debit, 2100)
 		self.assertEqual(gain_loss_jv.total_credit, 2100)
+
+	def test_expense_claim_status_as_payment_after_unreconciliation(self):
+		from hrms.hr.doctype.employee_advance.test_employee_advance import make_payment_entry
+
+		payable_account = get_payable_account(company_name)
+
+		employee = frappe.db.get_value(
+			"Employee",
+			{"status": "Active", "company": company_name, "first_name": "test_employee1@expenseclaim.com"},
+			"name",
+		)
+		if not employee:
+			employee = make_employee("test_employee1@expenseclaim.com", company=company_name)
+
+		expense_claim = make_expense_claim(payable_account, 300, 200, company_name, "Call")
+		self.assertEqual(expense_claim.status, "Submitted")
+
+		pe = make_payment_entry(expense_claim, 200)
+		self.assertEqual(pe.docstatus, 1)
+
+		allocate_using_payment_reconciliation(expense_claim, employee, pe, payable_account)
+		expense_claim.load_from_db()
+		self.assertEqual(expense_claim.status, "Paid")
+
+		unreconcile_doc = frappe.new_doc("Unreconcile Payment")
+		unreconcile_doc.company = company_name
+		unreconcile_doc.append(
+			"allocations",
+			{
+				"reference_doctype": "Expense Claim",
+				"reference_name": expense_claim.name,
+				"payment_doctype": "Payment Entry",
+				"payment_name": pe.name,
+				"amount": 200,
+			},
+		)
+		unreconcile_doc.insert()
+		unreconcile_doc.submit()
+
+		expense_claim.load_from_db()
+		self.assertEqual(expense_claim.status, "Unpaid")
 
 
 def get_payable_account(company):
