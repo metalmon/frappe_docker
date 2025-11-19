@@ -335,7 +335,10 @@ def generate_leave_encashment():
 
 		leave_allocation = frappe.get_all(
 			"Leave Allocation",
-			filters={"to_date": add_days(getdate(), -1), "leave_type": ("in", leave_type)},
+			filters=[
+				["to_date", "=", add_days(getdate(), -1)],
+				["leave_type", "in", leave_type],
+			],
 			fields=[
 				"employee",
 				"leave_period",
