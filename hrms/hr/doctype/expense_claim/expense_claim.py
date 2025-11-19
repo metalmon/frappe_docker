@@ -842,8 +842,13 @@ def update_payment_for_expense_claim(doc, method=None):
 	if doc.doctype == "Payment Entry" and not (doc.payment_type == "Pay" and doc.party):
 		return
 
-	payment_table = "accounts" if doc.doctype == "Journal Entry" else "references"
-	doctype_field = "reference_type" if doc.doctype == "Journal Entry" else "reference_doctype"
+	doctype_field_map = {
+		"Journal Entry": ["accounts", "reference_type"],
+		"Payment Entry": ["references", "reference_doctype"],
+		"Unreconcile Payment": ["allocations", "reference_doctype"],
+	}
+
+	payment_table, doctype_field = doctype_field_map[doc.doctype]
 
 	for d in doc.get(payment_table):
 		if d.get(doctype_field) == "Expense Claim" and d.reference_name:
