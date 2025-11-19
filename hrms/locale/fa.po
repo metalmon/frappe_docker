@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-15 17:12+0000\n"
-"PO-Revision-Date: 2025-11-16 12:41\n"
+"PO-Revision-Date: 2025-11-19 12:19\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -4882,7 +4882,7 @@ msgstr "به موقع"
 
 #: hrms/payroll/doctype/payroll_entry/payroll_entry.py:140
 msgid "In case of any error during this background process, the system will add a comment about the error on this Payroll Entry and revert to the Submitted status"
-msgstr "در صورت بروز هرگونه خطایی در طول این فرآیند پس زمینه، سیستم نظری در مورد خطا در این ثبت حقوق و دستمزد اضافه می‌کند و به وضعیت ارسال شده باز می گردد"
+msgstr "در صورت بروز هرگونه خطایی در طول این فرآیند پس‌زمینه، سیستم نظری در مورد خطا در این ثبت حقوق و دستمزد اضافه می‌کند و به وضعیت ارسال شده باز می گردد"
 
 #. Label of the incentive_section (Section Break) field in DocType 'Employee
 #. Incentive'
@@ -11169,7 +11169,7 @@ msgstr "شما فقط برای نیم روز در {} حضور داشتید. نم
 
 #: hrms/hr/doctype/interview/interview.py:104
 msgid "Your Interview session is rescheduled from {0} {1} - {2} to {3} {4} - {5}"
-msgstr "جلسه مصاحبه شما از {0} {1} - {2} به {3} {4} - {5} تغییر مکان داد."
+msgstr "جلسه مصاحبه شما از {0} {1} - {2} به {3} {4} - {5} تغییر زمان داد"
 
 #: frontend/src/views/Login.vue:61
 msgid "Your password has expired. Please reset your password to continue"

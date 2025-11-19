@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-15 17:12+0000\n"
-"PO-Revision-Date: 2025-11-16 12:41\n"
+"PO-Revision-Date: 2025-11-19 12:19\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Swedish\n"
 "MIME-Version: 1.0\n"
@@ -446,16 +446,16 @@ msgstr "Periodisera per cykel, betala endast vid anspråk"
 #. Label of the accrued_benefits (Table) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Accrued Benefits"
-msgstr "Periodiserade Förmåner"
+msgstr "Ackumulerade Förmåner"
 
 #. Name of a report
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.json
 msgid "Accrued Earnings Report"
-msgstr "Periodiserad Resultat Rapport"
+msgstr "Ackumulerad Resultat Rapport"
 
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.py:99
 msgid "Accrued amount {0} is less than paid amount {1} for Benefit {2} in payroll period {3}"
-msgstr "Upplupet belopp {0} är lägre än utbetald belopp {1} för förmån {2} i löneperiod {3}"
+msgstr "Ackumulerad belopp {0} är lägre än utbetald belopp {1} för Förmån {2} i löneperiod {3}"
 
 #: hrms/hr/doctype/attendance_request/attendance_warnings.html:8
 msgid "Action on Submission"
@@ -8592,7 +8592,7 @@ msgstr "Rad {0}: Målsättning resultat kan inte vara högre än {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip_loan_utils.py:59
 msgid "Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"
-msgstr "Rad #{0}: Betalt belopp {1} är högre än förväntad upplupet belopp {2} mot lån {3}"
+msgstr "Rad {0}: Betalt belopp {1} är högre än förväntad ackumulerad belopp {2} mot lån {3}"
 
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.py:61
 msgid "Row {0}: {1}"
@@ -10152,7 +10152,7 @@ msgstr "Totalt Frånvarande"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:46
 msgid "Total Accrued"
-msgstr "Totalt Periodisering"
+msgstr "Totalt Ackumulerad"
 
 #. Label of the total_actual_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Proof Submission'
@@ -10689,7 +10689,7 @@ msgstr "Oanmälda Dagar"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:58
 msgid "Unpaid Accrual"
-msgstr "Obetald Beräkning"
+msgstr "Obetald Ackumulerad"
 
 #. Name of a report
 #. Label of a Link in the Expense Claims Workspace

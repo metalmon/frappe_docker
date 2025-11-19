@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-15 17:12+0000\n"
-"PO-Revision-Date: 2025-11-17 10:40\n"
+"PO-Revision-Date: 2025-11-19 12:19\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
@@ -446,16 +446,16 @@ msgstr "Obračunava se po ciklusu, plaća se samo prilikom zahtjeva"
 #. Label of the accrued_benefits (Table) field in DocType 'Salary Slip'
 #: hrms/payroll/doctype/salary_slip/salary_slip.json
 msgid "Accrued Benefits"
-msgstr "Obračunate Pogodnosti"
+msgstr "Nagomilane Pogodnosti"
 
 #. Name of a report
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.json
 msgid "Accrued Earnings Report"
-msgstr "IzvješćeObračunate Zarade"
+msgstr "Izvješće Nagomilane Zarade"
 
 #: hrms/payroll/doctype/employee_benefit_ledger/employee_benefit_ledger.py:99
 msgid "Accrued amount {0} is less than paid amount {1} for Benefit {2} in payroll period {3}"
-msgstr "Obračunati iznos {0} je manji od isplaćenog iznosa {1} za naknadu {2} u obračunskom razdoblju {3}"
+msgstr "Nagomilani iznos {0} je manji od isplaćenog iznosa {1} za Pogodnost {2} u obračunskom razdoblju {3}"
 
 #: hrms/hr/doctype/attendance_request/attendance_warnings.html:8
 msgid "Action on Submission"
@@ -4855,7 +4855,7 @@ msgstr "Ako je omogućeno, vrijednost navedena ili obračunata u ovoj komponenti
 #. Component'
 #: hrms/payroll/doctype/salary_component/salary_component.json
 msgid "If enabled, this component allows to accrue amounts without adding them to earnings. The accrued balance is tracked in the Employee Benefit Ledger and can be paid out later as needed."
-msgstr "Ako je omogućena, ova komponenta omogućuje obračunavanje iznosa bez njihovog dodavanja u zaradu. Obračunati saldo prati se u Registru Zaposleničkih Pogodnosti i može se isplatiti kasnije po potrebi."
+msgstr "Ako je omogućena, ova komponenta omogućuje nagomilavanje iznosa bez njihovog dodavanja u zaradu. Obračunati saldo prati se u Registru Zaposleničkih Pogodnosti i može se isplatiti kasnije po potrebi."
 
 #. Description of the 'Arrear Component' (Check) field in DocType 'Salary
 #. Component'
@@ -8592,7 +8592,7 @@ msgstr "Red {0}: Rezultat cilja ne može biti veći od {1}"
 
 #: hrms/payroll/doctype/salary_slip/salary_slip_loan_utils.py:59
 msgid "Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"
-msgstr "Red {0}: Uplaćeni iznos {1} je veći od akumuliranog iznosa na čekanju {2} naspram kredita {3}"
+msgstr "Red {0}: Uplaćeni iznos {1} je veći od nagomilanog iznosa na čekanju {2} naspram kredita {3}"
 
 #: hrms/hr/doctype/full_and_final_statement/full_and_final_statement.py:61
 msgid "Row {0}: {1}"
@@ -10152,7 +10152,7 @@ msgstr "Ukupna Odsutnost"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:46
 msgid "Total Accrued"
-msgstr "Ukupno Obračunato"
+msgstr "Ukupno Nagomilano"
 
 #. Label of the total_actual_amount (Currency) field in DocType 'Employee Tax
 #. Exemption Proof Submission'
@@ -10689,7 +10689,7 @@ msgstr "Neprijavljeni Dani"
 
 #: hrms/payroll/report/accrued_earnings_report/accrued_earnings_report.py:58
 msgid "Unpaid Accrual"
-msgstr "Neplaćeni Obračun"
+msgstr "Neplaćeno Nagomilano"
 
 #. Name of a report
 #. Label of a Link in the Expense Claims Workspace
