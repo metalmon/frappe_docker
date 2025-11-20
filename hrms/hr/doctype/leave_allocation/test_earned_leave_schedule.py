@@ -358,7 +358,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 			self.employee.date_of_joining,
 		)
 
-	def test_absense_of_earned_leave_schedule_for_non_earned_leave_types(self):
+	def test_absence_of_earned_leave_schedule_for_non_earned_leave_types(self):
 		leave_policy = frappe.get_doc(
 			{
 				"doctype": "Leave Policy",
@@ -375,6 +375,7 @@ class TestLeaveAllocation(HRMSTestSuite):
 		}
 
 		leave_policy_assignment = frappe.new_doc("Leave Policy Assignment", **frappe._dict(data))
+		leave_policy_assignment.insert()
 		leave_policy_assignment.submit()
 
 		leave_allocation = frappe.get_doc(
