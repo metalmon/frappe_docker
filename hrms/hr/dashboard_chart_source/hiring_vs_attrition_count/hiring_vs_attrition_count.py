@@ -61,10 +61,11 @@ def get_data(
 def get_records(from_date: str, to_date: str, datefield: str, company: str) -> tuple[tuple[str, float, int]]:
 	filters = [
 		["Employee", "company", "=", company],
-		["Employee", datefield, ">=", from_date, False],
-		["Employee", datefield, "<=", to_date, False],
+		["Employee", datefield, ">=", from_date],
+		["Employee", datefield, "<=", to_date],
 	]
 
+	print(filters,'err...\n\n')
 	data = frappe.db.get_list(
 		"Employee",
 		fields=[f"{datefield} as _unit", {"SUM": 1}, {"COUNT": "*"}],
