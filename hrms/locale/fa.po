@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-15 17:12+0000\n"
-"PO-Revision-Date: 2025-11-20 12:16\n"
+"PO-Revision-Date: 2025-11-21 13:06\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -9595,7 +9595,7 @@ msgstr "تاریخ شروع و پایان در یک دوره حقوق و دست�
 
 #: hrms/hr/doctype/overtime_slip/overtime_slip.py:27
 msgid "Start date cannot be greater than end date"
-msgstr ""
+msgstr "تاریخ شروع نمی‌تواند بزرگتر از تاریخ پایان باشد"
 
 #: hrms/hr/report/monthly_attendance_sheet/monthly_attendance_sheet.py:50
 msgid "Start date cannot be greater than end date."
