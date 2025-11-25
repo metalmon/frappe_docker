@@ -5,6 +5,8 @@ Everything about [Frappe](https://github.com/frappe/frappe) and [ERPNext](https:
 
 # Getting Started
 
+**New to Frappe Docker?** Read the [Getting Started Guide](docs/getting-started.md) for a comprehensive overview of repository structure, development workflow, custom apps, Docker concepts, and quick start examples.
+
 To get started you need [Docker](https://docs.docker.com/get-docker/), [docker-compose](https://docs.docker.com/compose/), and [git](https://docs.github.com/en/get-started/getting-started-with-git/set-up-git) setup on your machine. For Docker basics and best practices refer to Docker's [documentation](http://docs.docker.com).
 
 Once completed, chose one of the following two sections for next steps.
@@ -30,7 +32,7 @@ Then run: `docker compose -f pwd.yml up -d`
 
 ### To run on ARM64 architecture follow this instructions
 
-After cloning the repo run this command to build multi-architecture images specifically for ARM64.
+After you clone the repo and `cd frappe_docker`, run this command to build multi-architecture images specifically for ARM64.
 
 `docker buildx bake --no-cache --set "*.platform=linux/arm64"`
 
@@ -49,13 +51,15 @@ If you ran in a Dev Docker environment, to view container logs: `docker compose 
 
 # Documentation
 
+### [Getting Started Guide](docs/getting-started.md)
+
 ### [Frequently Asked Questions](https://github.com/frappe/frappe_docker/wiki/Frequently-Asked-Questions)
 
 ### [Production](#production)
 
-- [List of containers](docs/list-of-containers.md)
+- [List of containers](docs/container-setup/01-overview.md)
 - [Single Compose Setup](docs/single-compose-setup.md)
-- [Environment Variables](docs/environment-variables.md)
+- [Environment Variables](docs/container-setup/env-variables.md)
 - [Single Server Example](docs/single-server-example.md)
 - [Setup Options](docs/setup-options.md)
 - [Site Operations](docs/site-operations.md)
@@ -67,8 +71,7 @@ If you ran in a Dev Docker environment, to view container logs: `docker compose 
 
 ### [Custom Images](#custom-images)
 
-- [Custom Apps](docs/custom-apps.md)
-- [Custom Apps with podman](docs/custom-apps-podman.md)
+- [Custom Apps](docs/container-setup/02-build-setup.md)
 - [Build Version 10 Images](docs/build-version-10-images.md)
 
 ### [Development](#development)
