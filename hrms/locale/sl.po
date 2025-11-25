@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-23 09:35+0000\n"
-"PO-Revision-Date: 2025-11-23 13:26\n"
+"PO-Revision-Date: 2025-11-24 13:27\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
@@ -9782,7 +9782,7 @@ msgstr ""
 #. Name of a Workspace
 #: hrms/hr/workspace/tenure/tenure.json
 msgid "Tenure"
-msgstr ""
+msgstr "Mandat"
 
 #. Success message of the job-application Web Form
 #: hrms/hr/web_form/job_application/job_application.json
