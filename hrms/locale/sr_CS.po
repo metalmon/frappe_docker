@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-23 09:35+0000\n"
-"PO-Revision-Date: 2025-11-23 13:26\n"
+"PO-Revision-Date: 2025-11-25 13:39\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Serbian (Latin)\n"
 "MIME-Version: 1.0\n"
@@ -600,13 +600,13 @@ msgstr "Akontacioni račun je obavezan. Molimo Vas da podesite <a href=\"/app/co
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:79
 msgid "Advance Account {} currency should be same as Salary Currency of Employee {}. Please select same currency Advance Account"
-msgstr ""
+msgstr "Valuta akontacionog računa {} mora biti ista kao valuta zarade zaposlenog lica. Molimo Vas da izaberete akontacioni račun sa istom valutom"
 
 #. Label of the base_advance_paid (Currency) field in DocType 'Expense Claim
 #. Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Advance Paid (Company Currency)"
-msgstr ""
+msgstr "Plaćena akontacija (valuta kompanije)"
 
 #. Label of the advanced_filters_section (Section Break) field in DocType
 #. 'Leave Control Panel'
@@ -622,7 +622,7 @@ msgstr "Filteri akontacije"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.py:391
 msgid "All Exchange Gain/Loss amount of {0} has been booked through {1}"
-msgstr ""
+msgstr "Sav iznos kursnih razlika za {0} knjižen je preko {1}"
 
 #: hrms/hr/doctype/goal/goal_tree.js:215
 msgid "All Goals"
@@ -663,7 +663,7 @@ msgstr "Dodeli na dan"
 #. Claim Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Allocated Amount (Company Currency)"
-msgstr ""
+msgstr "Dodeljeni iznos (valuta kompanije)"
 
 #. Label of the allocated_leaves (Float) field in DocType 'Leave Adjustment'
 #: hrms/hr/doctype/leave_adjustment/leave_adjustment.json
@@ -2790,7 +2790,7 @@ msgstr "Broj računa zaposlenog lica"
 #: hrms/patches/v16_0/create_custom_field_for_employee_advance_in_employee_master.py:11
 #: hrms/setup.py:267
 msgid "Employee Advance Account"
-msgstr ""
+msgstr "Akontacioni račun zaposlenog lica"
 
 #: frontend/src/views/expense_claim/Dashboard.vue:35
 msgid "Employee Advance Balance"
@@ -3630,7 +3630,7 @@ msgstr "Ispit"
 #. Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Exchange rate of Payment Entry against Employee Advance"
-msgstr ""
+msgstr "Devizni kurs unosa uplate u odnosu na akontaciju zaposlenog lica"
 
 #: hrms/hr/doctype/attendance/attendance_list.js:85
 msgid "Exclude Holidays"
@@ -4330,7 +4330,7 @@ msgstr "Budući datumi nisu dozvoljeni"
 #. Label of the gain_loss_account (Link) field in DocType 'Expense Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Gain Loss Account"
-msgstr ""
+msgstr "Račun kursnih razlika"
 
 #: hrms/public/js/utils/index.js:186 hrms/public/js/utils/index.js:212
 msgid "Geolocation Error"
@@ -6595,7 +6595,7 @@ msgstr "Nova dodela smene biće kreirana nakon ovog datuma."
 
 #: hrms/hr/doctype/employee_advance/employee_advance.py:372
 msgid "No Bank/Cash Account found for currency {0}. Please create one under company {1}."
-msgstr ""
+msgstr "Nije pronađen tekući račun/blagajna za valutu {0}. Molimo Vas da ga kreirate u okviru kompanije {1}."
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:218
 msgid "No Employee Found"
@@ -8890,7 +8890,7 @@ msgstr "Odobren iznos"
 #. Claim Detail'
 #: hrms/hr/doctype/expense_claim_detail/expense_claim_detail.json
 msgid "Sanctioned Amount (Company Currency)"
-msgstr ""
+msgstr "Odobren iznos (valuta kompanije)"
 
 #: hrms/hr/doctype/expense_claim/expense_claim.py:514
 msgid "Sanctioned Amount cannot be greater than Claim Amount in Row {0}."
@@ -9808,7 +9808,7 @@ msgstr "Ažuriranja tima"
 #. Name of a Workspace
 #: hrms/hr/workspace/tenure/tenure.json
 msgid "Tenure"
-msgstr ""
+msgstr "Radni ciklus"
 
 #. Success message of the job-application Web Form
 #: hrms/hr/web_form/job_application/job_application.json
@@ -10093,7 +10093,7 @@ msgstr "Ukupan iznos akontacije"
 #. Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Total Advance Amount (Company Currency)"
-msgstr ""
+msgstr "Ukupan iznos akontacije (valuta kompanije)"
 
 #. Label of the total_allocated_leaves (Float) field in DocType 'Salary Slip
 #. Leave'
@@ -10132,7 +10132,7 @@ msgstr "Ukupan iznos naknade"
 #. Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Total Claimed Amount (Company Currency)"
-msgstr ""
+msgstr "Ukupan iznos naknade (valuta kompanije)"
 
 #. Label of the lwp_days (Float) field in DocType 'Payroll Correction'
 #: hrms/payroll/doctype/payroll_correction/payroll_correction.json
@@ -10189,7 +10189,7 @@ msgstr "Ukupan procenjeni trošak"
 #. Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Total Exchange Gain/Loss"
-msgstr ""
+msgstr "Ukupan iznos kursnih razlika"
 
 #. Label of the total_exemption_amount (Currency) field in DocType 'Employee
 #. Tax Exemption Declaration'
@@ -10321,7 +10321,7 @@ msgstr "Ukupan odobreni iznos"
 #. 'Expense Claim'
 #: hrms/hr/doctype/expense_claim/expense_claim.json
 msgid "Total Sanctioned Amount (Company Currency)"
-msgstr ""
+msgstr "Ukupan odobreni iznos (valuta kompanije)"
 
 #. Label of the total_score (Float) field in DocType 'Employee Performance
 #. Feedback'
@@ -10588,7 +10588,7 @@ msgstr "Neiskorišćeni iznos"
 #. Claim Advance'
 #: hrms/hr/doctype/expense_claim_advance/expense_claim_advance.json
 msgid "Unclaimed Amount (Company Currency)"
-msgstr ""
+msgstr "Neiskorišćeni iznos (valuta kompanije)"
 
 #. Option for the 'Status' (Select) field in DocType 'Interview'
 #: hrms/hr/doctype/interview/interview.json
