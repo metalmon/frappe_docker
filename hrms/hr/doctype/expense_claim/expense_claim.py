@@ -128,6 +128,10 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 	def after_delete(self):
 		self.publish_update()
 
+	def on_discard(self):
+		self.db_set("status", "Cancelled")
+		self.db_set("approval_status", "Cancelled")
+
 	def before_submit(self):
 		if not self.payable_account and not self.is_paid:
 			frappe.throw(_("Payable Account is mandatory to submit an Expense Claim"))
