@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-11-23 09:35+0000\n"
-"PO-Revision-Date: 2025-11-26 13:46\n"
+"PO-Revision-Date: 2025-11-27 14:10\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Slovenian\n"
 "MIME-Version: 1.0\n"
@@ -520,7 +520,7 @@ msgstr ""
 
 #: hrms/payroll/doctype/salary_slip/salary_slip.py:1593
 msgid "Added tax components from the Salary Component master as the salary structure didn't have any tax component."
-msgstr ""
+msgstr "Dodane so bile davčne komponente iz glavnega menija Komponenta plače, ker struktura plač ni imela davčne komponente."
 
 #: hrms/hr/employee_property_update.js:193
 msgid "Added to details"
@@ -2789,7 +2789,7 @@ msgstr ""
 #: hrms/patches/v16_0/create_custom_field_for_employee_advance_in_employee_master.py:11
 #: hrms/setup.py:267
 msgid "Employee Advance Account"
-msgstr ""
+msgstr "Predplačilni Račun"
 
 #: frontend/src/views/expense_claim/Dashboard.vue:35
 msgid "Employee Advance Balance"
@@ -10726,11 +10726,11 @@ msgstr ""
 
 #: hrms/overrides/employee_master.py:77
 msgid "Updated the status of Job Offer {0} for the linked Job Applicant {1} to {2}"
-msgstr ""
+msgstr "Posodobljen status ponudbe za delo {0} za povezanega kandidata za delo {1} na {2}"
 
 #: hrms/overrides/employee_master.py:63
 msgid "Updated the status of linked Job Applicant {0} to {1}"
-msgstr ""
+msgstr "Posodobljen status povezanega kandidata za delovno mesto {0} na {1}"
 
 #. Name of a DocType
 #: hrms/hr/doctype/upload_attendance/upload_attendance.json
@@ -11134,7 +11134,7 @@ msgstr ""
 
 #: hrms/overrides/employee_master.py:83
 msgid "You may add additional details, if any, and submit the offer."
-msgstr ""
+msgstr "Dodate lahko dodatne podrobnosti, če obstajajo, in oddate ponudbo."
 
 #: hrms/hr/doctype/employee_checkin/employee_checkin.py:128
 msgid "You must be within {0} meters of your shift location to check in."
