@@ -118,8 +118,6 @@ class LeavePolicyAssignment(Document):
 			carry_forward = 0
 
 		new_leaves_allocated = self.get_new_leaves(annual_allocation, leave_details, date_of_joining)
-		print(new_leaves_allocated)
-
 		earned_leave_schedule = (
 			self.get_earned_leave_schedule(
 				annual_allocation, leave_details, date_of_joining, new_leaves_allocated
