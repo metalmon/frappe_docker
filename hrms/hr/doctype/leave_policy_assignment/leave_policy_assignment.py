@@ -118,6 +118,7 @@ class LeavePolicyAssignment(Document):
 			carry_forward = 0
 
 		new_leaves_allocated = self.get_new_leaves(annual_allocation, leave_details, date_of_joining)
+		print(new_leaves_allocated)
 
 		earned_leave_schedule = (
 			self.get_earned_leave_schedule(
@@ -126,6 +127,23 @@ class LeavePolicyAssignment(Document):
 			if leave_details.is_earned_leave
 			else []
 		)
+
+		if new_leaves_allocated == 0:
+			text = "{prefix} {leave_type}<br>{error_message}".format(
+				leave_type=frappe.bold(leave_details.name),
+				prefix=frappe.bold(_("Leave allocation is skipped for:")),
+				error_message="New leave allocated for the leave type is 0",
+			)
+			frappe.get_doc(
+				{
+					"doctype": "Comment",
+					"comment_type": "Comment",
+					"reference_doctype": "Leave Policy Assignment",
+					"reference_name": self.name,
+					"content": text,
+				}
+			).insert(ignore_permissions=True)
+			return None, 0
 
 		allocation = frappe.get_doc(
 			doctype="Leave Allocation",
