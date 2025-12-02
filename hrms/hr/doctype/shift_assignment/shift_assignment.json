@@ -142,13 +142,12 @@
    "fieldname": "overtime_type",
    "fieldtype": "Link",
    "label": "Overtime Type",
-   "options": "Overtime Type",
-   "read_only": 1
+   "options": "Overtime Type"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-28 03:09:19.448814",
+ "modified": "2025-12-01 12:23:07.921773",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Assignment",
