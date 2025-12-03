@@ -127,11 +127,10 @@ class LeavePolicyAssignment(Document):
 		)
 
 		if new_leaves_allocated == 0 and not leave_details.is_earned_leave:
-			text = "{prefix} {leave_type}<br>{error_message}".format(
-				leave_type=frappe.bold(leave_details.name),
-				prefix=frappe.bold(_("Leave allocation is skipped for:")),
-				error_message="New leave allocated for the leave type is 0",
+			text = _("Leave allocation is skipped for {0}, as the new leave is 0").format(
+				frappe.bold(leave_details.name)
 			)
+
 			frappe.get_doc(
 				{
 					"doctype": "Comment",

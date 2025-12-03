@@ -314,6 +314,19 @@ class TestLeavePolicyAssignment(HRMSTestSuite):
 		)
 		assignment.submit()
 
+		comments = frappe.get_all(
+			"Comment",
+			filters={
+				"reference_doctype": "Leave Policy Assignment",
+				"reference_name": assignment.name,
+			},
+			fields=["content"],
+		)
+
+		self.assertEqual(len(comments), 2)
+		self.assertIn(casual.name, comments[0]["content"])
+		self.assertIn(sick.name, comments[1]["content"])
+
 		allocations = frappe.get_all(
 			"Leave Allocation",
 			filters={"leave_policy_assignment": assignment.name},
