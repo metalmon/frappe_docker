@@ -127,9 +127,9 @@ class LeavePolicyAssignment(Document):
 		)
 
 		if new_leaves_allocated == 0 and not leave_details.is_earned_leave:
-			text = _("Leave allocation is skipped for {0}, as the new leave is 0").format(
-				frappe.bold(leave_details.name)
-			)
+			text = _(
+				"Leave allocation is skipped for {0}, because number of leaves to be allocated is 0."
+			).format(frappe.bold(leave_details.name))
 
 			frappe.get_doc(
 				{
