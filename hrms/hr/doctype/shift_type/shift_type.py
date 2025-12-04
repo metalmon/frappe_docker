@@ -8,7 +8,16 @@ from itertools import groupby
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import add_days, cint, create_batch, get_datetime, get_time, getdate, time_diff
+from frappe.utils import (
+	add_days,
+	cint,
+	create_batch,
+	get_datetime,
+	get_link_to_form,
+	get_time,
+	getdate,
+	time_diff,
+)
 
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
@@ -98,15 +107,15 @@ class ShiftType(Document):
 		)
 
 	@frappe.whitelist()
-	def process_attendance_manually(self):
+	def process_auto_attendance(self, is_manually_triggered=False):
 		if self.has_incorrect_shift_config():
 			return
 
 		logs = self.get_employee_checkins()
-
-		if len(logs) > 1000:
-			frappe.enqueue(self._process, logs=logs, timeout=1200)
-			return "Attendance marking has been queued. It may take a few minutes."
+		if len(logs) > 1000 and is_manually_triggered:
+			job_id = "process_auto_attendance_" + self.name
+			job = frappe.enqueue(self._process, logs=logs, timeout=1200, job_id=job_id, deduplicate=True)
+			return f"Attendance marking has been queued. It may take a few minutes. You can moniter the job status {get_link_to_form('RQ Job',job.id,label='here')}"
 		else:
 			self._process(logs)
 			return "Attendance has been marked as per employee check-ins."
@@ -117,13 +126,6 @@ class ShiftType(Document):
 			or not self.process_attendance_after
 			or not self.last_sync_of_checkin
 		)
-
-	def process_auto_attendance(self):
-		if self.has_incorrect_shift_config():
-			return
-
-		logs = self.get_employee_checkins()
-		self._process(logs)
 
 	def _process(self, logs):
 		group_key = lambda x: (x["employee"], x["shift_start"])  # noqa

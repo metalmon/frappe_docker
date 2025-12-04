@@ -28,8 +28,11 @@ frappe.ui.form.on("Shift Type", {
 
 			frm.call({
 				doc: frm.doc,
-				method: "process_attendance_manually",
+				method: "process_auto_attendance",
 				freeze: true,
+				args: {
+					is_manually_triggered: true,
+				},
 				callback: (r) => {
 					frappe.msgprint(__(r.message));
 				},
