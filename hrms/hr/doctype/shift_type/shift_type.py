@@ -98,15 +98,34 @@ class ShiftType(Document):
 		)
 
 	@frappe.whitelist()
-	def process_auto_attendance(self):
-		if (
-			not cint(self.enable_auto_attendance)
-			or not self.process_attendance_after
-			or not self.last_sync_of_checkin
-		):
+	def process_attendance_manually(self):
+		if self.has_incorrect_shift_config():
 			return
 
 		logs = self.get_employee_checkins()
+
+		if len(logs) > 1000:
+			frappe.enqueue(self._process, logs=logs, timeout=1200)
+			return "Attendance marking has been queued. It may take a few minutes."
+		else:
+			self._process(logs)
+			return "Attendance has been marked as per employee check-ins."
+
+	def has_incorrect_shift_config(self):
+		return (
+			not cint(self.enable_auto_attendance)
+			or not self.process_attendance_after
+			or not self.last_sync_of_checkin
+		)
+
+	def process_auto_attendance(self):
+		if self.has_incorrect_shift_config():
+			return
+
+		logs = self.get_employee_checkins()
+		self._process(logs)
+
+	def _process(self, logs):
 		group_key = lambda x: (x["employee"], x["shift_start"])  # noqa
 		for key, group in groupby(sorted(logs, key=group_key), key=group_key):
 			single_shift_logs = list(group)
