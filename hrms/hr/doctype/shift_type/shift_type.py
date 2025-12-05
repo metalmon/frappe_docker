@@ -112,13 +112,19 @@ class ShiftType(Document):
 			return
 
 		logs = self.get_employee_checkins()
-		if len(logs) > 1000 and is_manually_triggered:
-			job_id = "process_auto_attendance_" + self.name
-			job = frappe.enqueue(self._process, logs=logs, timeout=1200, job_id=job_id, deduplicate=True)
-			return f"Attendance marking has been queued. It may take a few minutes. You can moniter the job status {get_link_to_form('RQ Job',job.id,label='here')}"
+		if is_manually_triggered:
+			if len(logs) > 1000 or frappe.flags.test_bg_job:
+				job_id = "process_auto_attendance_" + self.name
+				job = frappe.enqueue(self._process, logs=logs, timeout=1200, job_id=job_id, deduplicate=True)
+				return f"Attendance marking has been queued. It may take a few minutes. You can monitor the job status {get_link_to_form('RQ Job',job.id,label='here')}"
+			else:
+				try:
+					self._process(logs)
+					return "Attendance has been marked as per employee check-ins."
+				except Exception as e:
+					frappe.log_error(e)
 		else:
 			self._process(logs)
-			return "Attendance has been marked as per employee check-ins."
 
 	def has_incorrect_shift_config(self):
 		return (
