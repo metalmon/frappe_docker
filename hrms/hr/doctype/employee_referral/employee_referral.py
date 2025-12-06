@@ -19,10 +19,15 @@ class EmployeeReferral(Document):
 		self.set_referral_bonus_payment_status()
 
 	def validate_unique_referral(self):
-		if frappe.db.exists(
+		if referral := frappe.db.exists(
 			"Employee Referral", {"name": ("!=", self.name), "email": self.email, "docstatus": ("!=", 2)}
 		):
-			frappe.throw("Referral for this email already exists.")
+			frappe.throw(
+				_("Employee Referral {0} already exists for email: {1}").format(
+					get_link_to_form("Employee Referral", referral), frappe.bold(self.email)
+				),
+				frappe.DuplicateEntryError,
+			)
 
 	def set_full_name(self):
 		self.full_name = " ".join(filter(None, [self.first_name, self.last_name]))

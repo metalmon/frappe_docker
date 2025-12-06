@@ -58,7 +58,7 @@ class TestEmployeeReferral(IntegrationTestCase):
 
 	def test_unique_referral(self):
 		referral_1 = create_employee_referral(email="test_ref@example.com")
-		self.assertRaises(frappe.ValidationError, create_employee_referral, email="test_ref@example.com")
+		self.assertRaises(frappe.DuplicateEntryError, create_employee_referral, email="test_ref@example.com")
 		referral_1.cancel()
 		referral_2 = create_employee_referral(email="test_ref@example.com")
 		self.assertTrue(referral_2)
