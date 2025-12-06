@@ -14,10 +14,14 @@ class EmployeeReferral(Document):
 	def validate(self):
 		validate_active_employee(self.referrer)
 		self.set_full_name()
+		self.set_status()
 		self.set_referral_bonus_payment_status()
 
 	def set_full_name(self):
 		self.full_name = " ".join(filter(None, [self.first_name, self.last_name]))
+
+	def set_status(self):
+		self.status = "Pending"
 
 	def set_referral_bonus_payment_status(self):
 		if not self.is_applicable_for_referral_bonus:
@@ -25,6 +29,9 @@ class EmployeeReferral(Document):
 		else:
 			if not self.referral_payment_status:
 				self.referral_payment_status = "Unpaid"
+
+	def on_discard(self):
+		self.db_set("status", "Cancelled")
 
 
 @frappe.whitelist()
