@@ -56,12 +56,19 @@ class TestEmployeeReferral(IntegrationTestCase):
 		refarral.reload()
 		self.assertEqual(refarral.status, "Cancelled")
 
+	def test_unique_referral(self):
+		referral_1 = create_employee_referral(email="test_ref@example.com")
+		self.assertRaises(frappe.ValidationError, create_employee_referral, email="test_ref@example.com")
+		referral_1.cancel()
+		referral_2 = create_employee_referral(email="test_ref@example.com")
+		self.assertTrue(referral_2)
 
-def create_employee_referral(do_not_submit=False):
+
+def create_employee_referral(email=None, do_not_submit=False):
 	emp_ref = frappe.new_doc("Employee Referral")
 	emp_ref.first_name = "Mahesh"
 	emp_ref.last_name = "Singh"
-	emp_ref.email = "a@b.c"
+	emp_ref.email = email or "a@b.c"
 	emp_ref.date = today()
 	emp_ref.for_designation = create_designation().name
 	emp_ref.referrer = make_employee("testassetmovemp@example.com", company="_Test Company")

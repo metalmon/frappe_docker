@@ -13,9 +13,16 @@ from hrms.hr.utils import validate_active_employee
 class EmployeeReferral(Document):
 	def validate(self):
 		validate_active_employee(self.referrer)
+		self.validate_unique_referral()
 		self.set_full_name()
 		self.set_status()
 		self.set_referral_bonus_payment_status()
+
+	def validate_unique_referral(self):
+		if frappe.db.exists(
+			"Employee Referral", {"name": ("!=", self.name), "email": self.email, "docstatus": ("!=", 2)}
+		):
+			frappe.throw("Referral for this email already exists.")
 
 	def set_full_name(self):
 		self.full_name = " ".join(filter(None, [self.first_name, self.last_name]))
