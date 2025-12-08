@@ -15,11 +15,7 @@ def execute(filters=None):
 
 	columns = get_columns()
 	employees = get_employees(filters)
-	parameters_result = get_parameters(filters)
-	parameters = []
-	if parameters_result:
-		for department in parameters_result:
-			parameters.append(department)
+	parameters = get_parameters(filters)
 
 	chart = get_chart_data(parameters, employees, filters)
 	return columns, employees, None, chart
@@ -38,23 +34,25 @@ def get_columns():
 	]
 
 
-def get_conditions(filters):
-	conditions = " and " + filters.get("parameter").lower().replace(" ", "_") + " IS NOT NULL "
-
-	if filters.get("company"):
-		conditions += " and company = '%s'" % filters["company"].replace("'", "\\'")
-	return conditions
-
-
 def get_employees(filters):
-	conditions = get_conditions(filters)
-	# nosemgrep: frappe-semgrep-rules.rules.frappe-using-db-sql
-	return frappe.db.sql(
-		"""select name, employee_name, date_of_birth,
-	branch, department, designation,
-	gender, company from `tabEmployee` where status = 'Active' %s"""
-		% conditions,
-		as_list=1,
+	filters = frappe._dict(filters or {})
+	filters["status"] = "Active"
+	filters[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
+	filters.pop("parameter")
+	return frappe.get_list(
+		"Employee",
+		filters=filters,
+		fields=[
+			"name",
+			"employee_name",
+			"date_of_birth",
+			"branch",
+			"department",
+			"designation",
+			"gender",
+			"company",
+		],
+		as_list=True,
 	)
 
 
@@ -63,8 +61,7 @@ def get_parameters(filters):
 		parameter = "Employee Grade"
 	else:
 		parameter = filters.get("parameter")
-
-	return frappe.db.sql("""select name from `tab""" + parameter + """` """, as_list=1)
+	return frappe.get_all(parameter, pluck="name")
 
 
 def get_chart_data(parameters, employees, filters):
@@ -75,12 +72,10 @@ def get_chart_data(parameters, employees, filters):
 	label = []
 	for parameter in parameters:
 		if parameter:
-			total_employee = frappe.db.sql(
-				"""select count(*) from
-				`tabEmployee` where """
-				+ parameter_field_name
-				+ """ = %s and  company = %s""",
-				(parameter[0], filters.get("company")),
+			total_employee = frappe.get_list(
+				"Employee",
+				filters={parameter_field_name: parameter, "company": filters.get("company")},
+				fields=[{"COUNT": "name", "as": "count"}],
 				as_list=1,
 			)
 			if total_employee[0][0]:
@@ -92,9 +87,8 @@ def get_chart_data(parameters, employees, filters):
 	total_employee = frappe.db.count("Employee", {"status": "Active"})
 	others = total_employee - sum(values)
 
-	label.append(["Not Set"])
+	label.append("Not Set")
 	values.append(others)
-
 	chart = {"data": {"labels": label, "datasets": [{"name": "Employees", "values": values}]}}
 	chart["type"] = "donut"
 	return chart
