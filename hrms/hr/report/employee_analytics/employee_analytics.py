@@ -4,6 +4,10 @@
 
 import frappe
 from frappe import _
+from frappe.query_builder import Criterion
+from frappe.query_builder.functions import Count
+
+from erpnext.accounts.utils import build_qb_match_conditions
 
 
 def execute(filters=None):
@@ -70,14 +74,16 @@ def get_chart_data(parameters, employees, filters):
 	datasets = []
 	parameter_field_name = filters.get("parameter").lower().replace(" ", "_")
 	label = []
+	employee = frappe.qb.DocType("Employee")
 	for parameter in parameters:
 		if parameter:
-			total_employee = frappe.get_list(
-				"Employee",
-				filters={parameter_field_name: parameter, "company": filters.get("company")},
-				fields=[{"COUNT": "name", "as": "count"}],
-				as_list=1,
-			)
+			total_employee = (
+				frappe.qb.from_(employee)
+				.select(Count(employee.name).as_("count"))
+				.where(employee.company == filters.get("company"))
+				.where(employee[parameter_field_name] == parameter)
+				.where(Criterion.all(build_qb_match_conditions("Employee")))
+			).run()
 			if total_employee[0][0]:
 				label.append(parameter)
 			datasets.append(total_employee[0][0])
