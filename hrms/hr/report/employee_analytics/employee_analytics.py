@@ -68,7 +68,7 @@ def get_parameters(filters):
 	return frappe.get_all(parameter, pluck="name")
 
 
-def get_chart_data(parameters, employees, filters):
+def get_chart_data(parameters, filters):
 	if not parameters:
 		parameters = []
 	datasets = []
@@ -81,6 +81,7 @@ def get_chart_data(parameters, employees, filters):
 				frappe.qb.from_(employee)
 				.select(Count(employee.name).as_("count"))
 				.where(employee.company == filters.get("company"))
+				.where(employee.status == "Active")
 				.where(employee[parameter_field_name] == parameter)
 				.where(Criterion.all(build_qb_match_conditions("Employee")))
 			).run()
