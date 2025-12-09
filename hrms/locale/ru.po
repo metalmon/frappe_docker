@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: frappe\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2025-12-07 09:35+0000\n"
-"PO-Revision-Date: 2025-12-08 09:18\n"
+"PO-Revision-Date: 2025-12-09 09:28\n"
 "Last-Translator: contact@frappe.io\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -5992,7 +5992,7 @@ msgstr "Отпуск без сохранения заработной платы
 
 #: hrms/hr/doctype/leave_policy_assignment/leave_policy_assignment.py:130
 msgid "Leave allocation is skipped for {0}, because number of leaves to be allocated is 0."
-msgstr ""
+msgstr "Выделение листы пропускается для {0}, поскольку количество выделяемых листов равно 0."
 
 #: hrms/hr/doctype/leave_ledger_entry/leave_ledger_entry.py:54
 msgid "Leave allocation {0} is linked with the Leave Application {1}"
@@ -9972,7 +9972,7 @@ msgstr "В штатном расписании вакансий нет {0}"
 #: hrms/payroll/doctype/employee_incentive/employee_incentive.py:20
 #: hrms/payroll/doctype/salary_structure_assignment/salary_structure_assignment.py:207
 msgid "There is no Salary Structure assigned to {0}. First assign a Salary Structure."
-msgstr ""
+msgstr "Для {0} не назначена структура заработной платы. Сначала назначьте структуру заработной платы."
 
 #: hrms/payroll/doctype/salary_structure/salary_structure.py:392
 msgid "There's no Employee with Salary Structure: {0}. Assign {1} to an Employee to preview Salary Slip"
