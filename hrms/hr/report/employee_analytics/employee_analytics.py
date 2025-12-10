@@ -1,6 +1,6 @@
 # Copyright (c) 2013, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
-
+from copy import deepcopy
 
 import frappe
 from frappe import _
@@ -39,13 +39,13 @@ def get_columns():
 
 
 def get_employees(filters):
-	filters = frappe._dict(filters or {})
-	filters["status"] = "Active"
-	filters[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
-	filters.pop("parameter")
+	filters_for_employees = frappe._dict(deepcopy(filters) or {})
+	filters_for_employees["status"] = "Active"
+	filters_for_employees[filters.get("parameter").lower().replace(" ", "_")] = ["is", "set"]
+	filters_for_employees.pop("parameter")
 	return frappe.get_list(
 		"Employee",
-		filters=filters,
+		filters=filters_for_employees,
 		fields=[
 			"name",
 			"employee_name",
