@@ -21,7 +21,7 @@ def execute(filters=None):
 	employees = get_employees(filters)
 	parameters = get_parameters(filters)
 
-	chart = get_chart_data(parameters, employees, filters)
+	chart = get_chart_data(parameters, filters)
 	return columns, employees, None, chart
 
 
