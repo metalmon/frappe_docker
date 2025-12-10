@@ -91,7 +91,7 @@ def get_chart_data(parameters, filters):
 
 	values = [value for value in datasets if value != 0]
 
-	total_employee = frappe.db.count("Employee", {"status": "Active"})
+	total_employee = frappe.db.count("Employee", {"status": "Active", "company": filters.get("company")})
 	others = total_employee - sum(values)
 
 	label.append("Not Set")
