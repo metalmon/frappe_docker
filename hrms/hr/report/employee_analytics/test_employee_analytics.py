@@ -2,7 +2,6 @@ import frappe
 from frappe import _
 from frappe.desk.page.setup_wizard.setup_wizard import make_records
 from frappe.tests import IntegrationTestCase
-from frappe.utils import getdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
