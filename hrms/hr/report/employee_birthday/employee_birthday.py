@@ -13,7 +13,8 @@ from erpnext.accounts.utils import build_qb_match_conditions
 def execute(filters=None):
 	if not filters:
 		filters = {}
-
+	if not filters["company"]:
+		frappe.throw(_("{0} is mandatory").format(_("Company")))
 	columns = get_columns()
 	data = get_employees(filters)
 
