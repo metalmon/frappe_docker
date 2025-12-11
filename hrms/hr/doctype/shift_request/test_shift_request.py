@@ -249,7 +249,7 @@ class TestShiftRequest(HRMSTestSuite):
 		shift_request = make_shift_request(user, do_not_submit=True)
 		shift_request.discard()
 		shift_request.reload()
-		self.assertTrue(shift_request.status, "Cancelled")
+		self.assertEqual(shift_request.status, "Cancelled")
 
 
 def set_shift_approver(department):
