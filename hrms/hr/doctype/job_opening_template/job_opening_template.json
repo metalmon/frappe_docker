@@ -27,23 +27,20 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Designation",
-   "options": "Designation",
-   "reqd": 1
+   "options": "Designation"
   },
   {
    "fieldname": "department",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Department",
-   "options": "Department",
-   "reqd": 1
+   "options": "Department"
   },
   {
    "fieldname": "employment_type",
    "fieldtype": "Link",
    "label": "Employment Type",
-   "options": "Employment Type",
-   "reqd": 1
+   "options": "Employment Type"
   },
   {
    "fieldname": "location",
@@ -54,7 +51,8 @@
   {
    "fieldname": "description",
    "fieldtype": "Text Editor",
-   "label": "Description"
+   "label": "Description",
+   "reqd": 1
   },
   {
    "fieldname": "template_title",
@@ -68,7 +66,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-11 19:15:14.081402",
+ "modified": "2025-12-12 00:41:25.323063",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Job Opening Template",
