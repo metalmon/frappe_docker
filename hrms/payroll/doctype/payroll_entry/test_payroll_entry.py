@@ -1057,6 +1057,7 @@ class TestPayrollEntry(FrappeTestCase):
 			company=company.name,
 		)
 		payroll_entry.discard()
+		payroll_entry.reload()
 		self.assertEqual(payroll_entry.status, "Cancelled")
 
 
