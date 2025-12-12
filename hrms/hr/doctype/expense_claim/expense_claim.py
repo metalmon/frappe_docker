@@ -270,6 +270,8 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 					"advance_voucher_type": "Employee Advance",
 					"advance_voucher_no": data.employee_advance,
 					"transaction_exchange_rate": self.exchange_rate,
+					"cost_center": self.cost_center,
+					"project": self.project,
 				}
 				if not make_payment_via_je:
 					gl_dict.update(
@@ -294,6 +296,8 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 						"credit_in_transaction_currency": self.grand_total,
 						"against": self.employee,
 						"transaction_exchange_rate": self.exchange_rate,
+						"cost_center": self.cost_center,
+						"project": self.project,
 					},
 					account_currency=self.currency,
 					item=self,
@@ -313,6 +317,8 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 						"against_voucher": self.name,
 						"against_voucher_type": self.doctype,
 						"transaction_exchange_rate": self.exchange_rate,
+						"cost_center": self.cost_center,
+						"project": self.project,
 					},
 					account_currency=self.currency,
 					item=self,
