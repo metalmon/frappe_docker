@@ -7,28 +7,14 @@
  "engine": "InnoDB",
  "field_order": [
   "template_title",
-  "job_title",
-  "designation",
   "department",
+  "column_break_wkcr",
   "employment_type",
   "location",
+  "section_break_dwfh",
   "description"
  ],
  "fields": [
-  {
-   "fieldname": "job_title",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Job Title",
-   "reqd": 1
-  },
-  {
-   "fieldname": "designation",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Designation",
-   "options": "Designation"
-  },
   {
    "fieldname": "department",
    "fieldtype": "Link",
@@ -49,24 +35,31 @@
    "options": "Branch"
   },
   {
-   "fieldname": "description",
-   "fieldtype": "Text Editor",
-   "label": "Description",
-   "reqd": 1
-  },
-  {
    "fieldname": "template_title",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Template Title",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "column_break_wkcr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_dwfh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-12 00:41:25.323063",
+ "modified": "2025-12-12 12:52:12.217926",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Job Opening Template",
