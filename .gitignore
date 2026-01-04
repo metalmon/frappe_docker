@@ -20,3 +20,22 @@ hrms/public/frontend
 hrms/www/hrms.html
 hrms/public/roster
 hrms/www/roster.html
+
+# pnpm store cache
+.pnpm-store/
+
+# environment files with tokens/secrets
+.env.tokens
+*.env.tokens
+*.env.tokens:Zone.Identifier
+
+# local development files
+development/frappe-bench/
+build.log
+
+# devcontainer
+.devcontainer/
+
+# local script files (if not needed in repo)
+fix_*.sh
+FIX_*.md
