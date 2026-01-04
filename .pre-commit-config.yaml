@@ -1,55 +1,49 @@
+exclude: 'node_modules|.git'
+default_stages: [commit]
+fail_fast: false
+
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v4.0.1
     hooks:
-      - id: check-executables-have-shebangs
-      - id: check-shebang-scripts-are-executable
       - id: trailing-whitespace
-      - id: end-of-file-fixer
-
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
-    hooks:
-      - id: pyupgrade
-        args: [--py37-plus]
-
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
-    hooks:
-      - id: black
-
-  - repo: https://github.com/pycqa/isort
-    rev: 6.0.1
-    hooks:
-      - id: isort
+        files: "hrms.*"
+        exclude: ".*json$|.*txt$|.*csv|.*md"
+      - id: check-yaml
+      - id: no-commit-to-branch
+        args: ['--branch', 'develop']
+      - id: check-merge-conflict
+      - id: check-ast
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
+    rev: v3.1.0
     hooks:
       - id: prettier
-        additional_dependencies:
-          - prettier@3.5.2
+        types_or: [javascript, ts, vue, css, scss]
+        # Ignore frontend folder and any files that might contain jinja / bundles
+        exclude: |
+            (?x)^(
+                frontend/.*|
+                hrms/public/dist/.*|
+                .*node_modules.*|
+                .*boilerplate.*|
+                hrms/templates/includes/.*|
+                hrms/hr/doctype/employee_promotion/employee_promotion.js|
+                hrms/hr/doctype/employee_transfer/employee_transfer.js|
+            )$
 
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.7
     hooks:
-      - id: codespell
-        args:
-          - -L
-          - "ro"
+      - id: ruff
+        name: "Run ruff linter and apply fixes"
+        args: ["--fix"]
 
-  - repo: local
-    hooks:
-      - id: shfmt
-        name: shfmt
-        language: golang
-        additional_dependencies: [mvdan.cc/sh/v3/cmd/shfmt@latest]
-        entry: shfmt
-        args: [-w]
-        types: [shell]
+      - id: ruff-format
+        name: "Format Python code"
 
-  - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
-    hooks:
-      - id: shellcheck
-        args: [-x]
+ci:
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
