@@ -1,44 +1,66 @@
-<div align="center">
-	<a href="https://frappe.io/hr">
-		<img src=".github/frappe-hr-logo.png" height="80px" width="80px" alt="Frappe HR Logo">
-	</a>
-	<h2>Frappe HR</h2>
-	<p align="center">
-		<p>Open Source, modern, and easy-to-use HR and Payroll Software</p>
-	</p>
+# Frappe Docker
 
-[![CI](https://github.com/frappe/hrms/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/frappe/hrms/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/frappe/hrms/branch/develop/graph/badge.svg?token=0TwvyUg3I5)](https://codecov.io/gh/frappe/hrms)
+[![Build Stable](https://github.com/frappe/frappe_docker/actions/workflows/build_stable.yml/badge.svg)](https://github.com/frappe/frappe_docker/actions/workflows/build_stable.yml)
+[![Build Develop](https://github.com/frappe/frappe_docker/actions/workflows/build_develop.yml/badge.svg)](https://github.com/frappe/frappe_docker/actions/workflows/build_develop.yml)
 
-<a href="https://trendshift.io/repositories/10972" target="_blank"><img src="https://trendshift.io/api/badge/repositories/10972" alt="frappe%2Fhrms | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</div>
+Docker images and orchestration for Frappe applications.
+
+## What is this?
+
+This repository handles the containerization of the Frappe stack, including the application server, database, Redis, and supporting services. It provides quick disposable demo setups, a development environment, production-ready Docker images and compose configurations for deploying Frappe applications including ERPNext.
+
+## Repository Structure
+
+```
+frappe_docker/
+├── docs/                 # Complete documentation
+├── overrides/            # Docker Compose configurations for different scenarios
+├── compose.yaml          # Base Compose File for production setups
+├── pwd.yml               # Single Compose File for quick disposable demo
+├── images/               # Dockerfiles for building Frappe images
+├── development/          # Development environment configurations
+├── devcontainer-example/ # VS Code devcontainer setup
+└── resources/            # Helper scripts and configuration templates
+```
+
+> This section describes the structure of **this repository**, not the Frappe framework itself.
+
+### Key Components
+
+- `docs/` - Canonical documentation for all deployment and operational workflows
+- `overrides/` - Opinionated Compose overrides for common deployment patterns
+- `compose.yaml` - Base compose file for production setups (production)
+- `pwd.yml` - Disposable demo environment (non-production)
+
+## Documentation
+
+**The official documentation for `frappe_docker` is maintained in the `docs/` folder in this repository.**
 
 <div align="center">
 	<img src=".github/hrms-hero.png"/>
 </div>
 
-<div align="center">
-	<a href="https://frappe.io/hr">Website</a>
-	-
-	<a href="https://docs.frappe.io/hr/introduction">Documentation</a>
-</div>
+If you are already familiar with Frappe, you can jump right into the [different deployment methods](docs/01-getting-started/01-choosing-a-deployment-method.md) and select the one best suited to your use case.
 
-## Frappe HR
+## Prerequisites
 
-Frappe HR has everything you need to drive excellence within the company. It's a complete HRMS solution with over 13 different modules right from Employee Management, Onboarding, Leaves, to Payroll, Taxation, and more!
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose v2](https://docs.docker.com/compose/)
+- [git](https://docs.github.com/en/get-started/getting-started-with-git/set-up-git)
 
-## Motivation
-When Frappe team started growing in terms of size, we needed an open-source HR and Payroll software. We didn't find any "true" open-source HR software out there and so decided to build one ourselves.
-Initially, it was a set of modules within ERPNext but version 14 onwards, as the modules became more mature, Frappe HR was created as a separate product.
+> For Docker basics and best practices refer to Docker's [documentation](http://docs.docker.com)
+
+## Demo setup
+
+The fastest way to try Frappe is to play in an already set up sandbox, in your browser, click the button below:
 
 ## Key Features
 
-- **Employee Lifecycle**: From onboarding employees, managing promotions and transfers, all the way to documenting feedback with exit interviews, make life easier for employees throughout their life cycle.
-- **Leave and Attendance**: Configure leave policies, pull regional holidays with a click, check-in and check-out with geolocation capturing, track leave balances and attendance with reports.
-- **Expense Claims and Advances**: Manage employee advances, claim expenses, configure multi-level approval workflows, all this with seamless integration with ERPNext accounting.
-- **Performance Management**: Track goals, align goals with key result areas (KRAs), enable employees to evaluate themselves, make managing appraisal cycles easy.
-- **Payroll & Taxation**: Create salary structures, configure income tax slabs, run standard payroll, accomodate additional salaries and off cycle payments, view income breakup on salary slips and so much more.
-- **Frappe HR Mobile App**: Apply for and approve leaves on the go, check-in and check-out, access employee profile right from the mobile app.
+### Try on your environment
+
+> **⚠️ Disposable demo only**
+>
+> **This setup is intended for quick evaluation. Expect to throw the environment away.** You will not be able to install custom apps to this setup. For production deployments, custom configurations, and detailed explanations, see the full documentation.
 
 <details open>
 
@@ -83,56 +105,42 @@ cd hrms/docker
 docker-compose up
 ```
 
-Wait for some time until the setup script creates a site. After that you can access `http://localhost:8000` in your browser and the login screen for HR should show up.
+Then run:
 
-Use the following credentials to log in:
+```sh
+docker compose -f pwd.yml up -d
+```
 
-- Username: `Administrator`
-- Password: `admin`
+Wait for a couple of minutes for ERPNext site to be created or check `create-site` container logs before opening browser on port `8080`. (username: `Administrator`, password: `admin`)
 
-### Local
-
-1. Set up bench by following the [Installation Steps](https://frappeframework.com/docs/user/en/installation) and start the server and keep it running
-	```sh
-	$ bench start
-	```
-2. In a separate terminal window, run the following commands
-	```sh
-	$ bench new-site hrms.local
-	$ bench get-app erpnext
-	$ bench get-app hrms
-	$ bench --site hrms.local install-app hrms
-	$ bench --site hrms.local add-to-hosts
-	```
-3. You can access the site at `http://hrms.local:8080`
-
-## Learning and Community
-
-1. [Frappe School](https://frappe.school) - Learn Frappe Framework and ERPNext from the various courses by the maintainers or from the community.
-2. [Documentation](https://docs.frappe.io/hr) - Extensive documentation for Frappe HR.
-3. [User Forum](https://discuss.erpnext.com/) - Engage with the community of ERPNext users and service providers.
-4. [Telegram Group](https://t.me/frappehr) - Get instant help from the community of users.
-
-
-## Contributing
-
-1. [Issue Guidelines](https://github.com/frappe/erpnext/wiki/Issue-Guidelines)
-1. [Report Security Vulnerabilities](https://erpnext.com/security)
-1. [Pull Request Requirements](https://github.com/frappe/erpnext/wiki/Contribution-Guidelines)
-
+## Documentation Links
 
 ## Logo and Trademark Policy
 
 Please read our [Logo and Trademark Policy](TRADEMARK_POLICY.md).
 
-<br />
-<br />
-<div align="center" style="padding-top: 0.75rem;">
-	<a href="https://frappe.io" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
-		</picture>
-	</a>
-</div>
+### [Getting Started](#getting-started)
 
+### [Deployment Methods](docs/01-getting-started/01-choosing-a-deployment-method.md)
+
+### [ARM64](docs/01-getting-started/03-arm64.md)
+
+### [Container Setup Overview](docs/02-setup/01-overview.md)
+
+### [Development](docs/05-development/01-development.md)
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+This repository is only for container related stuff. You also might want to contribute to:
+
+## Resources
+
+- [Frappe framework](https://github.com/frappe/frappe),
+- [ERPNext](https://github.com/frappe/erpnext),
+- [Frappe Bench](https://github.com/frappe/bench).
+
+## License
+
+This repository is licensed under the MIT License. See [LICENSE](LICENSE) for details.
